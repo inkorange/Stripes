@@ -3,9 +3,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import TLAController from './TLAController';
-
-class Homepage extends TLAController {
+class Homepage  extends React.Component {
 
     state = {
     };
