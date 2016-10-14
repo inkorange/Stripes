@@ -1,0 +1,62 @@
+/*
+Syntax error: Base-level rules cannot contain the parent-selector-referencing character '&'.
+        on line 19 of state.scss
+        from line 7 of main.scss
+
+Backtrace:
+state.scss:19
+main.scss:7
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/selector/comma_sequence.rb:34:in `resolve_parent_refs'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:391:in `visit_rule'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:153:in `block in visit'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:79:in `block in with_base'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:115:in `with_frame'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:79:in `with_base'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:153:in `visit'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:296:in `block (2 levels) in visit_import'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:296:in `map'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:296:in `block in visit_import'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:88:in `block in with_import'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:115:in `with_frame'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:88:in `with_import'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:293:in `visit_import'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:153:in `block in visit'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:79:in `block in with_base'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:115:in `with_frame'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/stack.rb:79:in `with_base'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:153:in `visit'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/base.rb:52:in `map'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:162:in `block in visit_children'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:174:in `with_environment'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:161:in `visit_children'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:181:in `visit_root'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/root_node.rb:36:in `css_tree'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/tree/root_node.rb:20:in `render'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/engine.rb:275:in `render'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/plugin/compiler.rb:347:in `update_stylesheet'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/plugin/compiler.rb:191:in `block in update_stylesheets'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/plugin/compiler.rb:188:in `each'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/plugin/compiler.rb:188:in `update_stylesheets'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/plugin.rb:82:in `update_stylesheets'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/exec.rb:488:in `watch_or_update'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/exec.rb:346:in `process_result'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/exec.rb:43:in `parse'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/lib/sass/exec.rb:22:in `parse!'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/gems/sass-3.3.0.rc.2/bin/scss:9:in `<top (required)>'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/bin/scss:23:in `load'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/bin/scss:23:in `<main>'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/bin/ruby_executable_hooks:15:in `eval'
+/Users/cwest/.rvm/gems/ruby-2.0.0-p598/bin/ruby_executable_hooks:15:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Base-level rules cannot contain the parent-selector-referencing character '&'.\A         on line 19 of state.scss\A         from line 7 of main.scss"; }

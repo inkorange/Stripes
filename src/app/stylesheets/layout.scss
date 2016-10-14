@@ -1,0 +1,59 @@
+.MainContent {
+    background-image: url('../images/hubback.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity .25s;
+    box-shadow: 0 300px 250px -100px rgba(255, 255, 255, 0.95) inset;
+    img.fedex-logo {
+        max-width: 600px;
+        width: 50%;
+        min-width: 350px;
+        display: block;
+        margin: 0 auto;
+        padding-top: 50px;
+    }
+}
+
+
+footer.zebra {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+    background: #EBEBEB;
+    padding: $baseMargin * 3;
+    box-shadow: 0 5px 10px -4px rgba(0, 0, 0, 0.25) inset;
+    border-top: #007CB0 solid 4px;
+    img {
+        width: 200px;
+        clear:both;
+    }
+    p {
+        color: rgb(100,100,100);
+        font-size: 1.0rem;
+        line-height: 1.2rem;
+        margin: $baseMargin 0 0 0;
+    }
+}
+
+fieldset:first-of-type {
+    > label:first-of-type {
+        margin-top: 0!important;
+    }
+}
+
+.TwoColumnLayout {
+    &:last-of-type {
+        margin-bottom: 0!important;
+    }
+}
+
+.FloaterPanel, .FloaterBase {
+    transition: .5s opacity;
+    opacity: 0;
+    &.show {
+        opacity: 1.0;
+    }
+}

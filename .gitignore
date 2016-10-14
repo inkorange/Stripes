@@ -1,0 +1,6 @@
+/style
+node_modules
+build
+.idea
+*.log
+*.zip

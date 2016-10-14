@@ -1,0 +1,6 @@
+{
+  "buildenv": "{{env}}",
+  "app_version": "{{version}}",
+  "client": "{{client}}",
+  "config": {{config}}
+}
