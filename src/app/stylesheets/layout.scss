@@ -13,6 +13,12 @@
         margin: 0 auto;
         padding-top: 50px;
     }
+    .main_content_child {
+        margin: 20px;
+        > section {
+            margin: 40px 20px;
+        }
+    }
 }
 
 
