@@ -12,7 +12,7 @@ module.exports = {
         border: '',
         backgroundColor: 'transparent',
         backgroundHover: 'rgba(0,0,0,.08)',
-        icon: '',
+        iconColor: '#8B8F92',
         headerBackgroundColor: '#1565C0'
     },
     primary: {
@@ -21,7 +21,7 @@ module.exports = {
         border: '',
         backgroundColor: '#1565C0',
         backgroundHover: '#2d80df',
-        icon: ''
+        iconColor: '#1565C0'
     },
     secondary: {
         textColor: '',
@@ -29,6 +29,9 @@ module.exports = {
         border: '',
         backgroundColor: 'rgba(0,0,0,.2)',
         backgroundHover: 'rgba(0,0,0,.08)',
-        icon: ''
+        iconColor: '#1565C0'
+    },
+    notification: {
+        backgroundColor: 'rgba(0,0,0,.75)'
     }
 }

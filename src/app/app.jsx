@@ -14,8 +14,7 @@ const StripesDemo = require('./controllers/StripesDemo');
 
 Stripes({
    palette: theme.palette,
-   spacing: theme.spacing,
-   component: theme.component
+   spacing: theme.spacing
 });
 
 render((

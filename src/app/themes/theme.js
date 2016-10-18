@@ -19,6 +19,9 @@ export default {
             borderRadius: '2px',
             padding: basePadding,
             margin: baseMargin
+        },
+        notification: {
+            padding: basePadding
         }
     }
 };

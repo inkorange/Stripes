@@ -3,7 +3,6 @@ import { render } from 'react-dom'
 
 let palette = {}
 let spacing = {}
-let component = {}
 
 export function Stripes(config)
 {
@@ -11,7 +10,6 @@ export function Stripes(config)
     var _init = function() {
         palette = config.palette;
         spacing = config.spacing;
-        component = config.component;
     };
 
     _init();
@@ -31,8 +29,7 @@ export class StripesTheme extends React.Component {
     getTheme() {
         return {
             palette: palette,
-            spacing: spacing,
-            component: component
+            spacing: spacing
         }
     }
 
@@ -42,10 +39,6 @@ export class StripesTheme extends React.Component {
 
     getSpacing() {
         return spacing;
-    }
-
-    getComponentStyle(componentType) {
-        return component[componentType] ? component[componentType] : {};
     }
 
     mouseOver() {
