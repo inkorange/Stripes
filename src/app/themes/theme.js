@@ -22,6 +22,13 @@ export default {
         },
         notification: {
             padding: basePadding
+        },
+        switches: {
+            padding: basePadding,
+            margin: baseMargin,
+            borderRadius: '2px',
+            width: 20,
+            height: 20
         }
     }
 };

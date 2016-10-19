@@ -8,7 +8,6 @@ const MainLayout = require('./layouts/MainLayout');
 // theme
 const theme = require('./themes/Theme');
 
-console.log(theme);
 // page components
 const StripesDemo = require('./controllers/StripesDemo');
 

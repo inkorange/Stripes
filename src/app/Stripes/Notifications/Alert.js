@@ -14,7 +14,8 @@ export class Alert extends StripesTheme {
         },
         position: 'left',
         type: 'notification',
-        height: 26
+        height: 26,
+        show: true
     }
 
     constructor(props) {
@@ -43,7 +44,6 @@ export class Alert extends StripesTheme {
 
         var alertNODE = this.refs.Alert;
         var parentNODE = alertNODE.parentNode;
-
         var styleObj = {
             height: (this.props.height + spacing.padding*2) + 'px',
             lineHeight: (this.props.height) + 'px',

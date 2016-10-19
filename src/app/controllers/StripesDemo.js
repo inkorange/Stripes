@@ -10,11 +10,20 @@ import {H1, H3} from '../Stripes/Layout/Headers'
 import {TwoColumnLayout} from  '../Stripes/Layout/TwoColumnLayout'
 import {Alert} from  '../Stripes/Notifications/Alert'
 import {Icon} from  '../Stripes/Symbols/Icon'
+import {RadioButtonGroup, CheckBoxGroup, Item} from  '../Stripes/Forms/Switches'
+import {Fieldset} from '../Stripes/Forms/Fieldset'
 
 class StripesDemo extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            alertshow: true,
+            checkboxdisable: false,
+            radiobuttondisabled: false
+        }
+        this.toggleCheckboxDisable = this.toggleCheckboxDisable.bind(this);
+        this.toggleRadioDisable = this.toggleRadioDisable.bind(this);
     }
 
     componentDidMount() {
@@ -23,6 +32,17 @@ class StripesDemo extends React.Component {
     componentWillUnmount() {
     }
 
+    toggleCheckboxDisable() {
+        this.setState({
+            checkboxdisable: !this.state.checkboxdisable
+        });
+    }
+
+    toggleRadioDisable() {
+        this.setState({
+            radiobuttondisabled: !this.state.radiobuttondisabled
+        });
+    }
     render() {
         return (
             <article className="main_content_child">
@@ -71,11 +91,19 @@ class StripesDemo extends React.Component {
 
                 <section>
                     <H3>Alert</H3>
-                    <div style={{position: "relative", margin: '20px 20px 20px 200px', background: 'blue', width: "30px", height: "30px"}}>
+                    <div style={{position: "relative", width: '35px', margin: '20px 20px 20px 200px'}}>
+                        <Icon
+                            iconid="admin"
+                            size="large" />
                         <Alert show={true}>This is an alert on the left</Alert>
                     </div>
-                    <div style={{position: "relative", margin: '20px', background: 'green', width: "30px", height: "30px"}}>
-                        <Alert show={true} position="right">This is an alert on the right</Alert>
+                    <div style={{position: "relative",  width: '35px',margin: '20px'}}>
+                        <Icon
+                            iconid="admin"
+                            size="large"
+                            onClick={() => {this.setState({alertshow: !this.state.alertshow})}}
+                        />
+                        <Alert show={this.state.alertshow} position="right">This is an alert on the right</Alert>
                     </div>
                 </section>
 
@@ -99,6 +127,43 @@ class StripesDemo extends React.Component {
                         size="large"
                         color="orange"
                     />
+                </section>
+
+                <section>
+                    <H3>Checkbox ({this.state.checkboxdisable ? 'DISABLED' : 'VISIBLE'})</H3>
+                    <CheckBoxGroup ref="checkboxgroup" disabled={this.state.checkboxdisable}>
+                        <Item defaultChecked={true} key="option1">Checkbox Option 1</Item>
+                        <Item key="option2">Checkbox Option 2</Item>
+                        <Item key="option3">Checkbox Option 3</Item>
+                    </CheckBoxGroup>
+                    <RaisedButton key="button1" onClick={() => { alert("Selected Values Are: " + this.refs.checkboxgroup.getValues()); }}>What are the Values?</RaisedButton>
+                    <RaisedButton key="button2" onClick={() => { this.refs.checkboxgroup.setChecked("Checkbox Option 1", false); }}>Un-checking A</RaisedButton>
+                    <RaisedButton key="button3" onClick={this.toggleCheckboxDisable}>Toggle Disable</RaisedButton>
+                </section>
+
+                <section>
+                    <H3>RadioButtonGroup ({this.state.radiobuttondisabled ? 'DISABLED' : 'VISIBLE'})</H3>
+                    <RadioButtonGroup ref="radiobuttongroup" name="group1" disabled={this.state.radiobuttondisabled}>
+                        <Item key="option1" defaultChecked={true} >Radio Option 1</Item>
+                        <Item key="option2">Radio Option 2</Item>
+                        <Item key="option3">Radio Option 3</Item>
+                    </RadioButtonGroup>
+                    <RaisedButton key="button1" onClick={() => { alert("Selected value is: " + this.refs.radiobuttongroup.getValues()); }}>What is the Value?</RaisedButton>
+                    <RaisedButton key="button2" onClick={() => { this.refs.radiobuttongroup.setChecked("Radio Option 1", false); }}>Un-checking A</RaisedButton>
+                    <RaisedButton key="button3" onClick={this.toggleRadioDisable}>Toggle Disable</RaisedButton>
+                </section>
+
+                <section>
+                    <H3>Fieldset</H3>
+                    <Fieldset
+                        title="Active Section"
+                        style={{marginBottom: '20px'}}
+                    >
+                        This is an active Fieldset.
+                    </Fieldset>
+                    <Fieldset disabled={true} title="Disabled Section">
+                        This Fieldset is no longer active.
+                    </Fieldset>
                 </section>
 
                 <footer className="zebra">

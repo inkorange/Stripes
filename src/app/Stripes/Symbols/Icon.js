@@ -9,7 +9,7 @@ export class Icon extends StripesTheme {
     static defaultProps = {
         inactive: false,
         enhancedClick: false,
-        fnClick: () => { return false; },
+        onClick: () => { return false; },
         type: 'default',
         basestyle: {},
         style: {},
@@ -27,9 +27,7 @@ export class Icon extends StripesTheme {
     }
 
     clickAction(e) {
-        if(this.props.fnClick) {
-            this.props.fnClick(e);
-        }
+        this.props.onClick(e);
     }
 
     getStyles() {
