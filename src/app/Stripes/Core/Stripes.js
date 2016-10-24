@@ -24,6 +24,61 @@ export class StripesTheme extends React.Component {
         this.mouseOut = this.mouseOut.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.resolveStyling = this.resolveStyling.bind(this);
+        this.onInputClick = this.onInputClick.bind(this);
+        this.onInputBlur = this.onInputBlur.bind(this);
+        this.getBaseStyling = this.getBaseStyling.bind(this);
+    }
+
+    getBaseStyling(spacing, color) {
+        return {
+            inputs: { // input shared styling ****************************************************
+                container: {
+                    display: 'inline',
+                    position: 'relative',
+                    borderBottom: spacing.underlineHeight + 'px solid ' + (this.props.error ? color.inactiveUnderErrorlineColor : color.inactiveUndlerlineColor),
+                    paddingBottom: (spacing.margin * 2) + 'px',
+                    transition: 'all 0.3s ease-in-out 0s'
+                },
+                input: {
+                    fontSize: spacing.fontSize,
+                    padding: (spacing.margin * 1.5) + 'px ' + spacing.margin * +'px',
+                    color: color.textColor,
+                    border: 'none',
+                    outline: 'none',
+                    width: this.props.width,
+                    resize: 'vertical'
+                },
+                active: {
+                    base: {
+                        position: 'absolute',
+                        width: '100%',
+                        height: spacing.underlineHeight + 'px',
+                        bottom: '-' + spacing.underlineHeight + 'px',
+                        left: 0,
+                        backgroundColor: this.props.error ? color.underErrorlineColor : color.underlineColor,
+                        transition: 'all 0.3s ease-in-out 0s'
+
+                    },
+                    on: {
+                        visibility: 'visible',
+                        transform: 'scaleX(1)'
+                    },
+                    off: {
+                        visibility: 'hidden',
+                        transform: 'scaleX(0)'
+                    }
+                },
+                error: {
+                    display: this.props.error ? 'block' : 'none',
+                    fontSize: spacing.errorFontSize,
+                    position: 'absolute',
+                    bottom: (spacing.margin * -4) + 'px',
+                    right: 0,
+                    maxWidth: '100%',
+                    color: color.underErrorlineColor
+                }
+            }
+        }
     }
 
     getTheme() {
@@ -47,6 +102,18 @@ export class StripesTheme extends React.Component {
 
     mouseOut() {
         this.setState({hover: false});
+    }
+
+    onInputClick(e) {
+        this.setState({
+            active: true
+        });
+    }
+
+    onInputBlur(e) {
+        this.setState({
+            active: false
+        });
     }
 
     handleClick() {

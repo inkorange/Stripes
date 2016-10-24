@@ -80,7 +80,7 @@ class RadioButtonGroup extends StripesTheme {
         this.state.items.map((item, i) => {
             this.state.items[i].checked = i === pos ? 'checked' : null;
         });
-        e.stopImmediatePropagation;
+        //e.stopImmediatePropagation;
         this.forceUpdate();
     }
 
@@ -141,14 +141,13 @@ class RadioButtonGroup extends StripesTheme {
         var itemNodes = [];
         this.state.items.map((item, i) => {
             itemNodes.push(
-                <label key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
+                <label data-itemid={i} checked={item.checked ? 'checked' : null} onClick={this.updateValue} key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
                     <div style={item.checked ? this.state.style.radio.active : this.state.style.radio.inactive}></div>
                     <input
                         data-itemid={i}
                         name={this.props.name}
                         disabled={this.props.disabled}
                         onChange={this.props.onChange}
-                        onClick={this.updateValue}
                         style={this.state.style.input}
                         checked={item.checked ? 'checked' : null}
                         type="radio"
@@ -214,7 +213,7 @@ class CheckBoxGroup extends StripesTheme {
         }
         var pos = e.target.getAttribute("data-itemid");
         this.state.items[pos].checked = !this.state.items[pos].checked;
-        e.stopImmediatePropagation;
+        //e.stopImmediatePropagation;
         this.forceUpdate();
     }
 
@@ -235,7 +234,7 @@ class CheckBoxGroup extends StripesTheme {
             width: spacing.width + 'px', height: spacing.height + 'px',
             border: 'solid 2px ' + color.borderColor,
             transition: '.5s all',
-            borderRadius: spacing.borderRadius,
+            borderRadius: spacing.borderRadius + 'px',
             marginLeft: spacing.margin + 'px',
             backgroundColor: color.fillColor,
             backgroundImage: color.checkImage,

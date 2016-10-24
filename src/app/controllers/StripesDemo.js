@@ -12,6 +12,7 @@ import {Alert} from  '../Stripes/Notifications/Alert'
 import {Icon} from  '../Stripes/Symbols/Icon'
 import {RadioButtonGroup, CheckBoxGroup, Item} from  '../Stripes/Forms/Switches'
 import {Fieldset} from '../Stripes/Forms/Fieldset'
+import {TextBox, TextArea} from '../Stripes/Forms/Inputs'
 
 class StripesDemo extends React.Component {
 
@@ -20,10 +21,12 @@ class StripesDemo extends React.Component {
         this.state = {
             alertshow: true,
             checkboxdisable: false,
-            radiobuttondisabled: false
+            radiobuttondisabled: false,
+            inputerror: null
         }
         this.toggleCheckboxDisable = this.toggleCheckboxDisable.bind(this);
         this.toggleRadioDisable = this.toggleRadioDisable.bind(this);
+        this.toggleError = this.toggleError.bind(this);
     }
 
     componentDidMount() {
@@ -43,6 +46,13 @@ class StripesDemo extends React.Component {
             radiobuttondisabled: !this.state.radiobuttondisabled
         });
     }
+
+    toggleError() {
+        this.setState({
+            inputerror: this.state.inputerror ? null : 'you have an error.'
+        });
+    }
+
     render() {
         return (
             <article className="main_content_child">
@@ -165,6 +175,46 @@ class StripesDemo extends React.Component {
                         This Fieldset is no longer active.
                     </Fieldset>
                 </section>
+
+                <section>
+                    <H3>TextBox</H3>
+                    <Fieldset>
+                        <TextBox placeholder="This is a placeholder" />
+                    </Fieldset>
+                    <Fieldset>
+                        <TextBox width="50%" placeholder="This is a placeholder" />
+                    </Fieldset>
+                    <Fieldset>
+                        <TextBox width="100%" placeholder="This is a placeholder" />
+                    </Fieldset>
+                    <Fieldset title="Input with Suggestions">
+                        <TextBox
+                            width="50%"
+                            suggestions={true}
+                            suggestionData={['Alabama', 'Alaska','Arkansas','California','Colorado','New York','Connecticut']}
+                            placeholder="This is a placeholder" />
+                    </Fieldset>
+                    <Fieldset>
+                        <TextBox placeholder="This is a placeholder" error={this.state.inputerror}/>
+                        <RaisedButton key="button1" onClick={this.toggleError}>Trigger Error</RaisedButton>
+                    </Fieldset>
+
+                 </section>
+
+
+                <section>
+                    <H3>TextArea</H3>
+                    <Fieldset>
+                        <TextArea placeholder="This is a placeholder" />
+                    </Fieldset>
+                    <Fieldset>
+                        <TextArea width="100%" placeholder="This is a placeholder" />
+                    </Fieldset>
+                </section>
+
+
+
+
 
                 <footer className="zebra">
                     <img src="./images/zebralogo.svg" />

@@ -1,5 +1,9 @@
 
 let primaryColor = "#3366CC";
+let baseTextColor = "#212121";
+let inactiveColor = "#dbdbdb";
+let errorColor = "#DB4437";
+let inactiveErrorColor = "#DB8D86";
 let secondaryColor = "";
 let tertiaryColor = "";
 
@@ -24,7 +28,7 @@ module.exports = {
         iconColor: '#1565C0'
     },
     secondary: {
-        textColor: '',
+        textColor: baseTextColor,
         hoverText: '',
         border: '',
         backgroundColor: 'rgba(0,0,0,.2)',
@@ -38,5 +42,13 @@ module.exports = {
         borderColor: '#1565C0',
         fillColor: '#1565C0',
         checkImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'><polygon fill=\'white\' points=\'424 96 184 336 88 240 48 280 184 416 464 136 424 96\'/></svg>")'
+    },
+    inputs: {
+        textColor: baseTextColor,
+        underlineColor: primaryColor,
+        inactiveUndlerlineColor: inactiveColor,
+        inactiveUnderErrorlineColor: inactiveErrorColor,
+        underErrorlineColor: errorColor
+
     }
 }

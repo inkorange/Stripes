@@ -29,7 +29,7 @@ export class Fieldset extends StripesTheme {
         var styleObj = {
             base: {
                 border: 'none',
-                margin: 0,
+                margin: spacing.padding*2 + 'px' + ' 0',
                 padding: 0,
                 position: 'relative',
                 display: this.props.visible ? 'block' : 'none',

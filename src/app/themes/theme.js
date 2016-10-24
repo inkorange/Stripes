@@ -6,17 +6,17 @@ export default {
     palette: Colors,
     spacing: {
         default: {
-            borderRadius: '2px',
+            borderRadius: 2,
             padding: basePadding,
             margin: baseMargin
         },
         primary: {
-            borderRadius: '2px',
+            borderRadius: 2,
             padding: basePadding,
             margin: baseMargin
         },
         secondary: {
-            borderRadius: '2px',
+            borderRadius: 2,
             padding: basePadding,
             margin: baseMargin
         },
@@ -26,9 +26,17 @@ export default {
         switches: {
             padding: basePadding,
             margin: baseMargin,
-            borderRadius: '2px',
+            borderRadius: 2,
             width: 20,
             height: 20
+        },
+        inputs: {
+            padding: basePadding,
+            margin: baseMargin,
+            fontSize: '1.8rem',
+            errorFontSize: '1.2rem',
+            borderRadius: 2,
+            underlineHeight: 2
         }
     }
 };

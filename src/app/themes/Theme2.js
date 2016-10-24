@@ -12,7 +12,7 @@ export default {
             border: '',
             backgroundColor: 'transparent',
             backgroundHover: 'rgba(0,0,0,.08)',
-            icon: '',
+            iconColor: '#8B8F92',
             headerBackgroundColor: 'green'
         },
         primary: {
@@ -21,7 +21,7 @@ export default {
             border: '',
             backgroundColor: 'green',
             backgroundHover: '#2d80df',
-            icon: ''
+            iconColor: '#8B8F92'
         },
         secondary: {
             textColor: '',
@@ -29,24 +29,42 @@ export default {
             border: '',
             backgroundColor: 'rgba(0,0,0,.2)',
             backgroundHover: 'rgba(0,0,0,.08)',
-            icon: ''
+            iconColor: '#8B8F92'
+        },
+        notification: {
+            backgroundColor: 'rgba(0,0,0,.75)'
+        },
+        switches: {
+            borderColor: 'green',
+            fillColor: 'rgb(100,200,100)',
+            checkImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'><polygon fill=\'white\' points=\'424 96 184 336 88 240 48 280 184 416 464 136 424 96\'/></svg>")'
         }
     },
     spacing: {
         default: {
-            borderRadius: '5px',
+            borderRadius: 5,
             padding: basePadding,
-            margin: baseMargin
+            margin: baseMargin,
         },
         primary: {
-            borderRadius: '5px',
+            borderRadius: 5,
             padding: basePadding,
             margin: baseMargin
         },
         secondary: {
-            borderRadius: '5px',
+            borderRadius: 5,
             padding: basePadding,
             margin: baseMargin
+        },
+        notification: {
+            padding: basePadding
+        },
+        switches: {
+            padding: basePadding,
+            margin: baseMargin,
+            borderRadius: 5,
+            width: 30,
+            height: 30
         }
     }
 };

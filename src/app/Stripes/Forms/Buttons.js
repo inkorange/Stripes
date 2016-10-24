@@ -34,7 +34,7 @@ class FlatButton extends StripesTheme {
         var color = this.getColors()[this.props.type];
         var styleObj = {
             color: color.textColor,
-            borderRadius: '2px',
+            borderRadius: spacing.borderRadius + 'px',
             fontWeight: 500,
             fontSize: '1.4rem',
             border: 'none',
@@ -97,7 +97,7 @@ class RaisedButton extends StripesTheme {
         var color = this.getColors()[this.props.type];
         var styleObj = {
             color: color.textColor,
-            borderRadius: '2px',
+            borderRadius: spacing.borderRadius + 'px',
             fontWeight: 500,
             fontSize: '1.4rem',
             border: 'none',
