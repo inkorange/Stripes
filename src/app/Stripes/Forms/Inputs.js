@@ -13,7 +13,7 @@ class TextBox extends StripesTheme {
         style:  {},
         type: 'inputs',
         defaultChecked: false,
-        value: null,
+        value: '',
         placeholder: null,
         error: null,
         width: null,
@@ -102,7 +102,7 @@ class TextArea extends StripesTheme {
         style:  {},
         type: 'inputs',
         defaultChecked: false,
-        value: null,
+        value: '',
         placeholder: null,
         error: null,
         width: null

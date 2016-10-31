@@ -13,6 +13,7 @@ import {Icon} from  '../Stripes/Symbols/Icon'
 import {RadioButtonGroup, CheckBoxGroup, Item} from  '../Stripes/Forms/Switches'
 import {Fieldset} from '../Stripes/Forms/Fieldset'
 import {TextBox, TextArea} from '../Stripes/Forms/Inputs'
+import {IconMenu} from '../Stripes/Layout/IconMenu'
 
 class StripesDemo extends React.Component {
 
@@ -187,7 +188,9 @@ class StripesDemo extends React.Component {
                     <Fieldset>
                         <TextBox width="100%" placeholder="This is a placeholder" />
                     </Fieldset>
-                    <Fieldset title="Input with Suggestions">
+                    <Fieldset title="Input with Suggestions"
+                        style={{marginTop: "20px"}}
+                    >
                         <TextBox
                             width="50%"
                             suggestions={true}
@@ -213,7 +216,19 @@ class StripesDemo extends React.Component {
                 </section>
 
 
+                <section>
+                    <H3>IconMenu</H3>
 
+                    <IconMenu iconid="filter" direction="bottom" max-width="500px">
+                        <TwoColumnLayout
+                            style={{padding: '20px', width: '300px'}}
+                            columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
+                            columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
+                        />
+                    </IconMenu>
+
+                </section>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 
                 <footer className="zebra">

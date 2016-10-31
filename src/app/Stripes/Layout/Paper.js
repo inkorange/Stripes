@@ -10,15 +10,26 @@ export class Paper extends StripesTheme {
         style: {},
         depth: 1,
         className: '',
-        type: 'default'
+        type: 'default',
+        onBlur: () => { return false; }
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            disabled: props.disabled,
-            style: this.getStyles()
+            disabled: props.disabled
         }
+        this.focus = this.focus.bind(this);
+    }
+
+    componentDidMount() {
+        this.setState({
+            style: this.getStyles()
+        });
+    }
+
+    focus() {
+        this.refs.Paper.focus();
     }
 
     getStyles() {
@@ -26,6 +37,7 @@ export class Paper extends StripesTheme {
         var spacing = this.getSpacing()[this.props.type];
 
         var styleObj = {
+            outline: 'none',
             background: 'white',
             borderRadius: '2px',
             display: 'inline-block',
@@ -33,14 +45,12 @@ export class Paper extends StripesTheme {
             transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
             boxShadow: "0 " + ((this.props.depth * 3.5) - 1) + "px " + this.props.depth * 10 + "px rgba(0,0,0,0." + this.props.depth + "), 0 " + this.props.depth * 3 + "px 10px rgba(0,0,0,0.1)"
         }
-
-        return styleObj;
+        return Object.assign(styleObj, this.props.style);
     }
 
     render() {
-        var baseStyle = Object.assign(this.state.style, this.props.style);
         return (
-            <section style={baseStyle} className={"Paper " + this.props.className}>
+            <section style={this.state.style} tabIndex="1" ref="Paper" onBlur={this.props.onBlur} className={"Paper " + this.props.className}>
                 {this.props.children}
             </section>
         )

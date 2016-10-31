@@ -96,7 +96,7 @@ class SuggestionBox extends StripesTheme {
                 color: 'black',
                 padding: '15px 15px 5px 15px',
                 margin: '10px -10px 0 -10px',
-                borderTop: '1px solid #007CB0'
+                borderTop: '1px solid ' + color.borderColor
             }
         };
         return styleObj;
@@ -107,18 +107,10 @@ class SuggestionBox extends StripesTheme {
         if(this.state.results.length) { // only if there are results
             this.refs.result_container.focus();
             var newSelect = this.state.selected + mod;
-            /*
-            if(newSelect < 0) {
-                $('.TLASearch-input').focus();
-                return false;
-            }
-            */
             newSelect = newSelect < 0  ? this.state.results.length - 1 : newSelect;
             newSelect = newSelect >= this.state.results.length ? 0 : newSelect;
             this.setState({
                 selected: newSelect
-            }, () => {
-                //this.refs.result_container.getElementsByTagName('li').scrollIntoView({block: "end", behavior: "smooth"});
             });
             e.stopImmediatePropagation();
             e.preventDefault();
@@ -181,8 +173,15 @@ class SuggestionBox extends StripesTheme {
 
     render() {
         var resultsDOM = [];
+        var color = this.getColors()[this.props.type];
         this.state.results.map((v, i) => {
-            resultsDOM.push(<li key={"result-" + i} data-hoverable="true" onClick={()=> { this.applyValue(i); }} onMouseOver={() => { this.updateSelected(i); }} data-selected={this.state.selected === i} style={this.state.style.resultsli}>
+            var activeStyling = {
+                background: color.highlightColor,
+                boxShadow: "2px 0 0 " + color.highlightBorderColor + " inset"
+            };
+            var resultslistyle = Object.assign(this.state.selected === i ? activeStyling : {}, this.state.style.resultsli);
+
+            resultsDOM.push(<li key={"result-" + i} onClick={()=> { this.applyValue(i); }} onMouseOver={() => { this.updateSelected(i); }} data-selected={this.state.selected === i} style={resultslistyle}>
                 {v}
             </li>);
         });

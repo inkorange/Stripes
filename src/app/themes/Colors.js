@@ -6,6 +6,7 @@ let errorColor = "#DB4437";
 let inactiveErrorColor = "#DB8D86";
 let secondaryColor = "";
 let tertiaryColor = "";
+let borderColor = "#8B8F92";
 
 module.exports = {
     H1Color: 'black',
@@ -48,7 +49,9 @@ module.exports = {
         underlineColor: primaryColor,
         inactiveUndlerlineColor: inactiveColor,
         inactiveUnderErrorlineColor: inactiveErrorColor,
-        underErrorlineColor: errorColor
-
+        underErrorlineColor: errorColor,
+        borderColor: borderColor,
+        highlightColor: '#eeeeee',
+        highlightBorderColor: primaryColor
     }
 }
