@@ -12,8 +12,10 @@ import {Alert} from  '../Stripes/Notifications/Alert'
 import {Icon} from  '../Stripes/Symbols/Icon'
 import {RadioButtonGroup, CheckBoxGroup, Item} from  '../Stripes/Forms/Switches'
 import {Fieldset} from '../Stripes/Forms/Fieldset'
-import {TextBox, TextArea} from '../Stripes/Forms/Inputs'
+import {TextBox, TextArea, DropDown} from '../Stripes/Forms/Inputs'
 import {IconMenu} from '../Stripes/Layout/IconMenu'
+import {LeftNav} from '../Stripes/Layout/LeftNav'
+import {NavBar} from '../Stripes/Layout/NavBar'
 
 class StripesDemo extends React.Component {
 
@@ -28,6 +30,8 @@ class StripesDemo extends React.Component {
         this.toggleCheckboxDisable = this.toggleCheckboxDisable.bind(this);
         this.toggleRadioDisable = this.toggleRadioDisable.bind(this);
         this.toggleError = this.toggleError.bind(this);
+        this.closeMenu = this.closeMenu.bind(this);
+        this.toggleMenu = this.toggleMenu.bind(this);
     }
 
     componentDidMount() {
@@ -54,7 +58,25 @@ class StripesDemo extends React.Component {
         });
     }
 
+    closeMenu() {
+        this.refs.LeftNav.close();
+    }
+
+    toggleMenu() {
+        this.refs.LeftNav.toggleMenu();
+    }
     render() {
+        var CardNode = (
+            <Card
+                title="This is the Card Title"
+                actions={[
+                    <FlatButton key="action1">Yes</FlatButton>,
+                    <RaisedButton key="action2" type="primary">No</RaisedButton>
+                ]}
+            >
+                This is the card body.
+            </Card>);
+
         return (
             <article className="main_content_child">
                 <H1>Zebra Stripes Design System</H1>
@@ -74,15 +96,7 @@ class StripesDemo extends React.Component {
 
                 <section>
                     <H3>Card</H3>
-                    <Card
-                        title="This is the Card Title"
-                        actions={[
-                            <FlatButton key="action1">Yes</FlatButton>,
-                            <RaisedButton key="action2" type="primary">No</RaisedButton>
-                        ]}
-                    >
-                        This is the card body.
-                    </Card>
+                    {CardNode}
                 </section>
 
                 <section>
@@ -215,11 +229,38 @@ class StripesDemo extends React.Component {
                     </Fieldset>
                 </section>
 
+                <section>
+                    <H3>DropDown</H3>
+                    <Fieldset>
+                        <DropDown
+                            placeholder="Please select an option..."
+                            showEmpty={true}
+                        >
+                            <Item value={null} key="option0">--- select one ---</Item>
+                            <Item value="1" key="option1">Select Option 1</Item>
+                            <Item value="2" key="option2">Select Option 2</Item>
+                            <Item value="3" key="option3">Select Option 3</Item>
+                        </DropDown>
+                    </Fieldset>
+                </section>
 
                 <section>
                     <H3>IconMenu</H3>
-
+                    <IconMenu style={{float: 'right'}} iconid="filter" direction="left" max-width="500px">
+                        <TwoColumnLayout
+                            style={{padding: '20px', width: '300px'}}
+                            columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
+                            columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
+                        />
+                    </IconMenu>
                     <IconMenu iconid="filter" direction="bottom" max-width="500px">
+                        <TwoColumnLayout
+                            style={{padding: '20px', width: '300px'}}
+                            columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
+                            columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
+                        />
+                    </IconMenu>
+                    <IconMenu style={{marginLeft: '50px'}} iconid="filter" direction="top" max-width="500px">
                         <TwoColumnLayout
                             style={{padding: '20px', width: '300px'}}
                             columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
@@ -228,10 +269,34 @@ class StripesDemo extends React.Component {
                     </IconMenu>
 
                 </section>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
+                <section>
+                    <H3>LeftNav</H3>
+                    <LeftNav ref="LeftNav">
+                        {CardNode}
+                        <Paper style={{width: '90%', margin: '20px 5%'}} depth="1">You can nest any kind of component in here, this is a Paper component.</Paper>
+                        <RaisedButton style={{position: 'absolute', bottom: 0, left: 0, width: 'calc(100% - 10px)'}} key="button6" type="primary" onClick={this.closeMenu}>Manually Close</RaisedButton>
+                    </LeftNav>
+                </section>
 
-                <footer className="zebra">
+                <section>
+                    <H3>NavBar</H3>
+                    <NavBar ref="NavBar"
+                        leftIcon={(
+                            <Icon
+                                color="white"
+                                iconid="menu"
+                                size="medium"
+                                onClick={this.toggleMenu}
+                                basestyle={{cursor: 'pointer', height: '25px', marginTop: '18px', lineHeight: 0}}
+                            />)}
+                        title="This is a NavBar Title"
+                    >
+                        This is my nav bar, hope you enjoy.
+                    </NavBar>
+                </section>
+
+                <footer className="zebra" style={{zIndex: 1000}}>
                     <img src="./images/zebralogo.svg" />
                     <p>&copy;2016 ZIH Corp and/or its affiliates. All Rights Reserved. Zebra and the stylized Zebra head are trademarks of ZIH Corp, registered in many jurisdictions worldwide.</p>
                 </footer>

@@ -38,6 +38,10 @@ export default {
             borderColor: 'green',
             fillColor: 'rgb(100,200,100)',
             checkImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'><polygon fill=\'white\' points=\'424 96 184 336 88 240 48 280 184 416 464 136 424 96\'/></svg>")'
+        },
+        navbar: {
+            background: '#2E4151',
+            textColor: 'white'
         }
     },
     spacing: {
@@ -65,6 +69,19 @@ export default {
             borderRadius: 5,
             width: 30,
             height: 30
+        },
+        inputs: {
+            padding: basePadding,
+            margin: baseMargin,
+            fontSize: '1.8rem',
+            errorFontSize: '1.2rem',
+            borderRadius: 2,
+            underlineHeight: 2
+        },
+        navbar: {
+            minHeight: 64,
+            padding: basePadding*4,
+            fontSize: '1.8rem'
         }
     }
 };

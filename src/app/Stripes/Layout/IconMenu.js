@@ -7,7 +7,6 @@ import React from 'react'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import {Icon} from  '../Symbols/Icon'
-import {Paper} from './Paper'
 
 export class IconMenu extends StripesTheme {
 
@@ -73,8 +72,10 @@ export class IconMenu extends StripesTheme {
             },
             menu: {
                 position: 'absolute',
-                top: '100%',
-                left: '0',
+                top: this.props.direction !== 'top' ? '100%' : 'auto',
+                bottom: this.props.direction === 'top' ? 'calc(100% + ' + spacing.padding*2 + 'px)' : 'auto',
+                left: this.props.direction === 'left' ? 'auto' : 0,
+                right: this.props.direction === 'left' ? 0 : 'auto',
                 transition: 'all .5s',
                 maxHeight: this.state.open ? '800px' : '0',
                 opacity: this.state.open ? '1.0' : '0.0',
@@ -92,7 +93,7 @@ export class IconMenu extends StripesTheme {
                 zIndex: 2
             }
         };
-
+        styleObj.base = Object.assign(styleObj.base, this.props.style);
         return styleObj;
     }
 

@@ -8,7 +8,8 @@ export default {
         default: {
             borderRadius: 2,
             padding: basePadding,
-            margin: baseMargin
+            margin: baseMargin,
+            menuZIndex: 2000
         },
         primary: {
             borderRadius: 2,
@@ -37,6 +38,11 @@ export default {
             errorFontSize: '1.2rem',
             borderRadius: 2,
             underlineHeight: 2
+        },
+        navbar: {
+            minHeight: 64,
+            padding: basePadding*4,
+            fontSize: '1.8rem'
         }
     }
 };

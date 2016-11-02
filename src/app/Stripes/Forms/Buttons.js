@@ -73,6 +73,7 @@ class RaisedButton extends StripesTheme {
         type: 'default',
         disabled: false,
         label: null,
+        style: {},
         onClick: () => { return false; }
     }
 
@@ -112,6 +113,7 @@ class RaisedButton extends StripesTheme {
             cursor: this.props.disabled ? 'default' : 'pointer',
             boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px'
         }
+        styleObj = Object.assign(styleObj, this.props.style);
         return styleObj;
     }
 

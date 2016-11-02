@@ -4,12 +4,14 @@ import React from 'react'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 
-class SuggestionBox extends StripesTheme {
+export class SelectPanel extends StripesTheme {
     static defaultProps = {
         style:  {},
         type: 'inputs',
         selected: null,
-        data: []
+        showSummary: false,
+        data: [],
+        onClose: () => {}
     }
 
     constructor(props) {
@@ -17,36 +19,40 @@ class SuggestionBox extends StripesTheme {
         this.state = {
             style: {},
             value: null,
-            results: [],
             show: false
+        };
+
+        this.state = {
+            style: this.getStyles()
         };
 
         this.getStyles = this.getStyles.bind(this);
         this.moveHighlight = this.moveHighlight.bind(this);
         this.applyValue = this.applyValue.bind(this);
         this.updateSelected = this.updateSelected.bind(this);
-        this.getResults = this.getResults.bind(this);
-        this.updateSearch = this.updateSearch.bind(this);
+        this.open = this.open.bind(this);
+        this.close = this.close.bind(this);
     }
 
     componentDidMount() {
         var _this = this;
+        console.log(this.props.data);
         this.setState({
             style: this.getStyles()
         });
         window.addEventListener('keydown', (e) => {
             switch (e.keyCode) {
-                    case 13 : // enter
-                        _this.applyValue(null, e);
-                        break;
-                    case 38: // up
-                        _this.moveHighlight(-1,e);
-                        break;
-                    case 40: // down
-                        _this.moveHighlight(1,e);
-                        break;
-                }
-            });
+                case 13 : // enter
+                    _this.applyValue(null, e);
+                    break;
+                case 38: // up
+                    _this.moveHighlight(-1,e);
+                    break;
+                case 40: // down
+                    _this.moveHighlight(1,e);
+                    break;
+            }
+        });
     }
 
     componentDidUpdate(props) {
@@ -64,15 +70,15 @@ class SuggestionBox extends StripesTheme {
         var styleObj = {
             results: {
                 position: 'absolute',
-                top: '35px',
+                top: '32px',
                 right: 0,
                 left: 0,
-                display: this.state.value && this.state.show ? 'block' : 'none',
-                transition: '.3s all',
-                maxHeight: this.state.value ? '500px' : '0px',
-                opacity: this.state.value ? '1.0' : '0',
+                transition: 'all .3s',
+                maxHeight: this.state.show ? '500px' : '0px',
+                overflow: 'hidden',
+                opacity: this.state.show ? '1.0' : '0.25',
                 background: 'white',
-                padding: '10px',
+                padding: this.state.show ? '10px' : '0 10px',
                 fontSize: '1.6rem',
                 zIndex: 2,
                 borderRadius: '0 0 2px 2px',
@@ -89,8 +95,7 @@ class SuggestionBox extends StripesTheme {
             resultsli: {
                 padding: '10px',
                 margin: '0',
-                cursor: 'pointer',
-                opacity: '0.5'
+                cursor: 'pointer'
             },
             resultsp: {
                 color: 'black',
@@ -103,12 +108,11 @@ class SuggestionBox extends StripesTheme {
     }
 
     moveHighlight(mod, e) {
-
-        if(this.state.results.length) { // only if there are results
-            this.refs.result_container.focus();
+        if(this.props.data.length) { // only if there are results
+            this.refs.panelcontainer.focus();
             var newSelect = this.state.selected + mod;
-            newSelect = newSelect < 0  ? this.state.results.length - 1 : newSelect;
-            newSelect = newSelect >= this.state.results.length ? 0 : newSelect;
+            newSelect = newSelect < 0  ? this.props.data.length - 1 : newSelect;
+            newSelect = newSelect >= this.props.data.length ? 0 : newSelect;
             this.setState({
                 selected: newSelect
             });
@@ -118,11 +122,11 @@ class SuggestionBox extends StripesTheme {
     }
 
     applyValue(selectedid, e) {
-        if(this.state.results.length) {
+        if(this.props.data.length) {
             selectedid = selectedid ? selectedid : this.state.selected;
-            this.props.onSelect(this.state.results[selectedid]);
+            this.props.onSelect(this.props.data[selectedid]);
             this.setState({
-                value: '',
+                value: this.props.data[selectedid].label,
                 show: false
             }, () => {
                 this.setState({
@@ -138,71 +142,49 @@ class SuggestionBox extends StripesTheme {
         });
     }
 
-    getResults(term) {
-        if(!term) {
-            return [];
-        }
-        term = term.toUpperCase();
-        var results = [];
-        this.props.data.map((v) => {
-            if(v.toUpperCase().indexOf(term) >= 0) {
-                results.push(v);
-            }
-        });
-
-        return this.sortResults(results);
-    }
-
-    sortResults(results) {
-        return results.sort(function(a,b) {return (a.code > b.code) ? 1 : ((b.code > a.code) ? -1 : 0);} );
-    }
-
-    updateSearch(val) {
-        var results = this.getResults(val);
+    open() {
         this.setState({
-            value: val,
-            results: results,
-            selected: 0,
-            show: results.length > 0
+            show: true
         }, () => {
+            this.refs.panelcontainer.focus();
+        });
+    }
+
+    close() {
+        this.setState({
+            show: false
+        }, () => {
+            this.props.onClose();
             this.setState({
                 style: this.getStyles()
             });
         });
     }
 
-    open() {
-        this.setState({
-            show: true
-        });
-    }
-
     render() {
         var resultsDOM = [];
         var color = this.getColors()[this.props.type];
-        this.state.results.map((v, i) => {
+        this.props.data.map((v, i) => {
             var activeStyling = {
                 background: color.highlightColor,
                 boxShadow: "2px 0 0 " + color.highlightBorderColor + " inset"
             };
-            var resultslistyle = Object.assign(this.state.selected === i ? activeStyling : {}, this.state.style.resultsli);
+            var resultslistyle = Object.assign(this.state.selected === i ? activeStyling : v.value ? {} : {opacity: '.5'}, this.state.style.resultsli);
 
-            resultsDOM.push(<li key={"result-" + i} onClick={()=> { this.applyValue(i); }} onMouseOver={() => { this.updateSelected(i); }} data-selected={this.state.selected === i} style={resultslistyle}>
-                {v}
+            resultsDOM.push(<li key={"item-" + i} onClick={()=> { this.applyValue(i); }} onMouseOver={() => { this.updateSelected(i); }} data-selected={this.state.selected === i} style={resultslistyle}>
+                {v.label}
             </li>);
         });
+
+        var summaryNode = this.props.showSummary ? (<p key="summary" style={this.state.style.resultsp}>There are {this.props.data ? this.props.data.length : 'NO'} results</p>) : null;
         return (
-            <section style={this.state.style.results} tabIndex="1" ref="result_container">
+            <section style={this.state.style.results} tabIndex="1" ref="panelcontainer" onBlur={this.close}>
                 <ul style={this.state.style.resultsul}>
                     {resultsDOM}
                 </ul>
-                <p key="summary" style={this.state.style.resultsp}>There are {this.state.results ? this.state.results.length : 'NO'} results</p>
+                {summaryNode}
             </section>
         )
     }
 
-}
-
-module.exports = {
-    SuggestionBox: SuggestionBox
 }

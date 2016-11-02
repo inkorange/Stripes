@@ -3,7 +3,9 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
+import {SelectPanel} from './SelectPanel.js'
 import {SuggestionBox} from './SuggestionBox.js'
+
 
 /* *********************************************************************************************************************
  Component TextBox
@@ -12,7 +14,6 @@ class TextBox extends StripesTheme {
     static defaultProps = {
         style:  {},
         type: 'inputs',
-        defaultChecked: false,
         value: '',
         placeholder: null,
         error: null,
@@ -101,7 +102,6 @@ class TextArea extends StripesTheme {
     static defaultProps = {
         style:  {},
         type: 'inputs',
-        defaultChecked: false,
         value: '',
         placeholder: null,
         error: null,
@@ -154,8 +154,113 @@ class TextArea extends StripesTheme {
 
 }
 
+/* *********************************************************************************************************************
+ Component DropDown
+ ********************************************************************************************************************* */
+class DropDown extends StripesTheme {
+    static defaultProps = {
+        style:  {},
+        type: 'inputs',
+        placeholder: 'Select...',
+        error: null,
+        width: null,
+        showEmpty: false,
+        onChange: () => { return false; }
+    }
+
+    constructor(props) {
+        super(props);
+        var items = [];
+        this.toggleSelect = this.toggleSelect.bind(this);
+        this.applyValue = this.applyValue.bind(this);
+        this.getValue = this.getValue.bind(this);
+        this.props.children.map((obj) => {
+            var label = obj.props.label ? obj.props.label : obj.props.children;
+            items.push({
+                checked: obj.props.defaultChecked,
+                label: label,
+                value: obj.props.value === undefined ? label : obj.props.value
+            });
+        });
+        this.state = {
+            style: this.getStyles(),
+            items: items,
+            active: false,
+            value: null,
+            label: null
+        }
+    }
+
+    componentDidUpdate(props) {
+        if(props !== this.props) {
+            this.setState({
+                style: this.getStyles()
+            });
+        }
+    }
+
+    applyValue(val) {
+        this.setState({
+            value: val.value,
+            label: val.value ? val.label : null
+        }, () => {
+            this.refs.input.value = this.state.value ? this.state.label : null;
+        });
+    }
+
+    getValue() {
+        return this.state.value;
+    }
+
+    toggleSelect() {
+        this.onInputClick();
+        this.refs.selectPanel.open();
+    }
+
+    getStyles() {
+        var color = this.getColors()[this.props.type];
+        var spacing = this.getSpacing()[this.props.type];
+        var styleObj = this.getBaseStyling(spacing, color).inputs;
+
+        var input = {
+            cursor: 'pointer'
+        };
+
+        styleObj.input = Object.assign(styleObj.input, input);
+        styleObj.active.on = Object.assign(styleObj.active.on, styleObj.active.base);
+        styleObj.active.off = Object.assign(styleObj.active.off, styleObj.active.base);
+
+        return styleObj;
+    }
+
+
+    render() {
+        return (
+            <div style={this.state.style.container}>
+                <input
+                    ref="input"
+                    placeholder={this.props.placeholder}
+                    onClick={this.toggleSelect}
+                    style={this.state.style.input}
+                    readOnly="readonly"
+                />
+                <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
+                <SelectPanel
+                    ref="selectPanel"
+                    data={this.state.items}
+                    onSelect={this.applyValue}
+                    onClose={this.onInputBlur}
+                />
+                <span style={this.state.style.error}>{this.props.error}</span>
+            </div>
+
+        )
+    }
+
+}
+
 module.exports = {
     TextBox: TextBox,
-    TextArea: TextArea
-    //Item: Item
+    TextArea: TextArea,
+    DropDown: DropDown
 }

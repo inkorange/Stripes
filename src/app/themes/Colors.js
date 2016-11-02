@@ -53,5 +53,9 @@ module.exports = {
         borderColor: borderColor,
         highlightColor: '#eeeeee',
         highlightBorderColor: primaryColor
+    },
+    navbar: {
+        background: '#2E4151',
+        textColor: 'white'
     }
 }
