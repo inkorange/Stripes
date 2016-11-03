@@ -200,12 +200,14 @@ class DropDown extends StripesTheme {
     }
 
     applyValue(val) {
-        this.setState({
-            value: val.value,
-            label: val.value ? val.label : null
-        }, () => {
-            this.refs.input.value = this.state.value ? this.state.label : null;
-        });
+        if(val !== undefined) {
+            this.setState({
+                value: val.value,
+                label: val.value ? val.label : null
+            }, () => {
+                this.refs.input.value = this.state.value ? this.state.label : null;
+            });
+        }
     }
 
     getValue() {

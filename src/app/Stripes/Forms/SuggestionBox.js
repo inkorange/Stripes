@@ -27,26 +27,13 @@ class SuggestionBox extends StripesTheme {
         this.updateSelected = this.updateSelected.bind(this);
         this.getResults = this.getResults.bind(this);
         this.updateSearch = this.updateSearch.bind(this);
+        this.keyboardListeners = this.keyboardListeners.bind(this);
     }
 
     componentDidMount() {
-        var _this = this;
         this.setState({
             style: this.getStyles()
         });
-        window.addEventListener('keydown', (e) => {
-            switch (e.keyCode) {
-                    case 13 : // enter
-                        _this.applyValue(null, e);
-                        break;
-                    case 38: // up
-                        _this.moveHighlight(-1,e);
-                        break;
-                    case 40: // down
-                        _this.moveHighlight(1,e);
-                        break;
-                }
-            });
     }
 
     componentDidUpdate(props) {
@@ -67,12 +54,12 @@ class SuggestionBox extends StripesTheme {
                 top: '35px',
                 right: 0,
                 left: 0,
-                display: this.state.value && this.state.show ? 'block' : 'none',
-                transition: '.3s all',
-                maxHeight: this.state.value ? '500px' : '0px',
-                opacity: this.state.value ? '1.0' : '0',
+                transition: 'all .3s',
+                maxHeight: this.state.show ? '500px' : '0px',
+                overflow: 'hidden',
+                opacity: this.state.show ? '1.0' : '0.25',
                 background: 'white',
-                padding: '10px',
+                padding: this.state.show ? '10px' : '0 10px',
                 fontSize: '1.6rem',
                 zIndex: 2,
                 borderRadius: '0 0 2px 2px',
@@ -128,6 +115,7 @@ class SuggestionBox extends StripesTheme {
                 this.setState({
                     style: this.getStyles()
                 });
+                window.removeEventListener('keydown', this.keyboardListeners);
             });
         }
     }
@@ -168,7 +156,26 @@ class SuggestionBox extends StripesTheme {
             this.setState({
                 style: this.getStyles()
             });
+            if(this.state.show) {
+                window.addEventListener('keydown', this.keyboardListeners);
+            } else {
+                window.removeEventListener('keydown', this.keyboardListeners);
+            }
         });
+    }
+
+    keyboardListeners(e) {
+        switch (e.keyCode) {
+            case 13 : // enter
+                this.applyValue(null, e);
+                break;
+            case 38: // up
+                this.moveHighlight(-1,e);
+                break;
+            case 40: // down
+                this.moveHighlight(1,e);
+                break;
+        }
     }
 
     open() {

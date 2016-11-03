@@ -32,26 +32,12 @@ export class SelectPanel extends StripesTheme {
         this.updateSelected = this.updateSelected.bind(this);
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
+        this.keyboardListeners = this.keyboardListeners.bind(this);
     }
 
     componentDidMount() {
-        var _this = this;
-        console.log(this.props.data);
         this.setState({
             style: this.getStyles()
-        });
-        window.addEventListener('keydown', (e) => {
-            switch (e.keyCode) {
-                case 13 : // enter
-                    _this.applyValue(null, e);
-                    break;
-                case 38: // up
-                    _this.moveHighlight(-1,e);
-                    break;
-                case 40: // down
-                    _this.moveHighlight(1,e);
-                    break;
-            }
         });
     }
 
@@ -142,12 +128,28 @@ export class SelectPanel extends StripesTheme {
         });
     }
 
+    keyboardListeners(e) {
+        switch (e.keyCode) {
+            case 13 : // enter
+                this.applyValue(null, e);
+                break;
+            case 38: // up
+                this.moveHighlight(-1,e);
+                break;
+            case 40: // down
+                this.moveHighlight(1,e);
+                break;
+        }
+    }
+
     open() {
         this.setState({
             show: true
         }, () => {
             this.refs.panelcontainer.focus();
+            window.addEventListener('keydown', this.keyboardListeners);
         });
+
     }
 
     close() {
@@ -159,6 +161,7 @@ export class SelectPanel extends StripesTheme {
                 style: this.getStyles()
             });
         });
+        window.removeEventListener('keydown', this.keyboardListeners);
     }
 
     render() {
