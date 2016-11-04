@@ -207,7 +207,7 @@ class StripesDemo extends React.Component {
                     >
                         <TextBox
                             width="50%"
-                            suggestions={true}
+                            showSuggestions={true}
                             suggestionData={['Alabama', 'Alaska','Arkansas','California','Colorado','New York','Connecticut']}
                             placeholder="This is a placeholder" />
                     </Fieldset>

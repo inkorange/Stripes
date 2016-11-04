@@ -4,8 +4,6 @@ import React from 'react'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import {SelectPanel} from './SelectPanel.js'
-import {SuggestionBox} from './SuggestionBox.js'
-
 
 /* *********************************************************************************************************************
  Component TextBox
@@ -18,19 +16,23 @@ class TextBox extends StripesTheme {
         placeholder: null,
         error: null,
         width: null,
-        suggestions: false,
+        showSuggestions: false,
         suggestionData: []
     }
 
     constructor(props) {
         super(props);
+        var suggestionItems = [];
+
         this.state = {
             style: this.getStyles(),
             active: false,
-            value: ''
+            value: '',
+            suggestionItems: []
         };
         this.onChange = this.onChange.bind(this);
         this.applyValue = this.applyValue.bind(this);
+        this.onCompleteInputBlur = this.onCompleteInputBlur.bind(this);
     }
 
     componentDidUpdate(props) {
@@ -45,19 +47,60 @@ class TextBox extends StripesTheme {
         var val = e.target.value !== '' ? e.target.value : null;
         if(val !== this.state.value) {
             this.setState({
-                value: val
+                value: val,
+                suggestionItems: this.getSuggestions(val)
             }, () => {
-                if(this.props.suggestions) {
-                    this.refs.suggestionBox.updateSearch(val);
+                if(this.props.showSuggestions && this.state.suggestionItems.length) {
+                    this.refs.selectPanel.open(false);
+                } else {
+                    this.refs.selectPanel.close();
                 }
             });
         }
     }
 
-    applyValue(val) {
-        this.setState({
-            value: val
+    getSuggestions(term) {
+        if(!term) {
+            return [];
+        }
+        term = term.toUpperCase();
+        var results = [];
+        this.props.suggestionData.map((v) => {
+            if(v.toUpperCase().indexOf(term) >= 0) {
+                results.push({
+                    label: v,
+                    value: v
+                });
+            }
         });
+
+        return this.sortResults(results);
+    }
+
+    sortResults(results) {
+        return results.sort(function(a,b) {return (a.code > b.code) ? 1 : ((b.code > a.code) ? -1 : 0);} );
+    }
+
+    applyValue(val) {
+        if(val !== undefined) {
+            this.setState({
+                value: val.value
+            }, () => {
+                this.refs.input.value = this.state.value ? this.state.value : null;
+            });
+        }
+    }
+
+    onCompleteInputBlur(e) {
+        setTimeout(() => {
+            var target = document.activeElement;
+            console.log(target.className);
+            if(target.className !== "SelectPanel" && this.props.showSuggestions) {
+                this.refs.selectPanel.close();
+            } else {
+                this.onInputBlur(e);
+            }
+        }, 1);
     }
 
     getStyles() {
@@ -79,15 +122,22 @@ class TextBox extends StripesTheme {
         return (
             <div style={this.state.style.container}>
                 <input
-                    value={this.state.value}
+                    ref="input"
                     placeholder={this.props.placeholder}
                     onClick={this.onInputClick}
-                    onBlur={this.onInputBlur}
+                    onBlur={this.onCompleteInputBlur}
                     onChange={this.onChange}
                     style={this.state.style.input}
                 />
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
-                {this.props.suggestions ? <SuggestionBox ref="suggestionBox" data={this.props.suggestionData} onSelect={this.applyValue} /> : null}
+                {this.props.showSuggestions ?
+                    <SelectPanel
+                        ref="selectPanel"
+                        data={this.state.suggestionItems}
+                        onSelect={this.applyValue}
+                        onClose={this.onInputBlur}
+                    />
+                    : null}
                 <span style={this.state.style.error}>{this.props.error}</span>
             </div>
         )
