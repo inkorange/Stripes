@@ -46,7 +46,9 @@ export class StripesTheme extends React.Component {
                     border: 'none',
                     outline: 'none',
                     width: this.props.width,
-                    resize: 'vertical'
+                    resize: 'vertical',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden'
                 },
                 active: {
                     base: {
@@ -76,6 +78,15 @@ export class StripesTheme extends React.Component {
                     right: 0,
                     maxWidth: '100%',
                     color: color.underErrorlineColor
+                }
+            },
+            animation: {
+                ink: {
+                    display: 'block',
+                    position: 'absolute',
+                    background: 'rgba(255, 255, 255, 0.5)',
+                    borderRadius: '100%',
+                    transform:'scale(0)'
                 }
             }
         }
@@ -128,6 +139,34 @@ export class StripesTheme extends React.Component {
             console.log(val);
         });
         return obj;
+    }
+
+    animateBackground(e) {
+        var target = e.target;
+        var inkNode = target.querySelector('.ink');
+        if(!inkNode) {
+            return false;
+        }
+        var aniTiming = {
+            duration: 400,
+            iterations: 1
+        };
+        var aniExplode = [
+            { opacity: 1, transform: 'scale(0)'},
+            { opacity: 0, transform: 'scale(2.5)'}
+        ];
+        var d = Math.max(target.offsetWidth, target.offsetHeight);
+        var x = e.pageX - target.offsetLeft - inkNode.clientWidth/2;
+        var y = e.pageY - target.offsetTop - inkNode.clientHeight/2;
+        inkNode.style.height=d + "px";
+        inkNode.style.width=d + "px";
+        inkNode.style.top=y + "px";
+        inkNode.style.left=x + "px";
+
+        inkNode.animate(
+            aniExplode,
+            aniTiming
+        ).play();
     }
 
 }

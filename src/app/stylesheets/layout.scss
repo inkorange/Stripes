@@ -45,17 +45,17 @@ footer.zebra {
     }
 }
 
+div > section {
+    margin-bottom: 60px;
+
+}
+/*
 fieldset:first-of-type {
     > label:first-of-type {
         margin-top: 0!important;
     }
 }
 
-.TwoColumnLayout {
-    &:last-of-type {
-        margin-bottom: 0!important;
-    }
-}
 
 .FloaterPanel, .FloaterBase {
     transition: .5s opacity;
@@ -64,3 +64,4 @@ fieldset:first-of-type {
         opacity: 1.0;
     }
 }
+*/

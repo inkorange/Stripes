@@ -31,6 +31,11 @@ export default {
             width: 20,
             height: 20
         },
+        headers: {
+            baseFontSize: 1.6,
+            padding: basePadding*4,
+            margin: baseMargin*4
+        },
         inputs: {
             padding: basePadding,
             margin: baseMargin,
@@ -43,6 +48,12 @@ export default {
             minHeight: 64,
             padding: basePadding*4,
             fontSize: '1.8rem'
+        },
+        tabmenu: {
+            minHeight: 64,
+            padding: basePadding*4,
+            fontSize: '1.8rem',
+            indicatorHeight: 2
         }
     }
 };

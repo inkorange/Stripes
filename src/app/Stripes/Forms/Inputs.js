@@ -87,6 +87,7 @@ class TextBox extends StripesTheme {
                 value: val.value
             }, () => {
                 this.refs.input.value = this.state.value ? this.state.value : null;
+                this.refs.input.focus();
             });
         }
     }
@@ -94,10 +95,9 @@ class TextBox extends StripesTheme {
     onCompleteInputBlur(e) {
         setTimeout(() => {
             var target = document.activeElement;
-            console.log(target.className);
+            //console.log(target.className);
             if(target.className !== "SelectPanel" && this.props.showSuggestions) {
                 this.refs.selectPanel.close();
-            } else {
                 this.onInputBlur(e);
             }
         }, 1);
@@ -109,7 +109,6 @@ class TextBox extends StripesTheme {
         var styleObj = this.getBaseStyling(spacing, color).inputs;
         styleObj.active.on = Object.assign(styleObj.active.on, styleObj.active.base);
         styleObj.active.off = Object.assign(styleObj.active.off, styleObj.active.base);
-
         return styleObj;
     }
 

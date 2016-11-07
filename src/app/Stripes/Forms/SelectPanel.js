@@ -57,7 +57,8 @@ export class SelectPanel extends StripesTheme {
             results: {
                 position: 'absolute',
                 top: '32px',
-                right: 0,
+                minWidth: '100%',
+                maxWidth: '100vw',
                 left: 0,
                 transition: 'all .3s',
                 maxHeight: this.state.show ? '500px' : '0px',
@@ -81,7 +82,8 @@ export class SelectPanel extends StripesTheme {
             resultsli: {
                 padding: '10px',
                 margin: '0',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                whiteSpace: 'nowrap'
             },
             resultsp: {
                 color: 'black',
@@ -144,7 +146,8 @@ export class SelectPanel extends StripesTheme {
 
     open(willFocus) {
         this.setState({
-            show: true
+            show: true,
+            selected: 0
         }, () => {
             if (willFocus === undefined || willFocus) {
                 this.refs.panelcontainer.focus();

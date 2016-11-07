@@ -22,10 +22,11 @@ class FlatButton extends StripesTheme {
             disabled: props.disabled,
             style: Object.assign({
                 backgroundColor: color.backgroundColor
-            },component),
+            },component.button),
             hoverStyle: Object.assign({
                 backgroundColor: color.backgroundHover
-            },component)
+            },component.button),
+            inkStyle: component.ink
         }
     }
 
@@ -33,20 +34,25 @@ class FlatButton extends StripesTheme {
         var spacing = this.getSpacing()[this.props.type];
         var color = this.getColors()[this.props.type];
         var styleObj = {
-            color: color.textColor,
-            borderRadius: spacing.borderRadius + 'px',
-            fontWeight: 500,
-            fontSize: '1.4rem',
-            border: 'none',
-            verticalAlign: 'middle',
-            letterSpacing: '0px',
-            textTransform: 'uppercase',
-            outline: 'none',
-            padding: spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px',
-            margin: spacing.padding + 'px ',
-            transition: '.5s background-color',
-            opacity: this.props.disabled ? .5 : 1.0,
-            cursor: this.props.disabled ? 'default' : 'pointer'
+            button: {
+                color: color.textColor,
+                borderRadius: spacing.borderRadius + 'px',
+                fontWeight: 500,
+                fontSize: '1.4rem',
+                border: 'none',
+                verticalAlign: 'middle',
+                letterSpacing: '0px',
+                textTransform: 'uppercase',
+                outline: 'none',
+                padding: spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px',
+                margin: spacing.padding + 'px ',
+                transition: '.5s background-color',
+                opacity: this.props.disabled ? .5 : 1.0,
+                cursor: this.props.disabled ? 'default' : 'pointer',
+                position: 'relative',
+                overflow: 'hidden'
+            },
+            ink: this.getBaseStyling(spacing, color).animation.ink
         }
         return styleObj;
     }
@@ -57,10 +63,12 @@ class FlatButton extends StripesTheme {
                 className="FlatButton"
                 style={this.state.hover ? this.state.hoverStyle : this.state.style}
                 onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
+                onMouseDown={this.animateBackground}
                 onClick={this.handleClick}
                 label={this.props.label}
             >
                 {this.props.children}
+                <span className='ink' style={this.state.inkStyle}></span>
             </button>
         )
     }
@@ -86,10 +94,11 @@ class RaisedButton extends StripesTheme {
             disabled: props.disabled,
             style: Object.assign({
                 backgroundColor: color.backgroundColor
-            },component),
+            },component.button),
             hoverStyle: Object.assign({
                 backgroundColor: color.backgroundHover
-            },component)
+            },component.button),
+            inkStyle: component.ink
         }
     }
 
@@ -97,21 +106,26 @@ class RaisedButton extends StripesTheme {
         var spacing = this.getSpacing()[this.props.type];
         var color = this.getColors()[this.props.type];
         var styleObj = {
-            color: color.textColor,
-            borderRadius: spacing.borderRadius + 'px',
-            fontWeight: 500,
-            fontSize: '1.4rem',
-            border: 'none',
-            verticalAlign: 'middle',
-            letterSpacing: '0px',
-            textTransform: 'uppercase',
-            outline: 'none',
-            padding: spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px',
-            margin: spacing.padding + 'px ',
-            transition: '.5s background-color',
-            opacity: this.props.disabled ? .5 : 1.0,
-            cursor: this.props.disabled ? 'default' : 'pointer',
-            boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px'
+            button: {
+                color: color.textColor,
+                borderRadius: spacing.borderRadius + 'px',
+                fontWeight: 500,
+                fontSize: '1.4rem',
+                border: 'none',
+                verticalAlign: 'middle',
+                letterSpacing: '0px',
+                textTransform: 'uppercase',
+                outline: 'none',
+                padding: spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px',
+                margin: spacing.padding + 'px ',
+                transition: '.5s background-color',
+                opacity: this.props.disabled ? .5 : 1.0,
+                cursor: this.props.disabled ? 'default' : 'pointer',
+                boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px',
+                position: 'relative',
+                overflow: 'hidden'
+            },
+            ink: this.getBaseStyling(spacing, color).animation.ink
         }
         styleObj = Object.assign(styleObj, this.props.style);
         return styleObj;
@@ -123,10 +137,12 @@ class RaisedButton extends StripesTheme {
                 className="RaisedButton"
                 style={this.state.hover ? this.state.hoverStyle : this.state.style}
                 onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
+                onMouseDown={this.animateBackground}
                 onClick={this.handleClick}
                 label={this.props.label}
             >
                 {this.props.children}
+                <span className='ink' style={this.state.inkStyle}></span>
             </button>
         )
     }

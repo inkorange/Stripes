@@ -1,16 +1,16 @@
 
 let primaryColor = "#3366CC";
 let baseTextColor = "#212121";
+let secondaryTextColor = "white";
 let inactiveColor = "#dbdbdb";
 let errorColor = "#DB4437";
 let inactiveErrorColor = "#DB8D86";
 let secondaryColor = "";
 let tertiaryColor = "";
 let borderColor = "#8B8F92";
+let menuColor = "#2E4151";
 
 module.exports = {
-    H1Color: 'black',
-    H3Color: 'rgb(100,100,100)',
     default: {
         textColor: primaryColor,
         hoverText: '',
@@ -36,6 +36,10 @@ module.exports = {
         backgroundHover: 'rgba(0,0,0,.08)',
         iconColor: '#1565C0'
     },
+    headers: {
+        H1Color: 'black',
+        H3Color: 'rgb(100,100,100)'
+    },
     notification: {
         backgroundColor: 'rgba(0,0,0,.75)'
     },
@@ -55,7 +59,12 @@ module.exports = {
         highlightBorderColor: primaryColor
     },
     navbar: {
-        background: '#2E4151',
-        textColor: 'white'
+        background: menuColor,
+        textColor: secondaryTextColor
+    },
+    tabmenu: {
+        background: primaryColor,
+        textColor: secondaryTextColor,
+        indicator: 'yellow'
     }
 }

@@ -5,7 +5,7 @@ import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 
 /* *********************************************************************************************************************
- Component RadioButton
+ Component Items
  ********************************************************************************************************************* */
 class Item extends StripesTheme {
     static defaultProps = {
