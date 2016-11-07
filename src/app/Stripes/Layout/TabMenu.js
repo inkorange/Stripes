@@ -18,8 +18,6 @@ export class TabMenu extends StripesTheme {
     constructor(props) {
         super(props);
         this.clickItem = this.clickItem.bind(this);
-        this.getItems = this.getItems.bind(this);
-        this.getContent = this.getContent.bind(this);
 
         var selected = 0;
         this.props.children.map((item,pos) => {
@@ -35,27 +33,7 @@ export class TabMenu extends StripesTheme {
 
     componentDidMount() {
         this.setState({
-            style: this.getStyles(),
-            items: this.getItems(),
-            content: this.getContent()
-        });
-    }
-
-    getItems() {
-        var items = [];
-        this.props.children.map((item, pos) => {
-            items.push(
-                <div onClick={this.clickItem} data-itemid={pos} key={"item" + pos} style={pos == this.state.selected ? this.state.style.selecteditem : this.state.style.item}>
-                    {item.props.label}
-                </div>
-            );
-        });
-    }
-
-    getContent() {
-        var content = [];
-        this.props.children.map((item) => {
-            content.push(item.children);
+            style: this.getStyles()
         });
     }
 

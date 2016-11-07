@@ -18,8 +18,9 @@ module.exports = {
         backgroundColor: 'transparent',
         backgroundHover: 'rgba(0,0,0,.08)',
         iconColor: '#8B8F92',
-        headerBackgroundColor: '#1565C0'
-    },
+        headerBackgroundColor: '#1565C0',
+        inactiveIcon: "#dbdbdb"
+},
     primary: {
         textColor: 'white',
         hoverText: '',
@@ -65,6 +66,17 @@ module.exports = {
     tabmenu: {
         background: primaryColor,
         textColor: secondaryTextColor,
-        indicator: 'yellow'
+        indicator: '#FFFF8C'
+    },
+    table: {
+        header: {
+            backgroundColor: 'transparent',
+            border: '#A6A6A6'
+        },
+        row: {
+            border: '#e0e0e0',
+            hoverColor: '#f5f5f5',
+            zebraStripe: '#f5f5f5'
+        }
     }
 }

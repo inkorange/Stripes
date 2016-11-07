@@ -55,6 +55,19 @@ export default {
             padding: basePadding*4,
             fontSize: '1.8rem',
             indicatorHeight: 2
+        },
+        table: {
+            fontSize: '1.5rem',
+            header: {
+                minHeight: 64 - (basePadding*2)
+            },
+            cell: {
+                padding: basePadding*2,
+                sortWidth: 10
+            },
+            row: {
+                minHeight: 54
+            }
         }
     }
 };

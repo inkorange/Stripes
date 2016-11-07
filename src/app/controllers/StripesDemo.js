@@ -7,6 +7,7 @@ import {FlatButton, RaisedButton} from '../Stripes/Forms/Buttons'
 
 import {Card, Paper, H1, H3, Title, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from '../Stripes/Layouts'
 import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown} from '../Stripes/Forms'
+import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from '../Stripes/Table'
 
 import {Alert} from  '../Stripes/Notifications/Alert'
 import {Icon} from  '../Stripes/Symbols/Icon'
@@ -60,6 +61,16 @@ class StripesDemo extends React.Component {
         this.refs.LeftNav.toggleMenu();
     }
     render() {
+        var tableCells = [];
+        for(var i =0; i < 10; i++) {
+            tableCells.push(
+                <TableRow key={"row"+i}>
+                    <TableCell>A{i}</TableCell>
+                    <TableCell>B{i}</TableCell>
+                </TableRow>
+            );
+        };
+
         var CardNode = (
             <Card
                 title="This is the Card Title"
@@ -269,6 +280,37 @@ class StripesDemo extends React.Component {
                     </IconMenu>
 
                 </section>
+                <section>
+                    <H3>Table (no fixed height)</H3>
+                    <Table>
+                        <TableHeader>
+                            <TableHeaderRow>
+                                <TableHeaderCell>Head 1</TableHeaderCell>
+                                <TableHeaderCell>Head 2</TableHeaderCell>
+                            </TableHeaderRow>
+                        </TableHeader>
+                        <TableBody>
+                            {tableCells}
+                        </TableBody>
+                    </Table>
+
+                </section>
+                <section>
+                    <H3>Table (with a fixed height)</H3>
+                    <Table>
+                        <TableHeader>
+                            <TableHeaderRow>
+                                <TableHeaderCell>Head 1</TableHeaderCell>
+                                <TableHeaderCell>Head 2</TableHeaderCell>
+                            </TableHeaderRow>
+                        </TableHeader>
+                        <TableBody height="200px">
+                            {tableCells}
+                        </TableBody>
+                    </Table>
+
+                </section>
+
             </div>
 
         );
