@@ -4,19 +4,12 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import {FlatButton, RaisedButton} from '../Stripes/Forms/Buttons'
-import {Card} from '../Stripes/Layout/Card'
-import {Paper} from '../Stripes/Layout/Paper'
-import {H1, H3, Title} from '../Stripes/Layout/Headers'
-import {TwoColumnLayout} from  '../Stripes/Layout/TwoColumnLayout'
+
+import {Card, Paper, H1, H3, Title, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from '../Stripes/Layouts'
+import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown} from '../Stripes/Forms'
+
 import {Alert} from  '../Stripes/Notifications/Alert'
 import {Icon} from  '../Stripes/Symbols/Icon'
-import {RadioButtonGroup, CheckBoxGroup, Item} from  '../Stripes/Forms/Switches'
-import {Fieldset} from '../Stripes/Forms/Fieldset'
-import {TextBox, TextArea, DropDown} from '../Stripes/Forms/Inputs'
-import {IconMenu} from '../Stripes/Layout/IconMenu'
-import {LeftNav} from '../Stripes/Layout/LeftNav'
-import {NavBar} from '../Stripes/Layout/NavBar'
-import {TabMenu} from '../Stripes/Layout/TabMenu'
 
 class StripesDemo extends React.Component {
 
@@ -245,7 +238,7 @@ class StripesDemo extends React.Component {
                 <section>
                     <H3>TabMenu</H3>
                     <TabMenu>
-                        <Item key="tab1" label="Menu Item 1"/>
+                        <Item key="tab1" label="Menu Item 1" />
                         <Item key="tab2" selected={true} label="Menu Item 2"/>
                         <Item key="tab3" label="Menu Item 3"/>
                         <Item key="tab4" label="Menu Item 4"/>
@@ -334,14 +327,20 @@ class StripesDemo extends React.Component {
 
                 <Title>Zebra Stripes Design System</Title>
 
-                <H1 style={h1style}>Layout Components</H1>
-                {LayoutsSection}
-
-                <H1 style={h1style}>Input Components</H1>
-                {InputsSection}
-
-                <H1 style={h1style}>Element Components</H1>
-                {ComponentsSection}
+                <TabMenu style={{margin: "0 -20px"}}>
+                    <Item key="tab1" label="Layouts">
+                        <H1 style={h1style}>Layout Components</H1>
+                        {LayoutsSection}
+                    </Item>
+                    <Item key="tab2" label="Inputs">
+                        <H1 style={h1style}>Input Components</H1>
+                        {InputsSection}
+                    </Item>
+                    <Item key="tab3" label="Elements">
+                        <H1 style={h1style}>Element Components</H1>
+                        {ComponentsSection}
+                    </Item>
+                </TabMenu>
 
                 <footer className="zebra" style={{zIndex: 1000}}>
                     <img src="./images/zebralogo.svg" />

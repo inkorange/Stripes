@@ -18,6 +18,8 @@ export class TabMenu extends StripesTheme {
     constructor(props) {
         super(props);
         this.clickItem = this.clickItem.bind(this);
+        this.getItems = this.getItems.bind(this);
+        this.getContent = this.getContent.bind(this);
 
         var selected = 0;
         this.props.children.map((item,pos) => {
@@ -33,7 +35,27 @@ export class TabMenu extends StripesTheme {
 
     componentDidMount() {
         this.setState({
-            style: this.getStyles()
+            style: this.getStyles(),
+            items: this.getItems(),
+            content: this.getContent()
+        });
+    }
+
+    getItems() {
+        var items = [];
+        this.props.children.map((item, pos) => {
+            items.push(
+                <div onClick={this.clickItem} data-itemid={pos} key={"item" + pos} style={pos == this.state.selected ? this.state.style.selecteditem : this.state.style.item}>
+                    {item.props.label}
+                </div>
+            );
+        });
+    }
+
+    getContent() {
+        var content = [];
+        this.props.children.map((item) => {
+            content.push(item.children);
         });
     }
 
@@ -41,7 +63,6 @@ export class TabMenu extends StripesTheme {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
         var itemCount = this.props.children.length;
-        console.log(this.state.selected);
 
         var itemBase = {
             padding: "0px " + spacing.padding + "px",
@@ -73,6 +94,9 @@ export class TabMenu extends StripesTheme {
                 height: spacing.indicatorHeight + 'px',
                 width: 100 / itemCount + "%",
                 backgroundColor: color.indicator
+            },
+            content: {
+
             }
         };
         //styleObj.selecteditem = styleObj.item;
@@ -96,18 +120,26 @@ export class TabMenu extends StripesTheme {
 
     render() {
         var items = [];
+        var content = [];
         this.props.children.map((item, pos) => {
             items.push(
                 <div onClick={this.clickItem} data-itemid={pos} key={"item" + pos} style={pos == this.state.selected ? this.state.style.selecteditem : this.state.style.item}>
                     {item.props.label}
                 </div>
             );
+            content.push(item.props.children ? item.props.children : null);
         });
+
         return (
-            <section style={this.state.style.base}>
-                {items}
-                <span ref="selected" style={this.state.style.indicator}></span>
-            </section>
+            <div>
+                <section style={this.state.style.base}>
+                    {items}
+                    <span ref="selected" style={this.state.style.indicator}></span>
+                </section>
+                <section>
+                    {content[this.state.selected]}
+                </section>
+            </div>
         )
     }
 }

@@ -67,7 +67,7 @@ export class SelectPanel extends StripesTheme {
                 background: 'white',
                 padding: this.state.show ? '10px' : '0 10px',
                 fontSize: '1.6rem',
-                zIndex: 2,
+                zIndex: spacing.menuZIndex,
                 borderRadius: '0 0 2px 2px',
                 boxShadow: '0 2px 10px rgba(0,0,0,.5)',
                 outline: 'none'
@@ -103,6 +103,8 @@ export class SelectPanel extends StripesTheme {
             newSelect = newSelect >= this.props.data.length ? 0 : newSelect;
             this.setState({
                 selected: newSelect
+            }, () => {
+                this.refs.panelcontainer.getElementsByTagName("LI")[newSelect].scrollIntoView({block: "end", behavior: "smooth"});
             });
             e.stopImmediatePropagation();
             e.preventDefault();

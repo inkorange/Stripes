@@ -42,7 +42,8 @@ export default {
             fontSize: '1.8rem',
             errorFontSize: '1.2rem',
             borderRadius: 2,
-            underlineHeight: 2
+            underlineHeight: 2,
+            menuZIndex: 2000
         },
         navbar: {
             minHeight: 64,
