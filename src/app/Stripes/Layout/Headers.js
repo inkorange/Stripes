@@ -18,7 +18,6 @@ class Title extends StripesTheme {
     getStyles() {
         var spacing = this.getSpacing()[this.props.type];
         var color = this.getColors()[this.props.type];
-        console.log(color);
         var styleObj = {
             color: color.H1Color,
             fontWeight: 200,

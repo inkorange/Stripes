@@ -294,6 +294,7 @@ class StripesDemo extends React.Component {
                         <Icon
                             iconid="admin"
                             size="large"
+                            style={{cursor: 'pointer'}}
                             onClick={() => {this.setState({alertshow: !this.state.alertshow})}}
                         />
                         <Alert show={this.state.alertshow} position="right">This is an alert on the right</Alert>

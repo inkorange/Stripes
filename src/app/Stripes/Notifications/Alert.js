@@ -36,6 +36,13 @@ export class Alert extends StripesTheme {
                 alertNODE.style.display = 'none';
             }
         }, false);
+        this.animateShow(this.refs.Alert, this.props.show);
+    }
+
+    componentWillUpdate(props) {
+        if(this.props.show!=props.show) {
+            this.animateShow(this.refs.Alert, props.show);
+        }
     }
 
     getStyles() {
@@ -54,18 +61,17 @@ export class Alert extends StripesTheme {
             whiteSpace: 'nowrap',
             borderRadius: '4px',
             opacity: 0,
-            transition: 'opacity .5s',
             display: this.props.show ? 'inline-block' : 'none',
             right: this.props.position === 'left' ? (parentNODE.offsetWidth + 10) + 'px' : null,
             left: this.props.position === 'right' ? (parentNODE.offsetWidth + 10) + 'px' : null,
             top: 'calc(50% - ' + (this.props.height + spacing.padding*2)/2 + 'px)'
-        }
+        };
         return styleObj;
     }
 
     render() {
         return (
-            <div ref="Alert" onClick={this.props.onClick} className={"Alert " + (this.props.show ? "visibilty-transition" : "")} style={this.state.style}>
+            <div ref="Alert" onClick={this.props.onClick} style={this.state.style}>
                 {this.props.children}
             </div>
         )

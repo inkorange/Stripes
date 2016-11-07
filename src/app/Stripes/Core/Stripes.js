@@ -87,6 +87,9 @@ export class StripesTheme extends React.Component {
                     background: 'rgba(255, 255, 255, 0.5)',
                     borderRadius: '100%',
                     transform:'scale(0)'
+                },
+                visibility: {
+                    opacity: 1.0
                 }
             }
         }
@@ -166,7 +169,31 @@ export class StripesTheme extends React.Component {
         inkNode.animate(
             aniExplode,
             aniTiming
-        ).play();
+        );
+    }
+
+    animateShow(node, direction) {
+        var aniTiming = {
+            duration: 500,
+            iterations: 1,
+            fill: 'both'
+        };
+        var aniExplode = [
+            { opacity: 0},
+            { opacity: 1}
+        ];
+        var animation = node.animate(
+            aniExplode,
+            aniTiming
+        );
+        animation.pause(); // must pause out of the gate or it will just run.
+
+        if(direction) {
+            animation.play();
+        } else {
+            animation.reverse();
+        }
+
     }
 
 }
