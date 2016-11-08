@@ -410,6 +410,8 @@ body {
     padding-bottom: 80px; }
     .MainContent .main_content_child > section {
       margin: 40px 20px; }
+    .MainContent .main_content_child h3 {
+      margin-top: 60px !important; }
 
 footer.zebra {
   position: fixed;
@@ -429,9 +431,6 @@ footer.zebra {
     font-size: 1.0rem;
     line-height: 1.2rem;
     margin: 5px 0 0 0; }
-
-div > section {
-  margin-bottom: 60px; }
 
 /*
 fieldset:first-of-type {

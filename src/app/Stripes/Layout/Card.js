@@ -8,6 +8,8 @@ export class Card extends StripesTheme {
 
     static defaultProps = {
         style: {},
+        headerStyle: {},
+        footerStyle: {},
         type: 'default',
         title: null,
         actions: null,
@@ -48,7 +50,7 @@ export class Card extends StripesTheme {
             },
             footer: {
                 borderTop: 'solid 1px #ccc',
-                padding: spacing.padding + 'px ',
+                padding: spacing.padding*2 + 'px ',
                 textAlign: 'right',
                 background: 'white',
                 zIndex: 1
@@ -79,6 +81,9 @@ export class Card extends StripesTheme {
             styleObj.footer.right= 0;
             styleObj.footer.left= 0;
         }
+
+        styleObj.header = Object.assign(styleObj.header, this.props.headerStyle);
+        styleObj.footer = Object.assign(styleObj.footer, this.props.footerStyle);
 
         return styleObj;
     }

@@ -1,4 +1,5 @@
 import {Card} from  './Layout/Card'
+import {Dialog} from  './Layout/Dialog'
 import {H1,H3,Title} from  './Layout/Headers'
 import {IconMenu} from  './Layout/IconMenu'
 import {LeftNav} from  './Layout/LeftNav'
@@ -9,6 +10,7 @@ import {TwoColumnLayout} from  './Layout/TwoColumnLayout'
 
 module.exports = {
     Card: Card,
+    Dialog: Dialog,
     H1: H1,
     H3: H3,
     IconMenu: IconMenu,

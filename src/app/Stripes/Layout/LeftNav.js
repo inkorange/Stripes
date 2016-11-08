@@ -10,6 +10,8 @@ export class LeftNav extends StripesTheme {
     static defaultProps = {
         style: {},
         type: 'default',
+        modal: false,
+        closeOnBlur: true,
         onBlur: () => { return false; },
         open: false
     }
@@ -46,14 +48,16 @@ export class LeftNav extends StripesTheme {
     }
 
     toggleOnBlur(e) {
-        setTimeout(() => {
-            var target = document.activeElement;
-            var isNested = this.refs.LeftNav.contains( target );
-            if(!isNested) {
-                this.toggleMenu(null, false);
-                this.props.onBlur();
-            }
-        }, 1);
+        if(this.props.closeOnBlur) {
+            setTimeout(() => {
+                var target = document.activeElement;
+                var isNested = this.refs.LeftNav.contains(target);
+                if (!isNested) {
+                    this.toggleMenu(null, false);
+                    this.props.onBlur();
+                }
+            }, 1);
+        }
     }
 
     focus() {
@@ -77,6 +81,18 @@ export class LeftNav extends StripesTheme {
         var spacing = this.getSpacing()[this.props.type];
 
         var styleObj = {
+            modal: {
+                position: 'fixed',
+                //display: this.state.open ? 'block' : 'none',
+                top: 0,
+                right: this.state.open ? 0 : '100vw',
+                left: 0,
+                bottom: 0,
+                opacity: this.state.open ? 1 : 0,
+                transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+                background: 'rgba(0,0,0,.5)',
+                zIndex: spacing.menuZIndex
+            },
             icon: {
                 cursor: 'pointer'
             },
@@ -89,7 +105,7 @@ export class LeftNav extends StripesTheme {
                 bottom: 0,
                 transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
                 outline: 'none',
-                zIndex: spacing.menuZIndex,
+                zIndex: spacing.menuZIndex + 1,
                 boxShadow: this.state.open ? '0 0 20px rgba(0,0,0,.5)' : '0 0 0 rgba(0,0,0,0)'
             }
         };
@@ -99,6 +115,15 @@ export class LeftNav extends StripesTheme {
     }
 
     render() {
+        var navNODE = (
+            <section style={this.state.style.menu} tabIndex="1" ref="LeftNav" key="navmenu" onBlur={this.toggleOnBlur}>
+                {this.props.children}
+            </section>
+        );
+        var renderedNODE = this.props.modal ? [
+            (<div key="modalcontainer" style={this.state.style.modal} onClick={this.toggleOnBlur}></div>),
+            navNODE
+        ] : navNODE;
         return (
             <div>
                 <Icon
@@ -108,9 +133,7 @@ export class LeftNav extends StripesTheme {
                     type="primary"
                     onClick={this.toggleMenu}
                 />
-                <section style={this.state.style.menu} tabIndex="1" ref="LeftNav" onBlur={this.toggleOnBlur}>
-                    {this.props.children}
-                </section>
+                {renderedNODE}
             </div>
         )
     }

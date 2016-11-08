@@ -1,23 +1,24 @@
 let Colors = require('./Colors');
 let basePadding = 5;
 let baseMargin = 5;
+let baseRadius= 2;
 
 export default {
     palette: Colors,
     spacing: {
         default: {
-            borderRadius: 2,
+            borderRadius: baseRadius,
             padding: basePadding,
             margin: baseMargin,
             menuZIndex: 2000
         },
         primary: {
-            borderRadius: 2,
+            borderRadius: baseRadius,
             padding: basePadding,
             margin: baseMargin
         },
         secondary: {
-            borderRadius: 2,
+            borderRadius: baseRadius,
             padding: basePadding,
             margin: baseMargin
         },
@@ -27,7 +28,7 @@ export default {
         switches: {
             padding: basePadding,
             margin: baseMargin,
-            borderRadius: 2,
+            borderRadius: baseRadius,
             width: 20,
             height: 20
         },
@@ -41,7 +42,7 @@ export default {
             margin: baseMargin,
             fontSize: '1.8rem',
             errorFontSize: '1.2rem',
-            borderRadius: 2,
+            borderRadius: baseRadius,
             underlineHeight: 2,
             menuZIndex: 2000
         },

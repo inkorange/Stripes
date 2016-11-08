@@ -10,6 +10,7 @@ class FlatButton extends StripesTheme {
         type: 'default',
         disabled: false,
         label: null,
+        style: {},
         onClick: () => { return false; }
     }
 
@@ -54,6 +55,7 @@ class FlatButton extends StripesTheme {
             },
             ink: this.getBaseStyling(spacing, color).animation.ink
         }
+        styleObj.button = Object.assign(styleObj.button, this.props.style);
         return styleObj;
     }
 
@@ -127,7 +129,7 @@ class RaisedButton extends StripesTheme {
             },
             ink: this.getBaseStyling(spacing, color).animation.ink
         }
-        styleObj = Object.assign(styleObj, this.props.style);
+        styleObj.button = Object.assign(styleObj.button, this.props.style);
         return styleObj;
     }
 
