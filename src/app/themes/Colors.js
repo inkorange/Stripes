@@ -19,6 +19,7 @@ module.exports = {
         backgroundHover: 'rgba(0,0,0,.08)',
         iconColor: '#8B8F92',
         headerBackgroundColor: '#1565C0',
+        activeIcon: "#3366CC",
         inactiveIcon: "#dbdbdb"
 },
     primary: {
@@ -27,7 +28,10 @@ module.exports = {
         border: '',
         backgroundColor: '#1565C0',
         backgroundHover: '#2d80df',
-        iconColor: '#1565C0'
+        iconColor: '#1565C0',
+        activeIcon: "#3366CC",
+        inactiveIcon: "#dbdbdb"
+
     },
     secondary: {
         textColor: baseTextColor,
@@ -35,7 +39,10 @@ module.exports = {
         border: '',
         backgroundColor: 'rgba(0,0,0,.2)',
         backgroundHover: 'rgba(0,0,0,.08)',
-        iconColor: '#1565C0'
+        iconColor: '#1565C0',
+        activeIcon: "#3366CC",
+        inactiveIcon: "#dbdbdb"
+
     },
     headers: {
         H1Color: 'black',

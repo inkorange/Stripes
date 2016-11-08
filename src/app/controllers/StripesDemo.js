@@ -300,11 +300,11 @@ class StripesDemo extends React.Component {
                     <Table>
                         <TableHeader>
                             <TableHeaderRow>
-                                <TableHeaderCell>Head 1</TableHeaderCell>
-                                <TableHeaderCell>Head 2</TableHeaderCell>
+                                <TableHeaderCell isSortable={true}>Head 1</TableHeaderCell>
+                                <TableHeaderCell isSortable={true} sortdirection="desc">Head 2</TableHeaderCell>
                             </TableHeaderRow>
                         </TableHeader>
-                        <TableBody height="200px">
+                        <TableBody height="200px" zebraStripes={true}>
                             {tableCells}
                         </TableBody>
                     </Table>

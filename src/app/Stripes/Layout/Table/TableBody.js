@@ -9,12 +9,13 @@ export class TableBody extends StripesTheme {
     static defaultProps = {
         style: {},
         type: 'table',
-        height: null
+        height: null,
+        zebraStripes: false
     }
 
     constructor(props) {
         super(props);
-        console.log(props);
+        this.stripeRows = this.stripeRows.bind(this);
         this.state = {
             style: {}
         }
@@ -24,11 +25,31 @@ export class TableBody extends StripesTheme {
         this.setState({
             style: this.getStyles()
         });
+        if(this.props.zebraStripes) {
+            this.stripeRows();
+        }
+    }
+
+    componentDidUpdate() {
+        if(this.props.zebraStripes) {
+            this.stripeRows();
+        }
+    }
+
+    stripeRows() {
+        var color = this.getColors()[this.props.type].row;
+        var rows = this.refs.tableBody.getElementsByTagName("TR");
+
+        for (var i = 0; i < rows.length; i = i + 2) {
+            rows[i].style.backgroundColor = color.zebraStripe;
+        }
+
+        // color.zebraStripe
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type].header;
-        var spacing = this.getSpacing()[this.props.type].header;
+        var color = this.getColors()[this.props.type].row;
+        var spacing = this.getSpacing()[this.props.type].row;
         var styleObj = {
             base: {
                 height: this.props.height,
@@ -53,7 +74,7 @@ export class TableBody extends StripesTheme {
         return (
             <div style={this.state.style.base}>
             <table style={this.state.style.table}>
-                <tbody>
+                <tbody ref="tableBody">
                     {this.props.children}
                 </tbody>
             </table>

@@ -43,11 +43,11 @@ export class TableRow extends StripesTheme {
             base: {
                 borderBottom: '1px solid ' + color.border,
                 cursor: this.props.onClick ? 'pointer' : 'default',
-                transition: 'background-color .25s',
+                transition: 'box-shadow .25s',
                 minHeight: spacing.minHeight + 'px'
             }
         };
-        styleObj.hover = Object.assign({backgroundColor: color.hoverColor}, styleObj.base);
+        styleObj.hover = Object.assign({boxShadow: '0 0 '+spacing.minHeight*2+'px 10px ' + color.hoverColor + " inset"}, styleObj.base);
         styleObj.base = Object.assign(styleObj.base, this.props.style);
         return styleObj;
     }

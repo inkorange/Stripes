@@ -13,7 +13,6 @@ export class TableHeader extends StripesTheme {
 
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             style: {}
         }
@@ -44,7 +43,6 @@ export class TableHeader extends StripesTheme {
     }
 
     render() {
-        console.log(this.props.fixedHeight);
         return (
             <table style={this.state.style.table}>
                 <thead style={this.state.style.base}>

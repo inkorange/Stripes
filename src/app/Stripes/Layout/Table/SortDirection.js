@@ -8,7 +8,7 @@ import { Icon } from '../../Symbols/Icon'
 export class SortDirection extends StripesTheme {
 
     static defaultProps = {
-        direction: 'asc',
+        sortdirection: 'asc',
         width: 10,
         type: 'default'
     }
@@ -32,20 +32,22 @@ export class SortDirection extends StripesTheme {
         var styleObj = {
             base: {
                 position: 'absolute',
-                right: 0,
+                right: spacing.padding + 'px',
                 top: spacing.padding + 'px',
                 width: this.props.width + 'px'
             },
             asc : {
                 display: 'inline-block',
-                float: 'right'
+                float: 'right',
+                position: 'relative',
+                top: spacing.padding + 'px'
             },
             desc: {
                 display: 'inline-block',
                 float: 'right',
                 position: 'relative',
                 transform: 'rotate(180deg)',
-                top: "-" + (this.props.width *1.75) + 'px'
+                top: -(this.props.width *4.5) + 'px'
             }
         }
 
@@ -55,8 +57,9 @@ export class SortDirection extends StripesTheme {
 
     render() {
         var color = this.getColors()[this.props.type];
-        var asccolor = this.props.direction === 'asc' ? color.iconColor : color.inactiveIcon;
-        var desccolor = this.props.direction === 'desc' ? color.iconColor : color.inactiveIcon;
+        var asccolor = this.props.sortdirection === 'asc' ? color.activeIcon : color.inactiveIcon;
+        var desccolor = this.props.sortdirection === 'desc' ? color.activeIcon : color.inactiveIcon;
+
         return (
             <div style={this.state.style.base}>
                 <Icon key="asc"  basestyle={this.state.style.asc}  style={{width: this.props.width + 'px'}} color={asccolor}  iconid="up" />

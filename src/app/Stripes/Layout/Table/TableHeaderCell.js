@@ -12,7 +12,7 @@ export class TableHeaderCell extends StripesTheme {
         type: 'table',
         onClick: null,
         isSortable: false,
-        sort_direction: null
+        sortdirection: 'asc'
     }
 
     constructor(props) {
@@ -23,7 +23,7 @@ export class TableHeaderCell extends StripesTheme {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setState({
             style: this.getStyles()
         });
@@ -41,7 +41,8 @@ export class TableHeaderCell extends StripesTheme {
         var styleObj = {
             base: {
                 padding: spacing.padding + 'px',
-                cursor: this.props.onClick ? 'pointer' : 'default'
+                cursor: this.props.onClick || this.props.isSortable ? 'pointer' : 'default',
+                position: 'relative'
             },
             sort: {
                 style: {
@@ -55,11 +56,12 @@ export class TableHeaderCell extends StripesTheme {
     }
 
     render() {
+
         var sortNODE = this.props.isSortable ? (
             <SortDirection
                 style={this.state.style.sort.style}
                 width={this.state.style.sort.width}
-                direction={this.props.sort_direction}
+                sortdirection={this.props.sortdirection}
             />
         ) : null;
 
