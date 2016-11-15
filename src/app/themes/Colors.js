@@ -1,5 +1,7 @@
 
 let primaryColor = "#3366CC";
+let primaryBackground = "#1565C0";
+let secondaryBackground = "#dbdbdb";
 let baseTextColor = "#212121";
 let secondaryTextColor = "white";
 let inactiveColor = "#dbdbdb";
@@ -18,7 +20,7 @@ module.exports = {
         backgroundColor: 'transparent',
         backgroundHover: 'rgba(0,0,0,.08)',
         iconColor: '#8B8F92',
-        headerBackgroundColor: '#1565C0',
+        headerBackgroundColor: primaryBackground,
         activeIcon: "#3366CC",
         inactiveIcon: "#dbdbdb"
 },
@@ -26,9 +28,10 @@ module.exports = {
         textColor: 'white',
         hoverText: '',
         border: '',
-        backgroundColor: '#1565C0',
+        backgroundColor: primaryBackground,
         backgroundHover: '#2d80df',
-        iconColor: '#1565C0',
+        iconColor: primaryBackground,
+        headerBackgroundColor: primaryBackground,
         activeIcon: "#3366CC",
         inactiveIcon: "#dbdbdb"
 
@@ -39,21 +42,24 @@ module.exports = {
         border: '',
         backgroundColor: 'rgba(0,0,0,.2)',
         backgroundHover: 'rgba(0,0,0,.08)',
-        iconColor: '#1565C0',
+        iconColor: primaryBackground,
+        headerBackgroundColor: secondaryBackground,
         activeIcon: "#3366CC",
         inactiveIcon: "#dbdbdb"
 
     },
-    headers: {
+    typography: {
         H1Color: 'black',
-        H3Color: 'rgb(100,100,100)'
+        H3Color: 'rgb(100,100,100)',
+        aColor: 'black',
+        aHoverColor: primaryBackground
     },
     notification: {
         backgroundColor: 'rgba(0,0,0,.75)'
     },
     switches: {
-        borderColor: '#1565C0',
-        fillColor: '#1565C0',
+        borderColor: primaryBackground,
+        fillColor: primaryBackground,
         checkImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'><polygon fill=\'white\' points=\'424 96 184 336 88 240 48 280 184 416 464 136 424 96\'/></svg>")'
     },
     inputs: {

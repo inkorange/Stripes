@@ -1,6 +1,7 @@
 import {FlatButton, RaisedButton} from  './Forms/Buttons'
 import {Fieldset} from  './Forms/Fieldset'
 import {TextBox,TextArea,DropDown} from  './Forms/Inputs'
+import {DatePicker} from  './Forms/DatePicker'
 import {RadioButtonGroup,CheckBoxGroup,Item} from  './Forms/Switches'
 
 module.exports = {
@@ -12,5 +13,6 @@ module.exports = {
     RadioButtonGroup: RadioButtonGroup,
     RaisedButton: RaisedButton,
     TextArea: TextArea,
-    TextBox: TextBox
+    TextBox: TextBox,
+    DatePicker: DatePicker
 }

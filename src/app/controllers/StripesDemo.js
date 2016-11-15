@@ -5,8 +5,9 @@ import { render } from 'react-dom'
 
 import {FlatButton, RaisedButton} from '../Stripes/Forms/Buttons'
 
-import {Card, Dialog, Paper, H1, H3, Title, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from '../Stripes/Layouts'
-import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown} from '../Stripes/Forms'
+import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from '../Stripes/Layouts'
+import {H1, H3, Title} from '../Stripes/Typography'
+import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker} from '../Stripes/Forms'
 import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from '../Stripes/Table'
 
 import {Alert} from  '../Stripes/Notifications/Alert'
@@ -92,6 +93,9 @@ class StripesDemo extends React.Component {
             </Card>);
         var InputsSection = (
             <div>
+                <section>
+                    <DatePicker />
+                </section>
                 <section>
                     <H3>FlatButton</H3>
                     <FlatButton key="button1">FlatButton</FlatButton>
@@ -184,6 +188,7 @@ class StripesDemo extends React.Component {
                         </DropDown>
                     </Fieldset>
                 </section>
+                <br/><br/><br/><br/><br/>
             </div>
         );
 

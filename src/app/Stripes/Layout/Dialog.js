@@ -4,12 +4,15 @@ import React from 'react'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Card } from './Card'
+import { Icon } from  '../Symbols/Icon'
 
 export class Dialog extends StripesTheme {
 
     static defaultProps = {
         style: {},
+        dialogStyle: {},
         type: 'default',
+        showClose: false,
         modal: true,
         title: null,
         actions: null,
@@ -19,6 +22,8 @@ export class Dialog extends StripesTheme {
     constructor(props) {
         super(props);
         this.toggleDialog = this.toggleDialog.bind(this);
+        this.close = this.close.bind(this);
+        this.open = this.open.bind(this);
         this.state = {
             open: false,
             style: {}
@@ -56,7 +61,6 @@ export class Dialog extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
 
         var styleObj = {
@@ -77,32 +81,51 @@ export class Dialog extends StripesTheme {
                 position: 'absolute',
                 top: '45%',
                 left: '50%',
-                transform: 'translate(-50%, -50%)'
+                transform: 'translate(-50%, ' + (this.state.open ? '-50%' : '-80%') + ')',
+                transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
             },
             card: {
                 base: {
                     borderRadius: spacing.borderRadius + "px"
                 },
                 header: {
-                    padding: spacing.padding*8 + "px " + spacing.padding*4 + "px",
+                    padding: spacing.padding*7 + "px " + spacing.padding*4 + "px",
                     borderRadius: spacing.borderRadius + "px " + spacing.borderRadius + "px 0 0"
                 },
                 footer: {
                     padding: spacing.padding*3 + "px " + spacing.padding*4 + "px",
                     borderRadius: "0 0 " + spacing.borderRadius + "px " + spacing.borderRadius + "px"
+                },
+                closebutton: {
+                    float: 'right',
+                    cursor: 'pointer',
+                    position: 'absolute',
+                    top: spacing.padding*4 + "px ",
+                    right: spacing.padding*4 + "px "
                 }
             }
         };
         styleObj.container = Object.assign(styleObj.container, this.props.style);
+        styleObj.dialog = Object.assign(styleObj.dialog, this.props.dialogStyle);
         return styleObj;
     }
 
     render() {
+        var titleNode = null;
+
+        if(this.props.title || this.props.showClose) {
+            titleNode = (
+                <div>
+                    {this.props.title}
+                    {this.props.showClose ? (<Icon key="titleclose" onClick={this.close} iconid="close" color="white" basestyle={this.state.style.card.closebutton}/>) : null}
+                </div>
+            );
+        }
         return (
             <section style={this.state.style.container} ref="dialogContainer" className="Dialog">
                 <div style={this.state.style.dialog}>
                     <Card
-                        title={this.props.title}
+                        title={titleNode}
                         actions={this.props.actions}
                         style={this.state.style.card.base}
                         headerStyle={this.state.style.card.header}

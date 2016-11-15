@@ -10,17 +10,20 @@ export default {
             borderRadius: baseRadius,
             padding: basePadding,
             margin: baseMargin,
-            menuZIndex: 2000
+            menuZIndex: 2000,
+            baseFontSize: 1.6,
         },
         primary: {
             borderRadius: baseRadius,
             padding: basePadding,
-            margin: baseMargin
+            margin: baseMargin,
+            baseFontSize: 1.6,
         },
         secondary: {
             borderRadius: baseRadius,
             padding: basePadding,
-            margin: baseMargin
+            margin: baseMargin,
+            baseFontSize: 1.6,
         },
         notification: {
             padding: basePadding
@@ -32,7 +35,7 @@ export default {
             width: 20,
             height: 20
         },
-        headers: {
+        typography: {
             baseFontSize: 1.6,
             padding: basePadding*4,
             margin: baseMargin*4

@@ -17,7 +17,9 @@ class TextBox extends StripesTheme {
         error: null,
         width: null,
         showSuggestions: false,
-        suggestionData: []
+        suggestionData: [],
+        anchor: null,
+        onClick: null
     }
 
     constructor(props) {
@@ -38,7 +40,8 @@ class TextBox extends StripesTheme {
     componentDidUpdate(props) {
         if(props !== this.props) {
             this.setState({
-                style: this.getStyles()
+                style: this.getStyles(),
+                value: this.props.value
             });
         }
     }
@@ -52,7 +55,7 @@ class TextBox extends StripesTheme {
             }, () => {
                 if(this.props.showSuggestions && this.state.suggestionItems.length) {
                     this.refs.selectPanel.open(false);
-                } else {
+                } else if(this.refs.selectPanel) {
                     this.refs.selectPanel.close();
                 }
             });
@@ -95,9 +98,11 @@ class TextBox extends StripesTheme {
     onCompleteInputBlur(e) {
         setTimeout(() => {
             var target = document.activeElement;
-            //console.log(target.className);
+            //console.log(target, target.className);
             if(target.className !== "SelectPanel" && this.props.showSuggestions) {
                 this.refs.selectPanel.close();
+                this.onInputBlur(e);
+            } else if(!this.props.showSuggestions) {
                 this.onInputBlur(e);
             }
         }, 1);
@@ -118,6 +123,10 @@ class TextBox extends StripesTheme {
             this.state.style.container.width = this.props.width;
             this.state.style.input.width = "100%";
         }
+        var anchorNode = null;
+        if(this.props.anchor) {
+            anchorNode = <div onClick={this.onInputClick} style={this.state.style.anchor}>{this.props.anchor}</div>
+        }
         return (
             <div style={this.state.style.container}>
                 <input
@@ -128,6 +137,7 @@ class TextBox extends StripesTheme {
                     onChange={this.onChange}
                     style={this.state.style.input}
                 />
+                {anchorNode}
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
                 {this.props.showSuggestions ?
                     <SelectPanel

@@ -1,6 +1,6 @@
 import {Card} from  './Layout/Card'
 import {Dialog} from  './Layout/Dialog'
-import {H1,H3,Title} from  './Layout/Headers'
+import {H1,H3,Title} from  './Layout/Typography'
 import {IconMenu} from  './Layout/IconMenu'
 import {LeftNav} from  './Layout/LeftNav'
 import {Paper} from  './Layout/Paper'

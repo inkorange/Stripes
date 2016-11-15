@@ -22,10 +22,17 @@ export class Fieldset extends StripesTheme {
         }
     }
 
+    componentDidUpdate(props) {
+        if(props !== this.props) {
+            this.setState({
+                style: this.getStyles()
+            });
+        }
+    }
+
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
-
         var styleObj = {
             base: {
                 border: 'none',

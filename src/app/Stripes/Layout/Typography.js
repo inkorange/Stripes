@@ -7,7 +7,7 @@ import { StripesTheme } from '../Core/Stripes'
 class Title extends StripesTheme {
 
     static defaultProps = {
-        type: 'headers',
+        type: 'typography',
         style: {}
     }
 
@@ -40,10 +40,69 @@ class Title extends StripesTheme {
     }
 }
 
+class A extends StripesTheme {
+
+    static defaultProps = {
+        type: 'typography',
+        style: {},
+        href: "#",
+        target: null
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            hover: false
+        }
+    }
+
+    getStyles() {
+        var spacing = this.getSpacing()[this.props.type];
+        var color = this.getColors()[this.props.type];
+        var styleObj = {
+            base: {
+                color: color.aColor,
+                textDecoration: 'none',
+                fontWeight: 200
+            },
+            hover: {
+                color: color.aHoverColor,
+                textDecoration: 'none',
+                fontWeight: 200
+            }
+        }
+        styleObj.base = Object.assign(styleObj.base, this.props.style);
+        styleObj.hover = Object.assign(styleObj.hover, this.props.style);
+        return styleObj;
+    }
+
+    render() {
+        var style = this.getStyles();
+        var dataprops = {};
+        Object.keys(this.props).map((k) => {
+            if(k.indexOf('data-') >= 0) {
+                dataprops[k] = this.props[k];
+            }
+        });
+        return (
+            <a
+                style={this.state.hover ? style.hover : style.base}
+                href={this.props.href}
+                target={this.props.target}
+                {...dataprops}
+                onClick={this.props.onClick}
+                onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
+            >
+                {this.props.children}
+            </a>
+        )
+    }
+}
+
 class H1 extends StripesTheme {
 
     static defaultProps = {
-        type: 'headers',
+        type: 'typography',
         style: {}
     }
 
@@ -80,7 +139,7 @@ class H1 extends StripesTheme {
 class H3 extends StripesTheme {
 
     static defaultProps = {
-        type: 'headers',
+        type: 'typography',
         style: {}
     }
 
@@ -116,6 +175,7 @@ class H3 extends StripesTheme {
 module.exports = {
     H1: H1,
     H3: H3,
-    Title: Title
+    Title: Title,
+    A: A
     //comp2: Component2
 }

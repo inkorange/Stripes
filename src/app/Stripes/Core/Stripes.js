@@ -48,7 +48,15 @@ export class StripesTheme extends React.Component {
                     width: this.props.width,
                     resize: 'vertical',
                     textOverflow: 'ellipsis',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    cursor: this.props.onClick ? 'pointer' : 'default'
+                },
+                anchor: {
+                    position: 'absolute',
+                    top: '50%',
+                    right: '0',
+                    transform: 'translateY(-50%)',
+                    cursor: this.props.onClick ? 'pointer' : 'default'
                 },
                 active: {
                     base: {
@@ -121,6 +129,10 @@ export class StripesTheme extends React.Component {
     onInputClick(e) {
         this.setState({
             active: true
+        }, () => {
+            if(this.props.onClick) {
+                this.props.onClick(e);
+            }
         });
     }
 
