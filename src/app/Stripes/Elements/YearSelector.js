@@ -21,6 +21,7 @@ export class YearSelector extends StripesTheme {
     constructor(props) {
         super(props);
         this.selectYear = this.selectYear.bind(this);
+        this.positionSelection = this.positionSelection.bind(this);
         this.state = {
             style: this.getStyles(),
             hover: false
@@ -28,10 +29,8 @@ export class YearSelector extends StripesTheme {
     }
 
     componentDidMount() {
-        var selected = this.refs.yearHolder.querySelectorAll('[data-year="'+m(this.state.date).format("YYYY")+'"]')[0];
-        var fromtop = selected.offsetTop;
-        var height = this.refs.yearHolder.clientHeight;
-        this.refs.yearHolder.scrollTop = (fromtop - height/2 + selected.clientHeight/2);
+        this.positionSelection();
+
     }
 
     componentDidUpdate(props) {
@@ -39,8 +38,18 @@ export class YearSelector extends StripesTheme {
             this.setState({
                 style: this.getStyles(),
                 date: this.props.date
-            });
+            },this.positionSelection);
         }
+    }
+
+    positionSelection() {
+        if(!this.state.date) {
+            return false;
+        }
+        var selected = this.refs.yearHolder.querySelectorAll('[data-year="'+m(this.state.date).format("YYYY")+'"]')[0];
+        var fromtop = selected.offsetTop;
+        var height = this.refs.yearHolder.clientHeight;
+        this.refs.yearHolder.scrollTop = (fromtop - height/2 + selected.clientHeight/2);
     }
 
     selectYear(e) {
@@ -84,16 +93,6 @@ export class YearSelector extends StripesTheme {
             boxShadow: '0 0 10px rgba(0,0,0,.25)'
         }, styleObj.yearitem);
 
-        /*
-        styleObj.dayitemUnavailable = Object.assign({
-            opacity: '.33'
-        }, styleObj.dayitem);
-        styleObj.dayitemSelected = Object.assign({
-            color: 'white',
-            borderRadius: '50%',
-            backgroundColor: color.headerBackgroundColor
-        }, styleObj.dayitem);
-        */
         return styleObj;
     }
 
@@ -102,7 +101,7 @@ export class YearSelector extends StripesTheme {
         var firstConstraint = this.props.dateConstraint[0] ? m(this.props.dateConstraint[0]) : m('2000-01-01');
         var secondConstraint = this.props.dateConstraint[1] ? m(this.props.dateConstraint[1]) : m('2100-01-01');
         var yearNode = [];
-        var startYear = year*1 - 50;
+        var startYear = m().format("YYYY")*1 - 50;
         var endYear = year*1 + 50;
         for(var yr = startYear; yr <= endYear; yr++) {
             if(yr >= firstConstraint.format("YYYY")*1 && yr <= secondConstraint.format("YYYY")*1) {

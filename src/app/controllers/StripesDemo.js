@@ -94,7 +94,9 @@ class StripesDemo extends React.Component {
         var InputsSection = (
             <div>
                 <section>
-                    <DatePicker />
+                    <DatePicker
+                        width="150px"
+                    />
                 </section>
                 <section>
                     <H3>FlatButton</H3>

@@ -15,6 +15,7 @@ export class DatePicker extends StripesTheme {
 
     static defaultProps = {
         style: {},
+        width: '200px',
         depth: 1,
         className: '',
         type: 'default',
@@ -165,9 +166,10 @@ export class DatePicker extends StripesTheme {
                 <TextBox
                     ref="textbox"
                     value={m(this.state.date).format(this.props.format)}
-                    width={"300px"}
+                    width={this.props.width}
                     anchor={<Icon iconid="calendar" basestyle={{marginTop:'-5px'}} size="small" />}
                     onClick={this.toggleDialog}
+                    readOnly={true}
                 />
                 <Dialog ref="Dialog"
                     modal={true}

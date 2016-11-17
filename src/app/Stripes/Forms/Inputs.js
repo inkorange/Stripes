@@ -19,7 +19,10 @@ class TextBox extends StripesTheme {
         showSuggestions: false,
         suggestionData: [],
         anchor: null,
-        onClick: null
+        onClick: null,
+        onChange: null,
+        disabled: false,
+        readOnly: false
     }
 
     constructor(props) {
@@ -59,6 +62,9 @@ class TextBox extends StripesTheme {
                     this.refs.selectPanel.close();
                 }
             });
+        }
+        if(this.props.onChange) {
+            this.props.onChange(e, val);
         }
     }
 
@@ -131,6 +137,8 @@ class TextBox extends StripesTheme {
             <div style={this.state.style.container}>
                 <input
                     ref="input"
+                    disabled={this.props.disabled ? 'disabled' : null}
+                    readOnly={this.props.readOnly ? 'readonly' : null}
                     placeholder={this.props.placeholder}
                     onClick={this.onInputClick}
                     onBlur={this.onCompleteInputBlur}
