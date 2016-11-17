@@ -1,19 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-// material themes
-import GlobalStyles from '../themes/GlobalStyles';
-
 // elements
 const MainContent =     require('./MainContent');
 
 const MainLayout = React.createClass({
-
-    getDefaultProps: function () {
-        return {
-            GlobalStyles: GlobalStyles
-        };
-    },
 
     getInitialState: function() {
         return {

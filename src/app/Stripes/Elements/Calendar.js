@@ -13,13 +13,15 @@ export class Calendar extends StripesTheme {
         style: {},
         date: new Date(),
         type: 'default',
-        onClick: null
+        onClick: null,
+        dateConstraint: [null,null]
     }
 
     constructor(props) {
         super(props);
         this.modifyDate = this.modifyDate.bind(this);
         this.selectDate = this.selectDate.bind(this);
+        this.switchToDate = this.switchToDate.bind(this);
         this.state = {
             style: this.getStyles(),
             hover: false
@@ -48,6 +50,12 @@ export class Calendar extends StripesTheme {
         }
     }
 
+    switchToDate(date) {
+        this.setState({
+            date: date
+        });
+    }
+
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
@@ -68,6 +76,7 @@ export class Calendar extends StripesTheme {
             },
             montharrowbase: {
                 display: 'inline-block',
+                cursor: 'pointer',
                 flexGrow: 1,
                 width: '10%',
                 textAlign: 'center',
@@ -100,6 +109,9 @@ export class Calendar extends StripesTheme {
         styleObj.dayitemhover = Object.assign({
             backgroundColor: color.backgroundHover
         }, styleObj.dayitem);
+        styleObj.dayitemUnavailable = Object.assign({
+            opacity: '.33'
+        }, styleObj.dayitem);
         styleObj.dayitemSelected = Object.assign({
             color: 'white',
             borderRadius: '50%',
@@ -111,6 +123,7 @@ export class Calendar extends StripesTheme {
     render() {
         var month = m(this.state.date).format("MMMM YYYY");
         var calOnFirstDay = m(this.state.date).date(1);
+        var calOnLastDay = m(this.state.date).date(m(calOnFirstDay).daysInMonth());
         var firstday = m(calOnFirstDay).isoWeekday() - 1;
         //console.log('first day: ', m(calOnFirstDay).isoWeekday());
 
@@ -128,41 +141,48 @@ export class Calendar extends StripesTheme {
         if(firstday == 6) {
             firstday = -1;
         }
+        var firstConstraint = this.props.dateConstraint[0] ? m(this.props.dateConstraint[0]) : m('2000-01-01');
+        var secondConstraint = this.props.dateConstraint[1] ? m(this.props.dateConstraint[1]) : m('2100-01-01');
         for (var i = firstday*-1; i <= m(calOnFirstDay).daysInMonth(); i++) {
             var day = i > 0 ? i : '';
             var thisDate = m(calOnFirstDay).date(i);
             var isSelectedDate = thisDate.format("L") === m(this.props.date).format("L");
+            var isAvailable = thisDate.isBetween(firstConstraint, secondConstraint, 'day');
             days.push(
                 <A
                     key={"date" + i}
-                    style={isSelectedDate ? this.state.style.dayitemSelected : this.state.style.dayitem}
+                    style={isSelectedDate ? this.state.style.dayitemSelected : isAvailable ? this.state.style.dayitem : this.state.style.dayitemUnavailable}
                     data-date={thisDate.toDate().toString()}
                     onClick={ i > 0 ? this.selectDate : null}
                     data-date={thisDate.toDate().toString()}
+                    disabled={!isAvailable}
                 >
                     {day}
                 </A>
           );
         }
 
+        var hasPreviousMonth = calOnFirstDay.isAfter(firstConstraint);
+        var hasNextMonth = calOnLastDay.isBefore(secondConstraint);
+
         return (
             <section
                 style={this.state.style.base}
             >
                 <div style={this.state.style.months}>
-                    <Icon
+                    {hasPreviousMonth ? <Icon
                         iconid="left"
                         style={this.state.style.montharrow}
                         basestyle={this.state.style.montharrowbase}
                         onClick={() => { this.modifyDate(-1, 'months'); }}
-                    />
+                    /> : <div style={this.state.style.montharrowbase}></div> }
                     <div style={this.state.style.monthtitle}>{month}</div>
-                    <Icon
+                    {hasNextMonth ? <Icon
                         iconid="right"
                         style={this.state.style.montharrow}
                         basestyle={this.state.style.montharrowbase}
                         onClick={() => { this.modifyDate(1, 'months'); }}
-                    />
+                    /> : <div style={this.state.style.montharrowbase}></div> }
                 </div>
                 <div style={this.state.style.days}>
                     {daysOfWeek}

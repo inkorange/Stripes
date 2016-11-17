@@ -11,6 +11,7 @@ export class SelectPanel extends StripesTheme {
         selected: null,
         showSummary: false,
         data: [],
+        show: false,
         onClose: () => {}
     }
 
@@ -19,7 +20,7 @@ export class SelectPanel extends StripesTheme {
         this.state = {
             style: {},
             value: null,
-            show: false
+            show: this.props.show
         };
 
         this.state = {

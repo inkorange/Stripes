@@ -46,7 +46,8 @@ class A extends StripesTheme {
         type: 'typography',
         style: {},
         href: "#",
-        target: null
+        target: null,
+        disabled: false
     }
 
     constructor(props) {
@@ -86,11 +87,11 @@ class A extends StripesTheme {
         });
         return (
             <a
-                style={this.state.hover ? style.hover : style.base}
+                style={!this.props.disabled && this.state.hover ? style.hover : style.base}
                 href={this.props.href}
                 target={this.props.target}
                 {...dataprops}
-                onClick={this.props.onClick}
+                onClick={!this.props.disabled ? this.props.onClick : () => { return false; } }
                 onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
             >
                 {this.props.children}

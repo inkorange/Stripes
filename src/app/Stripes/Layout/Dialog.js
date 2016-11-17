@@ -11,6 +11,7 @@ export class Dialog extends StripesTheme {
     static defaultProps = {
         style: {},
         dialogStyle: {},
+        cardStyle: {},
         type: 'default',
         showClose: false,
         modal: true,
@@ -86,7 +87,7 @@ export class Dialog extends StripesTheme {
             },
             card: {
                 base: {
-                    borderRadius: spacing.borderRadius + "px"
+                    borderRadius: spacing.borderRadius + 'px'
                 },
                 header: {
                     padding: spacing.padding*7 + "px " + spacing.padding*4 + "px",
@@ -107,6 +108,7 @@ export class Dialog extends StripesTheme {
         };
         styleObj.container = Object.assign(styleObj.container, this.props.style);
         styleObj.dialog = Object.assign(styleObj.dialog, this.props.dialogStyle);
+        styleObj.card.base = Object.assign(styleObj.card.base, this.props.cardStyle);
         return styleObj;
     }
 

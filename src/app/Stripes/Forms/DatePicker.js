@@ -6,6 +6,7 @@ import { StripesTheme } from '../Core/Stripes'
 import { Dialog, Paper } from '../Layouts'
 import {TextBox} from  '../Forms/Inputs'
 import {Calendar} from  '../Elements/Calendar'
+import {YearSelector} from  '../Elements/YearSelector'
 import { Icon } from  '../Symbols/Icon'
 import m from 'moment'
 import {FlatButton, RaisedButton} from '../Forms/Buttons'
@@ -19,6 +20,7 @@ export class DatePicker extends StripesTheme {
         type: 'default',
         disabled: false,
         visible: true,
+        dateConstraint: [null,null], //['2013-11-05','2016-12-25'],
         yearFormat: 'YYYY',
         dateFormat: 'ddd, MMMM D',
         format: 'M/D/YYYY'
@@ -29,10 +31,14 @@ export class DatePicker extends StripesTheme {
         this.toggleDialog = this.toggleDialog.bind(this);
         this.renderCleanDate = this.renderCleanDate.bind(this);
         this.setDate = this.setDate.bind(this);
+        this.setYear = this.setYear.bind(this);
+        this.showCalendar = this.showCalendar.bind(this);
+        this.showYearPanel = this.showYearPanel.bind(this);
+        this.updateStyles = this.updateStyles.bind(this);
         this.state = {
             active: false,
             date: new Date(),
-            showDate: true,
+            showCalendar: true,
             showYear: false
         }
     }
@@ -45,9 +51,7 @@ export class DatePicker extends StripesTheme {
 
     componentDidUpdate(props) {
         if(props !== this.props) {
-            this.setState({
-                style: this.getStyles()
-            });
+            this.updateStyles();
         }
     }
 
@@ -56,6 +60,7 @@ export class DatePicker extends StripesTheme {
         this.setState({
             active: show
         }, () => {
+            this.showCalendar();
             if(open) {
                 this.refs.Dialog.open();
             } else {
@@ -64,9 +69,32 @@ export class DatePicker extends StripesTheme {
         });
     }
 
+    showCalendar() {
+        this.setState({
+            showCalendar: true,
+            showYear: false
+        }, () => {
+            this.refs.Calendar.switchToDate(this.state.date);
+            this.updateStyles();
+        });
+    }
+
+    showYearPanel() {
+        this.setState({
+            showCalendar: false,
+            showYear: true
+        }, this.updateStyles);
+    }
+
+    updateStyles() {
+        this.setState({
+            style: this.getStyles()
+        });
+    }
+
     renderCleanDate() {
-        var year = <div key="yeartitle" style={this.state.style.year}>{m(this.state.date).format(this.props.yearFormat)}</div>;
-        var date = <div key="datetitle" style={this.state.style.date}>{m(this.state.date).format(this.props.dateFormat)}</div>;
+        var year = <div key="yeartitle" onClick={this.showYearPanel} style={this.state.style.year}>{m(this.state.date).format(this.props.yearFormat)}</div>;
+        var date = <div key="datetitle" onClick={this.showCalendar}  style={this.state.style.date}>{m(this.state.date).format(this.props.dateFormat)}</div>;
         return [year,date];
     }
 
@@ -76,6 +104,16 @@ export class DatePicker extends StripesTheme {
         });
         this.refs.Dialog.close();
         this.refs.textbox.applyValue(m(date).format(this.props.format));
+    }
+
+    setYear(year) {
+        var mDate = m(this.state.date);
+        mDate.year(year);
+        this.setState({
+            date: new Date(mDate.toString()),
+            showCalendar: true,
+            showYear: false
+        }, this.updateStyles);
     }
 
     getStyles() {
@@ -98,7 +136,7 @@ export class DatePicker extends StripesTheme {
             },
             date: {
                 fontSize: spacing.baseFontSize * 2 + 'rem',
-                opacity: this.state.showDate ? '1.0' : '.5',
+                opacity: this.state.showCalendar ? '1.0' : '.5',
                 cursor: 'pointer'
             },
             label: {
@@ -109,9 +147,11 @@ export class DatePicker extends StripesTheme {
                 color: color.textColor
             },
             dialog: {
-                //width: '50%',
                 maxWidth: '350px',
                 minWidth: '300px'
+            },
+            dialogcard: {
+                minHeight: '470px'
             }
         }
 
@@ -134,11 +174,20 @@ export class DatePicker extends StripesTheme {
                     title={cleanDate}
                     showClose={true}
                     dialogStyle={this.state.style.dialog}
+                    cardStyle={this.state.style.dialogcard}
                 >
-                    <Calendar
+                    {this.state.showYear ? <YearSelector
+                        ref="YearSelector"
+                        onClick={this.setYear}
+                        date={this.state.date}
+                        dateConstraint={this.props.dateConstraint}
+                    /> : null }
+                    {this.state.showCalendar ? <Calendar
+                        ref="Calendar"
                         onClick={this.setDate}
                         date={this.state.date}
-                    />
+                        dateConstraint={this.props.dateConstraint}
+                    /> : null }
                 </Dialog>
             </div>
         )
