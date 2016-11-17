@@ -43,7 +43,9 @@ export class Calendar extends StripesTheme {
 
     selectDate(e) {
         var date = new Date(e.target.getAttribute('data-date'));
-        this.props.onClick(date);
+        if(date) {
+            this.props.onClick(date);
+        }
     }
 
     getStyles() {
@@ -90,7 +92,7 @@ export class Calendar extends StripesTheme {
                 flexFlow: 'column wrap',
                 alignContent: 'stretch',
                 textAlign: 'center',
-                width: '14.25%', //'14.29%',
+                width: 100/7 + '%',
                 padding: spacing.padding * 1.5 + 'px',
                 cursor: 'pointer'
             }
@@ -123,18 +125,19 @@ export class Calendar extends StripesTheme {
             <span key="day6" style={this.state.style.dayitem}>Fri</span>,
             <span key="day7" style={this.state.style.dayitem}>Sat</span>
         ]);
-
+        if(firstday == 6) {
+            firstday = -1;
+        }
         for (var i = firstday*-1; i <= m(calOnFirstDay).daysInMonth(); i++) {
             var day = i > 0 ? i : '';
             var thisDate = m(calOnFirstDay).date(i);
             var isSelectedDate = thisDate.format("L") === m(this.props.date).format("L");
-
             days.push(
                 <A
                     key={"date" + i}
                     style={isSelectedDate ? this.state.style.dayitemSelected : this.state.style.dayitem}
                     data-date={thisDate.toDate().toString()}
-                    onClick={this.selectDate}
+                    onClick={ i > 0 ? this.selectDate : null}
                     data-date={thisDate.toDate().toString()}
                 >
                     {day}
