@@ -62,10 +62,6 @@ export class TimeNode extends StripesTheme {
     };
 }
 
-
-
-
-
 export class TimePicker extends StripesTheme {
 
     static defaultProps = {
@@ -79,7 +75,8 @@ export class TimePicker extends StripesTheme {
         clockFormat: '12hr',
         hours12: [1,2,3,4,5,6,7,8,9,10,11,12],
         hours24: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
-        selectorDimension: 260
+        selectorDimension: 260,
+        placeholder: null
     }
 
     constructor(props) {
@@ -95,12 +92,12 @@ export class TimePicker extends StripesTheme {
         this.setTime = this.setTime.bind(this);
         this.getValue = this.getValue.bind(this);
 
-        var initialTime = props.time ? props.time : new Date();
+        var initialTime = props.time ? props.time : null;
         this.state = {
             opentime: initialTime,
             active: false,
-            hour: m(initialTime).format('h')*1,
-            minute: m(initialTime).format('m')*1,
+            hour: m(initialTime ? initialTime : new Date()).format('h')*1,
+            minute: m(initialTime ? initialTime : new Date()).format('m')*1,
             time: initialTime,
             mode: 'hour',
             hourhover: false,
@@ -125,8 +122,8 @@ export class TimePicker extends StripesTheme {
         var show = open !== undefined ? open : !this.state.active;
         this.setState({
             active: show,
-            hour: m(this.state.time).format('h')*1,
-            minute: m(this.state.time).format('m')*1,
+            hour: m(this.state.time ? this.state.time : new Date()).format('h')*1,
+            minute: m(this.state.time ? this.state.time : new Date()).format('m')*1,
             opentime: show ? this.state.time : this.state.opentime
         }, () => {
             if(open) {
@@ -145,12 +142,13 @@ export class TimePicker extends StripesTheme {
     }
 
     renderCleanTime() {
+        var timeValue = this.state.time ? this.state.time : new Date();
         return (
             <div key="timetitle" style={this.state.style.time}>
-                <span style={this.state.hourhover || this.state.mode === 'hour' ? this.state.style.timeparthover : this.state.style.timepart} onMouseOver={()=> {this.setState({hourhover: true})}} onMouseOut={()=> {this.setState({hourhover: false})}} onClick={()=> {this.changeMode('hour')}}>{m(this.state.time).format('h')}</span>
+                <span style={this.state.hourhover || this.state.mode === 'hour' ? this.state.style.timeparthover : this.state.style.timepart} onMouseOver={()=> {this.setState({hourhover: true})}} onMouseOut={()=> {this.setState({hourhover: false})}} onClick={()=> {this.changeMode('hour')}}>{m(timeValue).format('h')}</span>
                 :
-                <span style={this.state.minhover || this.state.mode === 'minute' ? this.state.style.timeparthover : this.state.style.timepart}  onMouseOver={()=> {this.setState({minhover: true})}} onMouseOut={()=> {this.setState({minhover: false})}} onClick={()=> {this.changeMode('minute')}}>{m(this.state.time).format('mm')}</span>
-                <span style={this.state.amhover ? this.state.style.timeparthover : this.state.style.timepart}  onMouseOver={()=> {this.setState({amhover: true})}} onMouseOut={()=> {this.setState({amhover: false})}} onClick={()=> {this.toggleAMPM()}}>{m(this.state.time).format('A')}</span>
+                <span style={this.state.minhover || this.state.mode === 'minute' ? this.state.style.timeparthover : this.state.style.timepart}  onMouseOver={()=> {this.setState({minhover: true})}} onMouseOut={()=> {this.setState({minhover: false})}} onClick={()=> {this.changeMode('minute')}}>{m(timeValue).format('mm')}</span>
+                <span style={this.state.amhover ? this.state.style.timeparthover : this.state.style.timepart}  onMouseOver={()=> {this.setState({amhover: true})}} onMouseOut={()=> {this.setState({amhover: false})}} onClick={()=> {this.toggleAMPM()}}>{m(timeValue).format('A')}</span>
 
             </div>);
     }
@@ -255,7 +253,7 @@ export class TimePicker extends StripesTheme {
         var hour = e.target.getAttribute('data-value')*1;
             this.setState({
                 hour: hour,
-                time: m(this.state.time).hour(hour).toDate()
+                time: m(this.state.time ? this.state.time : new Date()).hour(hour).toDate()
             }, () => {
                 setTimeout(() => {
                     this.setState({
@@ -269,13 +267,13 @@ export class TimePicker extends StripesTheme {
         var minute = e.target.getAttribute('data-value')*1;
         this.setState({
             minute: minute,
-            time: m(this.state.time).minute(minute).toDate()
+            time: m(this.state.time ? this.state.time : new Date()).minute(minute).toDate()
         }, this.updateStyles);
 
     }
 
     toggleAMPM() {
-        var time = m(this.state.time);
+        var time = m(this.state.time ? this.state.time : new Date());
         var day = time.format('d');
         if(m(time).add('hour', 12).format('d')*1 > day*1) {
             time.add('hour', 12);
@@ -405,6 +403,8 @@ export class TimePicker extends StripesTheme {
 
     render() {
         var displayTime = m(this.state.time).format(this.props.format);
+        var color = this.getColors()[this.props.type];
+
         var cleanTime = this.renderCleanTime();
         var hourNodes = this.getHourNodes();
         var minNodes = this.getMinuteNodes();
@@ -433,9 +433,10 @@ export class TimePicker extends StripesTheme {
                     ref="textbox"
                     value={displayTime}
                     width={this.props.width}
-                    anchor={<Icon iconid="clock" basestyle={{marginTop:'-5px'}} size="small" />}
+                    anchor={<Icon iconid="clock" basestyle={{marginTop:'-5px'}} color={this.state.time ? color.activeIcon : color.inactiveIcon} size="small" />}
                     onClick={this.toggleDialog}
                     readOnly={true}
+                    placeholder={this.props.placeholder}
                 />
                 <Dialog ref="Dialog"
                         modal={true}

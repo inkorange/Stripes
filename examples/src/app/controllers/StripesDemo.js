@@ -94,10 +94,19 @@ class StripesDemo extends React.Component {
         var InputsSection = (
             <div>
                 <section>
+                    <H3>Date and Time Pickers</H3>
                     <DatePicker
                         width="150px"
+                        placeholder="Select Date"
                     />
                     <TimePicker
+                        width="150px"
+                        placeholder="Select Time"
+                    />
+                </section>
+                <section>
+                    <H3>Date/Time Picker</H3>
+                    <DatePicker
                         width="150px"
                     />
                 </section>

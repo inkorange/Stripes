@@ -24,7 +24,8 @@ export class DatePicker extends StripesTheme {
         dateConstraint: [null,null], //['2013-11-05','2016-12-25'],
         yearFormat: 'YYYY',
         dateFormat: 'ddd, MMMM D',
-        format: 'M/D/YYYY'
+        format: 'M/D/YYYY',
+        placeholder: null
     }
 
     constructor(props) {
@@ -40,7 +41,7 @@ export class DatePicker extends StripesTheme {
 
         this.state = {
             active: false,
-            date: new Date(),
+            date: null, //new Date(),
             showCalendar: true,
             showYear: false
         }
@@ -77,7 +78,7 @@ export class DatePicker extends StripesTheme {
             showCalendar: true,
             showYear: false
         }, () => {
-            this.refs.Calendar.switchToDate(this.state.date);
+            this.refs.Calendar.switchToDate(this.state.date ? this.state.date : new Date());
             this.updateStyles();
         });
     }
@@ -96,8 +97,9 @@ export class DatePicker extends StripesTheme {
     }
 
     renderCleanDate() {
-        var year = <div key="yeartitle" onClick={this.showYearPanel} style={this.state.style.year}>{m(this.state.date).format(this.props.yearFormat)}</div>;
-        var date = <div key="datetitle" onClick={this.showCalendar}  style={this.state.style.date}>{m(this.state.date).format(this.props.dateFormat)}</div>;
+        var dateval = this.state.date ? this.state.date : new Date();
+        var year = <div key="yeartitle" onClick={this.showYearPanel} style={this.state.style.year}>{m(dateval).format(this.props.yearFormat)}</div>;
+        var date = <div key="datetitle" onClick={this.showCalendar}  style={this.state.style.date}>{m(dateval).format(this.props.dateFormat)}</div>;
         return [year,date];
     }
 
@@ -114,7 +116,7 @@ export class DatePicker extends StripesTheme {
     }
 
     setYear(year) {
-        var mDate = m(this.state.date);
+        var mDate = m(this.state.date ? this.state.date : new Date());
         mDate.year(year);
         this.setState({
             date: new Date(mDate.toString()),
@@ -172,6 +174,7 @@ export class DatePicker extends StripesTheme {
     }
 
     render() {
+        var color = this.getColors()[this.props.type];
         var cleanDate = this.renderCleanDate();
         return (
             <div style={this.state.style.container}>
@@ -179,9 +182,10 @@ export class DatePicker extends StripesTheme {
                     ref="textbox"
                     value={m(this.state.date).format(this.props.format)}
                     width={this.props.width}
-                    anchor={<Icon iconid="calendar" basestyle={{marginTop:'-5px'}} size="small" />}
+                    anchor={<Icon iconid="calendar" basestyle={{marginTop:'-5px'}} color={this.state.date ? color.activeIcon : color.inactiveIcon} size="small" />}
                     onClick={this.toggleDialog}
                     readOnly={true}
+                    placeholder={this.props.placeholder}
                 />
                 <Dialog ref="Dialog"
                     modal={true}
@@ -193,13 +197,13 @@ export class DatePicker extends StripesTheme {
                     {this.state.showYear ? <YearSelector
                         ref="YearSelector"
                         onClick={this.setYear}
-                        date={this.state.date}
+                        date={this.state.date ? this.state.date : new Date()}
                         dateConstraint={this.props.dateConstraint}
                     /> : null }
                     {this.state.showCalendar ? <Calendar
                         ref="Calendar"
                         onClick={this.setDate}
-                        date={this.state.date}
+                        date={this.state.date ? this.state.date : new Date()}
                         dateConstraint={this.props.dateConstraint}
                     /> : null }
                 </Dialog>
