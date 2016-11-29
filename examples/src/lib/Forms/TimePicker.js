@@ -5,6 +5,7 @@ import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Dialog, Paper } from '../Layouts'
 import {TextBox} from  './Inputs'
+import {FlatButton, RaisedButton} from '../Forms/Buttons'
 import { Icon } from  '../Symbols/Icon'
 import m from 'moment'
 
@@ -72,7 +73,8 @@ export class TimePicker extends StripesTheme {
         width: '200px',
         type: 'default',
         format: 'h:mm A',
-        time: new Date(),
+        time: null,
+        onSet: () => { return false; },
         disabled: false,
         clockFormat: '12hr',
         hours12: [1,2,3,4,5,6,7,8,9,10,11,12],
@@ -88,12 +90,18 @@ export class TimePicker extends StripesTheme {
         this.setMinute = this.setMinute.bind(this);
         this.changeMode = this.changeMode.bind(this);
         this.toggleAMPM = this.toggleAMPM.bind(this);
+        this.toggleDialog = this.toggleDialog.bind(this);
+        this.cancel = this.cancel.bind(this);
+        this.setTime = this.setTime.bind(this);
+        this.getValue = this.getValue.bind(this);
 
+        var initialTime = props.time ? props.time : new Date();
         this.state = {
+            opentime: initialTime,
             active: false,
-            hour: m(props.time).format('h')*1,
-            minute: m(props.time).format('m')*1,
-            time: props.time,
+            hour: m(initialTime).format('h')*1,
+            minute: m(initialTime).format('m')*1,
+            time: initialTime,
             mode: 'hour',
             hourhover: false,
             minhover: false,
@@ -110,7 +118,6 @@ export class TimePicker extends StripesTheme {
     componentDidUpdate(props) {
         if(props !== this.props) {
             this.updateStyles();
-            console.log('updaing...');
         }
     }
 
@@ -118,10 +125,12 @@ export class TimePicker extends StripesTheme {
         var show = open !== undefined ? open : !this.state.active;
         this.setState({
             active: show,
-            hour: m(this.props.time).format('h')*1,
-            minute: m(this.props.time).format('m')*1
+            hour: m(this.state.time).format('h')*1,
+            minute: m(this.state.time).format('m')*1,
+            opentime: show ? this.state.time : this.state.opentime
         }, () => {
             if(open) {
+                this.updateStyles();
                 this.refs.Dialog.open();
             } else {
                 this.refs.Dialog.close();
@@ -244,11 +253,16 @@ export class TimePicker extends StripesTheme {
 
     setHour(e) {
         var hour = e.target.getAttribute('data-value')*1;
-        this.setState({
-            hour: hour,
-            time: m(this.state.time).hour(hour).toDate(),
-            mode: 'minute'
-        }, this.updateStyles);
+            this.setState({
+                hour: hour,
+                time: m(this.state.time).hour(hour).toDate()
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        mode: 'minute'
+                    }, this.updateStyles)
+                }, 1000);
+            });
     }
 
     setMinute(e) {
@@ -271,6 +285,31 @@ export class TimePicker extends StripesTheme {
         this.setState({
             time: m(time).toDate()
         }, this.updateStyles);
+    }
+
+    cancel() {
+        var initialTime = this.props.time ? props.time : new Date();
+        this.setState({
+            time: this.state.opentime,
+            mode: 'hour',
+            hour: m(initialTime).format('h')*1,
+            minute: m(initialTime).format('m')*1
+        }, this.updateStyles);
+        this.toggleDialog(false);
+    }
+
+    setTime() {
+        this.props.onSet();
+        this.setState({
+            mode: 'hour'
+        }, this.updateStyles);
+
+        this.toggleDialog(false);
+        this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
+    }
+
+    getValue() {
+        return this.state.time;
     }
 
     getHourHandStyle() {
@@ -301,21 +340,16 @@ export class TimePicker extends StripesTheme {
         return minutehandstyle;
     }
 
-    render() {
-        var displayTime = m(this.state.time).format(this.props.format);
-        var cleanTime = this.renderCleanTime();
+    getHourNodes() {
         var hourNodes = [];
-        var minNodes = [];
         var hourList = this.props[this.props.clockFormat === '12hr' ? 'hours12' : 'hours24'];
         var HRangleSpace = rads/hourList.length;
-        var MINangleSpace = rads/60;
-
         var i = hourList.length - 1;
         for (var c = rads/2; c < rads + (rads/2); c+=HRangleSpace) {
             var hrstyle = {
                 position: 'absolute',
                 top: this.props.selectorDimension/2*Math.cos(c) + this.props.selectorDimension/2 - 16,
-                left: this.props.selectorDimension/2*Math.sin(c) + this.props.selectorDimension/2 - 16,
+                left: this.props.selectorDimension/2*Math.sin(c) + this.props.selectorDimension/2 - 16
             };
             if(hourList[i]) {
                 hourNodes.push(
@@ -332,7 +366,12 @@ export class TimePicker extends StripesTheme {
             }
             i--;
         };
+        return hourNodes;
+    }
 
+    getMinuteNodes() {
+        var minNodes = [];
+        var MINangleSpace = rads/60;
         var min = 60;
         for (var c = rads/2; c < rads + (rads/2); c+=MINangleSpace) {
             var minstyle = {
@@ -343,7 +382,8 @@ export class TimePicker extends StripesTheme {
                 fontSize: '90%',
                 width: '30px',
                 height: '30px',
-                lineHeight: '30px'
+                lineHeight: '30px',
+                zIndex: min%5 === 0 ? 1 : 0
             };
             if(min < 60) {
                 minNodes.push(
@@ -360,7 +400,14 @@ export class TimePicker extends StripesTheme {
             }
             min--;
         };
+        return minNodes;
+    }
 
+    render() {
+        var displayTime = m(this.state.time).format(this.props.format);
+        var cleanTime = this.renderCleanTime();
+        var hourNodes = this.getHourNodes();
+        var minNodes = this.getMinuteNodes();
 
         var handNode = [
             <div key="minhand" style={this.getMinuteHandStyle()}></div>,
@@ -375,6 +422,11 @@ export class TimePicker extends StripesTheme {
             </div>
         );
 
+        var actionsNode = [
+            <FlatButton key="action1" onClick={this.cancel}>Cancel</FlatButton>,
+            <RaisedButton key="action2" onClick={this.setTime} type="primary">OK</RaisedButton>
+        ];
+
         return (
             <div style={this.state.style.container}>
                 <TextBox
@@ -388,9 +440,9 @@ export class TimePicker extends StripesTheme {
                 <Dialog ref="Dialog"
                         modal={true}
                         title={cleanTime}
-                        showClose={true}
                         dialogStyle={this.state.style.dialog}
                         cardStyle={this.state.style.dialogcard}
+                        actions={actionsNode}
                 >
                     {hourContainer}
                 </Dialog>
