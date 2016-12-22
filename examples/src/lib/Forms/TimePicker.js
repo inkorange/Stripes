@@ -76,7 +76,8 @@ export class TimePicker extends StripesTheme {
         hours12: [1,2,3,4,5,6,7,8,9,10,11,12],
         hours24: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
         selectorDimension: 260,
-        placeholder: null
+        placeholder: null,
+        active: false
     }
 
     constructor(props) {
@@ -297,13 +298,13 @@ export class TimePicker extends StripesTheme {
     }
 
     setTime() {
-        this.props.onSet();
         this.setState({
             mode: 'hour'
         }, this.updateStyles);
 
         this.toggleDialog(false);
         this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
+        this.props.onSet(this.state.time);
     }
 
     getValue() {

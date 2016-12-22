@@ -7,7 +7,7 @@ import {FlatButton, RaisedButton} from '../../lib/Forms/Buttons'
 
 import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from '../../lib/Layouts'
 import {H1, H3, Title} from '../../lib/Typography'
-import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker} from '../../lib/Forms'
+import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider} from '../../lib/Forms'
 import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from '../../lib/Table'
 
 import {Alert} from  '../../lib/Notifications/Alert'
@@ -106,9 +106,13 @@ class StripesDemo extends React.Component {
                 </section>
                 <section>
                     <H3>Date/Time Picker</H3>
-                    <DatePicker
-                        width="150px"
+                    <DateTimePicker
+                        placeholder={["Date","Time"]}
                     />
+                </section>
+                <section>
+                    <H3>Slider</H3>
+                    <Slider />
                 </section>
                 <section>
                     <H3>FlatButton</H3>

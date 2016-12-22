@@ -1,6 +1,9 @@
 
 let primaryColor = "#3366CC";
 let primaryBackground = "#1565C0";
+let accentBlue = "#007CB0";
+let accentYellow = "#FFD200";
+let accentRed = "#ED1C24";
 let secondaryBackground = "#dbdbdb";
 let baseTextColor = "#212121";
 let secondaryTextColor = "white";
@@ -9,7 +12,7 @@ let errorColor = "#DB4437";
 let inactiveErrorColor = "#DB8D86";
 let secondaryColor = "";
 let tertiaryColor = "";
-let borderColor = "#8B8F92";
+let borderColor = accentBlue;
 let menuColor = "#2E4151";
 
 module.exports = {
@@ -19,7 +22,7 @@ module.exports = {
         border: '',
         backgroundColor: 'transparent',
         backgroundHover: 'rgba(0,0,0,.08)',
-        iconColor: '#8B8F92',
+        iconColor: accentBlue,
         headerBackgroundColor: primaryBackground,
         activeIcon: "#3366CC",
         inactiveIcon: "#dbdbdb"
