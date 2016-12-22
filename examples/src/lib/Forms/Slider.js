@@ -11,7 +11,7 @@ export class Slider extends StripesTheme {
         width: '100%',
         type: 'default',
         disabled: false,
-        range: [100,200],
+        range: [0,100],
         snap: 1,
         handlesize: 20,
         showHandleValue: true,
