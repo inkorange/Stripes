@@ -3,15 +3,17 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import {FlatButton, RaisedButton} from '../../lib/Forms/Buttons'
+import {FlatButton, RaisedButton} from 'zebra-stripes/lib/Forms'
 
-import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from '../../lib/Layouts'
-import {H1, H3, Title} from '../../lib/Typography'
-import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider} from '../../lib/Forms'
-import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from '../../lib/Table'
+import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from 'zebra-stripes/lib/Layouts'
+import {H1, H3, Title} from 'zebra-stripes/lib/Typography'
 
-import {Alert} from  '../../lib/Notifications/Alert'
-import {Icon} from  '../../lib/Symbols/Icon'
+import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from 'zebra-stripes/lib/Table'
+
+import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider} from 'zebra-stripes/lib/Forms'
+
+import {Alert} from  'zebra-stripes/lib/Notifications/Alert'
+import {Icon} from  'zebra-stripes/lib/Symbols/Icon'
 
 class StripesDemo extends React.Component {
 
@@ -416,7 +418,6 @@ class StripesDemo extends React.Component {
             <article className="main_content_child">
 
                 <Title>Zebra Stripes Design System</Title>
-
                 <TabMenu style={{margin: "0 -20px"}}>
                     <Item key="tab1" label="Layouts">
                         <H1 style={h1style}>Layout Components</H1>
@@ -434,7 +435,7 @@ class StripesDemo extends React.Component {
 
                 <footer className="zebra" style={{zIndex: 1000}}>
                     <img src="./images/zebralogo.svg" />
-                    <p>&copy;2016 ZIH Corp and/or its affiliates. All Rights Reserved. Zebra and the stylized Zebra head are trademarks of ZIH Corp, registered in many jurisdictions worldwide.</p>
+                    <p>&copy;2017 ZIH Corp and/or its affiliates. All Rights Reserved. Zebra and the stylized Zebra head are trademarks of ZIH Corp, registered in many jurisdictions worldwide.</p>
                 </footer>
             </article>
         )

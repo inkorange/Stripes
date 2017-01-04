@@ -154,5 +154,4 @@ class RaisedButton extends StripesTheme {
 module.exports = {
     FlatButton: FlatButton,
     RaisedButton: RaisedButton
-    //comp2: Component2
 }

@@ -6,9 +6,7 @@
     "start": "gulp buildandrun"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-react": "^6.3.13",
-    "babelify": "^6.1.2",
+    "babelify": "*",
     "browser-sync": "^1.8.1",
     "browserify": "*",
     "del": "^2.2.1",
@@ -16,7 +14,7 @@
     "enzyme": "^2.0.0-rc1",
     "git-rev": "^0.2.1",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
+    "gulp-babel": "*",
     "gulp-concat": "^2.6.0",
     "gulp-connect": "^2.2.0",
     "gulp-gzip": "^1.2.0",
@@ -35,18 +33,26 @@
     "jsdom": "^8.0.1",
     "path": "^0.12.7",
     "pretty-hrtime": "^0.2.2",
-    "require-dir": "^0.1.0",
-    "vinyl-source-stream": "^1.0.0",
+    "require-dir": "*",
+    "vinyl-source-stream": "*",
     "watchify": "^2.2.1",
-    "zebra-stripes": "../lib"
+    "zebra-stripes": "../pkg/zebra-stripes-0.0.1.tgz"
   },
   "dependencies": {
+    "babel-loader": "*",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
     "express": "^4.13.3",
     "inline-style-prefixer": "^0.6.2",
     "lodash._basefor": "^3.0.3",
     "moment": "*",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-router": "^3.0.0"
+    "react-router": "^3.0.0",
+    "webpack": "^1.14.0"
   }
 }
+

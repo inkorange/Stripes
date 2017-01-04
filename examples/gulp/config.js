@@ -31,7 +31,7 @@ module.exports = {
   browserify: {
     debug: true,
     minify: minify,
-    extensions: ['es6'],
+    extensions: ['es2015', 'react'],
     bundleConfigs: [{
       entries: src + '/app/app.jsx',
       dest: dest + '/js',

@@ -3,8 +3,8 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
-import { DatePicker } from  '../Forms/DatePicker'
-import { TimePicker } from  '../Forms/TimePicker'
+import { DatePicker } from  './DatePicker'
+import { TimePicker } from  './TimePicker'
 import m from 'moment'
 
 export class DateTimePicker extends StripesTheme {

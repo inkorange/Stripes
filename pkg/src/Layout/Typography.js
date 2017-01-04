@@ -2,9 +2,9 @@
 
 import React from 'react'
 import { render } from 'react-dom'
-import { StripesTheme } from '../Core/Stripes'
+import Stripes from '../Core/Stripes'
 
-class Title extends StripesTheme {
+class Title extends Stripes.StripesTheme {
 
     static defaultProps = {
         type: 'typography',
@@ -41,7 +41,7 @@ class Title extends StripesTheme {
     }
 }
 
-class A extends StripesTheme {
+class A extends Stripes.StripesTheme {
 
     static defaultProps = {
         type: 'typography',
@@ -101,7 +101,7 @@ class A extends StripesTheme {
     }
 }
 
-class H1 extends StripesTheme {
+class H1 extends Stripes.StripesTheme{
 
     static defaultProps = {
         type: 'typography',
@@ -138,7 +138,7 @@ class H1 extends StripesTheme {
     }
 }
 
-class H3 extends StripesTheme {
+class H3 extends Stripes.StripesTheme {
 
     static defaultProps = {
         type: 'typography',

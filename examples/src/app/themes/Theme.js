@@ -3,7 +3,7 @@ let basePadding = 5;
 let baseMargin = 5;
 let baseRadius= 2;
 
-export default {
+var Theme = {
     palette: Colors,
     spacing: {
         default: {
@@ -75,3 +75,5 @@ export default {
         }
     }
 };
+
+module.exports = Theme;

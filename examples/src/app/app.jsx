@@ -6,8 +6,7 @@ import Route from 'react-router/lib/Route'
 import Router from 'react-router/lib/Router'
 import IndexRoute from 'react-router/lib/IndexRoute'
 import browserHistory from 'react-router/lib/browserHistory'
-
-import { Stripes } from '../lib/Core/Stripes'
+import { Stripes } from 'zebra-stripes/lib//Core/Stripes'
 
 // layouts
 const MainLayout = require('./layouts/MainLayout');
@@ -17,7 +16,7 @@ const theme = require('./themes/Theme');
 
 // page components
 const StripesDemo = require('./controllers/StripesDemo');
-
+console.log(theme);
 Stripes({
    palette: theme.palette,
    spacing: theme.spacing

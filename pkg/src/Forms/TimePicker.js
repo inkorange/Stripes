@@ -5,7 +5,7 @@ import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Dialog, Paper } from '../Layouts'
 import {TextBox} from  './Inputs'
-import {FlatButton, RaisedButton} from '../Forms/Buttons'
+import {FlatButton, RaisedButton} from './Buttons'
 import { Icon } from  '../Symbols/Icon'
 import m from 'moment'
 
