@@ -435,7 +435,7 @@ class StripesDemo extends React.Component {
 
                 <footer className="zebra" style={{zIndex: 1000}}>
                     <img src="./images/zebralogo.svg" />
-                    <p>&copy;2017 ZIH Corp and/or its affiliates. All Rights Reserved. Zebra and the stylized Zebra head are trademarks of ZIH Corp, registered in many jurisdictions worldwide.</p>
+                    <p>&copy;2016 ZIH Corp and/or its affiliates. All Rights Reserved. Zebra and the stylized Zebra head are trademarks of ZIH Corp, registered in many jurisdictions worldwide.</p>
                 </footer>
             </article>
         )

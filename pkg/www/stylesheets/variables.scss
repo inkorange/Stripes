@@ -1,0 +1,12 @@
+//Breakpoint Declarations
+
+$xlarge: "(min-width: 1080px)";   // greater than 1080px
+$large:  "(max-width: 1079px)";   // smaller than 1080px
+$small:  "(max-width: 839px)";    // smaller than 840px
+$xsmall: "(max-width: 599px)";    // smaller than 600px
+
+$minPageWidth: 360px;
+$minPageHeight: 500px;
+$baseMargin: 5px;
+$maxTrailerHeight : 600px;
+$appBarHeight: 64px;

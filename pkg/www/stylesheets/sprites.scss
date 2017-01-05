@@ -1,0 +1,34 @@
+@import 'variables';
+.icon {
+	display: inline-block;
+	fill: blue;
+	width: 25px;
+	height: 25px;
+	margin: 0 $baseMargin;
+	user-select: none;
+	&:first-of-type {
+		margin-left: 0;
+	}
+	&:last-of-type {
+		margin-right: 0;
+	}
+
+	&.inactive {
+		fill: gray;
+	}
+
+	&.large {
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+
+	&.medium {
+		width: 2.5rem;
+		height: 2.5rem;
+	}
+
+	&.small {
+		width: 2rem;
+		height: 2rem;
+	}
+}

@@ -6,30 +6,43 @@ import Route from 'react-router/lib/Route'
 import Router from 'react-router/lib/Router'
 import IndexRoute from 'react-router/lib/IndexRoute'
 import browserHistory from 'react-router/lib/browserHistory'
-import { Stripes } from 'zebra-stripes/lib//Core/Stripes'
+import { Stripes } from '../src/Core/Stripes'
+import { Slider } from '../src/Forms/Slider'
 
 // layouts
-const MainLayout = require('./layouts/MainLayout');
+const MainLayout = React.createClass({
+    render() {
+        return (
+            <div>
+                {this.props.children}
+            </div>
+        )
+    }
+});
+
+const Sandbox = React.createClass({
+    render() {
+        return (
+            <div>
+                <h1>SANDBOX</h1>
+                <Slider />
+            </div>
+        )
+    }
+});
 
 // theme
 const theme = require('./themes/Theme');
 
-// page components
-const StripesDemo = require('./controllers/StripesDemo');
-const Sandbox = require('./controllers/Sandbox');
-
 Stripes({
-   palette: theme.palette,
-   spacing: theme.spacing
+    palette: theme.palette,
+    spacing: theme.spacing
 });
 
 render((
 
     <Router history={browserHistory}>
         <Route path="/" component={MainLayout}>
-            <IndexRoute component={StripesDemo} />
-        </Route>
-        <Route path="/Sandbox" component={MainLayout}>
             <IndexRoute component={Sandbox} />
         </Route>
     </Router>
