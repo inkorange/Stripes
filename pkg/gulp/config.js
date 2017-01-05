@@ -21,6 +21,10 @@ module.exports = {
         errLogToConsole: true,
         outputStyle: minify ? 'compressed' : null
     },
+    font: {
+        src: ['./www/stylesheets/*.woff2', './www/stylesheets/*.woff', './www/stylesheets/*.ttf'],
+        dest: dest + '/css'
+    },
     server: {
       // basic local server configuration for development.
       // some server-side routing needs to handle static assets

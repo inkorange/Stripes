@@ -7,7 +7,9 @@ import Router from 'react-router/lib/Router'
 import IndexRoute from 'react-router/lib/IndexRoute'
 import browserHistory from 'react-router/lib/browserHistory'
 import { Stripes } from '../src/Core/Stripes'
+
 import { Slider } from '../src/Forms/Slider'
+import { Title, H1, H3 } from '../src/Typography'
 
 // layouts
 const MainLayout = React.createClass({
@@ -24,8 +26,10 @@ const Sandbox = React.createClass({
     render() {
         return (
             <div>
-                <h1>SANDBOX</h1>
-                <Slider />
+                <Title>SANDBOX</Title>
+                <div style={{width:'50%', margin: '25px auto'}}>
+                    <Slider />
+                </div>
             </div>
         )
     }

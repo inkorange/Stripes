@@ -4,13 +4,10 @@ var git = require('git-rev');
 var del = require('del');
 var path = require('path');
 var inject = require('gulp-inject');
-var BUILD_ENV = require('../config').defaultEnv;
-var BUILD_CLIENT = require('../config').defaultClient;
 var markupconfig = require('../config').markup;
 var vendorconfig = require('../config').vendor;
 var modelconfig = require('../config').model;
-var icoconfig =  require('../config').ico;
-var resourcesconfig = require('../config').resources;
+var fontconfig = require('../config').font;
 var staticmock =  require('../config').staticmock;
 
 module.exports = {
@@ -33,6 +30,9 @@ module.exports = {
                     version:assetVersion
                 }}))
                 .pipe(gulp.dest(markupconfig.dest)),
+
+            gulp.src(fontconfig.src)
+                .pipe(gulp.dest(fontconfig.dest))
         ];
     },
 
