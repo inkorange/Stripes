@@ -49,7 +49,7 @@ This will transpile the ES6 codebase to be used in web projects, and builds them
 Step 2: Bundling the module
 To build the tarball file, run the following command from the /pkg folder:
 ```
-npm pack
+npm pack lib
 ```
 
 # Contribution Etiquette

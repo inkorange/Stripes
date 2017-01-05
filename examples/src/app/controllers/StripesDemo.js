@@ -3,17 +3,17 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import {FlatButton, RaisedButton} from 'zebra-stripes/lib/Forms'
+import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
-import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from 'zebra-stripes/lib/Layouts'
-import {H1, H3, Title} from 'zebra-stripes/lib/Typography'
+import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from 'zebra-stripes/Layouts'
+import {H1, H3, Title} from 'zebra-stripes/Typography'
 
-import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from 'zebra-stripes/lib/Table'
+import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from 'zebra-stripes/Table'
 
-import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider} from 'zebra-stripes/lib/Forms'
+import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider} from 'zebra-stripes/Forms'
 
-import {Alert} from  'zebra-stripes/lib/Notifications/Alert'
-import {Icon} from  'zebra-stripes/lib/Symbols/Icon'
+import {Alert} from  'zebra-stripes/Notifications/Alert'
+import {Icon} from  'zebra-stripes/Symbols/Icon'
 
 class StripesDemo extends React.Component {
 

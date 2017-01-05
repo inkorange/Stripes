@@ -1,0 +1,43 @@
+{
+  "name": "zebra-stripes",
+  "version": "0.0.1",
+  "author": {
+    "name": "Zebra Technologies"
+  },
+  "description": "Zebra Technologies ReactJS-Based Design Library",
+  "dependencies": {
+    "moment": "*"
+  },
+  "devDependencies": {
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
+  },
+  "directories": {},
+  "homepage": "",
+  "keywords": [
+    "react",
+    "react-component",
+    "material design",
+    "material-ui"
+  ],
+  "main": "./lib",
+  "maintainers": [
+    {
+      "name": "chriswest",
+      "email": "west@zebra.com"
+    }
+  ],
+  "optionalDependencies": {},
+  "peerDependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  },
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zebra-Tech/Stripes"
+  },
+  "scripts": {
+    "build": "gulp"
+  }
+}
