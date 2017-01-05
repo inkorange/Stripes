@@ -14,6 +14,7 @@ var modelconfig = require('../config').model;
 var icoconfig =  require('../config').ico;
 var resourcesconfig = require('../config').resources;
 var imgconfig =  require('../config').images;
+var fontconfig = require('../config').font;
 var versionconfig =  require('../config').version;
 var staticmock =  require('../config').staticmock;
 
@@ -40,6 +41,9 @@ module.exports = {
 
             gulp.src(icoconfig.src)
                 .pipe(gulp.dest(icoconfig.dest)),
+
+            gulp.src(fontconfig.src)
+                .pipe(gulp.dest(fontconfig.dest)),
 
             gulp.src(resourcesconfig.src)
                 .pipe(gulp.dest(resourcesconfig.dest))

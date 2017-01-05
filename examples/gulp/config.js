@@ -51,6 +51,10 @@ module.exports = {
         src: [src + '/app/images/**/*.png',src + '/app/images/**/*.jpg',src + '/app/images/**/*.gif',src + '/app/images/**/*.svg','!' + src + '/app/images/sprites/*.svg'],
         dest: dest + '/images'
     },
+    font: {
+        src: [src + '/app/stylesheets/*.woff2', src + '/app/stylesheets/*.woff', src + '/app/stylesheets/*.ttf'],
+        dest: dest + '/css'
+    },
     server: {
       // basic local server configuration for development.
       // some server-side routing needs to handle static assets
