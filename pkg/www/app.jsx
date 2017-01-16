@@ -8,7 +8,7 @@ import IndexRoute from 'react-router/lib/IndexRoute'
 import browserHistory from 'react-router/lib/browserHistory'
 import { Stripes } from '../src/Core/Stripes'
 
-import { Slider } from '../src/Forms/Slider'
+import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from '../src/Table'
 import { Title, H1, H3 } from '../src/Typography'
 
 // layouts
@@ -22,18 +22,75 @@ const MainLayout = React.createClass({
     }
 });
 
-const Sandbox = React.createClass({
+class Sandbox extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            columnMap: [
+                { name: 'Column1',  width: '10%'},
+                { name: 'Column2',  width: '10%'},
+                { name: 'Column3',  width: '20%'},
+                { name: 'Column4',  width: '30%'},
+                { name: 'Column5',  width: '15%'},
+                { name: 'Column6',  width: '20%'}
+            ]
+        };
+        this._swapSize = this._swapSize.bind(this);
+    }
+
+    _swapSize() {
+        this.setState({
+            columnMap: [
+                { name: 'Column1',  width: '20%'},
+                { name: 'Column2',  width: '20%'},
+                { name: 'Column3',  width: '10%'},
+                { name: 'Column4',  width: '10%'},
+                { name: 'Column5',  width: '20%'},
+                { name: 'Column6',  width: '20%'}
+            ]
+        }, this.forceUpdate);
+    };
+
     render() {
+
+        var tableCells = [];
+        for(var i = 0; i < 30; i++) {
+            tableCells.push(
+                <TableRow key={"row"+i}>
+                    <TableCell>onload</TableCell>
+                    <TableCell>LOADPAGE</TableCell>
+                    <TableCell>Initial Page Load</TableCell>
+                    <TableCell>fspmemptla01.ground.fedex.com</TableCell>
+                    <TableCell>564345645656</TableCell>
+                    <TableCell>23.23.23.23</TableCell>
+                </TableRow>
+            );
+        }
+
         return (
             <div>
                 <Title>SANDBOX</Title>
-                <div style={{width:'50%', margin: '25px auto'}}>
-                    <Slider />
-                </div>
+                <div onClick={this._swapSize}>SWAP!</div>
+                <Table columnMap={this.state.columnMap}>
+                    <TableHeader>
+                        <TableHeaderRow>
+                            <TableHeaderCell>Type</TableHeaderCell>
+                            <TableHeaderCell>Category</TableHeaderCell>
+                            <TableHeaderCell>Description</TableHeaderCell>
+                            <TableHeaderCell>Site</TableHeaderCell>
+                            <TableHeaderCell>Time</TableHeaderCell>
+                            <TableHeaderCell>IP Address</TableHeaderCell>
+                        </TableHeaderRow>
+                    </TableHeader>
+                    <TableBody zebraStripes={true}>
+                        {tableCells}
+                    </TableBody>
+                </Table>
             </div>
         )
     }
-});
+};
 
 // theme
 const theme = require('./themes/Theme');

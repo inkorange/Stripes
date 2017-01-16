@@ -9,6 +9,6 @@ var config = require('../config');
 
 module.exports = function() {
   gulp.watch(config.markup.src, ['markup']);
-  gulp.watch('./src/**/*.js', ['browserify']);
+  gulp.watch('./src/**/*.js', ['build']);
   gulp.watch('./www/app.jsx', ['build']);
 };

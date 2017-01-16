@@ -10,7 +10,8 @@ export class Table extends StripesTheme {
         style: {},
         type: 'table',
         width: '100%',
-        height: null
+        height: null,
+        columnMap: []
     }
 
     constructor(props) {
@@ -24,6 +25,14 @@ export class Table extends StripesTheme {
         this.setState({
             style: this.getStyles()
         });
+    }
+
+    componentWillUpdate(props) {
+        if(props !== this.props) {
+            this.setState({
+                style: this.getStyles()
+            });
+        }
     }
 
     getStyles() {
@@ -43,7 +52,7 @@ export class Table extends StripesTheme {
     render() {
         return (
             <div style={this.state.style.base}>
-                {this.props.children}
+                {this.extendChildren(this.props.children, { columnMap: this.props.columnMap })}
             </div>
         )
     }

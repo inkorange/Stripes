@@ -27,6 +27,8 @@ export class StripesTheme extends React.Component {
         this.onInputClick = this.onInputClick.bind(this);
         this.onInputBlur = this.onInputBlur.bind(this);
         this.getBaseStyling = this.getBaseStyling.bind(this);
+        this.extendChildren = this.extendChildren.bind(this);
+        this.updateStyling = this.updateStyling.bind(this);
     }
 
     getBaseStyling(spacing, color) {
@@ -107,6 +109,14 @@ export class StripesTheme extends React.Component {
         return {
             palette: palette,
             spacing: spacing
+        }
+    }
+
+    updateStyling(trigger) {
+        if(trigger) {
+            this.setState({
+                style: this.getStyles()
+            });
         }
     }
 
@@ -237,6 +247,14 @@ export class StripesTheme extends React.Component {
             animation.reverse();
         }
 
+    }
+
+    extendChildren(children, propsObj) {
+        var childrenNodes = [];
+        React.Children.toArray(children).map((node, i) => {
+            childrenNodes.push(React.cloneElement(node, Object.assign(propsObj, {key: 'nodeItem' + i, index: i})));
+        });
+        return childrenNodes;
     }
 
 }

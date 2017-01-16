@@ -8,7 +8,8 @@ export class TableHeaderRow extends StripesTheme {
 
     static defaultProps = {
         style: {},
-        type: 'table'
+        type: 'table',
+        columnMap: null
     }
 
     constructor(props) {
@@ -38,7 +39,7 @@ export class TableHeaderRow extends StripesTheme {
             <tr
                 style={this.state.style.base}
             >
-                {this.props.children}
+                {this.extendChildren(this.props.children, { columnMap: this.props.columnMap })}
             </tr>
         )
     }

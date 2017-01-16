@@ -72,6 +72,7 @@ class StripesDemo extends React.Component {
     toggleMenu() {
         this.refs.LeftNav.toggleMenu();
     }
+
     render() {
         var tableCells = [];
         for(var i =0; i < 10; i++) {

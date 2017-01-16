@@ -9,10 +9,12 @@ export class TableHeaderCell extends StripesTheme {
 
     static defaultProps = {
         style: {},
+        width: null,
         type: 'table',
         onClick: null,
         isSortable: false,
-        sortdirection: 'asc'
+        sortdirection: 'asc',
+        columnMap: null
     }
 
     constructor(props) {
@@ -29,6 +31,10 @@ export class TableHeaderCell extends StripesTheme {
         });
     }
 
+    componentWillUpdate(props) {
+        this.updateStyling(props !== this.props);
+    }
+
     onClick(e) {
         if(this.props.onClick) {
             this.props.onClick();
@@ -42,7 +48,11 @@ export class TableHeaderCell extends StripesTheme {
             base: {
                 padding: spacing.padding + 'px',
                 cursor: this.props.onClick || this.props.isSortable ? 'pointer' : 'default',
-                position: 'relative'
+                position: 'relative',
+                maxWidth: '0',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
             },
             sort: {
                 style: {
@@ -52,6 +62,13 @@ export class TableHeaderCell extends StripesTheme {
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
+        if(this.props.columnMap) {
+            var width = this.props.columnMap[this.props.index].width;
+            Object.assign(styleObj.base, {width: width});
+        }
+        if(this.props.width) {
+            Object.assign(styleObj.base, {width: this.props.width});
+        }
         return styleObj;
     }
 
@@ -64,9 +81,8 @@ export class TableHeaderCell extends StripesTheme {
                 sortdirection={this.props.sortdirection}
             />
         ) : null;
-
         return (
-            <td onClick={this.onClick} style={this.state.style.base}>
+            <td onClick={this.onClick} className={this.props.columnMap ? this.props.columnMap[this.props.index].name : null} style={this.state.style.base}>
                 {sortNODE}
                 {this.props.children}
             </td>

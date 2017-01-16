@@ -10,7 +10,8 @@ export class TableBody extends StripesTheme {
         style: {},
         type: 'table',
         height: null,
-        zebraStripes: false
+        zebraStripes: false,
+        columnMap: null
     }
 
     constructor(props) {
@@ -70,12 +71,11 @@ export class TableBody extends StripesTheme {
     }
 
     render() {
-
         return (
             <div style={this.state.style.base}>
             <table style={this.state.style.table}>
                 <tbody ref="tableBody">
-                    {this.props.children}
+                    {this.extendChildren(this.props.children, { columnMap: this.props.columnMap })}
                 </tbody>
             </table>
             </div>
