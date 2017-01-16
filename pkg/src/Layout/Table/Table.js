@@ -11,7 +11,7 @@ export class Table extends StripesTheme {
         type: 'table',
         width: '100%',
         height: null,
-        columnMap: []
+        columnMap: null
     }
 
     constructor(props) {
@@ -52,7 +52,7 @@ export class Table extends StripesTheme {
     render() {
         return (
             <div style={this.state.style.base}>
-                {this.extendChildren(this.props.children, { columnMap: this.props.columnMap })}
+                {this.props.columnMap ? this.extendChildren(this.props.children, { columnMap: this.props.columnMap }) : this.props.children}
             </div>
         )
     }

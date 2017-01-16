@@ -62,7 +62,7 @@ export class TableHeaderCell extends StripesTheme {
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
-        if(this.props.columnMap.length) {
+        if(this.props.columnMap) {
             var width = this.props.columnMap[this.props.index].width;
             Object.assign(styleObj.base, {width: width});
         }
@@ -81,7 +81,7 @@ export class TableHeaderCell extends StripesTheme {
             />
         ) : null;
         return (
-            <td onClick={this.onClick} className={this.props.columnMap.length ? this.props.columnMap[this.props.index].name : null} style={this.state.style.base}>
+            <td onClick={this.onClick} className={this.props.columnMap ? this.props.columnMap[this.props.index].name : null} style={this.state.style.base}>
                 {sortNODE}
                 {this.props.children}
             </td>

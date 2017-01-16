@@ -72,7 +72,7 @@ class Sandbox extends React.Component {
             <div>
                 <Title>SANDBOX</Title>
                 <div onClick={this._swapSize}>SWAP!</div>
-                <Table columnMap={this.state.columnMap}>
+                <Table>
                     <TableHeader>
                         <TableHeaderRow>
                             <TableHeaderCell>Type</TableHeaderCell>

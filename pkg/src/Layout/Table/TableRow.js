@@ -61,7 +61,7 @@ export class TableRow extends StripesTheme {
                 onClick={this.onClick}
                 style={this.state.hover ? this.state.style.hover : this.state.style.base}
             >
-                {this.extendChildren(this.props.children, { columnMap: this.props.columnMap })}
+                {this.props.columnMap ? this.extendChildren(this.props.children, { columnMap: this.props.columnMap }) : this.props.children}
             </tr>
         )
     }

@@ -47,7 +47,7 @@ export class TableHeader extends StripesTheme {
         return (
             <table style={this.state.style.table}>
                 <thead style={this.state.style.base}>
-                    {this.extendChildren(this.props.children, { columnMap: this.props.columnMap })}
+                    {this.props.columnMap ? this.extendChildren(this.props.children, { columnMap: this.props.columnMap }) : this.props.children}
                 </thead>
             </table>
         )

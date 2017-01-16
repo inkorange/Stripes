@@ -75,7 +75,7 @@ export class TableBody extends StripesTheme {
             <div style={this.state.style.base}>
             <table style={this.state.style.table}>
                 <tbody ref="tableBody">
-                    {this.extendChildren(this.props.children, { columnMap: this.props.columnMap })}
+                {this.props.columnMap ? this.extendChildren(this.props.children, { columnMap: this.props.columnMap }) : this.props.children}
                 </tbody>
             </table>
             </div>
