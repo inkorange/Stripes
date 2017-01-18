@@ -78,6 +78,7 @@ gulp.task('buildaction', ['clean'], (cb) => {
     markup.vendor();
     markup.images();
     markup.model();
+    markup.prism();
     cb();
 });
 //gulp.task('build', ['markup', 'svgstore', 'sass', 'elementSass', 'browserify', 'vendor', 'images', 'model']);

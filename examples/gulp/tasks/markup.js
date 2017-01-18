@@ -65,10 +65,9 @@ module.exports = {
         return gulp.src(modelconfig.src)
             .pipe(gulp.dest(modelconfig.dest));
     },
-    staticmock: function() {
-        console.log('Seeding Static Assets for MOCK', staticmock.src, staticmock.dest);
-        return gulp.src(staticmock.src)
-            .pipe(gulp.dest(staticmock.dest));
+    prism: function() {
+        return gulp.src('./src/app/stylesheets/prism.css')
+            .pipe(gulp.dest('./build/css'));
     }
 }
 

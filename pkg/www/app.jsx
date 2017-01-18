@@ -83,7 +83,7 @@ class Sandbox extends React.Component {
                             <TableHeaderCell>IP Address</TableHeaderCell>
                         </TableHeaderRow>
                     </TableHeader>
-                    <TableBody zebraStripes={true}>
+                    <TableBody height="300px" zebraStripes={true}>
                         {tableCells}
                     </TableBody>
                 </Table>

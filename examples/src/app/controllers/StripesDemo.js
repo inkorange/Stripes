@@ -279,6 +279,15 @@ class StripesDemo extends React.Component {
                         <Paper style={{width: '90%', margin: '20px 5%'}} depth="1">You can nest any kind of component in here, this is a Paper component.</Paper>
                         <RaisedButton style={{position: 'absolute', bottom: 0, left: 0, width: 'calc(100% - 10px)'}} key="button6" type="primary" onClick={this.closeMenu}>Manually Close</RaisedButton>
                     </LeftNav>
+                    <pre>
+                    <code className="language-js">
+                        {
+                            '<LeftNav ref="LeftNav" modal={true}>\n'+
+                            '    Left Nav Content\n'+
+                            '</LeftNav>\n'
+                        }
+                    </code>
+                    </pre>
                 </section>
 
                 <section>
@@ -296,7 +305,27 @@ class StripesDemo extends React.Component {
                     >
                         This is my nav bar, hope you enjoy.
                     </NavBar>
+                    <pre>
+                    <code className="language-js">
+                        {
+                            '<NavBar ref="NavBar"\n'+
+                            '        leftIcon={(\n'+
+                            '                <Icon\n'+
+                            '                    color="white"\n'+
+                            '                    iconid="menu"\n'+
+                            '                    size="medium"\n'+
+                            '                    onClick={this.toggleMenu}\n'+
+                            '                    basestyle={{cursor: "pointer", height: "25px", marginTop: "18px", lineHeight: 0}}\n'+
+                            '        />)}\n'+
+                            '        title="This is a NavBar Title"\n'+
+                            '>\n'+
+                            '    This is my nav bar, hope you enjoy.\n'+
+                            '</NavBar>\n'
+                        }
+                    </code>
+                    </pre>
                 </section>
+
                 <section>
                     <H3>TabMenu</H3>
                     <TabMenu>
