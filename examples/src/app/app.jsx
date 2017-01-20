@@ -16,10 +16,12 @@ const theme = require('./themes/Theme');
 
 // page components
 const StripesDemo = require('./controllers/StripesDemo');
+const icons = require('./themes/iconLibrary.js');
 
 Stripes({
    palette: theme.palette,
-   spacing: theme.spacing
+   spacing: theme.spacing,
+   icons: icons
 });
 
 render((

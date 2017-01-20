@@ -8,16 +8,17 @@ import {Icon} from  '../Symbols/Icon'
 export class NavBar extends StripesTheme {
 
     static defaultProps = {
-        style: {},
-        type: 'navbar',
-        title: null,
-        leftIcon: null
+        style: {},          // Object: style override for this instance
+        type: 'navbar',     // String: reference to style category reference
+        title: null,        // String: Left-side title text string displayed within the navbar
+        leftIcon: null,     // React Component: Icon to be shown on the left, usually with an action attached to it, but can be static
+        fixed: false        // Boolean: Will fix the navbar to the top of the page
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            style: {}
+            style: {}   // stateful style across this instance
         }
     }
 
@@ -25,6 +26,10 @@ export class NavBar extends StripesTheme {
         this.setState({
             style: this.getStyles()
         });
+        if(this.props.fixed) {
+            var parent = this.refs.NavBar.parentNode;
+            parent.setAttribute("style", "padding-top: " + this.refs.NavBar.clientHeight + "px");
+        }
     }
 
     getStyles() {
@@ -53,6 +58,10 @@ export class NavBar extends StripesTheme {
                 right: spacing.padding + 'px'
             }
         };
+        if(this.props.fixed) {
+            styleObj.base.position = "fixed";
+            styleObj.base.top = "0";
+        }
         styleObj.base = Object.assign(styleObj.base, this.props.style);
 
         return styleObj;
@@ -63,7 +72,7 @@ export class NavBar extends StripesTheme {
             <span style={this.state.style.title}>{this.props.title}</span>
         ) : null;
         return (
-            <section style={this.state.style.base}>
+            <section ref="NavBar" style={this.state.style.base}>
                 {this.props.leftIcon}
                 {Title}
                 <div style={this.state.style.rightside}>
