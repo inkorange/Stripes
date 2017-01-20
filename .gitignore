@@ -2,7 +2,7 @@
 node_modules
 build
 .idea
-pkg/lib/**/*.js
+pkg/lib
 *.log
 *.zip
 *.tgz
