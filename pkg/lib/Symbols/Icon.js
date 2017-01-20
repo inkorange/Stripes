@@ -63,6 +63,8 @@ var Icon = exports.Icon = function (_StripesTheme) {
                 case 'large':
                     iconSize = '3.5rem';
                     break;
+                default:
+                    iconSize = this.props.size;
             }
 
             var styleObj = {

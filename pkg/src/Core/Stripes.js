@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 
 let palette = {}
 let spacing = {}
+let icons;
 
 export function Stripes(config)
 {
@@ -10,6 +11,13 @@ export function Stripes(config)
     var _init = function() {
         palette = config.palette;
         spacing = config.spacing;
+        icons = config.icons;
+        if(icons) {
+            var iconNode = document.createElement("div");
+            iconNode.setAttribute("style", "height: 0; width: 0; position: absolute; display: none;");
+            iconNode.innerHTML = icons;
+            document.body.appendChild(iconNode);
+        }
     };
 
     _init();

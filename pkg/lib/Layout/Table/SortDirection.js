@@ -62,18 +62,16 @@ var SortDirection = exports.SortDirection = function (_StripesTheme) {
                     display: 'inline-block',
                     float: 'right',
                     position: 'relative',
-                    top: spacing.padding + 'px'
+                    top: spacing.padding / 2 + 'px'
                 },
                 desc: {
                     display: 'inline-block',
                     float: 'right',
                     position: 'relative',
                     transform: 'rotate(180deg)',
-                    top: -(this.props.width * 4.5) + 'px'
+                    top: -(spacing.padding / 2 + this.props.width * 3.5) + 'px'
                 }
             };
-
-            //styleObj.base = Object.assign(styleObj.base, this.props.style);
             return styleObj;
         }
     }, {
@@ -86,8 +84,8 @@ var SortDirection = exports.SortDirection = function (_StripesTheme) {
             return _react2.default.createElement(
                 'div',
                 { style: this.state.style.base },
-                _react2.default.createElement(_Icon.Icon, { key: 'asc', basestyle: this.state.style.asc, style: { width: this.props.width + 'px' }, color: asccolor, iconid: 'up' }),
-                _react2.default.createElement(_Icon.Icon, { ley: 'desc', basestyle: this.state.style.desc, style: { width: this.props.width + 'px' }, color: desccolor, iconid: 'up' })
+                _react2.default.createElement(_Icon.Icon, { key: 'asc', basestyle: this.state.style.asc, size: this.props.width + 'px', color: asccolor, iconid: 'up' }),
+                _react2.default.createElement(_Icon.Icon, { ley: 'desc', basestyle: this.state.style.desc, size: this.props.width + 'px', color: desccolor, iconid: 'up' })
             );
         }
     }]);

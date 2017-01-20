@@ -9,6 +9,7 @@ import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu
 import {H1, H3, Title} from 'zebra-stripes/Typography'
 
 import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from 'zebra-stripes/Table'
+import {TabularListing} from 'zebra-stripes/Elements/TabularListing'
 
 import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider} from 'zebra-stripes/Forms'
 
@@ -31,12 +32,62 @@ class StripesDemo extends React.Component {
         this.toggleDialog = this.toggleDialog.bind(this);
         this.closeMenu = this.closeMenu.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this);
+        this._setTableState = this._setTableState.bind(this);
     }
 
     componentDidMount() {
     }
 
     componentWillUnmount() {
+    }
+
+    _setTableState() {
+        return {
+            structure: [
+                {
+                    width: '150px',
+                    name: 'Make',
+                    icon: 'alert',
+                    field: 'make',
+                    filterable: false,
+                    sortable: false,
+                    className: 'column-notes'
+                },
+                {
+                    name: 'Model',
+                    field: 'model',
+                    filterable: false,
+                    sortable: true
+                },
+                {
+                    name: 'Year',
+                    field: 'year',
+                    filterable: false,
+                    sortable: true
+                }
+            ],
+            rows: [
+                {make: 'Ford', model: 'Focus', year: '2005'},
+                {make: 'Ford', model: 'Bronco', year: '2001'},
+                {make: 'Acura', model: 'TSX', year: '2012'},
+                {make: 'Acura', model: 'TLX', year: '2016'},
+                {make: 'Toyota', model: 'Camery', year: '2015'},
+                {make: 'Toyota', model: 'Corolla', year: '2017'},
+                {make: 'Toyota', model: 'Avalon', year: '2010'},
+                {make: 'Nissan', model: 'Altima', year: '2008'},
+                {make: 'Honda', model: 'CRV', year: '2015'},
+                {make: 'Honda', model: 'Accord', year: '2014'}
+            ],
+            collection: {
+                end: 10,
+                returned: 10,
+                start: 1,
+                timestamp: 1484924493000,
+                total: 10
+            },
+            sort_by: "model",
+            sort_direction: "desc"
+        };
     }
 
     toggleCheckboxDisable() {
@@ -213,6 +264,10 @@ class StripesDemo extends React.Component {
             </div>
         );
 
+
+
+
+        var dataObj = this._setTableState();
         var LayoutsSection = (
             <div>
                 <section>
@@ -375,6 +430,7 @@ class StripesDemo extends React.Component {
                     </Table>
 
                 </section>
+
                 <section>
                     <H3>Table (with a fixed height)</H3>
                     <Table>
@@ -390,6 +446,83 @@ class StripesDemo extends React.Component {
                     </Table>
 
                 </section>
+
+                <section>
+                    <H3>TableListing</H3>
+                    <p>Users would pass through a complex table structure object, similar to an API response</p>
+
+                    <TabularListing
+                        bodyHeight="250px"
+                        data={dataObj}
+                        onRowClick={() => {}}
+                        onValueClick={() => {}}
+                        headerClick={() => {}}
+                        sortable={() => {}}
+                    />
+
+                    <pre>
+                    <code className="language-js">
+                        {
+                            "var dataObj = {\n"+
+                            "   structure: [\n"+
+                            "       {\n"+
+                            "           width: '150px',\n"+
+                            "           name: 'Make',\n"+
+                            "           icon: 'alert',\n"+
+                            "           field: 'make',\n"+
+                            "           filterable: false,\n"+
+                            "           sortable: false,\n"+
+                            "           className: 'column-notes'\n"+
+                            "       },\n"+
+                            "       {\n"+
+                            "           name: 'Model',\n"+
+                            "           field: 'model',\n"+
+                            "           filterable: false,\n"+
+                            "           sortable: true\n"+
+                            "       },\n"+
+                            "       {\n"+
+                            "           name: 'Year',\n"+
+                            "           field: 'year',\n"+
+                            "           filterable: false,\n"+
+                            "           sortable: true\n"+
+                            "       }\n"+
+                            "   ],\n"+
+                            "   rows: [\n"+
+                            "       {make: 'Ford', model: 'Focus', year: '2005'},\n"+
+                            "       {make: 'Ford', model: 'Bronco', year: '2001'},\n"+
+                            "       {make: 'Acura', model: 'TSX', year: '2012'},\n"+
+                            "       {make: 'Acura', model: 'TLX', year: '2016'},\n"+
+                            "       {make: 'Toyota', model: 'Camery', year: '2015'},\n"+
+                            "       {make: 'Toyota', model: 'Corolla', year: '2017'},\n"+
+                            "       {make: 'Toyota', model: 'Avalon', year: '2010'},\n"+
+                            "       {make: 'Nissan', model: 'Altima', year: '2008'},\n"+
+                            "       {make: 'Honda', model: 'CRV', year: '2015'},\n"+
+                            "       {make: 'Honda', model: 'Accord', year: '2014'}\n"+
+                            "   ],\n"+
+                            "   collection: {\n"+
+                            "       end: 10,\n"+
+                            "       returned: 10,\n"+
+                            "       start: 1,\n"+
+                            "       timestamp: 1484924493000,\n"+
+                            "       total: 10\n"+
+                            "   },\n"+
+                            "   sort_by: 'model',\n"+
+                            "   sort_direction: 'desc'\n"+
+                            "};\n\n" +
+                            "<TabularListing\n"+
+                            "    bodyHeight='250px'\n"+
+                            "    data={dataObj}\n"+
+                            "    onRowClick={() => {}}\n"+
+                            "    onValueClick={() => {}}\n"+
+                            "    headerClick={() => {}}\n"+
+                            "    sortable={() => {}}\n"+
+                            "/>\n"
+                        }
+                    </code>
+                    </pre>
+                </section>
+
+                <br/><br/><br/><br/>
 
             </div>
 

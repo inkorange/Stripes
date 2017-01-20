@@ -25,10 +25,12 @@ pre[class*="language-"] {
 	-moz-hyphens: none;
 	-ms-hyphens: none;
 	hyphens: none;
+	max-height: 400px;
 }
 
 /* Code blocks */
 pre[class*="language-"] {
+	max-height: 400px;
 	position: relative;
 	margin: .5em 0;
 	-webkit-box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
