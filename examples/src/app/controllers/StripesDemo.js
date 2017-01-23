@@ -6,7 +6,7 @@ import { render } from 'react-dom'
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
 import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from 'zebra-stripes/Layouts'
-import {H1, H3, Title} from 'zebra-stripes/Typography'
+import {H1, H2, H3, Title} from 'zebra-stripes/Typography'
 
 import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from 'zebra-stripes/Table'
 import {TabularListing} from 'zebra-stripes/Elements/TabularListing'
@@ -274,6 +274,7 @@ class StripesDemo extends React.Component {
                     <H3>Headers</H3>
                     <Title>Title Component</Title>
                     <H1>Header 1 Component</H1>
+                    <H2>Header 2 Component</H2>
                     <H3>Header 3 Component</H3>
                     <p>Standard paragraph</p>
                 </section>

@@ -16,9 +16,10 @@ gulp.task('babel', () => {
         .pipe(babel())
         .pipe(gulp.dest('lib'));
 });
-
-
-
+gulp.task('movepackage', () => {
+    return gulp.src('./package.json')
+        .pipe(gulp.dest('lib'));
+});
 
 /* ************************************************* */
 
@@ -54,3 +55,4 @@ gulp.task('buildaction', ['clean'], (cb) => {
 gulp.task('build', ['clean', 'buildaction']);
 gulp.task('default', ['webserver', 'watch']);
 gulp.task('buildandrun', ['build', 'default']);
+gulp.task('buildpack', ['babel', 'movepackage']);

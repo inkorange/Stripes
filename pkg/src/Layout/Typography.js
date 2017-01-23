@@ -138,6 +138,42 @@ class H1 extends Stripes.StripesTheme{
     }
 }
 
+class H2 extends Stripes.StripesTheme {
+
+    static defaultProps = {
+        type: 'typography',
+        style: {}
+    }
+
+    constructor(props) {
+        super(props);
+    }
+
+    getStyles() {
+        var spacing = this.getSpacing()[this.props.type];
+        var color = this.getColors()[this.props.type];
+        var styleObj = {
+            color: color.H2Color,
+            fontWeight: 200,
+            fontSize: spacing.baseFontSize*1.5 + 'rem',
+            padding: '0px',
+            margin: spacing.margin * 1.25 + 'px ' + '0px',
+        }
+        return Object.assign(styleObj, this.props.style);
+    }
+
+    render() {
+        var style = this.getStyles();
+        return (
+            <h2
+                style={style}
+            >
+                {this.props.children}
+            </h2>
+        )
+    }
+}
+
 class H3 extends Stripes.StripesTheme {
 
     static defaultProps = {
@@ -177,6 +213,7 @@ class H3 extends Stripes.StripesTheme {
 module.exports = {
     H1: H1,
     H3: H3,
+    H2: H2,
     Title: Title,
     A: A
     //comp2: Component2

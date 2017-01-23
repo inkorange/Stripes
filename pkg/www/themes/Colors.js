@@ -54,6 +54,7 @@ module.exports = {
     typography: {
         H1Color: 'black',
         H3Color: 'rgb(100,100,100)',
+        H2Color: 'rgb(100,100,100)',
         aColor: 'black',
         aHoverColor: primaryBackground
     },

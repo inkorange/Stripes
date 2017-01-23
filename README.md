@@ -41,7 +41,7 @@ gulp buildandrun
 Step 1: Compile Module
 Once a new component is tested and linted, we need to package the project into a tarball file. We do this by going to the /pkg root directory and executing:
 ```
-gulp babel
+gulp buildpack
 ```
  
 This will transpile the ES6 codebase to be used in web projects, and builds them to the /lib folder.

@@ -11,7 +11,7 @@ import { Stripes } from '../src/Core/Stripes'
 import {NavBar} from '../src/Layouts'
 import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from '../src/Table'
 import {TabularListing} from '../src/Elements/TabularListing'
-import { Title, H1, H3 } from '../src/Typography'
+import { Title, H1, H2, H3 } from '../src/Typography'
 import {Icon} from  '../src/Symbols/Icon'
 
 // layouts
@@ -92,19 +92,7 @@ class Sandbox extends React.Component {
         var dataObj = this._setTableState();
         return (
             <div>
-                <NavBar ref="NavBar"
-                        leftIcon={(
-                                    <Icon
-                                        color="white"
-                                        iconid="menu"
-                                        size="medium"
-                                        basestyle={{cursor: 'pointer', height: '25px', marginTop: '18px', lineHeight: 0}}
-                                    />)}
-                        title="This is a NavBar Title"
-                        fixed={true}
-                >
-                    This is my nav bar, hope you enjoy.
-                </NavBar>
+                <H2>This is my new H2</H2>
                 <TabularListing
                     data={dataObj}
                     onRowClick={() => {}}
@@ -121,6 +109,20 @@ class Sandbox extends React.Component {
                             <p>Donec ultrices malesuada ante, tristique auctor magna accumsan eu. Curabitur lobortis nisi tortor, ac pulvinar est luctus at. Fusce consequat placerat ante, sit amet pellentesque justo sagittis quis. Nunc malesuada lorem et ipsum tincidunt luctus. Maecenas facilisis nunc iaculis quam hendrerit, in bibendum velit semper. In non ultricies leo. Nullam convallis neque ac ipsum blandit, at mattis neque aliquet. Fusce tempor ex quis gravida consequat. Donec vitae eros sagittis, cursus tortor ut, dignissim mauris. Pellentesque id interdum libero. Duis in consectetur sem. Fusce id odio vitae massa facilisis gravida sed ac dolor. Aliquam erat volutpat. Nulla eleifend, justo eu mattis scelerisque, leo leo tincidunt massa, id tincidunt ante erat in dui. Mauris odio orci, rhoncus non lacus sed, auctor tincidunt libero. Fusce neque purus, molestie id justo at, tincidunt efficitur sem.</p>
 
                                 <p>Etiam ac nisl congue, scelerisque justo vel, sodales sapien. Ut hendrerit a urna eget mollis. Cras dignissim interdum elit ut auctor. Phasellus aliquam nec magna et ultrices. In at tincidunt tortor, sagittis porta quam. Curabitur molestie nisi in gravida consequat. Aliquam massa mauris, euismod ut nunc nec, bibendum posuere neque.</p>
+
+                <NavBar ref="NavBar"
+                        leftIcon={(
+                                    <Icon
+                                        color="white"
+                                        iconid="menu"
+                                        size="medium"
+                                        basestyle={{cursor: 'pointer', height: '25px', marginTop: '18px', lineHeight: 0}}
+                                    />)}
+                        title="This is a NavBar Title"
+                        fixed={true}
+                >
+                    This is my nav bar, hope you enjoy.
+                </NavBar>
             </div>
         )
 
