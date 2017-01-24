@@ -1,12 +1,21 @@
 ![Zebra Stripes](zstripes.png?raw=true)
-# Stripes
-A ReactJS-based Design System for Zebra Technologies, leveraging the web component architecture and borrowing design philosophy for Atomic Design principles.
+# Zebra Stripes Design System
 
-This project contains both the source files to build out an NPM package for re-usability across other applications, as well as a live style guide based on the tarball built form the src.
+A ReactJS-based Design System from TLA's engineering team, leveraging the web component architecture and borrowing design philosophy for Atomic Design principles.
+
+This project contains both the source files to build out an NPM package for re-usability across other applications, as well as a live style guide based on the package built from source.
 
 # Structure of the Project
 
-The project has 2 main folders, /examples and /pkg. The /examples folder houses a ReactJS build that demonstrates the currently build Stripes NPM package. This build is not connected to the source file, and is only configured to render the Zebra Stripes library through an NPM installation, which is configured in the package.json file.
+The project has 2 main folders, /examples and /pkg. The /examples folder houses a ReactJS app that demonstrates code samples, implementation examples, and property definitions of the current Stripes release. This build is not connected to the source file, and is only configured to render the Zebra Stripes library through an NPM installation, which is configured in the package.json file.
+
+package.json:
+```
+"devDependencies": {
+   ...
+    "zebra-stripes": "../pkg/zebra-stripes-0.0.1.tgz"
+  },
+```
 
 # Building and Running the Live Style Guide
 
