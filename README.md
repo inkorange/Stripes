@@ -1,4 +1,4 @@
-![alt tag](zstripes.svg?raw=true)
+![Zebra Stripes](zstripes.png?raw=true)
 # Stripes
 A ReactJS-based Design System for Zebra Technologies, leveraging the web component architecture and borrowing design philosophy for Atomic Design principles.
 
