@@ -13,7 +13,8 @@ import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow
 import {TabularListing} from '../src/Elements/TabularListing'
 import { Title, H1, H2, H3 } from '../src/Typography'
 import {Icon} from  '../src/Symbols/Icon'
-import {ShowHide, TwoColumnLayout} from '../src/Layouts'
+import {ShowHide, TabMenu} from '../src/Layouts'
+import {Item} from '../src/Forms'
 
 // layouts
 const MainLayout = React.createClass({
@@ -47,14 +48,10 @@ class Sandbox extends React.Component {
         return (
             <div>
 
-                <TwoColumnLayout
-                    columnOne={(<p>this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. </p>)}
-
-
-                    columnTwo={(<p>two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content </p>)}
-                    gutter="20"
-                />
-
+                <Title>This is the title text and we need it to wrap This is the title text and we need it to wrap This is the title text and we need it to wrap</Title>
+                <H1>this is header text that will wrap  this is header text that will wrap  this is header text that will wrap  this is header text that will wrap  this is header text that will wrap</H1>
+                <H2>this is header text that will wrap this is header text that will wrap this is header text that will wrap this is header text that will wrap</H2>
+                <H3>this is header text that will wrap this is header text that will wrap this is header text that will wrap this is header text that will wrap this is header text that will wrap</H3>
 
 
                 <ShowHide

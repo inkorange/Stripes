@@ -10,7 +10,7 @@ import {CardElement} from '../element_guides/CardElement'
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
 import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from 'zebra-stripes/Layouts'
-import {H1, H2, H3, Title} from 'zebra-stripes/Typography'
+import {H1, H2, H3, Title, A} from 'zebra-stripes/Typography'
 
 import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from 'zebra-stripes/Table'
 import {TabularListing} from 'zebra-stripes/Elements/TabularListing'
@@ -557,15 +557,38 @@ class StripesDemo extends React.Component {
 
         Object.keys(LayoutConfig).map((k,v) => {
             LayoutSect.push(<section id={k} key={"comp"+k}>{LayoutConfig[k]}</section>);
-            LayoutNavigator.push(<p key={"nav"+k}><a href={"#" + k}>{k}</a></p>);
+            LayoutNavigator.push(<p key={"nav"+k}><A href={"#" + k}>{k}</A></p>);
         });
 
         return (
-            <article className="main_content_child">
+            <article className="main_content_child" style={{paddingBottom: '105px'}}>
+                <header style={{background: 'white', position: 'fixed', top: 0, right: 0, left: 0, padding: "10px 20px 0 20px", zIndex: 10}}>
+                    <img src="./images/zstripes.png" style={{height: '75px'}} />
+                </header>
+                <TabMenu style={{margin: "105px -20px 0 -20px"}}>
+                    <Item key="tab1" label="Stripes">
+                        <H2>Stripes Design System: Web Component Architecture Built on ReactJS and the Material UI Library</H2>
 
-                <Title>Zebra Stripes Design System</Title>
-                <TabMenu style={{margin: "0 -20px"}}>
-                    <Item key="tab1" label="Layouts">
+                        <p>Welcome to the Stripes Design Library authored by the engineer of the TLA Application.</p>
+                        <p>The components contained within this guide are developed against the Material UI design concepts, with elements originating from Zebra's own design methodology.</p>
+                        <p>These modules are built in a reusable, and configurable, way. The configurations for the reusable components are outlined on the following pages.</p>
+                        <p>TLA has chosen ReactJS for our UI application based on its support of a web component architecture, similar to the emerging ES7 specification that will define syntax for web components going forward. This web component architecture promotes the design system approach called Atomic Design.</p>
+                        <p>See: <a href="https://facebook.github.io/react/docs/why­react.htm" target="_blank">https://facebook.github.io/react/docs/why­react.htm</a></p>
+
+                        <H2>Web Components</H2>
+                        <p>Web components are a technology that instantiates portions of the UI layer as individual [shadow DOM] parts. These are typically referred to as the UI elements of the application, such as a top nav, search box, tabular listing. The same architecture is used to render logic and data-based controllers also enforcing design systems across an application’s UI.</p>
+                        <p>The new TLA application uses the idea of atomic design, the individual breakdown of reusable components of a UI. Brad Frost (<a href="http://bradfrost.com/blog/post/atomic-web-design/" target="_blank">http://bradfrost.com/blog/post/atomic-web-design/</a>) introduced the idea of atoms, elements, and molecules when referring to components of a layout. Web component technologies such as Polymer and ReactJS provide a vehicle to implement such a design system.</p>
+
+                        <H2>Using Atomic Design</H2>
+                        <p>Atomic Design states that all pages are constructed of elements, which are then constructure of small components referred to as molecules, and those composed of smaller ones such as atoms. This concept is a modern way to both design applications as well as implement and reuse shared components across this application and other sister apps. The deployment system that represents such an architecture will also work to promote a more flexible upgrade and new installation path for new hubs.</p>
+
+                        <H2>Adaptive Design Systems</H2>
+                        <p>As the future of the TLA application becomes more entrenched in various device form factors on the loading floors, the UI needs to be more flexible and adaptive to touch-based devices.</p>
+                        <p>We need to develop a consistent look and feel, with set design standards, to enforce this approach across all existing screens, as well as new layouts for future pages.</p>
+                        <p>This approach to define the design system will work for both the visual aesthetics of the site as well as guidelines for building new pages.</p>
+
+                    </Item>
+                    <Item key="tab2" label="Layouts">
                         <div style={navSideStyle}>
                             {LayoutNavigator}
                         </div>
@@ -575,15 +598,16 @@ class StripesDemo extends React.Component {
                     </Item>
 
 
-                    <Item key="tab2" label="Inputs">
+                    <Item key="tab3" label="Inputs">
                         <H1 style={h1style}>Input Components</H1>
                         {InputsSection}
                     </Item>
-                    <Item key="tab3" label="Elements">
+                    <Item key="tab4" label="Elements">
                         <H1 style={h1style}>Element Components</H1>
                         {ComponentsSection}
                     </Item>
                 </TabMenu>
+
 
                 <footer className="zebra" style={{zIndex: 1000}}>
                     <img src="./images/zebralogo.svg" />

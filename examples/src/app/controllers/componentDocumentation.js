@@ -3,6 +3,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import jsxToString from 'jsx-to-string';
+import {PrismCode} from "react-prism"
 
 import {H1, H2, H3, Title} from 'zebra-stripes/Typography'
 import {TabularListing} from 'zebra-stripes/Elements/TabularListing'
@@ -40,16 +41,32 @@ export class ComponentDocumentation extends React.Component {
             ],
             rows: this.props.propsMap
         };
-        var codeNodes = (
-            <pre style={style.codesnippet}>
-                <code className="language-js">
-                    {this.props.code ? this.props.code : jsxToString(this.props.example)}
-                </code>
-            </pre>
-        );
+
         var paramNodes = this.props.propsMap ? <TabularListing
             data={dataObj}
         /> : <p>There are no parameters.</p>;
+
+
+        var codeExamples = [];
+        this.props.samples.map((obj, i) => {
+            var codeNodes = (
+                <pre style={style.codesnippet}>
+                    <PrismCode className="language-js">
+                        {obj.code ? obj.code : jsxToString(obj.example)}
+                    </PrismCode>
+                </pre>
+            );
+            codeExamples.push(
+                <TwoColumnLayout
+                    key={"codesample"+i}
+                    columnOne={obj.example}
+                    columnOneWidth="60%"
+                    columnTwo={codeNodes}
+                    columnTwoWidth="40%"
+                    gutter="20"
+                />
+            )
+        });
 
         return (
 
@@ -60,20 +77,6 @@ export class ComponentDocumentation extends React.Component {
 
                 <div style={style.details}>
                     {this.props.description}
-                    <ShowHide
-                        label="Examples in Practice"
-                        labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(100, 100, 100)', fontSize: '2rem'}}
-                        contentStyle={{padding: '20px'}}
-                        icons={["up","down"]}
-                    >
-                        <TwoColumnLayout
-                            columnOne={this.props.example}
-                            columnOneWidth="60%"
-                            columnTwo={codeNodes}
-                            columnTwoWidth="40%"
-                            gutter="20"
-                        />
-                    </ShowHide>
                     <div style={style.properties}>
                         <ShowHide
                             label={this.props.title + " Properties"}
@@ -87,6 +90,14 @@ export class ComponentDocumentation extends React.Component {
                             </div>
                         </ShowHide>
                     </div>
+                    <ShowHide
+                        label="Examples in Practice"
+                        labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(100, 100, 100)', fontSize: '2rem'}}
+                        contentStyle={{padding: '20px'}}
+                        icons={["up","down"]}
+                    >
+                        {codeExamples}
+                    </ShowHide>
                 </div>
                 </Card>
 
@@ -113,7 +124,7 @@ var style = {
     properties: {
         backgroundColor: '#f3f3f3',
         //padding: '10px 20px 20px 20px',
-        marginTop: '20px'
+        marginBottom: '20px'
     },
     table: {
         padding: '10px',

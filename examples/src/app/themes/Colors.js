@@ -1,6 +1,6 @@
 
-let primaryColor = "#3366CC";
-let primaryBackground = "#1565C0";
+let primaryColor = "#007CB0";
+let primaryBackground = "#007CB0";
 let accentBlue = "#007CB0";
 let accentYellow = "#FFD200";
 let accentRed = "#ED1C24";
@@ -24,7 +24,7 @@ module.exports = {
         backgroundHover: 'rgba(0,0,0,.08)',
         iconColor: accentBlue,
         headerBackgroundColor: primaryBackground,
-        activeIcon: "#3366CC",
+        activeIcon: primaryColor,
         inactiveIcon: "#dbdbdb"
 },
     primary: {
@@ -35,7 +35,7 @@ module.exports = {
         backgroundHover: '#2d80df',
         iconColor: primaryBackground,
         headerBackgroundColor: primaryBackground,
-        activeIcon: "#3366CC",
+        activeIcon: primaryColor,
         inactiveIcon: "#dbdbdb"
 
     },
@@ -47,7 +47,7 @@ module.exports = {
         backgroundHover: 'rgba(0,0,0,.08)',
         iconColor: primaryBackground,
         headerBackgroundColor: secondaryBackground,
-        activeIcon: "#3366CC",
+        activeIcon: primaryColor,
         inactiveIcon: "#dbdbdb"
 
     },
@@ -82,7 +82,7 @@ module.exports = {
     tabmenu: {
         background: primaryColor,
         textColor: secondaryTextColor,
-        indicator: '#FFFF8C'
+        indicator: accentYellow
     },
     table: {
         header: {

@@ -51,7 +51,8 @@ export class TabMenu extends StripesTheme {
             flexGrow: 1,
             textAlign: 'center',
             cursor: 'pointer',
-            transition: 'opacity .3s'
+            transition: 'opacity .3s',
+            width: 100/this.props.children.length + "%"
         }
         var styleObj = {
             base: {

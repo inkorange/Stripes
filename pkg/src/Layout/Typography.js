@@ -22,7 +22,7 @@ class Title extends Stripes.StripesTheme {
             color: color.H1Color,
             fontWeight: 200,
             fontSize: spacing.baseFontSize*2 + 'rem',
-            lineHeight: spacing.baseFontSize*1.75 + 'rem',
+            lineHeight: spacing.baseFontSize*2 + 'rem',
             padding: '0px',
             margin: spacing.margin * 2 + 'px ' + '0px'
         }
@@ -119,8 +119,9 @@ class H1 extends Stripes.StripesTheme{
             color: color.H1Color,
             fontWeight: 200,
             fontSize: spacing.baseFontSize*1.75 + 'rem',
+            lineHeight: spacing.baseFontSize*2 + 'rem',
             padding: '0px',
-            margin: spacing.margin * 1.5 + 'px ' + '0px',
+            margin: spacing.margin * 1.5 + 'px ' + '0px'
         }
 
         return Object.assign(styleObj, this.props.style);
@@ -156,8 +157,9 @@ class H2 extends Stripes.StripesTheme {
             color: color.H2Color,
             fontWeight: 200,
             fontSize: spacing.baseFontSize*1.5 + 'rem',
+            lineHeight: spacing.baseFontSize*1.75 + 'rem',
             padding: '0px',
-            margin: spacing.margin * 1.25 + 'px ' + '0px',
+            margin: spacing.margin * 1.25 + 'px ' + '0px'
         }
         return Object.assign(styleObj, this.props.style);
     }
@@ -192,8 +194,9 @@ class H3 extends Stripes.StripesTheme {
             color: color.H3Color,
             fontWeight: 200,
             fontSize: spacing.baseFontSize*1.25 + 'rem',
+            lineHeight: spacing.baseFontSize*1.5 + 'rem',
             padding: '0px',
-            margin: spacing.padding + 'px ' + '0px',
+            margin: spacing.padding + 'px ' + '0px'
         }
         return Object.assign(styleObj, this.props.style);
     }

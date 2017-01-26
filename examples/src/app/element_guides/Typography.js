@@ -19,30 +19,50 @@ export class Typography extends React.Component {
                     title="Title"
                     location="import {Title} from 'zebra-stripes/Typography';"
                     propsMap={[{name: 'style', type: 'Object', desc: '', default: '{}'}]}
-                    code="<Title>Title Component</Title>"
-                    example={<Title>Use of Title Example Component in Practice</Title>}
-                    description="Typically used as a top-level header, the Title tag will be the prominent typographical rendering on the page."
+                    samples={[
+                        {
+                            code:"<Title>\n     Title Component\n</Title>",
+                            example:(<Title style={{wordWrap: 'break-word'}}>ABCDEFGHIJKLMNOPQRSTUVWXYZabsdefghijklmnopqrstuvwxyz1234567890</Title>)
+                        },
+                        {
+                            code:"<Title style=\{color:'blue'\}>\n     Title Component\n</Title>",
+                            example:(<Title style={{wordWrap: 'break-word', color:'blue'}}>ABCDEFGHIJKLMNOPQRSTUVWXYZabsdefghijklmnopqrstuvwxyz1234567890</Title>)
+                        }
+                    ]}
+                    description={<p>Typically used as a top-level header, the Title tag will be the prominent typographical rendering on the page.</p>}
                 />
                 <ComponentDocumentation
                     title="Header 1"
                     location="import {H1} from 'zebra-stripes/Typography';"
-                    code="<H1>Header 1 Component</H1>"
+                    samples={[
+                        {
+                            code:"<H1>\n     Header 1 Component\n</H1>",
+                            example:(<H1 style={{wordWrap: 'break-word'}}>ABCDEFGHIJKLMNOPQRSTUVWXYZabsdefghijklmnopqrstuvwxyz1234567890</H1>)
+                        }
+                    ]}
                     propsMap={[{name: 'style', type: 'Object', desc: '', default: '{}'}]}
-                    example={<H1>Header 1 Example Component in Practice</H1>}
                 />
                 <ComponentDocumentation
                     title="Header 2"
                     location="import {H2} from 'zebra-stripes/Typography';"
-                    code="<H2>Header 2 Component</H2>"
+                    samples={[
+                        {
+                            code:"<H2>\n     Header 2 Component\n</H2>",
+                            example:(<H2 style={{wordWrap: 'break-word'}}>ABCDEFGHIJKLMNOPQRSTUVWXYZabsdefghijklmnopqrstuvwxyz1234567890</H2>)
+                        }
+                    ]}
                     propsMap={[{name: 'style', type: 'Object', desc: '', default: '{}'}]}
-                    example={<H2>Header 2 Example Component in Practice</H2>}
                 />
                 <ComponentDocumentation
                     title="Header 3"
                     location="import {H3} from 'zebra-stripes/Typography';"
-                    code="<H3>Header 3 Component</H3>"
+                    samples={[
+                        {
+                            code:"<H3>\n     Header 3 Component\n</H3>",
+                            example:(<H3 style={{wordWrap: 'break-word'}}>ABCDEFGHIJKLMNOPQRSTUVWXYZabsdefghijklmnopqrstuvwxyz1234567890</H3>)
+                        }
+                    ]}
                     propsMap={[{name: 'style', type: 'Object', desc: '', default: '{}'}]}
-                    example={<H3>Header 3 Example Component in Practice</H3>}
                 />
             </div>
         )
