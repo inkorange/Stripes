@@ -13,6 +13,9 @@ export class ShowHide extends StripesTheme {
         label: '',
         type: 'default',
         disabled: false,
+        labelStyle: {},
+        contentStyle: {},
+        icons: ["minus","add"],
         onClick: () => { return false; }
     }
 
@@ -74,7 +77,8 @@ export class ShowHide extends StripesTheme {
                 userSelect: 'none'
             }
         };
-
+        styleObj.toggler = Object.assign(styleObj.toggler, this.props.labelStyle);
+        styleObj.content = Object.assign(styleObj.content, this.props.contentStyle);
         styleObj.base = Object.assign(styleObj.base, this.props.style);
         return styleObj;
     }
@@ -85,7 +89,7 @@ export class ShowHide extends StripesTheme {
                 <label onClick={this.changeShow} style={this.state.style.toggler}>
                     {this.props.label}
                     <Icon
-                        iconid={this.state.show ? "minus" : "add"}
+                        iconid={this.state.show ? this.props.icons[0] : this.props.icons[1]}
                         size="small"
                         basestyle={this.state.style.icon}
                     />

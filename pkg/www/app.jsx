@@ -13,7 +13,7 @@ import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow
 import {TabularListing} from '../src/Elements/TabularListing'
 import { Title, H1, H2, H3 } from '../src/Typography'
 import {Icon} from  '../src/Symbols/Icon'
-import {ShowHide} from '../src/Layout/ShowHide'
+import {ShowHide, TwoColumnLayout} from '../src/Layouts'
 
 // layouts
 const MainLayout = React.createClass({
@@ -39,10 +39,31 @@ class Sandbox extends React.Component {
 
     render() {
 
+        var labstyle = {
+            padding: '10px',
+            backgroundColor: 'rgb(240,240,240)'
+        };
 
         return (
             <div>
-                <ShowHide label="Show Hide This" initialShow={true}>
+
+                <TwoColumnLayout
+                    columnOne={(<p>this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. this is part of column 1. </p>)}
+
+
+                    columnTwo={(<p>two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content two column content </p>)}
+                    gutter="20"
+                />
+
+
+
+                <ShowHide
+                    label="Show Hide This"
+                    initialShow={true}
+                    labelStyle={labstyle}
+                    contentStyle={{padding: '10px'}}
+                    icons={["up","down"]}
+                >
                     <p>This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open</p>
                     <p>This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open</p>
                     <p>This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open</p>

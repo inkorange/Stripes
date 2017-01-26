@@ -30,6 +30,7 @@ export class CardElement extends React.Component {
 
         <ComponentDocumentation
                     title="Card"
+                    location="import {Card} from 'zebra-stripes/Layouts';"
                     propsMap={[
                         {name: 'style', type: 'Object', desc: '', default: '{}'},
                         {name: 'headerStyle', type: 'Object', desc: '', default: '{}'},

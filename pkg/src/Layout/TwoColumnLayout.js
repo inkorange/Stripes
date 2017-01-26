@@ -10,7 +10,7 @@ export class TwoColumnLayout extends StripesTheme {
         columnOne: '',
         columnTwo: '',
         columnOneWidth: '50%',
-        columnTwoWidth: '50%',
+        columnTwoWidth: null,
         columnOneStyle: {},
         columnTwoStyle: {},
         gutter: null,
@@ -36,13 +36,13 @@ export class TwoColumnLayout extends StripesTheme {
                 marginBottom: spacing.padding + 'px'
             },
             left: {
-                width: this.props.columnOneWidth ? 'calc('+this.props.columnOneWidth+' - ' + gutter/2 + 'px)' : 'calc(50% - ' + gutter/2 + 'px)',
+                width: 'calc('+this.props.columnOneWidth+' - ' + gutter/2 + 'px)',
                 marginRight:  gutter + 'px',
                 textAlign: 'left'
 
             },
             right: {
-                width: this.props.columnTwoWidth ? 'calc('+this.props.columnTwoWidth+' - ' + gutter/2 + 'px)' : 'calc(50% - ' + gutter/2 + 'px)',
+                width: this.props.columnTwoWidth ? 'calc('+this.props.columnTwoWidth+' - ' + gutter/2 + 'px)' : 'calc(100% - ' + this.props.columnOneWidth + ' - ' + gutter/2 + 'px)',
                 textAlign: 'left'
             }
         }

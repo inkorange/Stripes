@@ -15,8 +15,6 @@ export class ComponentDocumentation extends React.Component {
     }
 
     render() {
-        console.log(this.props);
-
         var dataObj = {
             structure: [
                 {
@@ -56,13 +54,18 @@ export class ComponentDocumentation extends React.Component {
         return (
 
                 <Card
-                    title={this.props.title}
+                    title={this.props.location ? [<p style={style.location}>{this.props.location}</p>, this.props.title] : this.props.title}
                     style={style.base}
                 >
 
                 <div style={style.details}>
-                    <p>{this.props.description}</p>
-                    <ShowHide label="Examples in Practice">
+                    {this.props.description}
+                    <ShowHide
+                        label="Examples in Practice"
+                        labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(100, 100, 100)', fontSize: '2rem'}}
+                        contentStyle={{padding: '20px'}}
+                        icons={["up","down"]}
+                    >
                         <TwoColumnLayout
                             columnOne={this.props.example}
                             columnOneWidth="60%"
@@ -72,10 +75,17 @@ export class ComponentDocumentation extends React.Component {
                         />
                     </ShowHide>
                     <div style={style.properties}>
-                        <H3>{this.props.title + " Properties"}</H3>
-                        <div style={{backgroundColor: 'white'}}>
-                            {paramNodes}
-                        </div>
+                        <ShowHide
+                            label={this.props.title + " Properties"}
+                            labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(100, 100, 100)', fontSize: '2rem'}}
+                            contentStyle={{padding: '20px'}}
+                            icons={["up","down"]}
+                            initialShow={true}
+                        >
+                            <div style={{backgroundColor: 'white'}}>
+                                {paramNodes}
+                            </div>
+                        </ShowHide>
                     </div>
                 </div>
                 </Card>
@@ -98,18 +108,27 @@ var style = {
         marginBottom: '40px'
     },
     details: {
-        marginLeft: '25px'
+        marginTop: '-20px'
     },
     properties: {
-        backgroundColor: 'rgba(0,0,0,.05)',
-        padding: '10px 20px 20px 20px',
+        backgroundColor: '#f3f3f3',
+        //padding: '10px 20px 20px 20px',
         marginTop: '20px'
     },
     table: {
         padding: '10px',
-        boxShadow: '0 2px 5px rgba(0,0,0,.5)'
+        boxShadow: '#f3f3f3'
     },
     codesnippet: {
         height: '100%'
+    },
+    location: {
+        background: 'rgba(255,255,255,.8)',
+        float: 'right',
+        padding: '5px 10px',
+        margin: '-5px 0 0 0',
+        fontSize: '1.5rem',
+        color: 'black',
+        borderRadius: '5px'
     }
 }

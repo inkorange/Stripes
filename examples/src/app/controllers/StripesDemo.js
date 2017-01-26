@@ -139,7 +139,6 @@ class StripesDemo extends React.Component {
             );
         };
 
-
         var InputsSection = (
             <div>
                 <section>
@@ -259,268 +258,239 @@ class StripesDemo extends React.Component {
             </div>
         );
 
-
-
-
         var dataObj = this._setTableState();
 
         var LayoutConfig = {
-            "Typography" :  {},
-            "Card" :        {}
+            "Typography" :      (<Typography />),
+            "Card" :            (<CardElement />),
+            "Paper" :           (<div>
+                                    <H3>Paper</H3>
+                                    <Paper style={{width: '32%', marginRight: '2%', marginBottom: '10px'}}>This is a paper component</Paper>
+                                    <Paper style={{width: '32%', marginRight: '2%', marginBottom: '10px'}} depth="1">This is a paper component</Paper>
+                                    <Paper style={{width: '32%', marginBottom: '10px'}} depth="3">This is a paper component</Paper>
+                                </div>),
+            "TwoColumnLayout" : (<div>
+                                    <H3>TwoColumnLayout</H3>
+                                    <TwoColumnLayout
+                                        columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
+                                        columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
+                                    />
+                                </div>),
+            "Fieldset":         (<div>
+                                    <H3>Fieldset</H3>
+                                    <Fieldset
+                                        title="Active Section"
+                                        style={{marginBottom: '20px'}}
+                                    >
+                                        This is an active Fieldset.
+                                    </Fieldset>
+                                    <Fieldset disabled={true} title="Disabled Section">
+                                        This Fieldset is no longer active.
+                                    </Fieldset>
+                                </div>),
+            "Dialog":           (<div>
+                                    <H3>Dialog</H3>
+                                    <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
+                                    <Dialog ref="Dialog"
+                                            modal={true}
+                                            title="This is the Card Title"
+                                            width="50%"
+                                            actions={[
+                                                <FlatButton key="action1" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
+                                                <RaisedButton key="action2" onClick={() => { this.toggleDialog(false); }}type="primary">Cancel</RaisedButton>
+                                            ]}
+                                    >
+                                        This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.
+                                    </Dialog>
+                                </div>),
+            "LeftNav":          (<div>
+                                    <H3>LeftNav</H3>
+                                    <LeftNav ref="LeftNav" modal={true}>
+
+                                        <Paper style={{width: '90%', margin: '20px 5%'}} depth="1">You can nest any kind of component in here, this is a Paper component.</Paper>
+                                        <RaisedButton style={{position: 'absolute', bottom: 0, left: 0, width: 'calc(100% - 10px)'}} key="button6" type="primary" onClick={this.closeMenu}>Manually Close</RaisedButton>
+                                    </LeftNav>
+                                        <pre>
+                                        <code className="language-js">
+                                            {
+                                                '<LeftNav ref="LeftNav" modal={true}>\n'+
+                                                '    Left Nav Content\n'+
+                                                '</LeftNav>\n'
+                                            }
+                                        </code>
+                                        </pre>
+                                </div>),
+            "NavBar":           (<div>
+                                    <H3>NavBar</H3>
+                                    <NavBar ref="NavBar"
+                                            leftIcon={(
+                                                <Icon
+                                                    color="white"
+                                                    iconid="menu"
+                                                    size="medium"
+                                                    onClick={this.toggleMenu}
+                                                    basestyle={{cursor: 'pointer', height: '25px', marginTop: '18px', lineHeight: 0}}
+                                                />)}
+                                            title="This is a NavBar Title"
+                                    >
+                                        This is my nav bar, hope you enjoy.
+                                    </NavBar>
+                                        <pre>
+                                        <code className="language-js">
+                                            {
+                                                '<NavBar ref="NavBar"\n'+
+                                                '        leftIcon={(\n'+
+                                                '                <Icon\n'+
+                                                '                    color="white"\n'+
+                                                '                    iconid="menu"\n'+
+                                                '                    size="medium"\n'+
+                                                '                    onClick={this.toggleMenu}\n'+
+                                                '                    basestyle={{cursor: "pointer", height: "25px", marginTop: "18px", lineHeight: 0}}\n'+
+                                                '        />)}\n'+
+                                                '        title="This is a NavBar Title"\n'+
+                                                '>\n'+
+                                                '    This is my nav bar, hope you enjoy.\n'+
+                                                '</NavBar>\n'
+                                            }
+                                        </code>
+                                        </pre>
+                                </div>),
+            "TabMenu":          (<div>
+                                    <H3>TabMenu</H3>
+                                    <TabMenu>
+                                        <Item key="tab1" label="Menu Item 1" />
+                                        <Item key="tab2" selected={true} label="Menu Item 2"/>
+                                        <Item key="tab3" label="Menu Item 3"/>
+                                        <Item key="tab4" label="Menu Item 4"/>
+                                    </TabMenu>
+                                </div>),
+
+            "IconMenu":         (<div>
+                                    <H3>IconMenu</H3>
+                                    <IconMenu style={{float: 'right'}} iconid="filter" direction="left" max-width="500px">
+                                        <TwoColumnLayout
+                                            style={{padding: '20px', width: '300px'}}
+                                            columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
+                                            columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
+                                        />
+                                    </IconMenu>
+                                    <IconMenu iconid="filter" direction="bottom" max-width="500px">
+                                        <TwoColumnLayout
+                                            style={{padding: '20px', width: '300px'}}
+                                            columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
+                                            columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
+                                        />
+                                    </IconMenu>
+                                    <IconMenu style={{marginLeft: '50px'}} iconid="filter" direction="top" max-width="500px">
+                                        <TwoColumnLayout
+                                            style={{padding: '20px', width: '300px'}}
+                                            columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
+                                            columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
+                                        />
+                                    </IconMenu>
+                                </div>),
+            "Table":            (<div>
+                                    <H3>Table (no fixed height)</H3>
+                                    <Table>
+                                        <TableHeader>
+                                            <TableHeaderRow>
+                                                <TableHeaderCell>Head 1</TableHeaderCell>
+                                                <TableHeaderCell>Head 2</TableHeaderCell>
+                                            </TableHeaderRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {tableCells}
+                                        </TableBody>
+                                    </Table>
+
+                                    <H3>Table (with a fixed height)</H3>
+                                    <Table>
+                                        <TableHeader>
+                                            <TableHeaderRow>
+                                                <TableHeaderCell isSortable={true}>Head 1</TableHeaderCell>
+                                                <TableHeaderCell isSortable={true} sortdirection="desc">Head 2</TableHeaderCell>
+                                            </TableHeaderRow>
+                                        </TableHeader>
+                                        <TableBody height="200px" zebraStripes={true}>
+                                            {tableCells}
+                                        </TableBody>
+                                    </Table>
+                                </div>),
+            "TabularListing":   (<div>
+                                    <H3>TableListing</H3>
+                                    <p>Users would pass through a complex table structure object, similar to an API response</p>
+
+                                    <TabularListing
+                                        bodyHeight="250px"
+                                        data={dataObj}
+                                        onRowClick={() => {}}
+                                        onValueClick={() => {}}
+                                        headerClick={() => {}}
+                                        sortable={() => {}}
+                                    />
+
+                                        <pre>
+                                        <code className="language-js">
+                                            {
+                                                "var dataObj = {\n"+
+                                                "   structure: [\n"+
+                                                "       {\n"+
+                                                "           width: '150px',\n"+
+                                                "           name: 'Make',\n"+
+                                                "           icon: 'alert',\n"+
+                                                "           field: 'make',\n"+
+                                                "           filterable: false,\n"+
+                                                "           sortable: false,\n"+
+                                                "           className: 'column-notes'\n"+
+                                                "       },\n"+
+                                                "       {\n"+
+                                                "           name: 'Model',\n"+
+                                                "           field: 'model',\n"+
+                                                "           filterable: false,\n"+
+                                                "           sortable: true\n"+
+                                                "       },\n"+
+                                                "       {\n"+
+                                                "           name: 'Year',\n"+
+                                                "           field: 'year',\n"+
+                                                "           filterable: false,\n"+
+                                                "           sortable: true\n"+
+                                                "       }\n"+
+                                                "   ],\n"+
+                                                "   rows: [\n"+
+                                                "       {make: 'Ford', model: 'Focus', year: '2005'},\n"+
+                                                "       {make: 'Ford', model: 'Bronco', year: '2001'},\n"+
+                                                "       {make: 'Acura', model: 'TSX', year: '2012'},\n"+
+                                                "       {make: 'Acura', model: 'TLX', year: '2016'},\n"+
+                                                "       {make: 'Toyota', model: 'Camery', year: '2015'},\n"+
+                                                "       {make: 'Toyota', model: 'Corolla', year: '2017'},\n"+
+                                                "       {make: 'Toyota', model: 'Avalon', year: '2010'},\n"+
+                                                "       {make: 'Nissan', model: 'Altima', year: '2008'},\n"+
+                                                "       {make: 'Honda', model: 'CRV', year: '2015'},\n"+
+                                                "       {make: 'Honda', model: 'Accord', year: '2014'}\n"+
+                                                "   ],\n"+
+                                                "   collection: {\n"+
+                                                "       end: 10,\n"+
+                                                "       returned: 10,\n"+
+                                                "       start: 1,\n"+
+                                                "       timestamp: 1484924493000,\n"+
+                                                "       total: 10\n"+
+                                                "   },\n"+
+                                                "   sort_by: 'model',\n"+
+                                                "   sort_direction: 'desc'\n"+
+                                                "};\n\n" +
+                                                "<TabularListing\n"+
+                                                "    bodyHeight='250px'\n"+
+                                                "    data={dataObj}\n"+
+                                                "    onRowClick={() => {}}\n"+
+                                                "    onValueClick={() => {}}\n"+
+                                                "    headerClick={() => {}}\n"+
+                                                "    sortable={() => {}}\n"+
+                                                "/>\n"
+                                            }
+                                        </code>
+                                        </pre>
+                                </div>)
         };
-
-        var LayoutsSection = (
-            <div>
-
-                <Typography />
-
-                <CardElement />
-
-
-                <section>
-                    <H3>Paper</H3>
-                    <Paper style={{width: '32%', marginRight: '2%', marginBottom: '10px'}}>This is a paper component</Paper>
-                    <Paper style={{width: '32%', marginRight: '2%', marginBottom: '10px'}} depth="1">This is a paper component</Paper>
-                    <Paper style={{width: '32%', marginBottom: '10px'}} depth="3">This is a paper component</Paper>
-                </section>
-
-                <section>
-                    <H3>TwoColumnLayout</H3>
-                    <TwoColumnLayout
-                        columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
-                        columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
-                    />
-                </section>
-
-                <section>
-                    <H3>Fieldset</H3>
-                    <Fieldset
-                        title="Active Section"
-                        style={{marginBottom: '20px'}}
-                    >
-                        This is an active Fieldset.
-                    </Fieldset>
-                    <Fieldset disabled={true} title="Disabled Section">
-                        This Fieldset is no longer active.
-                    </Fieldset>
-                </section>
-
-                <section>
-                    <H3>Dialog</H3>
-                    <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
-                    <Dialog ref="Dialog"
-                            modal={true}
-                            title="This is the Card Title"
-                            width="50%"
-                            actions={[
-                            <FlatButton key="action1" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
-                            <RaisedButton key="action2" onClick={() => { this.toggleDialog(false); }}type="primary">Cancel</RaisedButton>
-                        ]}
-                    >
-                        This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.This is the content area of the dialog.
-                    </Dialog>
-                </section>
-
-                <section>
-                    <H3>LeftNav</H3>
-                    <LeftNav ref="LeftNav" modal={true}>
-
-                        <Paper style={{width: '90%', margin: '20px 5%'}} depth="1">You can nest any kind of component in here, this is a Paper component.</Paper>
-                        <RaisedButton style={{position: 'absolute', bottom: 0, left: 0, width: 'calc(100% - 10px)'}} key="button6" type="primary" onClick={this.closeMenu}>Manually Close</RaisedButton>
-                    </LeftNav>
-                    <pre>
-                    <code className="language-js">
-                        {
-                            '<LeftNav ref="LeftNav" modal={true}>\n'+
-                            '    Left Nav Content\n'+
-                            '</LeftNav>\n'
-                        }
-                    </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <H3>NavBar</H3>
-                    <NavBar ref="NavBar"
-                            leftIcon={(
-                            <Icon
-                                color="white"
-                                iconid="menu"
-                                size="medium"
-                                onClick={this.toggleMenu}
-                                basestyle={{cursor: 'pointer', height: '25px', marginTop: '18px', lineHeight: 0}}
-                            />)}
-                            title="This is a NavBar Title"
-                    >
-                        This is my nav bar, hope you enjoy.
-                    </NavBar>
-                    <pre>
-                    <code className="language-js">
-                        {
-                            '<NavBar ref="NavBar"\n'+
-                            '        leftIcon={(\n'+
-                            '                <Icon\n'+
-                            '                    color="white"\n'+
-                            '                    iconid="menu"\n'+
-                            '                    size="medium"\n'+
-                            '                    onClick={this.toggleMenu}\n'+
-                            '                    basestyle={{cursor: "pointer", height: "25px", marginTop: "18px", lineHeight: 0}}\n'+
-                            '        />)}\n'+
-                            '        title="This is a NavBar Title"\n'+
-                            '>\n'+
-                            '    This is my nav bar, hope you enjoy.\n'+
-                            '</NavBar>\n'
-                        }
-                    </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <H3>TabMenu</H3>
-                    <TabMenu>
-                        <Item key="tab1" label="Menu Item 1" />
-                        <Item key="tab2" selected={true} label="Menu Item 2"/>
-                        <Item key="tab3" label="Menu Item 3"/>
-                        <Item key="tab4" label="Menu Item 4"/>
-                    </TabMenu>
-                </section>
-                <section>
-                    <H3>IconMenu</H3>
-                    <IconMenu style={{float: 'right'}} iconid="filter" direction="left" max-width="500px">
-                        <TwoColumnLayout
-                            style={{padding: '20px', width: '300px'}}
-                            columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
-                            columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
-                        />
-                    </IconMenu>
-                    <IconMenu iconid="filter" direction="bottom" max-width="500px">
-                        <TwoColumnLayout
-                            style={{padding: '20px', width: '300px'}}
-                            columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
-                            columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
-                        />
-                    </IconMenu>
-                    <IconMenu style={{marginLeft: '50px'}} iconid="filter" direction="top" max-width="500px">
-                        <TwoColumnLayout
-                            style={{padding: '20px', width: '300px'}}
-                            columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
-                            columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
-                        />
-                    </IconMenu>
-
-                </section>
-                <section>
-                    <H3>Table (no fixed height)</H3>
-                    <Table>
-                        <TableHeader>
-                            <TableHeaderRow>
-                                <TableHeaderCell>Head 1</TableHeaderCell>
-                                <TableHeaderCell>Head 2</TableHeaderCell>
-                            </TableHeaderRow>
-                        </TableHeader>
-                        <TableBody>
-                            {tableCells}
-                        </TableBody>
-                    </Table>
-
-                </section>
-
-                <section>
-                    <H3>Table (with a fixed height)</H3>
-                    <Table>
-                        <TableHeader>
-                            <TableHeaderRow>
-                                <TableHeaderCell isSortable={true}>Head 1</TableHeaderCell>
-                                <TableHeaderCell isSortable={true} sortdirection="desc">Head 2</TableHeaderCell>
-                            </TableHeaderRow>
-                        </TableHeader>
-                        <TableBody height="200px" zebraStripes={true}>
-                            {tableCells}
-                        </TableBody>
-                    </Table>
-
-                </section>
-
-                <section>
-                    <H3>TableListing</H3>
-                    <p>Users would pass through a complex table structure object, similar to an API response</p>
-
-                    <TabularListing
-                        bodyHeight="250px"
-                        data={dataObj}
-                        onRowClick={() => {}}
-                        onValueClick={() => {}}
-                        headerClick={() => {}}
-                        sortable={() => {}}
-                    />
-
-                    <pre>
-                    <code className="language-js">
-                        {
-                            "var dataObj = {\n"+
-                            "   structure: [\n"+
-                            "       {\n"+
-                            "           width: '150px',\n"+
-                            "           name: 'Make',\n"+
-                            "           icon: 'alert',\n"+
-                            "           field: 'make',\n"+
-                            "           filterable: false,\n"+
-                            "           sortable: false,\n"+
-                            "           className: 'column-notes'\n"+
-                            "       },\n"+
-                            "       {\n"+
-                            "           name: 'Model',\n"+
-                            "           field: 'model',\n"+
-                            "           filterable: false,\n"+
-                            "           sortable: true\n"+
-                            "       },\n"+
-                            "       {\n"+
-                            "           name: 'Year',\n"+
-                            "           field: 'year',\n"+
-                            "           filterable: false,\n"+
-                            "           sortable: true\n"+
-                            "       }\n"+
-                            "   ],\n"+
-                            "   rows: [\n"+
-                            "       {make: 'Ford', model: 'Focus', year: '2005'},\n"+
-                            "       {make: 'Ford', model: 'Bronco', year: '2001'},\n"+
-                            "       {make: 'Acura', model: 'TSX', year: '2012'},\n"+
-                            "       {make: 'Acura', model: 'TLX', year: '2016'},\n"+
-                            "       {make: 'Toyota', model: 'Camery', year: '2015'},\n"+
-                            "       {make: 'Toyota', model: 'Corolla', year: '2017'},\n"+
-                            "       {make: 'Toyota', model: 'Avalon', year: '2010'},\n"+
-                            "       {make: 'Nissan', model: 'Altima', year: '2008'},\n"+
-                            "       {make: 'Honda', model: 'CRV', year: '2015'},\n"+
-                            "       {make: 'Honda', model: 'Accord', year: '2014'}\n"+
-                            "   ],\n"+
-                            "   collection: {\n"+
-                            "       end: 10,\n"+
-                            "       returned: 10,\n"+
-                            "       start: 1,\n"+
-                            "       timestamp: 1484924493000,\n"+
-                            "       total: 10\n"+
-                            "   },\n"+
-                            "   sort_by: 'model',\n"+
-                            "   sort_direction: 'desc'\n"+
-                            "};\n\n" +
-                            "<TabularListing\n"+
-                            "    bodyHeight='250px'\n"+
-                            "    data={dataObj}\n"+
-                            "    onRowClick={() => {}}\n"+
-                            "    onValueClick={() => {}}\n"+
-                            "    headerClick={() => {}}\n"+
-                            "    sortable={() => {}}\n"+
-                            "/>\n"
-                        }
-                    </code>
-                    </pre>
-                </section>
-
-                <br/><br/><br/><br/>
-
-            </div>
-
-        );
 
         var ComponentsSection = (
             <div>
@@ -571,14 +541,40 @@ class StripesDemo extends React.Component {
             paddingBottom: '20px'
         };
 
+
+
+        var navSideStyle = {
+            width: '200px',
+            position: 'fixed'
+        };
+
+        var contentSideStyle = {
+            marginLeft: '250px'
+        };
+
+        var LayoutNavigator = [];
+        var LayoutSect = [];
+
+        Object.keys(LayoutConfig).map((k,v) => {
+            LayoutSect.push(<section id={k} key={"comp"+k}>{LayoutConfig[k]}</section>);
+            LayoutNavigator.push(<p key={"nav"+k}><a href={"#" + k}>{k}</a></p>);
+        });
+
         return (
             <article className="main_content_child">
 
                 <Title>Zebra Stripes Design System</Title>
                 <TabMenu style={{margin: "0 -20px"}}>
                     <Item key="tab1" label="Layouts">
-                        {LayoutsSection}
+                        <div style={navSideStyle}>
+                            {LayoutNavigator}
+                        </div>
+                        <div style={contentSideStyle}>
+                            {LayoutSect}
+                        </div>
                     </Item>
+
+
                     <Item key="tab2" label="Inputs">
                         <H1 style={h1style}>Input Components</H1>
                         {InputsSection}
