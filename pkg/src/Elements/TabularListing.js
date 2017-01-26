@@ -31,7 +31,7 @@ export class TabularListing extends StripesTheme {
             var cells = [];
             this.props.data.structure.map((c, i) => {
                 cells.push(
-                    <TableCell key={"headcell"+i} width={c.width}>{r[c.field]}</TableCell>
+                    <TableCell key={"headcell"+i} width={c.width} wrap={c.wrap ? true: false}>{r[c.field]}</TableCell>
                 );
             });
             tableCells.push(
@@ -49,6 +49,7 @@ export class TabularListing extends StripesTheme {
                     width={c.width ? c.width : null}
                     onClick={this.props.headerClick}
                     key={"headercell" + i}
+                    wrap={c.wrap ? true: false}
                 >
                     {c.name}
                 </TableHeaderCell>

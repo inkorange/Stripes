@@ -9,6 +9,7 @@ export class TableHeaderCell extends StripesTheme {
 
     static defaultProps = {
         style: {},
+        wrap: false,
         width: null,
         type: 'table',
         onClick: null,
@@ -50,9 +51,10 @@ export class TableHeaderCell extends StripesTheme {
                 cursor: this.props.onClick || this.props.isSortable ? 'pointer' : 'default',
                 position: 'relative',
                 maxWidth: '0',
-                whiteSpace: 'nowrap',
+                whiteSpace: !this.props.wrap ? 'nowrap' : null,
                 overflow: 'hidden',
-                textOverflow: 'ellipsis'
+                textOverflow: !this.props.wrap ? 'ellipsis' : null,
+                fontSize: spacing.fontSize
             },
             sort: {
                 style: {

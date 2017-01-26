@@ -61,16 +61,17 @@ var Theme = {
             indicatorHeight: 2
         },
         table: {
-            fontSize: '1.5rem',
+            fontSize: '1.4rem',
             header: {
-                minHeight: 64 - (basePadding*2)
+                minHeight: 48 - (basePadding*2)
             },
             cell: {
+                fontSize: '1.4rem',
                 padding: basePadding*2,
                 sortWidth: 10
             },
             row: {
-                minHeight: 54
+                minHeight: 48
             }
         }
     }

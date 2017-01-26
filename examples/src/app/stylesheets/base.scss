@@ -6,14 +6,16 @@ html {
 
 *::-webkit-scrollbar
 {
-    width: 5px;
+    width: 7px;
+    height: 7px;
     background-color: rgb(200,200,200);
 }
 *::-webkit-scrollbar-thumb
 {
     background-color: gray;
-    border-radius: 5px;
-    width: 10px;
+    border-radius: 7px;
+    width: 7px;
+    height: 7px;
 }
 
 html,body {

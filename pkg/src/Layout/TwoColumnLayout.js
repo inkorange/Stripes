@@ -13,6 +13,7 @@ export class TwoColumnLayout extends StripesTheme {
         columnTwoWidth: '50%',
         columnOneStyle: {},
         columnTwoStyle: {},
+        gutter: null,
         style: {},
         type: 'default'
     }
@@ -27,6 +28,7 @@ export class TwoColumnLayout extends StripesTheme {
 
     getStyles() {
         var spacing = this.getSpacing()[this.props.type];
+        var gutter = this.props.gutter ? this.props.gutter : spacing.padding;
         var styleObj = {
             base: {
                 display: 'flex',
@@ -34,13 +36,13 @@ export class TwoColumnLayout extends StripesTheme {
                 marginBottom: spacing.padding + 'px'
             },
             left: {
-                width: this.props.columnOneWidth ? 'calc('+this.props.columnOneWidth+' - ' + spacing.padding + 'px)' : 'calc(50% - ' + spacing.padding + 'px)',
-                marginRight:  spacing.padding + 'px',
+                width: this.props.columnOneWidth ? 'calc('+this.props.columnOneWidth+' - ' + gutter/2 + 'px)' : 'calc(50% - ' + gutter/2 + 'px)',
+                marginRight:  gutter + 'px',
                 textAlign: 'left'
 
             },
             right: {
-                width: this.props.columnTwoWidth ? 'calc('+this.props.columnTwoWidth+' - ' + spacing.padding + 'px)' : 'calc(50% - ' + spacing.padding + 'px)',
+                width: this.props.columnTwoWidth ? 'calc('+this.props.columnTwoWidth+' - ' + gutter/2 + 'px)' : 'calc(50% - ' + gutter/2 + 'px)',
                 textAlign: 'left'
             }
         }

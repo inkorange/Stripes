@@ -36,6 +36,7 @@
     "require-dir": "*",
     "vinyl-source-stream": "*",
     "watchify": "^2.2.1",
+    "jsx-to-string": "*",
     "zebra-stripes": "../pkg/zebra-stripes-0.0.1.tgz"
   },
   "dependencies": {

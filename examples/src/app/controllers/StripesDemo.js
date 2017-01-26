@@ -3,6 +3,10 @@
 import React from 'react'
 import { render } from 'react-dom'
 
+import {Typography} from '../element_guides/Typography'
+import {CardElement} from '../element_guides/CardElement'
+
+
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
 import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from 'zebra-stripes/Layouts'
@@ -135,16 +139,7 @@ class StripesDemo extends React.Component {
             );
         };
 
-        var CardNode = (
-            <Card
-                title="This is the Card Title"
-                actions={[
-                    <FlatButton key="action1">Yes</FlatButton>,
-                    <RaisedButton key="action2" type="primary">No</RaisedButton>
-                ]}
-            >
-                This is the card body.
-            </Card>);
+
         var InputsSection = (
             <div>
                 <section>
@@ -268,21 +263,19 @@ class StripesDemo extends React.Component {
 
 
         var dataObj = this._setTableState();
+
+        var LayoutConfig = {
+            "Typography" :  {},
+            "Card" :        {}
+        };
+
         var LayoutsSection = (
             <div>
-                <section>
-                    <H3>Headers</H3>
-                    <Title>Title Component</Title>
-                    <H1>Header 1 Component</H1>
-                    <H2>Header 2 Component</H2>
-                    <H3>Header 3 Component</H3>
-                    <p>Standard paragraph</p>
-                </section>
 
-                <section>
-                    <H3>Card</H3>
-                    {CardNode}
-                </section>
+                <Typography />
+
+                <CardElement />
+
 
                 <section>
                     <H3>Paper</H3>
@@ -331,7 +324,7 @@ class StripesDemo extends React.Component {
                 <section>
                     <H3>LeftNav</H3>
                     <LeftNav ref="LeftNav" modal={true}>
-                        {CardNode}
+
                         <Paper style={{width: '90%', margin: '20px 5%'}} depth="1">You can nest any kind of component in here, this is a Paper component.</Paper>
                         <RaisedButton style={{position: 'absolute', bottom: 0, left: 0, width: 'calc(100% - 10px)'}} key="button6" type="primary" onClick={this.closeMenu}>Manually Close</RaisedButton>
                     </LeftNav>
@@ -584,7 +577,6 @@ class StripesDemo extends React.Component {
                 <Title>Zebra Stripes Design System</Title>
                 <TabMenu style={{margin: "0 -20px"}}>
                     <Item key="tab1" label="Layouts">
-                        <H1 style={h1style}>Layout Components</H1>
                         {LayoutsSection}
                     </Item>
                     <Item key="tab2" label="Inputs">

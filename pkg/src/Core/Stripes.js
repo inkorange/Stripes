@@ -257,6 +257,30 @@ export class StripesTheme extends React.Component {
 
     }
 
+    animateSlide(node, direction) {
+        var aniTiming = {
+            duration: 500,
+            iterations: 1,
+            fill: 'both'
+        };
+        var aniExplode = [
+            { overflow: 'hidden', maxHeight: 0},
+            { overflow: 'hidden', maxHeight: '100vh'}
+        ];
+        var animation = node.animate(
+            aniExplode,
+            aniTiming
+        );
+        animation.pause(); // must pause out of the gate or it will just run.
+
+        if(direction) {
+            animation.play();
+        } else {
+            animation.reverse();
+        }
+
+    }
+
     extendChildren(children, propsObj) {
         var childrenNodes = [];
         React.Children.toArray(children).map((node, i) => {
