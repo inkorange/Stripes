@@ -21,6 +21,8 @@ import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, Drop
 import {Alert} from  'zebra-stripes/Notifications/Alert'
 import {Icon} from  'zebra-stripes/Symbols/Icon'
 
+import { Stripes } from 'zebra-stripes/Core/Stripes'
+
 class StripesDemo extends React.Component {
 
     constructor(props) {

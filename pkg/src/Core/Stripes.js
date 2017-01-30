@@ -1,21 +1,22 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-let palette = {}
-let spacing = {}
-let icons;
+let stripes_theme = {};
+stripes_theme.palette = {};
+stripes_theme.spacing = {};
+stripes_theme.icons;
 
 export function Stripes(config)
 {
     /* default constructor */
     var _init = function() {
-        palette = config.palette;
-        spacing = config.spacing;
-        icons = config.icons;
-        if(icons) {
+        stripes_theme.palette = config.palette;
+        stripes_theme.spacing = config.spacing;
+        stripes_theme.icons = config.icons;
+        if(stripes_theme.icons) {
             var iconNode = document.createElement("div");
             iconNode.setAttribute("style", "height: 0; width: 0; position: absolute; display: none;");
-            iconNode.innerHTML = icons;
+            iconNode.innerHTML = stripes_theme.icons;
             document.body.appendChild(iconNode);
         }
     };
@@ -115,8 +116,8 @@ export class StripesTheme extends React.Component {
 
     getTheme() {
         return {
-            palette: palette,
-            spacing: spacing
+            palette: stripes_theme.palette,
+            spacing: stripes_theme.spacing
         }
     }
 
@@ -129,11 +130,11 @@ export class StripesTheme extends React.Component {
     }
 
     getColors() {
-        return palette;
+        return stripes_theme.palette;
     }
 
     getSpacing() {
-        return spacing;
+        return stripes_theme.spacing;
     }
 
     mouseOver() {
