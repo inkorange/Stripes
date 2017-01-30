@@ -54,7 +54,7 @@ module.exports = {
     typography: {
         H1Color: 'black',
         H3Color: 'rgb(100,100,100)',
-        aColor: 'black',
+        aColor: primaryColor,
         aHoverColor: primaryBackground
     },
     notification: {

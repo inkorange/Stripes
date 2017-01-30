@@ -9,7 +9,6 @@ export class Paper extends StripesTheme {
     static defaultProps = {
         style: {},
         depth: 1,
-        className: '',
         type: 'default',
         onBlur: () => { return false; }
     }
@@ -50,7 +49,7 @@ export class Paper extends StripesTheme {
 
     render() {
         return (
-            <section style={this.state.style} tabIndex="1" ref="Paper" onBlur={this.props.onBlur} className={"Paper " + this.props.className}>
+            <section style={this.state.style} tabIndex="1" ref="Paper" onBlur={this.props.onBlur}>
                 {this.props.children}
             </section>
         )

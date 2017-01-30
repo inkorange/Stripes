@@ -18,7 +18,7 @@ export class Typography extends React.Component {
                 <ComponentDocumentation
                     title="Title"
                     location="import {Title} from 'zebra-stripes/Typography';"
-                    propsMap={[{name: 'style', type: 'Object', desc: '', default: '{}'}]}
+                    propsMap={[standardStyleProp]}
                     samples={[
                         {
                             code:"<Title>\n     Title Component\n</Title>",
@@ -29,7 +29,7 @@ export class Typography extends React.Component {
                             example:(<Title style={{wordWrap: 'break-word', color:'blue'}}>ABCDEFGHIJKLMNOPQRSTUVWXYZabsdefghijklmnopqrstuvwxyz1234567890</Title>)
                         }
                     ]}
-                    description={<p>Typically used as a top-level header, the Title tag will be the prominent typographical rendering on the page.</p>}
+                    description={<p>Typically used as a top-level header, the Title tag will be the prominent typographical rendering on the page, and will render semantically out to the &lth;header&ht; element.</p>}
                 />
                 <ComponentDocumentation
                     title="Header 1"
@@ -40,7 +40,8 @@ export class Typography extends React.Component {
                             example:(<H1 style={{wordWrap: 'break-word'}}>ABCDEFGHIJKLMNOPQRSTUVWXYZabsdefghijklmnopqrstuvwxyz1234567890</H1>)
                         }
                     ]}
-                    propsMap={[{name: 'style', type: 'Object', desc: '', default: '{}'}]}
+                    propsMap={[standardStyleProp]}
+                    description={<p>Highest level header tag. Post React rendering will result in the use of the common h1 tag.</p>}
                 />
                 <ComponentDocumentation
                     title="Header 2"
@@ -51,7 +52,8 @@ export class Typography extends React.Component {
                             example:(<H2 style={{wordWrap: 'break-word'}}>ABCDEFGHIJKLMNOPQRSTUVWXYZabsdefghijklmnopqrstuvwxyz1234567890</H2>)
                         }
                     ]}
-                    propsMap={[{name: 'style', type: 'Object', desc: '', default: '{}'}]}
+                    description={<p>Post React rendering will result in the use of the common h2 tag.</p>}
+                    propsMap={[standardStyleProp]}
                 />
                 <ComponentDocumentation
                     title="Header 3"
@@ -62,12 +64,15 @@ export class Typography extends React.Component {
                             example:(<H3 style={{wordWrap: 'break-word'}}>ABCDEFGHIJKLMNOPQRSTUVWXYZabsdefghijklmnopqrstuvwxyz1234567890</H3>)
                         }
                     ]}
-                    propsMap={[{name: 'style', type: 'Object', desc: '', default: '{}'}]}
+                    description={<p>Post React rendering will result in the use of the common h3 tag.</p>}
+                    propsMap={[standardStyleProp]}
                 />
             </div>
         )
     }
 }
+
+const standardStyleProp = {name: 'style', type: 'object', desc: 'Extend the base thematic styling for this tag.', default: '{}'};
 
 module.exports = {
     Typography: Typography

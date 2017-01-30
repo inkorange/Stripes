@@ -42,7 +42,7 @@ export class ComponentDocumentation extends React.Component {
             rows: this.props.propsMap
         };
 
-        var paramNodes = this.props.propsMap ? <TabularListing
+        var paramNodes = this.props.propsMap ? <TabularListing key="tablisting"
             data={dataObj}
         /> : <p>There are no parameters.</p>;
 
@@ -50,22 +50,23 @@ export class ComponentDocumentation extends React.Component {
         var codeExamples = [];
         this.props.samples.map((obj, i) => {
             var codeNodes = (
-                <pre style={style.codesnippet}>
+                <pre key={"precode" + i} style={style.codesnippet}>
                     <PrismCode className="language-js">
                         {obj.code ? obj.code : jsxToString(obj.example)}
                     </PrismCode>
                 </pre>
             );
-            codeExamples.push(
+            codeExamples.push([
+                obj.desc ? <H3 key={"desc"+i}>{obj.desc}</H3> : null,
                 <TwoColumnLayout
                     key={"codesample"+i}
                     columnOne={obj.example}
-                    columnOneWidth="60%"
+                    columnOneWidth={this.props.colOneWidth ? this.props.colOneWidth : '60%'}
                     columnTwo={codeNodes}
-                    columnTwoWidth="40%"
+                    columnTwoWidth={this.props.colTwoWidth ? this.props.colTwoWidth : '40%'}
                     gutter="20"
                 />
-            )
+            ])
         });
 
         return (

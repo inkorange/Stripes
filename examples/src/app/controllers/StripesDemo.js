@@ -5,6 +5,7 @@ import { render } from 'react-dom'
 
 import {Typography} from '../element_guides/Typography'
 import {CardElement} from '../element_guides/CardElement'
+import {PaperElement} from '../element_guides/PaperElement'
 
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
@@ -263,12 +264,7 @@ class StripesDemo extends React.Component {
         var LayoutConfig = {
             "Typography" :      (<Typography />),
             "Card" :            (<CardElement />),
-            "Paper" :           (<div>
-                                    <H3>Paper</H3>
-                                    <Paper style={{width: '32%', marginRight: '2%', marginBottom: '10px'}}>This is a paper component</Paper>
-                                    <Paper style={{width: '32%', marginRight: '2%', marginBottom: '10px'}} depth="1">This is a paper component</Paper>
-                                    <Paper style={{width: '32%', marginBottom: '10px'}} depth="3">This is a paper component</Paper>
-                                </div>),
+            "Paper" :           (<PaperElement />),
             "TwoColumnLayout" : (<div>
                                     <H3>TwoColumnLayout</H3>
                                     <TwoColumnLayout
@@ -562,30 +558,50 @@ class StripesDemo extends React.Component {
 
         return (
             <article className="main_content_child" style={{paddingBottom: '105px'}}>
-                <header style={{background: 'white', position: 'fixed', top: 0, right: 0, left: 0, padding: "10px 20px 0 20px", zIndex: 10}}>
+                <header style={style.topHeader}>
                     <img src="./images/zstripes.png" style={{height: '75px'}} />
+                    <ul style={style.topMenu}>
+                        <li style={style.topMenuItem}><A>Theme Use</A></li>
+                        <li style={style.topMenuItem}><A>Layouts</A></li>
+                        <li style={style.topMenuItem}><A>Iconography</A></li>
+                        <li style={style.topMenuItem}><A>Inputs</A></li>
+                        <li style={style.topMenuItem}><A>Elements</A></li>
+                    </ul>
                 </header>
-                <TabMenu style={{margin: "105px -20px 0 -20px"}}>
+                <TabMenu style={{margin: "90px -20px 0 -20px"}}>
                     <Item key="tab1" label="Stripes">
-                        <H2>Stripes Design System: Web Component Architecture Built on ReactJS and the Material UI Library</H2>
+                        <H1>Stripes Design System: Web Component Architecture Built on ReactJS and the Material UI Library</H1>
 
-                        <p>Welcome to the Stripes Design Library authored by the engineer of the TLA Application.</p>
+                        <p>Welcome to the Stripes Design Library authored by the engineers of the TLA Application.</p>
                         <p>The components contained within this guide are developed against the Material UI design concepts, with elements originating from Zebra's own design methodology.</p>
-                        <p>These modules are built in a reusable, and configurable, way. The configurations for the reusable components are outlined on the following pages.</p>
-                        <p>TLA has chosen ReactJS for our UI application based on its support of a web component architecture, similar to the emerging ES7 specification that will define syntax for web components going forward. This web component architecture promotes the design system approach called Atomic Design.</p>
-                        <p>See: <a href="https://facebook.github.io/react/docs/why­react.htm" target="_blank">https://facebook.github.io/react/docs/why­react.htm</a></p>
+
+                        <p>This library is built upon the ReactJS framework, and written with minimal library dependencies. The components are written in ES6 Class patterns. This web component architecture promotes the design system approach called Atomic Design.</p>
 
                         <H2>Web Components</H2>
                         <p>Web components are a technology that instantiates portions of the UI layer as individual [shadow DOM] parts. These are typically referred to as the UI elements of the application, such as a top nav, search box, tabular listing. The same architecture is used to render logic and data-based controllers also enforcing design systems across an application’s UI.</p>
-                        <p>The new TLA application uses the idea of atomic design, the individual breakdown of reusable components of a UI. Brad Frost (<a href="http://bradfrost.com/blog/post/atomic-web-design/" target="_blank">http://bradfrost.com/blog/post/atomic-web-design/</a>) introduced the idea of atoms, elements, and molecules when referring to components of a layout. Web component technologies such as Polymer and ReactJS provide a vehicle to implement such a design system.</p>
+                        <p>The new TLA application uses the idea of atomic design, the individual breakdown of reusable components of a UI. Brad Frost (<A href="http://bradfrost.com/blog/post/atomic-web-design/" target="_blank">http://bradfrost.com/blog/post/atomic-web-design/</A>) introduced the idea of atoms, elements, and molecules when referring to components of a layout. Web component technologies such as Polymer and ReactJS provide a vehicle to implement such a design system.</p>
 
                         <H2>Using Atomic Design</H2>
                         <p>Atomic Design states that all pages are constructed of elements, which are then constructure of small components referred to as molecules, and those composed of smaller ones such as atoms. This concept is a modern way to both design applications as well as implement and reuse shared components across this application and other sister apps. The deployment system that represents such an architecture will also work to promote a more flexible upgrade and new installation path for new hubs.</p>
 
-                        <H2>Adaptive Design Systems</H2>
-                        <p>As the future of the TLA application becomes more entrenched in various device form factors on the loading floors, the UI needs to be more flexible and adaptive to touch-based devices.</p>
-                        <p>We need to develop a consistent look and feel, with set design standards, to enforce this approach across all existing screens, as well as new layouts for future pages.</p>
-                        <p>This approach to define the design system will work for both the visual aesthetics of the site as well as guidelines for building new pages.</p>
+                        <H2>We Alreday Have h1 Tags, Why Do We Need to Use a New H1 Element?</H2>
+                        <p>Inheriting this Stripes design system in your project allows developers to maintain a strict design system in structure, decoration, and semantics.</p>
+                        <p>The CSS that has historically accompanied the page templates are now included with the instantiation of the component through the javascript. By leveraging theme configurations, the Stripes library will maintain color schemes, element sizing, even iconography, across the entire component library.</p>
+                        <pre><code className="language-js">
+                            {'<h3>This is a typical <h3> tag which gives you stock styling...</h3>'}
+                        </code></pre>
+                        <h3>This is a typical &lt;h3&gt; tag which gives you stock styling...</h3>
+
+                        <pre><code className="language-js">
+                            {'<H3>When using This <H3> tag, you inherit the styling of the \n configured theme, fonts and all...</H3>'}
+                        </code></pre>
+                        <H3>When using This &lt;H3&gt; tag, you inherit the styling of the configured theme, fonts and all...</H3>
+
+                        <H2>Maintainers</H2>
+                        <p>Chris West<br/>
+                        UI Software Engineer, DCS<br/>
+                        Zebra Technologies<br/>
+                        <A href="">west@zebra.com</A></p>
 
                     </Item>
                     <Item key="tab2" label="Layouts">
@@ -611,12 +627,34 @@ class StripesDemo extends React.Component {
 
                 <footer className="zebra" style={{zIndex: 1000}}>
                     <img src="./images/zebralogo.svg" />
-                    <p>&copy;2016 ZIH Corp and/or its affiliates. All Rights Reserved. Zebra and the stylized Zebra head are trademarks of ZIH Corp, registered in many jurisdictions worldwide.</p>
+                    <p>&copy;2017 ZIH Corp and/or its affiliates. All Rights Reserved. Zebra and the stylized Zebra head are trademarks of ZIH Corp, registered in many jurisdictions worldwide.</p>
                 </footer>
             </article>
         )
     }
 
 }
+
+const style = {
+    topHeader: {
+        background: 'white',
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        left: 0,
+        padding: "10px 20px 0 20px",
+        zIndex: 10,
+        boxShadow: '0 5px 10px rgba(0,0,0,.25)'
+    },
+    topMenu: {
+        display: 'inline-block',
+        float: 'right'
+    },
+    topMenuItem: {
+        display: 'inline-block',
+        float: 'right',
+        padding: '0 20px',
+    }
+};
 
 module.exports = StripesDemo;
