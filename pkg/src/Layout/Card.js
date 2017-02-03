@@ -106,7 +106,7 @@ export class Card extends StripesTheme {
                     </footer>
                 ) : null }
                 {this.props.inactiveDepth > 0 ? (
-                    <div className="inactivePanel" style={this.state.style.inactiveScreen}></div>
+                    <div key="inactivepanel" className="inactivePanel" style={this.state.style.inactiveScreen}></div>
                 ): null}
             </section>
         )

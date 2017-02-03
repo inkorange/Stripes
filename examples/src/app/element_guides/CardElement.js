@@ -31,8 +31,8 @@ export class CardElement extends React.Component {
                 headerStyle={{backgroundColor: 'red'}}
                 title="Button Actions and Styling"
                 actions={[
-                    <FlatButton onClick={() => {alert('YES!');}} key="action1">Yes</FlatButton>,
-                    <RaisedButton onClick={() => {alert('NO!');}} key="action2" type="primary">No</RaisedButton>
+                    <FlatButton onClick={() => {alert('YES!');}} key="action1b">Yes</FlatButton>,
+                    <RaisedButton onClick={() => {alert('NO!');}} key="action2b" type="primary">No</RaisedButton>
                 ]}
             >
                 This is the card body.

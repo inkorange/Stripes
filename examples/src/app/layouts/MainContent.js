@@ -17,10 +17,11 @@ var MainContent = React.createClass({
 	},
 
 	render() {
-		return <section style={style} className={this.props.path + " MainContent " + (this.state.isloading ? "loading" : "")}>
+		return <section style={style} className={"MainContent " + (this.state.isloading ? "loading" : "")}>
 			{this.props.children}
 		</section>;
 	}
+
 });
 
 module.exports = MainContent;

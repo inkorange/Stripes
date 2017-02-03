@@ -17,6 +17,7 @@ export default {
     // layouts *********************************
     MainContent: {
         height: '100vh',
+        marginTop: '80px',
         backgroundColor: 'white'
     },
 

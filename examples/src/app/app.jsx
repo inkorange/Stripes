@@ -16,6 +16,7 @@ const theme = require('./themes/Theme');
 
 // page components
 const StripesDemo = require('./controllers/StripesDemo');
+const Intro = require('./controllers/Intro');
 const icons = require('./themes/iconLibrary.js');
 
 Stripes({
@@ -29,6 +30,8 @@ render((
     <Router history={browserHistory}>
         <Route path="/" component={MainLayout}>
             <IndexRoute component={StripesDemo} />
+            <Route name="home" path="home" component={Intro}/>
+            <Route name="components" path="components" component={StripesDemo}/>
         </Route>
     </Router>
 

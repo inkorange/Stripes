@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { render } from 'react-dom'
-import jsxToString from 'jsx-to-string';
-import {PrismCode} from "react-prism"
+import jsxToString from 'jsx-to-string'
+import {PrismCode} from 'react-prism'
 
 import {H1, H2, H3, Title} from 'zebra-stripes/Typography'
 import {TabularListing} from 'zebra-stripes/Elements/TabularListing'
@@ -51,9 +51,9 @@ export class ComponentDocumentation extends React.Component {
         this.props.samples.map((obj, i) => {
             var codeNodes = (
                 <pre key={"precode" + i} style={style.codesnippet}>
-                    <PrismCode className="language-js">
+                    <code className="language-js">
                         {obj.code ? obj.code : jsxToString(obj.example)}
-                    </PrismCode>
+                    </code>
                 </pre>
             );
             codeExamples.push([
@@ -81,7 +81,7 @@ export class ComponentDocumentation extends React.Component {
                     <div style={style.properties}>
                         <ShowHide
                             label={this.props.title + " Properties"}
-                            labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(100, 100, 100)', fontSize: '2rem'}}
+                            labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(20, 20, 20)', fontSize: '2rem'}}
                             contentStyle={{padding: '20px'}}
                             icons={["up","down"]}
                             initialShow={true}
@@ -93,7 +93,7 @@ export class ComponentDocumentation extends React.Component {
                     </div>
                     <ShowHide
                         label="Examples in Practice"
-                        labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(100, 100, 100)', fontSize: '2rem'}}
+                        labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(20, 20, 20)', fontSize: '2rem'}}
                         contentStyle={{padding: '20px'}}
                         icons={["up","down"]}
                     >
