@@ -145,9 +145,10 @@ class StripesDemo extends React.Component {
 
     _scrollToFromMenu(e) {
         e.preventDefault();
-        var target = e.target.getAttribute("href").substring(1);
-        var deviation = 120;
+        var target = e.target.getAttribute("data-anchor").substring(1);
+        var deviation = 0;
         var ypos = document.getElementById(target).offsetTop - deviation;
+        console.log(document.getElementById(target).offsetTop, ypos);
         window.scrollTo(0, ypos);
         return false;
     }
@@ -583,7 +584,7 @@ class StripesDemo extends React.Component {
 
         Object.keys(StyleGuideConfig).map((k,v) => {
             LayoutSect.push(<section id={k} key={"comp"+k}>{StyleGuideConfig[k]}</section>);
-            LayoutNavigator.push(<p key={"nav"+k}><A onClick={this._scrollToFromMenu} href={"#" + k}>{k}</A></p>);
+            LayoutNavigator.push(<p key={"nav"+k}><A onClick={this._scrollToFromMenu} data-anchor={"#" + k}>{k}</A></p>);
         });
 
 
@@ -592,7 +593,7 @@ class StripesDemo extends React.Component {
 
 
         return (
-            <article className="main_content_child" style={{padding: '80px 0 105px 0'}}>
+            <article className="main_content_child" style={{padding: '0 0 105px 0', marginTop: '110px'}}>
                 <div style={navSideStyle}>
                     {LayoutNavigator}
                 </div>
