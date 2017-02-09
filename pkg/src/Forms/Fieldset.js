@@ -11,6 +11,7 @@ export class Fieldset extends StripesTheme {
         depth: 1,
         className: '',
         type: 'default',
+        title: null,
         disabled: false,
         visible: true
     }
@@ -49,13 +50,12 @@ export class Fieldset extends StripesTheme {
                 display: 'block',
                 color: color.textColor
             }
-        }
-
+        };
+        styleObj.base = Object.assign(styleObj.base, this.props.style);
         return styleObj;
     }
 
     render() {
-        var baseStyle = Object.assign(this.state.style.base, this.props.style);
         return (
             <fieldset
                 style={baseStyle}

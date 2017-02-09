@@ -16,15 +16,11 @@ class StripesDemo extends React.Component {
         }
     }
 
-    componentDidMount() {
-    }
-
-
     render() {
         return (
-            <article className="main_content_child" style={{padding: '80px 0 105px 0'}}>
+            <article className="main_content_child" style={{padding: '80px 5% 105px 5%'}}>
 
-                <H1>Stripes Design System: Web Component Architecture Built on ReactJS and the Material UI Library</H1>
+                <Title style={mainheaderStyle}>Stripes Design System: Web Component Architecture Built on ReactJS and the Material UI Library</Title>
 
                 <p>Welcome to the Stripes Design Library authored by the engineers of the TLA Application.</p>
                 <p>The components contained within this guide are developed against the Material UI design concepts, with elements originating from Zebra's own design methodology.</p>
@@ -63,6 +59,15 @@ class StripesDemo extends React.Component {
 
 }
 
-
+const mainheaderStyle = {
+    padding: '60px calc(5% + 20px)',
+    margin: '20px calc(-5% - 20px) 40px',
+    background: '#007CB0',
+    color: 'white',
+    fontSize: '42px',
+    fontWeight: '250',
+    lineHeight: '1.4',
+    textShadow: '0 1px 0 rgba(0,0,0,.75)'
+};
 
 module.exports = StripesDemo;

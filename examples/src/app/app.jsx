@@ -29,7 +29,7 @@ render((
 
     <Router history={browserHistory}>
         <Route path="/" component={MainLayout}>
-            <IndexRoute component={StripesDemo} />
+            <IndexRoute component={Intro} />
             <Route name="home" path="home" component={Intro}/>
             <Route name="components" path="components" component={StripesDemo}/>
         </Route>

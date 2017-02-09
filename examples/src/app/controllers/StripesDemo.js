@@ -7,6 +7,7 @@ import {Typography} from '../element_guides/Typography'
 import {CardElement} from '../element_guides/CardElement'
 import {PaperElement} from '../element_guides/PaperElement'
 import {TwoColumnElement} from '../element_guides/TwoColumnElement'
+import {FieldsetElement} from '../element_guides/FieldsetElement'
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
@@ -44,7 +45,7 @@ class StripesDemo extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this._syncWithLeftNav);
+        //window.addEventListener('scroll', this._syncWithLeftNav);
         var els = document.getElementsByTagName('section');
         console.log(els);
         /*
@@ -155,6 +156,9 @@ class StripesDemo extends React.Component {
 
     _syncWithLeftNav() {
         console.log(window.scrollY);
+        if(window.scrollY > 50) {
+            console.log('add class');
+        }
 
     }
 
@@ -178,18 +182,7 @@ class StripesDemo extends React.Component {
             "Card": (<CardElement />),
             "Paper": (<PaperElement />),
             "TwoColumnLayout": (<TwoColumnElement />),
-            "Fieldset": (<div>
-                <H3>Fieldset</H3>
-                <Fieldset
-                    title="Active Section"
-                    style={{marginBottom: '20px'}}
-                >
-                    This is an active Fieldset.
-                </Fieldset>
-                <Fieldset disabled={true} title="Disabled Section">
-                    This Fieldset is no longer active.
-                </Fieldset>
-            </div>),
+            "Fieldset": (<FieldsetElement />),
             "Dialog": (<div>
                 <H3>Dialog</H3>
                 <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
@@ -584,7 +577,7 @@ class StripesDemo extends React.Component {
 
         Object.keys(StyleGuideConfig).map((k,v) => {
             LayoutSect.push(<section id={k} key={"comp"+k}>{StyleGuideConfig[k]}</section>);
-            LayoutNavigator.push(<p key={"nav"+k}><A onClick={this._scrollToFromMenu} data-anchor={"#" + k}>{k}</A></p>);
+            LayoutNavigator.push(<p style={{lineHeight: '15px'}} key={"nav"+k}><A onClick={this._scrollToFromMenu} data-anchor={"#" + k}>{k}</A></p>);
         });
 
 
