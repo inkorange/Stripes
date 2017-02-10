@@ -179,9 +179,9 @@ class StripesDemo extends React.Component {
 
             // layouts
             "Typography": (<Typography />),
-            "Card": (<CardElement />),
-            "Paper": (<PaperElement />),
-            "TwoColumnLayout": (<TwoColumnElement />),
+
+            "Layouts": [<H1>Layouts</H1>, <CardElement />, <PaperElement />, <TwoColumnElement />],
+            
             "Fieldset": (<FieldsetElement />),
             "Dialog": (<div>
                 <H3>Dialog</H3>
@@ -556,12 +556,13 @@ class StripesDemo extends React.Component {
         };
 
         var navSideStyle = {
-            width: '200px',
+            marginTop: '-40px',
+            width: '160px',
             position: 'fixed'
         };
 
         var contentSideStyle = {
-            marginLeft: '250px',
+            marginLeft: '200px',
             position: 'relative'
         };
 
@@ -586,7 +587,7 @@ class StripesDemo extends React.Component {
 
 
         return (
-            <article className="main_content_child" style={{padding: '0 0 105px 0', marginTop: '110px'}}>
+            <article className="main_content_child" style={{padding: '0 0 105px 0', marginTop: '140px'}}>
                 <div style={navSideStyle}>
                     {LayoutNavigator}
                 </div>

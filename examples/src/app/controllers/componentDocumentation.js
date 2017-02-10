@@ -74,6 +74,7 @@ export class ComponentDocumentation extends React.Component {
                 <Card
                     title={this.props.location ? [<p style={style.location}>{this.props.location}</p>, this.props.title] : this.props.title}
                     style={style.base}
+                    headerStyle={style.header}
                 >
 
                 <div style={style.details}>
@@ -117,7 +118,12 @@ var style = {
         borderBottom: 'solid 1px rgb(21, 101, 192)'
     },
     base: {
-        marginBottom: '40px'
+        marginBottom: '100px',
+        boxShadow: '0 3px 10px rgba(0,0,0,.25)'
+    },
+    header: {
+        backgroundImage: 'url(./images/headline_background.jpg)',
+        backgroundSize: 'cover'
     },
     details: {
         marginTop: '-20px'

@@ -58,7 +58,7 @@ export class Fieldset extends StripesTheme {
     render() {
         return (
             <fieldset
-                style={baseStyle}
+                style={this.state.style.base}
                 disabled={this.props.disabled}
             >
                 <label style={this.state.style.label}>{this.props.title}</label>

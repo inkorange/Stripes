@@ -14,7 +14,7 @@ export class Typography extends React.Component {
     render() {
         return (
             <div>
-                <H3>Typography</H3>
+                <H1>Typography</H1>
                 <ComponentDocumentation
                     title="Title"
                     location="import {Title} from 'zebra-stripes/Typography';"

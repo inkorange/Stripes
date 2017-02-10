@@ -23,12 +23,12 @@ var hstyle = {
         top: 0,
         right: 0,
         left: 0,
-        padding: "10px",
+        padding: "10px 25px 5px 25px",
         zIndex: 10,
         boxShadow: '0 5px 10px rgba(0,0,0,.25)'
     },
     image: {
-        height: '85px',
+        height: '80px',
         transition: 'all .5s'
     },
     imageCondensed: {
@@ -45,7 +45,7 @@ var hstyle = {
     topMenuCondensed: {
         position: 'absolute',
         right: '0',
-        top: '12px',
+        top: '10px',
         zIndex: '1',
         transition: 'top .5s'
     },
@@ -68,9 +68,9 @@ const MainLayout = React.createClass({
         window.addEventListener('scroll', this._handleTopNav);
     },
 
-    _handleTopNav(e) {
+    _handleTopNav() {
         this.setState({
-            condensed: (window.scrollY > 50)
+            condensed: (window.scrollY > 60)
         });
     },
 
