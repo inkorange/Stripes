@@ -181,7 +181,7 @@ class StripesDemo extends React.Component {
             "Typography": (<Typography />),
 
             "Layouts": [<H1>Layouts</H1>, <CardElement />, <PaperElement />, <TwoColumnElement />],
-            
+
             "Fieldset": (<FieldsetElement />),
             "Dialog": (<div>
                 <H3>Dialog</H3>

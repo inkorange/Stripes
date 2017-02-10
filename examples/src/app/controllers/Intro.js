@@ -18,11 +18,14 @@ class StripesDemo extends React.Component {
 
     render() {
         return (
-            <article className="main_content_child" style={{padding: '130px 5% 0px 5%'}}>
+            <article className="main_content_child" style={{padding: '110px 5% 0px 5%'}}>
 
                 <Title style={mainheaderStyle}>Zebra Stripes Design System: An Easily Re-Usable Web Component Architecture Built on ReactJS.</Title>
 
                 <p>Welcome to the Stripes Design Library authored by the engineers of the TLA Application.</p>
+
+                <a href="https://facebook.github.io/react/" target="_blank"><img src="./images/react.jpg" style={{float: 'right', padding: '20px'}} /></a>
+
                 <p>The components contained within this guide are developed against the Material UI design concepts, with elements originating from Zebra's own design methodology.</p>
 
                 <p>This library is built upon the ReactJS framework, and written with minimal library dependencies. The components are written in ES6 Class patterns. This web component architecture promotes the design system approach called Atomic Design.</p>
