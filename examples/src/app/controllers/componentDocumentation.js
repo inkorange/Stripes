@@ -123,7 +123,9 @@ var style = {
     },
     header: {
         backgroundImage: 'url(./images/headline_background.jpg)',
-        backgroundSize: 'cover'
+        backgroundSize: 'cover',
+        fontSize: '24px',
+        fontWeight: '200'
     },
     details: {
         marginTop: '-20px'

@@ -47,7 +47,7 @@ class StripesDemo extends React.Component {
     componentDidMount() {
         //window.addEventListener('scroll', this._syncWithLeftNav);
         var els = document.getElementsByTagName('section');
-        console.log(els);
+        //console.log(els);
         /*
         els.map(el => {
            console.log(el.offsetTop);

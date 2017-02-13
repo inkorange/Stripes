@@ -8,24 +8,26 @@ const MainContent =     require('./MainContent');
 
 var hstyle = {
     topHeader: {
-        background: 'transparent',
+        background: 'rgba(255,255,255,0)',
         position: 'fixed',
         top: 0,
         right: 0,
         left: 0,
         padding: "20px",
         zIndex: 10,
-        boxShadow: '0 5px 10px rgba(0,0,0,0)'
+        boxShadow: '0 5px 10px rgba(0,0,0,0)',
+        transition: 'all .5s'
     },
     topHeaderCondensed: {
-        background: 'white',
+        background: 'rgba(255,255,255,1)',
         position: 'fixed',
         top: 0,
         right: 0,
         left: 0,
         padding: "10px 25px 5px 25px",
         zIndex: 10,
-        boxShadow: '0 5px 10px rgba(0,0,0,.25)'
+        boxShadow: '0 5px 10px rgba(0,0,0,.25)',
+        transition: 'all .5s'
     },
     image: {
         height: '80px',
