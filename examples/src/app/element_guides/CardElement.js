@@ -16,6 +16,7 @@ export class CardElement extends React.Component {
     render() {
         var CardNode = (
             <Card
+                key="card1"
                 title="This is the Card Title"
                 actions={[
                     <FlatButton key="action1">Yes</FlatButton>,
@@ -27,6 +28,7 @@ export class CardElement extends React.Component {
 
         var CardNode2 = (
             <Card
+                key="card2"
                 style={{height: "300px"}}
                 headerStyle={{backgroundColor: 'red'}}
                 title="Button Actions and Styling"

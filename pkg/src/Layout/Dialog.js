@@ -14,7 +14,6 @@ export class Dialog extends StripesTheme {
         cardStyle: {},
         type: 'default',
         showClose: false,
-        modal: true,
         title: null,
         actions: null,
         width: '80%'

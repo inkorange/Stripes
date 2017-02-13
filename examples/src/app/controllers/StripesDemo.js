@@ -8,6 +8,7 @@ import {CardElement} from '../element_guides/CardElement'
 import {PaperElement} from '../element_guides/PaperElement'
 import {TwoColumnElement} from '../element_guides/TwoColumnElement'
 import {FieldsetElement} from '../element_guides/FieldsetElement'
+import {DialogElement} from '../element_guides/DialogElement'
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
@@ -37,7 +38,6 @@ class StripesDemo extends React.Component {
         this.toggleCheckboxDisable = this.toggleCheckboxDisable.bind(this);
         this.toggleRadioDisable = this.toggleRadioDisable.bind(this);
         this.toggleError = this.toggleError.bind(this);
-        this.toggleDialog = this.toggleDialog.bind(this);
         this.closeMenu = this.closeMenu.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this);
         this._setTableState = this._setTableState.bind(this);
@@ -128,14 +128,6 @@ class StripesDemo extends React.Component {
         });
     }
 
-    toggleDialog(open) {
-        if(open) {
-            this.refs.Dialog.open();
-        } else {
-            this.refs.Dialog.close();
-        }
-    }
-
     closeMenu() {
         this.refs.LeftNav.close();
     }
@@ -180,27 +172,10 @@ class StripesDemo extends React.Component {
             // layouts
             "Typography": (<Typography />),
 
-            "Layouts": [<H1>Layouts</H1>, <CardElement />, <PaperElement />, <TwoColumnElement />],
+            "Layouts": [<H1>Layouts</H1>, <CardElement />, <PaperElement />, <TwoColumnElement />, <DialogElement />],
 
             "Fieldset": (<FieldsetElement />),
-            "Dialog": (<div>
-                <H3>Dialog</H3>
-                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
-                <Dialog ref="Dialog"
-                        modal={true}
-                        title="This is the Card Title"
-                        width="50%"
-                        actions={[
-                                                <FlatButton key="action1" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
-                                                <RaisedButton key="action2" onClick={() => { this.toggleDialog(false); }}type="primary">Cancel</RaisedButton>
-                                            ]}
-                >
-                    This is the content area of the dialog.This is the content area of the dialog.This is the content
-                    area of the dialog.This is the content area of the dialog.This is the content area of the
-                    dialog.This is the content area of the dialog.This is the content area of the dialog.This is the
-                    content area of the dialog.
-                </Dialog>
-            </div>),
+
             "LeftNav": (<div>
                 <H3>LeftNav</H3>
                 <LeftNav ref="LeftNav" modal={true}>

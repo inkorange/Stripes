@@ -64,8 +64,25 @@ const MainLayout = React.createClass({
         }
     },
 
+    _checkChillTime: new Date().getTime(),
+    _chillTimeout: null,
+
+    chill: function(timer, callback) {
+        if (new Date().getTime() > (this._checkChillTime + timer)) {
+            clearTimeout(this._chillTimeout);
+            this._chillTimeout = setTimeout(() => {
+                callback();
+            }, timer);
+        } else {
+            clearTimeout(this._chillTimeout);
+            this._checkChillTime = new Date().getTime();
+        }
+    },
+
     componentDidMount() {
-        window.addEventListener('scroll', this._handleTopNav);
+        window.addEventListener('scroll', () => {
+            this.chill(200, this._handleTopNav);
+        });
     },
 
     _handleTopNav() {
