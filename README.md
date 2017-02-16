@@ -1,7 +1,11 @@
 ![Zebra Stripes](zstripes.png?raw=true)
-# Zebra Stripes Design System
+# Zebra Stripes Design System: An Easily Re-Usable Web Component Architecture Built on ReactJS.
 
-A ReactJS-based Design System from TLA's engineering team, leveraging the web component architecture and borrowing design philosophy for Atomic Design principles.
+Welcome to the Stripes Design Library authored by the engineers of the TLA Application.
+
+The components contained within this guide are developed against the Material UI design concepts, with elements originating from Zebra's own design methodology.
+
+This library is built upon the ReactJS framework, and written with minimal library dependencies. The components are written in ES6 Class patterns. This web component architecture promotes the design system approach called Atomic Design.
 
 This project contains both the source files to build out an NPM package for re-usability across other applications, as well as a live style guide based on the package built from source.
 
