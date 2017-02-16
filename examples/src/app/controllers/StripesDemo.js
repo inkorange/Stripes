@@ -9,6 +9,7 @@ import {PaperElement} from '../element_guides/PaperElement'
 import {TwoColumnElement} from '../element_guides/TwoColumnElement'
 import {FieldsetElement} from '../element_guides/FieldsetElement'
 import {DialogElement} from '../element_guides/DialogElement'
+import {LeftNavElement} from '../element_guides/LeftNavElement'
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
@@ -38,7 +39,6 @@ class StripesDemo extends React.Component {
         this.toggleCheckboxDisable = this.toggleCheckboxDisable.bind(this);
         this.toggleRadioDisable = this.toggleRadioDisable.bind(this);
         this.toggleError = this.toggleError.bind(this);
-        this.closeMenu = this.closeMenu.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this);
         this._setTableState = this._setTableState.bind(this);
         this._scrollToFromMenu = this._scrollToFromMenu.bind(this);
@@ -128,9 +128,7 @@ class StripesDemo extends React.Component {
         });
     }
 
-    closeMenu() {
-        this.refs.LeftNav.close();
-    }
+
 
     toggleMenu() {
         this.refs.LeftNav.toggleMenu();
@@ -176,25 +174,8 @@ class StripesDemo extends React.Component {
 
             "Fieldset": (<FieldsetElement />),
 
-            "LeftNav": (<div>
-                <H3>LeftNav</H3>
-                <LeftNav ref="LeftNav" modal={true}>
+            "Navigation": [<H1>Navigation</H1>, <LeftNavElement />],
 
-                    <Paper style={{width: '90%', margin: '20px 5%'}} depth="1">You can nest any kind of component in
-                        here, this is a Paper component.</Paper>
-                    <RaisedButton style={{position: 'absolute', bottom: 0, left: 0, width: 'calc(100% - 10px)'}}
-                                  key="button6" type="primary" onClick={this.closeMenu}>Manually Close</RaisedButton>
-                </LeftNav>
-                                        <pre>
-                                        <code className="language-js">
-                                            {
-                                                '<LeftNav ref="LeftNav" modal={true}>\n' +
-                                                '    Left Nav Content\n' +
-                                                '</LeftNav>\n'
-                                            }
-                                        </code>
-                                        </pre>
-            </div>),
             "NavBar": (<div>
                 <H3>NavBar</H3>
                 <NavBar ref="NavBar"

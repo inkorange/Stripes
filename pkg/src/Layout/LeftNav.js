@@ -11,6 +11,7 @@ export class LeftNav extends StripesTheme {
         style: {},
         type: 'default',
         modal: false,
+        icon: 'menu',
         closeOnBlur: true,
         onBlur: () => { return false; },
         open: false
@@ -128,7 +129,7 @@ export class LeftNav extends StripesTheme {
             <div>
                 <Icon
                     basestyle={this.state.style.icon}
-                    iconid="menu"
+                    iconid={this.props.icon}
                     size="large"
                     type="primary"
                     onClick={this.toggleMenu}
