@@ -28,7 +28,7 @@ class StripesDemo extends React.Component {
 
                 <p>The components contained within this guide are developed against the Material UI design concepts, with elements originating from Zebra's own design methodology.</p>
 
-                <p>This library is built upon the ReactJS framework, and written with minimal library dependencies. The components are written in ES6 Class patterns. This web component architecture promotes the design system approach called Atomic Design.</p>
+                <p>This library is an extension to the ReactJS library, and written with minimal library dependencies. The components are written in ES6 Class patterns. This web component architecture promotes the design system approach called Atomic Design.</p>
 
                 <H2>Web Components</H2>
                 <p>Web components are a technology that instantiates portions of the UI layer as individual [shadow DOM] parts. These are typically referred to as the UI elements of the application, such as a top nav, search box, tabular listing. The same architecture is used to render logic and data-based controllers also enforcing design systems across an application’s UI.</p>
