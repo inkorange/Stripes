@@ -10,6 +10,9 @@ import {TwoColumnElement} from '../element_guides/TwoColumnElement'
 import {FieldsetElement} from '../element_guides/FieldsetElement'
 import {DialogElement} from '../element_guides/DialogElement'
 import {LeftNavElement} from '../element_guides/LeftNavElement'
+import {NavBarElement} from '../element_guides/NavBarElement'
+import {TabMenuElement} from '../element_guides/TabMenuElement'
+
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
@@ -174,52 +177,8 @@ class StripesDemo extends React.Component {
 
             "Fieldset": (<FieldsetElement />),
 
-            "Navigation": [<H1>Navigation</H1>, <LeftNavElement />],
+            "Navigation": [<H1>Navigation</H1>, <LeftNavElement />, <NavBarElement />, <TabMenuElement />],
 
-            "NavBar": (<div>
-                <H3>NavBar</H3>
-                <NavBar ref="NavBar"
-                        leftIcon={(
-                                                <Icon
-                                                    color="white"
-                                                    iconid="menu"
-                                                    size="medium"
-                                                    onClick={this.toggleMenu}
-                                                    basestyle={{cursor: 'pointer', height: '25px', marginTop: '18px', lineHeight: 0}}
-                                                />)}
-                        title="This is a NavBar Title"
-                >
-                    This is my nav bar, hope you enjoy.
-                </NavBar>
-                                        <pre>
-                                        <code className="language-js">
-                                            {
-                                                '<NavBar ref="NavBar"\n' +
-                                                '        leftIcon={(\n' +
-                                                '                <Icon\n' +
-                                                '                    color="white"\n' +
-                                                '                    iconid="menu"\n' +
-                                                '                    size="medium"\n' +
-                                                '                    onClick={this.toggleMenu}\n' +
-                                                '                    basestyle={{cursor: "pointer", height: "25px", marginTop: "18px", lineHeight: 0}}\n' +
-                                                '        />)}\n' +
-                                                '        title="This is a NavBar Title"\n' +
-                                                '>\n' +
-                                                '    This is my nav bar, hope you enjoy.\n' +
-                                                '</NavBar>\n'
-                                            }
-                                        </code>
-                                        </pre>
-            </div>),
-            "TabMenu": (<div>
-                <H3>TabMenu</H3>
-                <TabMenu>
-                    <Item key="tab1" label="Menu Item 1"/>
-                    <Item key="tab2" selected={true} label="Menu Item 2"/>
-                    <Item key="tab3" label="Menu Item 3"/>
-                    <Item key="tab4" label="Menu Item 4"/>
-                </TabMenu>
-            </div>),
             "IconMenu": (<div>
                 <H3>IconMenu</H3>
                 <IconMenu style={{float: 'right'}} iconid="filter" direction="left" max-width="500px">

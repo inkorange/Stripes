@@ -9,9 +9,8 @@ export class TabMenu extends StripesTheme {
 
     static defaultProps = {
         style: {},
+        contentStyle: {},
         type: 'tabmenu',
-        title: null,
-        leftIcon: null,
         onClick: () => {}
     }
 
@@ -52,7 +51,8 @@ export class TabMenu extends StripesTheme {
             textAlign: 'center',
             cursor: 'pointer',
             transition: 'opacity .3s',
-            width: 100/this.props.children.length + "%"
+            width: 100/this.props.children.length + "%",
+            userSelect: 'none'
         }
         var styleObj = {
             base: {
@@ -81,6 +81,7 @@ export class TabMenu extends StripesTheme {
         //styleObj.selecteditem = styleObj.item;
         //styleObj.selecteditem.opacity = 1;
         styleObj.base = Object.assign(styleObj.base, this.props.style);
+        styleObj.content = Object.assign(styleObj.content, this.props.contentStyle);
 
         return styleObj;
     }
@@ -115,7 +116,7 @@ export class TabMenu extends StripesTheme {
                     {items}
                     <span ref="selected" style={this.state.style.indicator}></span>
                 </section>
-                <section>
+                <section style={this.state.style.content}>
                     {content[this.state.selected]}
                 </section>
             </div>

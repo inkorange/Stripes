@@ -38,7 +38,7 @@ export class NavBar extends StripesTheme {
 
         var styleObj = {
             title: {
-                padding: '0 ' + spacing.padding + 'px'
+                padding: this.props.leftIcon ? '0 ' + spacing.padding + 'px' : 0
             },
             base: {
                 backgroundColor: color.background,
