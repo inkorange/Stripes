@@ -16,6 +16,7 @@ export class IconMenu extends StripesTheme {
         disabled: false,
         iconid: 'filter',
         style: {},
+        contentStyle: {},
         "max-width": '100%'
     }
 
@@ -70,7 +71,7 @@ export class IconMenu extends StripesTheme {
                 boxShadow: this.state.open ? '0 0 5px rgb(200,200,200)' : '0 0 0 rgb(200,200,200)',
                 zIndex: 1
             },
-            menu: {
+            content: {
                 position: 'absolute',
                 top: this.props.direction !== 'top' ? '100%' : 'auto',
                 bottom: this.props.direction === 'top' ? 'calc(100% + ' + spacing.padding*2 + 'px)' : 'auto',
@@ -94,6 +95,7 @@ export class IconMenu extends StripesTheme {
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
+        styleObj.content = Object.assign(styleObj.content, this.props.contentStyle);
         return styleObj;
     }
 
@@ -109,7 +111,7 @@ export class IconMenu extends StripesTheme {
                     onClick={this.toggleMenu}
                     basestyle={this.state.style.icon}
                 />
-                <div style={this.state.style.menu}
+                <div style={this.state.style.content}
                      tabIndex="0"
                      ref="MenuBody"
                      onBlur={this.toggleMenuOnBlur}

@@ -12,6 +12,7 @@ import {DialogElement} from '../element_guides/DialogElement'
 import {LeftNavElement} from '../element_guides/LeftNavElement'
 import {NavBarElement} from '../element_guides/NavBarElement'
 import {TabMenuElement} from '../element_guides/TabMenuElement'
+import {IconMenuElement} from '../element_guides/IconMenuElement'
 
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
@@ -142,7 +143,8 @@ class StripesDemo extends React.Component {
         var target = e.target.getAttribute("data-anchor").substring(1);
         var deviation = 0;
         var ypos = document.getElementById(target).offsetTop - deviation;
-        console.log(document.getElementById(target).offsetTop, ypos);
+        window.location.hash = '#'+target;
+        //console.log(document.getElementById(target).offsetTop, ypos);
         window.scrollTo(0, ypos);
         return false;
     }
@@ -175,34 +177,8 @@ class StripesDemo extends React.Component {
 
             "Layouts": [<H1>Layouts</H1>, <CardElement />, <PaperElement />, <TwoColumnElement />, <DialogElement />],
 
-            "Fieldset": (<FieldsetElement />),
+            "Navigation": [<H1>Navigation</H1>, <IconMenuElement />, <LeftNavElement />, <NavBarElement />, <TabMenuElement />],
 
-            "Navigation": [<H1>Navigation</H1>, <LeftNavElement />, <NavBarElement />, <TabMenuElement />],
-
-            "IconMenu": (<div>
-                <H3>IconMenu</H3>
-                <IconMenu style={{float: 'right'}} iconid="filter" direction="left" max-width="500px">
-                    <TwoColumnLayout
-                        style={{padding: '20px', width: '300px'}}
-                        columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
-                        columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
-                    />
-                </IconMenu>
-                <IconMenu iconid="filter" direction="bottom" max-width="500px">
-                    <TwoColumnLayout
-                        style={{padding: '20px', width: '300px'}}
-                        columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
-                        columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
-                    />
-                </IconMenu>
-                <IconMenu style={{marginLeft: '50px'}} iconid="filter" direction="top" max-width="500px">
-                    <TwoColumnLayout
-                        style={{padding: '20px', width: '300px'}}
-                        columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
-                        columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
-                    />
-                </IconMenu>
-            </div>),
             "Table": (<div>
                 <H3>Table (no fixed height)</H3>
                 <Table>
@@ -304,6 +280,8 @@ class StripesDemo extends React.Component {
                                         </code>
                                         </pre>
             </div>),
+
+            "Form Elements": ([<H1>FieldSet</H1>, <FieldsetElement />]),
 
             //inputs
             "DateTimePicker":(<div>
