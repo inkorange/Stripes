@@ -337,7 +337,7 @@ class StripesDemo extends React.Component {
                     <H3>RadioButtonGroup ({this.state.radiobuttondisabled ? 'DISABLED' : 'VISIBLE'})</H3>
                     <RadioButtonGroup ref="radiobuttongroup" name="group1" disabled={this.state.radiobuttondisabled}>
                         <Item key="option1" defaultChecked={true} >Radio Option 1</Item>
-                        <Item key="option2">Radio Option 2</Item>
+                        <Item value="opt2" key="option2">Radio Option 2</Item>
                         <Item key="option3">Radio Option 3</Item>
                     </RadioButtonGroup>
                     <RaisedButton key="button1" onClick={() => { alert("Selected value is: " + this.refs.radiobuttongroup.getValues()); }}>What is the Value?</RaisedButton>

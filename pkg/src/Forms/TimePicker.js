@@ -66,7 +66,7 @@ export class TimePicker extends StripesTheme {
 
     static defaultProps = {
         style: {},
-        width: '200px',
+        width: '100%',
         type: 'default',
         format: 'h:mm A',
         time: null,
@@ -76,7 +76,7 @@ export class TimePicker extends StripesTheme {
         hours12: [1,2,3,4,5,6,7,8,9,10,11,12],
         hours24: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
         selectorDimension: 260,
-        placeholder: null,
+        placeholder: "Time",
         active: false
     }
 
@@ -113,8 +113,11 @@ export class TimePicker extends StripesTheme {
         });
     }
 
-    componentDidUpdate(props) {
-        if(props !== this.props) {
+    componentWillUpdate(props) {
+        if(props.time !== this.props.time) {
+            this.setState({
+                time: props.time
+            });
             this.updateStyles();
         }
     }
@@ -172,7 +175,8 @@ export class TimePicker extends StripesTheme {
         var styleObj = {
             container: {
                 display: 'inline-block',
-                margin: spacing.margin*2 + 'px'
+                margin: spacing.margin*2 + 'px 0',
+                width: this.props.width
             },
             base: {
                 border: 'none',
@@ -252,23 +256,27 @@ export class TimePicker extends StripesTheme {
 
     setHour(e) {
         var hour = e.target.getAttribute('data-value')*1;
+        var newTime = this.state.time ? m(this.state.time) : m(new Date());
+        newTime.hour(hour);
             this.setState({
                 hour: hour,
-                time: m(this.state.time ? this.state.time : new Date()).hour(hour).toDate()
+                time: newTime.toDate()
             }, () => {
                 setTimeout(() => {
                     this.setState({
                         mode: 'minute'
                     }, this.updateStyles)
-                }, 1000);
+                }, 500);
             });
     }
 
     setMinute(e) {
         var minute = e.target.getAttribute('data-value')*1;
+        var newTime = this.state.time ? m(this.state.time) : m(new Date());
+        newTime.minute(minute);
         this.setState({
             minute: minute,
-            time: m(this.state.time ? this.state.time : new Date()).minute(minute).toDate()
+            time: newTime.toDate()
         }, this.updateStyles);
 
     }
@@ -287,7 +295,7 @@ export class TimePicker extends StripesTheme {
     }
 
     cancel() {
-        var initialTime = this.props.time ? props.time : new Date();
+        var initialTime = this.props.time ? this.props.time : new Date();
         this.setState({
             time: this.state.opentime,
             mode: 'hour',
@@ -302,9 +310,20 @@ export class TimePicker extends StripesTheme {
             mode: 'hour'
         }, this.updateStyles);
 
+        if(this.state.time) {
+            this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
+            this.props.onSet(this.state.time);
+        } else {
+            var now = new Date();
+            this.setState({
+                time: now
+            }, () => {
+                this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
+                this.props.onSet(this.state.time);
+            });
+        }
+
         this.toggleDialog(false);
-        this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
-        this.props.onSet(this.state.time);
     }
 
     getValue() {
@@ -403,7 +422,9 @@ export class TimePicker extends StripesTheme {
     }
 
     render() {
-        var displayTime = m(this.state.time).format(this.props.format);
+
+        var displayTime = this.state.time ? m(this.state.time).format(this.props.format) : "";
+
         var color = this.getColors()[this.props.type];
 
         var cleanTime = this.renderCleanTime();
@@ -433,7 +454,7 @@ export class TimePicker extends StripesTheme {
                 <TextBox
                     ref="textbox"
                     value={displayTime}
-                    width={this.props.width}
+                    width="100%"
                     anchor={<Icon iconid="clock" basestyle={{marginTop:'-5px'}} color={this.state.time ? color.activeIcon : color.inactiveIcon} size="small" />}
                     onClick={this.toggleDialog}
                     readOnly={true}

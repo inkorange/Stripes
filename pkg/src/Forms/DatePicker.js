@@ -15,17 +15,19 @@ export class DatePicker extends StripesTheme {
 
     static defaultProps = {
         style: {},
-        width: '200px',
+        width: '100%',
         depth: 1,
         className: '',
         type: 'default',
         disabled: false,
+        onSet: () => { return false; },
         visible: true,
         dateConstraint: [null,null], //['2013-11-05','2016-12-25'],
         yearFormat: 'YYYY',
         dateFormat: 'ddd, MMMM D',
         format: 'M/D/YYYY',
-        placeholder: null
+        placeholder: null,
+        date: null
     }
 
     constructor(props) {
@@ -39,9 +41,11 @@ export class DatePicker extends StripesTheme {
         this.updateStyles = this.updateStyles.bind(this);
         this.getValue = this.getValue.bind(this);
 
+        var initialDate = props.date ? props.date : null;
+
         this.state = {
             active: false,
-            date: null, //new Date(),
+            date: initialDate,
             showCalendar: true,
             showYear: false
         }
@@ -53,8 +57,11 @@ export class DatePicker extends StripesTheme {
         });
     }
 
-    componentDidUpdate(props) {
-        if(props !== this.props) {
+    componentWillUpdate(props) {
+        if(props.date !== this.props.date) {
+            this.setState({
+                date: props.date
+            });
             this.updateStyles();
         }
     }
@@ -113,6 +120,7 @@ export class DatePicker extends StripesTheme {
         });
         this.refs.Dialog.close();
         this.refs.textbox.applyValue(m(date).format(this.props.format));
+        this.props.onSet(date);
     }
 
     setYear(year) {
@@ -131,7 +139,8 @@ export class DatePicker extends StripesTheme {
         var styleObj = {
             container: {
                 display: 'inline-block',
-                margin: spacing.margin*2 + 'px'
+                margin: spacing.margin*2 + 'px 0',
+                width: this.props.width
             },
             base: {
                 border: 'none',
@@ -180,8 +189,8 @@ export class DatePicker extends StripesTheme {
             <div style={this.state.style.container}>
                 <TextBox
                     ref="textbox"
-                    value={m(this.state.date).format(this.props.format)}
-                    width={this.props.width}
+                    value={this.state.date ? m(this.state.date).format(this.props.format) : ""}
+                    width="100%"
                     anchor={<Icon iconid="calendar" basestyle={{marginTop:'-5px'}} color={this.state.date ? color.activeIcon : color.inactiveIcon} size="small" />}
                     onClick={this.toggleDialog}
                     readOnly={true}

@@ -6,9 +6,10 @@ import {TimePicker} from  './Forms/TimePicker'
 import {DateTimePicker} from  './Forms/DateTimePicker'
 import {Slider} from  './Forms/Slider'
 
-import {RadioButtonGroup,CheckBoxGroup,Item} from  './Forms/Switches'
+import {RadioButtonGroup,CheckBoxGroup,CheckBox,Item} from  './Forms/Switches'
 
 module.exports = {
+    CheckBox: CheckBox,
     CheckBoxGroup: CheckBoxGroup,
     DropDown: DropDown,
     Fieldset: Fieldset,

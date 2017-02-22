@@ -4,23 +4,27 @@ import React from 'react'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { DatePicker } from  './DatePicker'
+import { TwoColumnLayout } from  '../Layouts'
 import { TimePicker } from  './TimePicker'
+import { flattenDate, addTimeToDate, mergeDates } from './DateHelpers';
 import m from 'moment'
 
 export class DateTimePicker extends StripesTheme {
 
     static defaultProps = {
         style: {},
-        datewidth: '150px',
-        timewidth: '150px',
+        datewidth: '60%',
+        timewidth: '40%',
         type: 'default',
         disabled: false,
         visible: true,
+        onChange: null,
         dateConstraint: [null,null], //['2013-11-05','2016-12-25'],
         yearFormat: 'YYYY',
         dateFormat: 'ddd, MMMM D',
         format: 'M/D/YYYY',
-        placeholder: [null,null]
+        placeholder: ['Date','Time'],
+        value: null
     }
 
     constructor(props) {
@@ -28,26 +32,48 @@ export class DateTimePicker extends StripesTheme {
 
         this.state = {
             active: false,
-            datetime: null, //new Date(),
+            value: this.props.value ? new Date(this.props.value) : null,
+            style: this.getStyles()
         }
-    }
 
-    componentWillMount() {
-    }
-
-    componentDidUpdate(props) {
+        this.fireCallback = this.fireCallback.bind(this);
+        this.setDate = this.setDate.bind(this);
+        this.setTime = this.setTime.bind(this);
+        this.setDateTime = this.setDateTime.bind(this);
     }
 
     getValue() {
-        return this.state.datetime
+        return this.state.value
+    }
+
+    setDateTime(datetime) {
+        this.setState({
+            value: datetime ? new Date(datetime) : null
+        });
     }
 
     setDate(date) {
-        console.log("date is set: ", date);
+        this.setState({
+            value: mergeDates(date, this.state.value)
+        }, () => {
+            this.fireCallback
+        });
     }
 
     setTime(time) {
-        console.log("time is set: ", time);
+        this.setState({
+            value: addTimeToDate(this.state.value, time)
+        }, () => {
+            this.fireCallback();
+        });
+    }
+
+    fireCallback() {
+        if(this.props.onChange) {
+            this.props.onChange({
+                [this.props.id]: this.state.value
+            });
+        }
     }
 
     getStyles() {
@@ -55,7 +81,7 @@ export class DateTimePicker extends StripesTheme {
         var spacing = this.getSpacing()[this.props.type];
         var styleObj = {
             container: {
-                display: 'inline-block',
+                display: 'block',
                 margin: spacing.margin*2 + 'px'
             }
         }
@@ -64,21 +90,29 @@ export class DateTimePicker extends StripesTheme {
     }
 
     render() {
-        var style = this.getStyles();
         return (
-            <div style={style}>
-                <DatePicker
-                    width={this.props.datewidth}
-                    placeholder={this.props.placeholder[0]}
-                    onSet={this.setDate}
-                    active={this.props.active}
-                />
-                <TimePicker
-                    width={this.props.timewidth}
-                    placeholder={this.props.placeholder[1]}
-                    onSet={this.setTime}
-                    active={this.props.active}
-                />
+            <div style={this.state.style}>
+                <TwoColumnLayout
+                    columnOne={
+                        <DatePicker
+                            ref="datePicker"
+                            placeholder={this.props.placeholder[0]}
+                            onSet={this.setDate}
+                            active={this.props.active}
+                            date={m(new Date(this.state.value)).isSame('1900-01-01', 'year') ? null : this.state.value}
+                        />}
+                    columnTwo={
+                        <TimePicker
+                            ref="timePicker"
+                            placeholder={this.props.placeholder[1]}
+                            onSet={this.setTime}
+                            active={this.props.active}
+                            time={this.state.value}
+                        />}
+                    gutter="5"
+                    columnOneWidth={this.props.datewidth}
+                    columnTwoWidth={this.props.timewidth}
+                    />
             </div>
         )
     }

@@ -53,8 +53,7 @@ export class Icon extends StripesTheme {
 
         var styleObj = {
             Icon: {
-                display: 'inline-block',
-                transition: 'background-color .5s'
+                display: 'inline-block'
             },
             svg: {
                 fill: this.props.color ? this.props.color : color.iconColor,

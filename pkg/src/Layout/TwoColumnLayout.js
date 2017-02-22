@@ -13,7 +13,7 @@ export class TwoColumnLayout extends StripesTheme {
         columnTwoWidth: null,
         columnOneStyle: {},
         columnTwoStyle: {},
-        gutter: null,
+        gutter: 5,
         style: {},
         type: 'default'
     }

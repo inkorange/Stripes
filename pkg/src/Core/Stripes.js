@@ -32,6 +32,7 @@ export class StripesTheme extends React.Component {
         this.mouseOver = this.mouseOver.bind(this);
         this.mouseOut = this.mouseOut.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleSwitchOnChange = this.handleSwitchOnChange.bind(this);
         this.resolveStyling = this.resolveStyling.bind(this);
         this.onInputClick = this.onInputClick.bind(this);
         this.onInputBlur = this.onInputBlur.bind(this);
@@ -165,6 +166,10 @@ export class StripesTheme extends React.Component {
         if(!this.state.disabled) {
             this.props.onClick();
         }
+    }
+
+    handleSwitchOnChange(e) {
+        this.props.onChange(e, this.getValues()[0]);
     }
 
     resolveStyling(obj) {

@@ -147,7 +147,7 @@ class RadioButtonGroup extends StripesTheme {
                         data-itemid={i}
                         name={this.props.name}
                         disabled={this.props.disabled}
-                        onChange={this.props.onChange}
+                        onChange={this.handleSwitchOnChange}
                         style={this.state.style.input}
                         checked={item.checked ? 'checked' : null}
                         type="radio"
@@ -166,7 +166,125 @@ class RadioButtonGroup extends StripesTheme {
 }
 
 /* *********************************************************************************************************************
- CheckBox RadioButton
+ CheckBox Single Component
+ ********************************************************************************************************************* */
+class CheckBox extends StripesTheme {
+    static defaultProps = {
+        style: {},
+        type: 'switches',
+        disabled: false,
+        onChange: () => { return false; },
+        onCheck: () => { return false; },
+        checked: false,
+        value: null,
+        label: null
+    }
+
+    constructor(props) {
+        super(props);
+        var items = [];
+
+        this.state = {
+            style: this.getStyles(),
+            checked: this.props.checked
+        }
+
+        this._onChange = this._onChange.bind(this);
+        this.updateValue = this.updateValue.bind(this);
+        this.isChecked = this.isChecked.bind(this);
+    }
+
+    componentWillUpdate(props) {
+        if(props.checked !== this.state.checked) {
+            this.setState({
+                checked: props.checked
+            }, this.setState({
+                style: this.getStyles()
+            }));
+        }
+    }
+
+    getValue() {
+        return this.state.checked ? this.props.value : null;
+    }
+
+    isChecked() {
+        return this.state.checked;
+    }
+
+    _onChange(e) {
+        this.props.onChange(e,this.getValue());
+    }
+
+    updateValue() {
+        this.setState({
+            checked: !this.state.checked
+        }, () => {
+                this.props.onCheck(this.state.checked, this.props.value);
+        });
+    }
+
+    getStyles() {
+        var spacing = this.getSpacing()[this.props.type];
+        var color = this.getColors()[this.props.type];
+        var baseCheckbox = {
+            float: 'left',
+            width: spacing.width + 'px', height: spacing.height + 'px',
+            border: 'solid 2px ' + color.borderColor,
+            transition: '.5s all',
+            borderRadius: spacing.borderRadius + 'px',
+            marginLeft: spacing.margin + 'px',
+            backgroundColor: color.fillColor,
+            backgroundImage: color.checkImage,
+            backgroundSize: 'cover'
+        }
+        var styleObj = {
+            label: {
+                opacity: this.props.disabled ? '.5' : '1',
+                transition: '.5s opacity',
+                display: 'block',
+                cursor:  this.props.disabled ? 'default' : 'pointer',
+                padding: this.props.label ? spacing.padding*2 + 'px ' + spacing.padding + 'px' : '0px'
+            },
+            input : {
+                marginRight: spacing.padding + 'px',
+                visibility: 'hidden'
+            },
+            checkbox: {
+                inactive: Object.assign({
+                    boxShadow: '0 0 0 '+spacing.width/2+'px white inset, 0 0 0 0 rgba(0,0,0,.15)'
+                },baseCheckbox),
+                active: Object.assign({
+                    boxShadow: '0 0 0 0 white inset, 0 0 0 '+(spacing.width/1.5)+'px rgba(0,0,0,0)'
+                },baseCheckbox)
+            }
+        };
+
+        return styleObj;
+    }
+
+    render() {
+        return (
+            <label style={Object.assign(this.props.style, this.state.style.label)}>
+                <div style={this.state.checked ? this.state.style.checkbox.active : this.state.style.checkbox.inactive}></div>
+                <input
+                    disabled={this.props.disabled}
+                    onChange={this._onChange}
+                    onClick={this.updateValue}
+                    style={this.state.style.input}
+                    /* checked={this.state.checked ? 'checked' : null} */
+                    type="checkbox"
+                    value={this.props.value}
+                />
+                {this.props.label}
+            </label>
+        )
+    }
+
+}
+
+/* *********************************************************************************************************************
+ CheckBox Group
  ********************************************************************************************************************* */
 class CheckBoxGroup extends StripesTheme {
     static defaultProps = {
@@ -284,7 +402,7 @@ class CheckBoxGroup extends StripesTheme {
                     <input
                         data-itemid={i}
                         disabled={this.props.disabled}
-                        onChange={this.props.onChange}
+                        onChange={this.handleSwitchOnChange}
                         onClick={this.updateValue}
                         style={this.state.style.input}
                         checked={item.checked ? 'checked' : null}
@@ -306,5 +424,6 @@ class CheckBoxGroup extends StripesTheme {
 module.exports = {
     RadioButtonGroup: RadioButtonGroup,
     CheckBoxGroup: CheckBoxGroup,
+    CheckBox: CheckBox,
     Item: Item
 }

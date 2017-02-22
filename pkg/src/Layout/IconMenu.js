@@ -16,8 +16,12 @@ export class IconMenu extends StripesTheme {
         disabled: false,
         iconid: 'filter',
         style: {},
+        iconColor: [null,null],                       // [closed, open]
+        backgroundColor: ['transparent', 'white'],    // [closed, open]
         contentStyle: {},
-        "max-width": '100%'
+        iconStyle: {},
+        "max-width": null,
+        onChange: null
     }
 
     constructor(props) {
@@ -30,6 +34,7 @@ export class IconMenu extends StripesTheme {
         this.toggleMenu = this.toggleMenu.bind(this);
         this.getStyles = this.getStyles.bind(this);
         this.toggleMenuOnBlur = this.toggleMenuOnBlur.bind(this);
+        this.isOpen = this.isOpen.bind(this);
     }
 
     componentWillMount() {
@@ -38,9 +43,9 @@ export class IconMenu extends StripesTheme {
         });
     }
 
-    toggleMenu(e, show, focus) {
+    toggleMenu(show) {
         this.setState({
-            open: show === undefined ? !this.state.open : show
+            open: show === undefined || typeof show === "object" ? !this.state.open : show
         }, () => {
             if(this.state.open) {
                 this.refs.MenuBody.focus();
@@ -48,11 +53,18 @@ export class IconMenu extends StripesTheme {
             this.setState({
                 style: this.getStyles()
             },this.forceUpdate);
+            if(this.props.onChange) {
+                this.props.onChange(this.state.open);
+            }
         });
     }
 
     toggleMenuOnBlur(e) {
         return false;
+    }
+
+    isOpen() {
+        return this.state.open;
     }
 
     getStyles() {
@@ -67,16 +79,16 @@ export class IconMenu extends StripesTheme {
                 transition: 'all .5s',
                 cursor: 'pointer',
                 padding: spacing.padding,
-                background: this.state.open ? 'white' : 'transparent',
-                boxShadow: this.state.open ? '0 0 5px rgb(200,200,200)' : '0 0 0 rgb(200,200,200)',
+                background: this.state.open ? this.props.backgroundColor[1] : this.props.backgroundColor[0],
+                boxShadow: this.state.open ? '0 0 5px rgba(0,0,0,.5)' : '0 0 0 rgba(0,0,0,0)',
                 zIndex: 1
             },
             content: {
                 position: 'absolute',
-                top: this.props.direction !== 'top' ? '100%' : 'auto',
-                bottom: this.props.direction === 'top' ? 'calc(100% + ' + spacing.padding*2 + 'px)' : 'auto',
-                left: this.props.direction === 'left' ? 'auto' : 0,
-                right: this.props.direction === 'left' ? 0 : 'auto',
+                top: this.props.direction !== 'top' ? '100%' : null,
+                bottom: this.props.direction === 'top' ? 'calc(100% + ' + spacing.padding*2 + 'px)' : null,
+                left: this.props.direction === 'left' ? null : 0,
+                right: this.props.direction === 'left' ? 0 : null,
                 transition: 'all .5s',
                 maxHeight: this.state.open ? '800px' : '0',
                 opacity: this.state.open ? '1.0' : '0.0',
@@ -90,12 +102,13 @@ export class IconMenu extends StripesTheme {
                 WebkitUserSelect: 'none',
                 msUserSelect: 'none',
                 background: 'white',
-                boxShadow: this.state.open ? '0 3px 5px rgb(200,200,200)' : '0 2px 0 rgb(200,200,200)',
+                boxShadow: this.state.open ? '0 3px 5px rgba(0,0,0,.5)' : '0 2px 0 rgba(0,0,0,0)',
                 zIndex: 2
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
         styleObj.content = Object.assign(styleObj.content, this.props.contentStyle);
+        styleObj.icon = Object.assign(styleObj.icon, this.props.iconStyle);
         return styleObj;
     }
 
@@ -107,6 +120,7 @@ export class IconMenu extends StripesTheme {
             >
                 <Icon
                     iconid={this.props.iconid}
+                    color={this.state.open ? this.props.iconColor[1] : this.props.iconColor[0]}
                     size="medium"
                     onClick={this.toggleMenu}
                     basestyle={this.state.style.icon}

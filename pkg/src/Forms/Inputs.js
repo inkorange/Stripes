@@ -27,15 +27,14 @@ class TextBox extends StripesTheme {
 
     constructor(props) {
         super(props);
-        var suggestionItems = [];
-
         this.state = {
             style: this.getStyles(),
             active: false,
-            value: '',
+            value: this.props.value,
             suggestionItems: []
         };
         this.onChange = this.onChange.bind(this);
+        this.getValue = this.getValue.bind(this);
         this.applyValue = this.applyValue.bind(this);
         this.onCompleteInputBlur = this.onCompleteInputBlur.bind(this);
     }
@@ -47,6 +46,10 @@ class TextBox extends StripesTheme {
                 value: this.props.value
             });
         }
+    }
+
+    getValue() {
+        return this.state.value;
     }
 
     onChange(e) {
@@ -137,6 +140,7 @@ class TextBox extends StripesTheme {
             <div style={this.state.style.container}>
                 <input
                     ref="input"
+                    value={this.state.value}
                     disabled={this.props.disabled ? 'disabled' : null}
                     readOnly={this.props.readOnly ? 'readonly' : null}
                     placeholder={this.props.placeholder}
@@ -171,15 +175,21 @@ class TextArea extends StripesTheme {
         type: 'inputs',
         value: '',
         placeholder: null,
+        onChange: null,
         error: null,
         width: null
     }
 
     constructor(props) {
         super(props);
+
+        this.getValue = this.getValue.bind(this);
+        this.onChange = this.onChange.bind(this);
+
         this.state = {
             style: this.getStyles(),
-            active: false
+            active: false,
+            value: this.props.value
         }
     }
 
@@ -189,6 +199,22 @@ class TextArea extends StripesTheme {
                 style: this.getStyles()
             });
         }
+    }
+
+    onChange(e) {
+        var val = e.target.value !== '' ? e.target.value : null;
+        if(val !== this.state.value) {
+            this.setState({
+                value: val
+            });
+        }
+        if(this.props.onChange) {
+            this.props.onChange(e, val);
+        }
+    }
+
+    getValue() {
+        return this.state.value;
     }
 
     getStyles() {
@@ -210,7 +236,9 @@ class TextArea extends StripesTheme {
                     placeholder={this.props.placeholder}
                     onClick={this.onInputClick}
                     onBlur={this.onInputBlur}
+                    onChange={this.onChange}
                     style={this.state.style.input}
+                    value={this.state.value}
                 />
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
                 <span style={this.state.style.error}>{this.props.error}</span>

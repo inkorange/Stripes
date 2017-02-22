@@ -39,7 +39,7 @@ export class Card extends StripesTheme {
             },
             header: {
                 backgroundColor: color.headerBackgroundColor,
-                padding: spacing.padding * 5 + "px",
+                padding: spacing.padding * 6 + "px " + spacing.padding * 5 + "px",
                 fontSize: '2rem',
                 color: 'white',
                 zIndex: 1,
@@ -50,7 +50,7 @@ export class Card extends StripesTheme {
             },
             footer: {
                 borderTop: 'solid 1px #ccc',
-                padding: spacing.padding*2 + 'px ',
+                padding: spacing.padding*3 + 'px ',
                 textAlign: 'right',
                 background: 'white',
                 zIndex: 1
