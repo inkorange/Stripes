@@ -59,7 +59,9 @@ module.exports = {
         aHoverColor: primaryBackground
     },
     notification: {
-        backgroundColor: 'rgba(0,0,0,.75)'
+        borderColor: 'rgb(100,100,100)',
+        backgroundColor: 'rgba(0,0,0,.75)',
+        tooltipBackgroundColor: 'white'
     },
     switches: {
         borderColor: primaryBackground,

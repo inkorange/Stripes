@@ -15,6 +15,7 @@ import { Title, H1, H2, H3 } from '../src/Typography'
 import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider } from '../src/Forms'
 import { Card } from '../src/Layouts'
 import {Icon} from  '../src/Symbols/Icon'
+import {Tooltip} from  '../src/Notifications/Tooltip'
 import {ShowHide, TabMenu, IconMenu} from '../src/Layouts'
 
 // layouts
@@ -60,47 +61,11 @@ class Sandbox extends React.Component {
                         ref="action2" secondary={true}>Cancel</FlatButton>
         ]);
 
-        var sliderFormat = function(val1,val2,isUnlimited) {
-            return val1 + "% - " + (isUnlimited ? 'Unlimited' : val2 + "%");
-        };
-
-        var containerStyle = {
-            maxHeight: '915px',
-            overflowY: 'scroll',
-            position: 'absolute',
-            right: '0px',
-            top: '44px',
-            width: '700px',
-            height: '300px',
-            backgroundColor: 'white',
-            zIndex: '2000',
-            boxShadow: '0 0 10px rgba(0,0,0,.2)'
-        }
         return (
             <div style={{backgroundColor: 'red', height: '400px'}}>
-                <IconMenu
-                    style={{float: 'right'}}
-                    iconStyle={{padding: '20px'}}
-                    direction="right"
-                    iconid="filter"
-                    direction="left"
-                    ref="IconMenu"
-                    contentStyle={{width: '675px'}}
-                    onChange={(s) => { console.log(s); }}
-                >
-                    <DateTimePicker
-                        id="open_after_date"
-                        ref="open_after_date"
-                        onChange={(a,b) => {console.log('onChange: ', a);} }
-                        label="After Date"
-                        placeholder={["After Date", "Time"]}
-                        value={this.state.date}
-                    />
-                    <FlatButton key="action1" ref="action1" secondary={true} onClick={() => { console.log(this.refs.open_after_date.getValue()); }}>Get Value</FlatButton>
-                    <FlatButton key="action2" ref="action2" secondary={true} onClick={() => { this.refs.open_after_date.setDateTime("Mon Feb 03 2017 06:18:21 GMT-0500 (EST)"); }}>Change Date</FlatButton>
-                    <FlatButton key="action3" ref="action3" secondary={true} onClick={() => { this.refs.open_after_date.setDateTime("Thu Feb 09 2017 20:15:00 GMT-0500 (EST)"); }}>Change Date</FlatButton>
-                    <FlatButton key="action4" ref="action4" secondary={true} onClick={() => { this.refs.open_after_date.setDateTime(null); }}>Empty Date</FlatButton>
-                </IconMenu>
+
+                <Tooltip iconid="info" width="400px" show={true}>This option will email a PDF file that contains all the images in this drawer for this load period.</Tooltip>
+
 
 
             </div>

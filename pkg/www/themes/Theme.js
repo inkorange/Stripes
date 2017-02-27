@@ -26,7 +26,9 @@ var Theme = {
             baseFontSize: 1.6,
         },
         notification: {
-            padding: basePadding
+            padding: basePadding,
+            zIndex: 2000,
+            baseFontSize: 1.6
         },
         switches: {
             padding: basePadding,
