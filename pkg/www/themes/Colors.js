@@ -8,6 +8,7 @@ let secondaryBackground = "#dbdbdb";
 let baseTextColor = "#212121";
 let secondaryTextColor = "white";
 let inactiveColor = "#dbdbdb";
+let idleColor = "rgba(0, 0, 0, 0.75)";
 let errorColor = "#DB4437";
 let inactiveErrorColor = "#DB8D86";
 let secondaryColor = "";
@@ -18,14 +19,15 @@ let menuColor = "#2E4151";
 module.exports = {
     default: {
         textColor: primaryColor,
+        idleColor: idleColor,
         hoverText: '',
         border: '',
         backgroundColor: 'transparent',
         backgroundHover: 'rgba(0,0,0,.08)',
         iconColor: accentBlue,
         headerBackgroundColor: primaryBackground,
-        activeIcon: "#3366CC",
-        inactiveIcon: "#dbdbdb"
+        activeIcon: primaryColor,
+        inactiveIcon: inactiveColor
 },
     primary: {
         textColor: 'white',
@@ -35,8 +37,8 @@ module.exports = {
         backgroundHover: '#2d80df',
         iconColor: primaryBackground,
         headerBackgroundColor: primaryBackground,
-        activeIcon: "#3366CC",
-        inactiveIcon: "#dbdbdb"
+        activeIcon: primaryColor,
+        inactiveIcon: inactiveColor
 
     },
     secondary: {

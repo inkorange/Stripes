@@ -5,6 +5,7 @@ import {IconMenu} from  './Layout/IconMenu'
 import {LeftNav} from  './Layout/LeftNav'
 import {Paper} from  './Layout/Paper'
 import {NavBar} from  './Layout/NavBar'
+import {MenuItem} from  './Layout/MenuItem'
 import {ShowHide} from './Layout/ShowHide'
 import {TabMenu} from  './Layout/TabMenu'
 import {TwoColumnLayout} from  './Layout/TwoColumnLayout'
@@ -16,6 +17,7 @@ module.exports = {
     H3: H3,
     IconMenu: IconMenu,
     LeftNav: LeftNav,
+    MenuItem: MenuItem,
     NavBar: NavBar,
     Paper: Paper,
     ShowHide: ShowHide,

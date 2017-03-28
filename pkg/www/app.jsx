@@ -13,7 +13,7 @@ import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow
 import {TabularListing} from '../src/Elements/TabularListing'
 import { Title, H1, H2, H3 } from '../src/Typography'
 import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider } from '../src/Forms'
-import { Card } from '../src/Layouts'
+import { Card, LeftNav, MenuItem } from '../src/Layouts'
 import {Icon} from  '../src/Symbols/Icon'
 import {Tooltip} from  '../src/Notifications/Tooltip'
 import {ShowHide, TabMenu, IconMenu} from '../src/Layouts'
@@ -34,8 +34,10 @@ class Sandbox extends React.Component {
     constructor(props) {
         super(props);
         this.changeIt = this.changeIt.bind(this);
+        this.toggle = this.toggle.bind(this);
 
         this.state = {
+            leftnavopen: false,
             checked: false,
             date: null //"Wed Feb 08 2017 05:22:00 GMT-0500 (EST)"
         }
@@ -46,6 +48,19 @@ class Sandbox extends React.Component {
 
     changeIt(e,v) {
         console.log(v);
+    }
+
+    navigateto() {
+        console.log('navigate!!!');
+    }
+
+    toggle() {
+        this.refs.leftNav.toggleMenu(!this.refs.leftNav.isOpen());
+        /*
+        this.setState({
+            leftnavopen: !this.refs.leftNav.isOpen()
+        });
+        */
     }
 
     render() {
@@ -61,12 +76,66 @@ class Sandbox extends React.Component {
                         ref="action2" secondary={true}>Cancel</FlatButton>
         ]);
 
+        let navItems = [
+
+            <MenuItem key="menu1" title="Doors Dashboard"
+                      onClick={this.navigateto}
+                      icon="view_by_2"
+            />,
+            <MenuItem key="menu2" title="Active Doors"
+                      onClick={this.navigateto}
+                      icon="loading"
+            />,
+            <MenuItem key="menu3" title="Load History"
+                      onClick={this.navigateto}
+                      icon="list"
+            />,
+            <MenuItem key="menu4" title="Notes"
+                      onClick={this.navigateto}
+                      icon="note"
+            />,
+            <MenuItem key="menu5" title="Help"
+                      onClick={this.navigateto}
+                      icon="help"
+            />
+        ];
+
+
         return (
             <div style={{backgroundColor: 'red', height: '400px'}}>
 
                 <Tooltip iconid="info" width="400px" show={true}>This option will email a PDF file that contains all the images in this drawer for this load period.</Tooltip>
 
-
+                <NavBar ref="NavBar"
+                        leftIcon={
+                        <LeftNav
+                            ref="leftNav"
+                            className="LeftNav"
+                            docked={false}
+                            open={this.state.leftnavopen}
+                            modal={true}
+                            color="white"
+                            iconid="menu"
+                            iconstyle={{height: '25px', marginTop: '18px', lineHeight: 0}}
+                            data-event-click="LEFT_NAV"
+                            data-event-desc={(this.state.leftnavopen ? "Closed" : "Opened") + " left nav"}
+                        >
+                            {navItems}
+                        </LeftNav>
+                        }
+                        title="TITLE"
+                        fixed={true}
+                >
+                    BAR
+                </NavBar>
+<div style={{marginLeft: '200px'}}>
+    <TabMenu>
+        <Item key="tab1" label="Apples"/>
+        <Item key="tab2" label="Bananas"/>
+        <Item key="tab3" label="Oranges"/>
+        <Item key="tab4" label="Lemons"/>
+    </TabMenu>
+</div>
 
             </div>
         )

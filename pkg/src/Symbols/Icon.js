@@ -58,7 +58,8 @@ export class Icon extends StripesTheme {
             svg: {
                 fill: this.props.color ? this.props.color : color.iconColor,
                 width: iconSize,
-                height: iconSize
+                height: iconSize,
+                transition: '.5s fill'
             }
         }
 

@@ -44,7 +44,7 @@ export class NavBar extends StripesTheme {
                 backgroundColor: color.background,
                 boxShadow: '0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.12)',
                 position: 'relative',
-                zIndex: 1,
+                zIndex: 2,
                 width: '100%',
                 display: 'flex',
                 minHeight: spacing.minHeight + 'px',

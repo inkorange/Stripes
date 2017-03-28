@@ -14,25 +14,6 @@ export class LeftNavElement extends React.Component {
         super(props);
         this.closeMenu = this.closeMenu.bind(this);
     }
-    /*
-     <H3>LeftNav</H3>
-     <LeftNav ref="LeftNav" modal={true}>
-
-     <Paper style={{width: '90%', margin: '20px 5%'}} depth="1">You can nest any kind of component in
-     here, this is a Paper component.</Paper>
-     <RaisedButton style={{position: 'absolute', bottom: 0, left: 0, width: 'calc(100% - 10px)'}}
-     key="button6" type="primary" onClick={this.closeMenu}>Manually Close</RaisedButton>
-     </LeftNav>
-     <pre>
-     <code className="language-js">
-     {
-     '<LeftNav ref="LeftNav" modal={true}>\n' +
-     '    Left Nav Content\n' +
-     '</LeftNav>\n'
-     }
-     </code>
-     </pre>
-     */
 
     closeMenu() {
         this.refs.LeftNav.close();
@@ -45,7 +26,9 @@ export class LeftNavElement extends React.Component {
                 location="import {LeftNav} from 'zebra-stripes/Layouts';"
                 propsMap={[
                         {name: 'closeOnBlur',   type: 'boolean',    desc: 'This will automatically clsoe the menu when the user clicks off of it.', default: 'true'},
+                        {name: 'color',         type: 'string',     desc: 'CSS color value for the icon used as a trigger for the left nav.', default: 'black'},
                         {name: 'icon',          type: 'string',     desc: 'The icon id to use when rendering the LeftNav trigger.', default: 'menu'},
+                        {name: 'iconstyle',     type: 'object',     desc: 'Extends the base icon styling used for the left nav trigger.', default: '{}'},
                         {name: 'modal',         type: 'boolean',    desc: 'Add a darkened background around the menu, to represent focus on the launched menu.', default: 'false'},
                         {name: 'onBlur',        type: 'function',   desc: 'This callback function will fire when the menu is blurred.', default: '{return false;}'},
                         {name: 'open',          type: 'boolean',    desc: 'A boolean that will change the open and close state of the menu.' , default: 'false'}

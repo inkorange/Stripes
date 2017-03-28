@@ -11,8 +11,11 @@ export class LeftNav extends StripesTheme {
         style: {},
         type: 'default',
         modal: false,
+        color: 'black',
         icon: 'menu',
+        iconstyle: {},
         closeOnBlur: true,
+        className: null,
         onBlur: () => { return false; },
         open: false
     }
@@ -25,6 +28,8 @@ export class LeftNav extends StripesTheme {
             style: {}
         }
         this.focus = this.focus.bind(this);
+        this.isOpen = this.isOpen.bind(this);
+        this.updateStyles = this.updateStyles.bind(this);
         this.toggleOnBlur = this.toggleOnBlur.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this);
     }
@@ -35,7 +40,14 @@ export class LeftNav extends StripesTheme {
         });
     }
 
-    toggleMenu(e,open) {
+    componentWillUpdate(props) {
+        console.log(props.open);
+        if(props.open !== this.props.open) {
+            this.toggleMenu(props.open);
+        }
+    }
+
+    toggleMenu(open) {
         this.setState({
             open: open !== undefined ? open : !this.state.open
         }, () => {
@@ -77,6 +89,10 @@ export class LeftNav extends StripesTheme {
         this.toggleMenu();
     }
 
+    isOpen() {
+        return this.state.open;
+    }
+
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
@@ -111,13 +127,20 @@ export class LeftNav extends StripesTheme {
             }
         };
         styleObj.menu = Object.assign(styleObj.menu, this.props.style);
+        styleObj.icon = Object.assign(styleObj.icon, this.props.iconstyle);
 
         return styleObj;
     }
 
+    updateStyles() {
+        this.setState({
+            style: this.getStyles()
+        });
+    }
+
     render() {
         var navNODE = (
-            <section style={this.state.style.menu} tabIndex="1" ref="LeftNav" key="navmenu" onBlur={this.toggleOnBlur}>
+            <section className={this.props.className} style={this.state.style.menu} tabIndex="1" ref="LeftNav" key="navmenu" onBlur={this.toggleOnBlur}>
                 {this.props.children}
             </section>
         );
@@ -130,8 +153,9 @@ export class LeftNav extends StripesTheme {
                 <Icon
                     basestyle={this.state.style.icon}
                     iconid={this.props.icon}
-                    size="large"
+                    size="medium"
                     type="primary"
+                    color={this.props.color}
                     onClick={this.toggleMenu}
                 />
                 {renderedNODE}
