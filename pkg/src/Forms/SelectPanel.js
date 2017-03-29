@@ -27,8 +27,6 @@ export class SelectPanel extends StripesTheme {
             style: this.getStyles()
         };
 
-        console.log(this.props.data);
-
         this.getStyles = this.getStyles.bind(this);
         this.moveHighlight = this.moveHighlight.bind(this);
         this.applyValue = this.applyValue.bind(this);
@@ -83,15 +81,17 @@ export class SelectPanel extends StripesTheme {
                 overflow: 'auto'
             },
             resultsli: {
-                padding: '10px',
+                padding: spacing.padding*2 + 'px',
                 margin: '0',
                 cursor: 'pointer',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                lineHeight: spacing.padding*4 + 'px',
+                color: color.textColor
             },
             resultsp: {
                 color: 'black',
-                padding: '15px 15px 5px 15px',
-                margin: '10px -10px 0 -10px',
+                padding: spacing.padding*3 + 'px '+spacing.padding*3+'px '+spacing.padding+'px '+spacing.padding*3+'px',
+                margin: spacing.margin*2 + 'px -'+spacing.margin*2+'px 0 -'+spacing.margin*2+'px',
                 borderTop: '1px solid ' + color.borderColor
             }
         };

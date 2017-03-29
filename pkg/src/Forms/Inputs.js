@@ -338,7 +338,9 @@ class DropDown extends StripesTheme {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
         var styleObj = this.getBaseStyling(spacing, color).inputs;
-
+        var container = {
+            lineHeight: '25px'
+        };
         var input = {
             cursor: 'pointer',
             backgroundColor: 'transparent'
@@ -346,13 +348,14 @@ class DropDown extends StripesTheme {
         var baseicon = {
             position: 'absolute',
             right: '0',
-            top: 'calc(50% - 14px)',
-            height: '25px'
+            top: '-2px',
+            height: '20px'
         };
         var icon = {
             fill: color.inactiveIcon
         };
 
+        styleObj.container = Object.assign(styleObj.container, container);
         styleObj.input = Object.assign(styleObj.input, input);
         styleObj.baseicon = baseicon;
         styleObj.icon = Object.assign(icon, this.props.iconStyle);

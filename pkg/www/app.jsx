@@ -90,8 +90,23 @@ class Sandbox extends React.Component {
                         ref="action2" secondary={true}>Cancel</FlatButton>
         ]);
 
-        let navItems = [
+        var loadAreaOptions = [];
+        this.state.loadareas.map((option,key) => {
+            //console.log(option.payload, this.state.selected_load_area);
+            var selectedID = this.state.selected_load_area === "all" ? "all" : this.state.selected_load_area*1;
+            var isArea = option.payload === selectedID;
+            loadAreaOptions.push(<Item value={option.payload} defaultChecked={isArea} key={key}>{option.text}</Item>);
+        });
 
+        let navItems = [
+            <DropDown
+                placeholder="Please select an option..."
+                showEmpty={true}
+                width="250px"
+                onChange={(e,val,selectedArea) => { console.log(e,val,selectedArea); }}
+            >
+                {loadAreaOptions}
+            </DropDown>,
             <MenuItem key="menu1" title="Doors Dashboard"
                       onClick={this.navigateto}
                       icon="view_by_2"
@@ -113,15 +128,6 @@ class Sandbox extends React.Component {
                       icon="help"
             />
         ];
-
-
-        var loadAreaOptions = [];
-        this.state.loadareas.map((option,key) => {
-            //console.log(option.payload, this.state.selected_load_area);
-            var selectedID = this.state.selected_load_area === "all" ? "all" : this.state.selected_load_area*1;
-            var isArea = option.payload === selectedID;
-            loadAreaOptions.push(<Item value={option.payload} defaultChecked={isArea} key={key}>{option.text}</Item>);
-        });
 
 
         return (
