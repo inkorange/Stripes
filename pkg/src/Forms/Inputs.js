@@ -4,6 +4,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import {SelectPanel} from './SelectPanel.js'
+import {Icon} from  '../Symbols/Icon'
 
 /* *********************************************************************************************************************
  Component TextBox
@@ -107,7 +108,6 @@ class TextBox extends StripesTheme {
     onCompleteInputBlur(e) {
         setTimeout(() => {
             var target = document.activeElement;
-            //console.log(target, target.className);
             if(target.className !== "SelectPanel" && this.props.showSuggestions) {
                 this.refs.selectPanel.close();
                 this.onInputBlur(e);
@@ -260,36 +260,55 @@ class DropDown extends StripesTheme {
         error: null,
         width: null,
         showEmpty: false,
+        iconStyle: {},
+        value: null,
         onChange: () => { return false; }
     }
 
     constructor(props) {
         super(props);
-        var items = [];
         this.toggleSelect = this.toggleSelect.bind(this);
         this.applyValue = this.applyValue.bind(this);
         this.getValue = this.getValue.bind(this);
-        this.props.children.map((obj) => {
+        var resolvedMap = this.resolveItemMap(this.props.children);
+        this.state = {
+            style: this.getStyles(),
+            items: resolvedMap.items,
+            active: false,
+            label: resolvedMap.currentCheckedLabel,
+            value: resolvedMap.currentCheckedValue
+        }
+    }
+
+    resolveItemMap(children) {
+        var items = [];
+        var currentCheckedValue = null;
+        var currentCheckedLabel = null;
+        children.map((obj) => {
             var label = obj.props.label ? obj.props.label : obj.props.children;
+            if(obj.props.defaultChecked) {
+                currentCheckedLabel = label;
+                currentCheckedValue = obj.props.value === undefined ? label : obj.props.value;
+            }
             items.push({
                 checked: obj.props.defaultChecked,
                 label: label,
                 value: obj.props.value === undefined ? label : obj.props.value
             });
         });
-        this.state = {
-            style: this.getStyles(),
-            items: items,
-            active: false,
-            value: null,
-            label: null
-        }
+        return {items: items, currentCheckedLabel: currentCheckedLabel, currentCheckedValue: currentCheckedValue};
     }
 
     componentDidUpdate(props) {
         if(props !== this.props) {
+            var resolvedMap = this.resolveItemMap(this.props.children);
             this.setState({
-                style: this.getStyles()
+                style: this.getStyles(),
+                items: resolvedMap.items,
+                label: resolvedMap.currentCheckedLabel,
+                value: resolvedMap.currentCheckedValue
+            }, () => {
+                this.resolveItemMap(props.children);
             });
         }
     }
@@ -303,6 +322,7 @@ class DropDown extends StripesTheme {
                 this.refs.input.value = this.state.value ? this.state.label : null;
             });
         }
+
     }
 
     getValue() {
@@ -320,16 +340,27 @@ class DropDown extends StripesTheme {
         var styleObj = this.getBaseStyling(spacing, color).inputs;
 
         var input = {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            backgroundColor: 'transparent'
+        };
+        var baseicon = {
+            position: 'absolute',
+            right: '0',
+            top: 'calc(50% - 14px)',
+            height: '25px'
+        };
+        var icon = {
+            fill: color.inactiveIcon
         };
 
         styleObj.input = Object.assign(styleObj.input, input);
+        styleObj.baseicon = baseicon;
+        styleObj.icon = Object.assign(icon, this.props.iconStyle);
         styleObj.active.on = Object.assign(styleObj.active.on, styleObj.active.base);
         styleObj.active.off = Object.assign(styleObj.active.off, styleObj.active.base);
 
         return styleObj;
     }
-
 
     render() {
         return (
@@ -340,6 +371,14 @@ class DropDown extends StripesTheme {
                     onClick={this.toggleSelect}
                     style={this.state.style.input}
                     readOnly="readonly"
+                    value={this.state.label}
+                />
+                <Icon
+                    basestyle={this.state.style.baseicon}
+                    iconid="down"
+                    size="15px"
+                    type="primary"
+                    style={this.state.style.icon}
                 />
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
                 <SelectPanel

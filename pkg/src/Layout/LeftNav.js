@@ -41,7 +41,6 @@ export class LeftNav extends StripesTheme {
     }
 
     componentWillUpdate(props) {
-        console.log(props.open);
         if(props.open !== this.props.open) {
             this.toggleMenu(props.open);
         }

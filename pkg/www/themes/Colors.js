@@ -78,7 +78,8 @@ module.exports = {
         underErrorlineColor: errorColor,
         borderColor: borderColor,
         highlightColor: '#eeeeee',
-        highlightBorderColor: primaryColor
+        highlightBorderColor: primaryColor,
+        inactiveIcon: inactiveColor
     },
     navbar: {
         background: menuColor,

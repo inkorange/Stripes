@@ -37,13 +37,27 @@ class Sandbox extends React.Component {
         this.toggle = this.toggle.bind(this);
 
         this.state = {
+            loadareas: [],
             leftnavopen: false,
+            selected_load_area: 10,
             checked: false,
             date: null //"Wed Feb 08 2017 05:22:00 GMT-0500 (EST)"
         }
     }
 
     componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                loadareas: [
+                    {payload: "all", text: 'all areas'},
+                    {payload: 11, text: 'Load area 1'},
+                    {payload: 10, text: 'Load area 2'},
+                    {payload: 9, defaultChecked:true, text: 'Load Area 3'},
+                    {payload: 13, text: 'Load Area 4'},
+                    {payload: 15, text: 'load Area 5'}
+                ]
+            })
+        },2000)
     }
 
     changeIt(e,v) {
@@ -101,6 +115,15 @@ class Sandbox extends React.Component {
         ];
 
 
+        var loadAreaOptions = [];
+        this.state.loadareas.map((option,key) => {
+            //console.log(option.payload, this.state.selected_load_area);
+            var selectedID = this.state.selected_load_area === "all" ? "all" : this.state.selected_load_area*1;
+            var isArea = option.payload === selectedID;
+            loadAreaOptions.push(<Item value={option.payload} defaultChecked={isArea} key={key}>{option.text}</Item>);
+        });
+
+
         return (
             <div style={{backgroundColor: 'red', height: '400px'}}>
 
@@ -128,13 +151,15 @@ class Sandbox extends React.Component {
                 >
                     BAR
                 </NavBar>
-<div style={{marginLeft: '200px'}}>
-    <TabMenu>
-        <Item key="tab1" label="Apples"/>
-        <Item key="tab2" label="Bananas"/>
-        <Item key="tab3" label="Oranges"/>
-        <Item key="tab4" label="Lemons"/>
-    </TabMenu>
+<div style={{marginLeft: '200px', padding: '50px', background: 'gray'}}>
+    <DropDown
+        placeholder="Please select an option..."
+        showEmpty={true}
+        width="250px"
+        onChange={(e,val,selectedArea) => { console.log(e,val,selectedArea); }}
+    >
+        {loadAreaOptions}
+    </DropDown>
 </div>
 
             </div>

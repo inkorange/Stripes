@@ -27,6 +27,8 @@ export class SelectPanel extends StripesTheme {
             style: this.getStyles()
         };
 
+        console.log(this.props.data);
+
         this.getStyles = this.getStyles.bind(this);
         this.moveHighlight = this.moveHighlight.bind(this);
         this.applyValue = this.applyValue.bind(this);

@@ -70,7 +70,7 @@ export class Icon extends StripesTheme {
     render() {
         var useTag = '<use xlink:href="#' + this.props.iconid + '" />';
         var styles = this.getStyles();
-        var SVGstyle = this.props.style ? Object.assign(this.props.style, styles.svg) : styles.svg;
+        var SVGstyle = this.props.style ? Object.assign(styles.svg, this.props.style) : styles.svg;
         var Iconstyle = Object.assign(this.props.basestyle, styles.Icon);
 
         var svg = <svg data-id={this.props["data-id"]} style={SVGstyle} viewBox="0 0 100 100" dangerouslySetInnerHTML={{__html: useTag }} />;
