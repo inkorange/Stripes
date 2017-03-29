@@ -17,6 +17,8 @@ import { Card, LeftNav, MenuItem } from '../src/Layouts'
 import {Icon} from  '../src/Symbols/Icon'
 import {Tooltip} from  '../src/Notifications/Tooltip'
 import {ShowHide, TabMenu, IconMenu} from '../src/Layouts'
+import {ProgressSpinner} from '../src/Elements/ProgressSpinner'
+
 
 // layouts
 const MainLayout = React.createClass({
@@ -38,6 +40,7 @@ class Sandbox extends React.Component {
 
         this.state = {
             loadareas: [],
+            showing: true,
             leftnavopen: false,
             selected_load_area: 10,
             checked: false,
@@ -55,7 +58,8 @@ class Sandbox extends React.Component {
                     {payload: 9, defaultChecked:true, text: 'Load Area 3'},
                     {payload: 13, text: 'Load Area 4'},
                     {payload: 15, text: 'load Area 5'}
-                ]
+                ],
+                showing: false
             })
         },2000)
     }
@@ -159,6 +163,9 @@ class Sandbox extends React.Component {
                         </RadioButtonGroup>
                     </IconMenu>
                 </NavBar>
+
+                {this.state.showing ?
+                <ProgressSpinner /> : null }
 
             </div>
         )
