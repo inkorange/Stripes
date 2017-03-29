@@ -321,8 +321,8 @@ class DropDown extends StripesTheme {
             }, () => {
                 this.refs.input.value = this.state.value ? this.state.label : null;
             });
+            this.props.onChange(val.value, val.label);
         }
-
     }
 
     getValue() {

@@ -77,6 +77,10 @@ class Sandbox extends React.Component {
         */
     }
 
+    triggerIt(val,selectedArea) {
+        console.log(val,selectedArea);
+    }
+
     render() {
 
         var labstyle = {
@@ -103,7 +107,7 @@ class Sandbox extends React.Component {
                 placeholder="Please select an option..."
                 showEmpty={true}
                 width="250px"
-                onChange={(e,val,selectedArea) => { console.log(e,val,selectedArea); }}
+                onChange={this.triggerIt}
             >
                 {loadAreaOptions}
             </DropDown>,
@@ -157,12 +161,18 @@ class Sandbox extends React.Component {
                 >
                     BAR
                 </NavBar>
+                <TabMenu>
+                    <Item key="tab1" label="Apples"/>
+                    <Item key="tab2" label="Bananas"/>
+                    <Item key="tab3" label="Oranges"/>
+                    <Item key="tab4" label="Lemons"/>
+                </TabMenu>
 <div style={{marginLeft: '200px', padding: '50px', background: 'gray'}}>
     <DropDown
         placeholder="Please select an option..."
         showEmpty={true}
         width="250px"
-        onChange={(e,val,selectedArea) => { console.log(e,val,selectedArea); }}
+        onChange={this.triggerIt}
     >
         {loadAreaOptions}
     </DropDown>

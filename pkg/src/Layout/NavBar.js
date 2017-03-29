@@ -48,14 +48,19 @@ export class NavBar extends StripesTheme {
                 width: '100%',
                 display: 'flex',
                 minHeight: spacing.minHeight + 'px',
-                lineHeight: spacing.minHeight + 'px',
+                //lineHeight: spacing.minHeight + 'px',
                 padding: '0 ' + spacing.padding + 'px',
-                color: color.textColor,
                 fontSize: spacing.fontSize
             },
             rightside: {
                 position: 'absolute',
-                right: spacing.padding + 'px'
+                color: color.textColor,
+                right: spacing.padding + 'px',
+                lineHeight: spacing.minHeight + 'px'
+            },
+            span: {
+                lineHeight: spacing.minHeight + 'px',
+                color: color.textColor
             }
         };
         if(this.props.fixed) {
@@ -74,7 +79,7 @@ export class NavBar extends StripesTheme {
         return (
             <section ref="NavBar" style={this.state.style.base}>
                 {this.props.leftIcon}
-                {Title}
+                <span style={this.state.style.span}>{Title}</span>
                 <div style={this.state.style.rightside}>
                     {this.props.children}
                 </div>

@@ -60,6 +60,8 @@ export class LeftNav extends StripesTheme {
     }
 
     toggleOnBlur(e) {
+        e.preventDefault();
+        e.stopPropagation();
         if(this.props.closeOnBlur) {
             setTimeout(() => {
                 var target = document.activeElement;
@@ -68,7 +70,7 @@ export class LeftNav extends StripesTheme {
                     this.toggleMenu(null, false);
                     this.props.onBlur();
                 }
-            }, 1);
+            }, 150);
         }
     }
 
