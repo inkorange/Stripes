@@ -11,7 +11,8 @@ export class TabMenu extends StripesTheme {
         style: {},
         contentStyle: {},
         type: 'tabmenu',
-        onClick: () => {}
+        onClick: () => {},
+        className: null     // Adds a class name to the root.
     }
 
     constructor(props) {
@@ -111,7 +112,7 @@ export class TabMenu extends StripesTheme {
         });
 
         return (
-            <div>
+            <div className={this.props.className}>
                 <section style={this.state.style.base}>
                     {items}
                     <span ref="selected" style={this.state.style.indicator}></span>

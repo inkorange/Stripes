@@ -111,6 +111,9 @@ class RadioButtonGroup extends StripesTheme {
                 display: 'block',
                 cursor:  this.props.disabled ? 'default' : 'pointer',
                 padding: spacing.padding*2 + 'px ' + spacing.padding + 'px',
+                lineHeight: spacing.height + 'px',
+                color: color.textColor,
+                fontSize: spacing.fontSize
             },
             input : {
                 marginRight: spacing.padding + 'px',

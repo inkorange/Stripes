@@ -103,14 +103,6 @@ class Sandbox extends React.Component {
         });
 
         let navItems = [
-            <DropDown
-                placeholder="Please select an option..."
-                showEmpty={true}
-                width="250px"
-                onChange={this.triggerIt}
-            >
-                {loadAreaOptions}
-            </DropDown>,
             <MenuItem key="menu1" title="Doors Dashboard"
                       onClick={this.navigateto}
                       icon="view_by_2"
@@ -137,7 +129,7 @@ class Sandbox extends React.Component {
         return (
             <div style={{backgroundColor: 'red', height: '400px'}}>
 
-                <Tooltip iconid="info" width="400px" show={true}>This option will email a PDF file that contains all the images in this drawer for this load period.</Tooltip>
+
 
                 <NavBar ref="NavBar"
                         leftIcon={
@@ -159,24 +151,14 @@ class Sandbox extends React.Component {
                         title="TITLE"
                         fixed={true}
                 >
-                    BAR
+                    <IconMenu style={{float: 'right'}} iconid="filter" direction="left" max-width="400px">
+                        <RadioButtonGroup ref="radiobuttongroup" name="group1">
+                            <Item key="option1" defaultChecked={true} >Radio Option 1</Item>
+                            <Item value="opt2" key="option2">Radio Option 2</Item>
+                            <Item key="option3">Radio Option 3</Item>
+                        </RadioButtonGroup>
+                    </IconMenu>
                 </NavBar>
-                <TabMenu>
-                    <Item key="tab1" label="Apples"/>
-                    <Item key="tab2" label="Bananas"/>
-                    <Item key="tab3" label="Oranges"/>
-                    <Item key="tab4" label="Lemons"/>
-                </TabMenu>
-<div style={{marginLeft: '200px', padding: '50px', background: 'gray'}}>
-    <DropDown
-        placeholder="Please select an option..."
-        showEmpty={true}
-        width="250px"
-        onChange={this.triggerIt}
-    >
-        {loadAreaOptions}
-    </DropDown>
-</div>
 
             </div>
         )
@@ -211,6 +193,8 @@ render((
 ),  document.getElementById('app'));
 
 /*
+ <Tooltip iconid="info" width="400px" show={true}>This option will email a PDF file that contains all the images in this drawer for this load period.</Tooltip>
+
  <Title>This is the title text and we need it to wrap This is the title text and we need it to wrap This is the title text and we need it to wrap</Title>
  <H1>this is header text that will wrap  this is header text that will wrap  this is header text that will wrap  this is header text that will wrap  this is header text that will wrap</H1>
  <H2>this is header text that will wrap this is header text that will wrap this is header text that will wrap this is header text that will wrap</H2>

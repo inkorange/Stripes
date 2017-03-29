@@ -35,7 +35,9 @@ var Theme = {
             margin: baseMargin,
             borderRadius: baseRadius,
             width: 20,
-            height: 20
+            height: 20,
+            fontSize: '1.6rem',
+            errorFontSize: '1.2rem'
         },
         typography: {
             baseFontSize: 1.6,

@@ -110,6 +110,7 @@ export class IconMenu extends StripesTheme {
     }
 
     render() {
+        console.log(this.props.children);
         return (
             <section
                 style={this.state.style.base}

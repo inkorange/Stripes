@@ -12,7 +12,8 @@ export class NavBar extends StripesTheme {
         type: 'navbar',     // String: reference to style category reference
         title: null,        // String: Left-side title text string displayed within the navbar
         leftIcon: null,     // React Component: Icon to be shown on the left, usually with an action attached to it, but can be static
-        fixed: false        // Boolean: Will fix the navbar to the top of the page
+        fixed: false,        // Boolean: Will fix the navbar to the top of the page
+        className: null     // Adds a class name to the root.
     }
 
     constructor(props) {
@@ -77,7 +78,7 @@ export class NavBar extends StripesTheme {
             <span style={this.state.style.title}>{this.props.title}</span>
         ) : null;
         return (
-            <section ref="NavBar" style={this.state.style.base}>
+            <section ref="NavBar" className={this.props.className} style={this.state.style.base}>
                 {this.props.leftIcon}
                 <span style={this.state.style.span}>{Title}</span>
                 <div style={this.state.style.rightside}>
