@@ -37,13 +37,16 @@ class Sandbox extends React.Component {
         super(props);
         this.changeIt = this.changeIt.bind(this);
         this.toggle = this.toggle.bind(this);
+        this._clickAction = this._clickAction.bind(this);
 
         this.state = {
+            tabstyle: {width: '60%'},
             loadareas: [],
             showing: true,
             leftnavopen: false,
             selected_load_area: 10,
             checked: false,
+            selected: 'load_history',
             date: null //"Wed Feb 08 2017 05:22:00 GMT-0500 (EST)"
         }
     }
@@ -59,9 +62,11 @@ class Sandbox extends React.Component {
                     {payload: 13, text: 'Load Area 4'},
                     {payload: 15, text: 'load Area 5'}
                 ],
-                showing: false
-            })
-        },2000)
+                showing: false,
+                //selected: 'notes',
+                tabstyle: {width: '100%'}
+            });
+        },2000);
     }
 
     changeIt(e,v) {
@@ -85,6 +90,15 @@ class Sandbox extends React.Component {
         console.log(val,selectedArea);
     }
 
+    _clickAction(e,pos,targetValue) {
+        if(targetValue) {
+            this.setState({
+                selected: targetValue
+            });
+        }
+        console.log(targetValue);
+    }
+
     render() {
 
         var labstyle = {
@@ -106,28 +120,34 @@ class Sandbox extends React.Component {
             loadAreaOptions.push(<Item value={option.payload} defaultChecked={isArea} key={key}>{option.text}</Item>);
         });
 
-        let navItems = [
-            <MenuItem key="menu1" title="Doors Dashboard"
-                      onClick={this.navigateto}
-                      icon="view_by_2"
-            />,
-            <MenuItem key="menu2" title="Active Doors"
-                      onClick={this.navigateto}
-                      icon="loading"
-            />,
-            <MenuItem key="menu3" title="Load History"
-                      onClick={this.navigateto}
-                      icon="list"
-            />,
-            <MenuItem key="menu4" title="Notes"
-                      onClick={this.navigateto}
-                      icon="note"
-            />,
-            <MenuItem key="menu5" title="Help"
-                      onClick={this.navigateto}
-                      icon="help"
-            />
+        let tabs = [
+            {
+                label: 'Active Doors',
+                route: 'active_doors'
+            },
+            {
+                label: 'Load History',
+                route: 'load_history'
+            },
+            {
+                label: 'Notes',
+                route: 'notes'
+            }
         ];
+
+        var menuDOM = [];
+        console.log('rerendering: ', this.state.selected);
+        tabs.map((tab, key) => {
+            menuDOM.push(
+                <Item
+                    key={key}
+                    value={tab.route}
+                    data-value={tab.route}
+                    label={tab.label}
+                    selected={this.state.selected===tab.route}
+                />
+            )
+        });
 
 
         return (
@@ -135,34 +155,12 @@ class Sandbox extends React.Component {
 
 
 
-                <NavBar ref="NavBar"
-                        leftIcon={
-                        <LeftNav
-                            ref="leftNav"
-                            className="LeftNav"
-                            docked={false}
-                            open={this.state.leftnavopen}
-                            modal={true}
-                            color="white"
-                            iconid="menu"
-                            iconstyle={{height: '25px', marginTop: '18px', lineHeight: 0}}
-                            data-event-click="LEFT_NAV"
-                            data-event-desc={(this.state.leftnavopen ? "Closed" : "Opened") + " left nav"}
-                        >
-                            {navItems}
-                        </LeftNav>
-                        }
-                        title="TITLE"
-                        fixed={true}
+                <TabMenu
+                    style={this.state.tabstyle}
+                    onClick={this._clickAction}
                 >
-                    <IconMenu style={{float: 'right'}} iconid="filter" direction="left" max-width="400px">
-                        <RadioButtonGroup ref="radiobuttongroup" name="group1">
-                            <Item key="option1" defaultChecked={true} >Radio Option 1</Item>
-                            <Item value="opt2" key="option2">Radio Option 2</Item>
-                            <Item key="option3">Radio Option 3</Item>
-                        </RadioButtonGroup>
-                    </IconMenu>
-                </NavBar>
+                    {menuDOM}
+                </TabMenu>
 
                 {this.state.showing ?
                 <ProgressSpinner /> : null }

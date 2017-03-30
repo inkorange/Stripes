@@ -18,23 +18,38 @@ export class TabMenu extends StripesTheme {
     constructor(props) {
         super(props);
         this.clickItem = this.clickItem.bind(this);
+        this._setChildrenMap = this._setChildrenMap.bind(this);
 
+        this.state = {
+            selected: 0,
+            style: {}
+        }
+        //this._setChildrenMap();
+
+    }
+
+    _setChildrenMap() {
         var selected = 0;
         this.props.children.map((item,pos) => {
             if(item.props.selected) {
                 selected = pos;
             }
         });
-        this.state = {
-            style: {},
-            selected: selected
-        }
+        this.setState({
+                selected: selected
+            },
+            () => { this.setState({style: this.getStyles()})}
+        )
     }
 
     componentDidMount() {
-        this.setState({
-            style: this.getStyles()
-        });
+        this._setChildrenMap();
+    }
+
+    componentDidUpdate(props) {
+        if(this.props.children != props.children) {
+            this._setChildrenMap();
+        }
     }
 
     getStyles() {
@@ -58,7 +73,7 @@ export class TabMenu extends StripesTheme {
         var styleObj = {
             base: {
                 backgroundColor: color.background,
-                boxShadow: '0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.12)',
+                //boxShadow: '0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.12)',
                 position: 'relative',
                 zIndex: 1,
                 display: 'flex',
@@ -89,13 +104,14 @@ export class TabMenu extends StripesTheme {
 
     clickItem(e) {
         var pos = e.target.getAttribute("data-itemid")*1;
+        var value = e.target.getAttribute("data-value");
         this.setState({
             selected: pos
         }, () => {
             this.setState({
                 style: this.getStyles()
             });
-            this.props.onClick();
+            this.props.onClick(e,pos,value);
         });
     }
 
@@ -104,7 +120,7 @@ export class TabMenu extends StripesTheme {
         var content = [];
         this.props.children.map((item, pos) => {
             items.push(
-                <div onClick={this.clickItem} data-itemid={pos} key={"item" + pos} style={pos == this.state.selected ? this.state.style.selecteditem : this.state.style.item}>
+                <div onClick={this.clickItem} data-value={item.props.value} data-itemid={pos} key={"item" + pos} style={pos == this.state.selected ? this.state.style.selecteditem : this.state.style.item}>
                     {item.props.label}
                 </div>
             );
