@@ -55,17 +55,13 @@ export class DateTimePicker extends StripesTheme {
     setDate(date) {
         this.setState({
             value: mergeDates(date, this.state.value)
-        }, () => {
-            this.fireCallback
-        });
+        }, this.fireCallback);
     }
 
     setTime(time) {
         this.setState({
             value: addTimeToDate(this.state.value, time)
-        }, () => {
-            this.fireCallback();
-        });
+        }, this.fireCallback);
     }
 
     fireCallback() {

@@ -44,10 +44,12 @@ export class Calendar extends StripesTheme {
     }
 
     selectDate(e) {
+        e.preventDefault();
         var date = new Date(e.target.getAttribute('data-date'));
         if(date) {
             this.props.onClick(date);
         }
+        return false;
     }
 
     switchToDate(date) {

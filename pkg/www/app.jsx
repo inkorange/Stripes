@@ -99,6 +99,10 @@ class Sandbox extends React.Component {
         console.log(targetValue);
     }
 
+    _updateDateTimeFilter(data) {
+        console.log(data)
+    }
+
     render() {
 
         var labstyle = {
@@ -155,12 +159,13 @@ class Sandbox extends React.Component {
 
 
 
-                <TabMenu
-                    style={this.state.tabstyle}
-                    onClick={this._clickAction}
-                >
-                    {menuDOM}
-                </TabMenu>
+                <DateTimePicker
+                    id="open_after_date"
+                    ref="open_after_date"
+                    changeFn={this._updateDateTimeFilter}
+                    placeholder={["After Date", "Time"]}
+                    value={null}
+                />
 
                 {this.state.showing ?
                 <ProgressSpinner /> : null }
