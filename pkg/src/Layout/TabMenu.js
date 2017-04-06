@@ -73,9 +73,7 @@ export class TabMenu extends StripesTheme {
         var styleObj = {
             base: {
                 backgroundColor: color.background,
-                //boxShadow: '0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.12)',
                 position: 'relative',
-                zIndex: 1,
                 display: 'flex',
                 flexWrap: 'nowrap'
             },
