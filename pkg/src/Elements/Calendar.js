@@ -74,8 +74,7 @@ export class Calendar extends StripesTheme {
                 color: color.textColor
             },
             months: {
-                display: 'flex',
-                flexWrap: 'wrap'
+                display: 'flex'
             },
             montharrowbase: {
                 display: 'inline-block',

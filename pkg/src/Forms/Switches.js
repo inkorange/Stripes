@@ -30,7 +30,7 @@ class Item extends StripesTheme {
 }
 
 /* *********************************************************************************************************************
-Component RadioButton
+Component RadioButtonGroup
 ********************************************************************************************************************* */
 class RadioButtonGroup extends StripesTheme {
     static defaultProps = {
@@ -69,10 +69,11 @@ class RadioButtonGroup extends StripesTheme {
             items.push({
                 style: obj.props.style,
                 checked: obj.props.defaultChecked,
-                value: obj.props.value ? obj.props.value : obj.props.children,
+                value: obj.props.value !== null ? obj.props.value : obj.props.children,
                 children: obj.props.children
             });
         });
+        console.log(items);
         this.setState({
                 items: items
             }, () => { this.setState({style: this.getStyles()})}
@@ -147,14 +148,6 @@ class RadioButtonGroup extends StripesTheme {
         };
 
         return styleObj;
-    }
-
-    componentDidUpdate(props) {
-        if(props !== this.props) {
-            this.setState({
-                style: this.getStyles()
-            });
-        }
     }
 
     render() {
@@ -322,7 +315,7 @@ class CheckBoxGroup extends StripesTheme {
             items.push({
                 style: obj.props.style,
                 checked: obj.props.defaultChecked,
-                value: obj.props.value ? obj.props.value : obj.props.children,
+                value: obj.props.value !== null ? obj.props.value : obj.props.children,
                 children: obj.props.children
             });
         });

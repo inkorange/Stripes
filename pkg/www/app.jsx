@@ -35,7 +35,7 @@ class Sandbox extends React.Component {
 
     constructor(props) {
         super(props);
-        this._updateTrailerType = this._updateTrailerType.bind(this);
+        this._updateViewFilter = this._updateViewFilter.bind(this);
 
         this.state = {
             trailerType: '28DF',
@@ -63,10 +63,9 @@ class Sandbox extends React.Component {
     }
 
 
-    _updateTrailerType(val) {
-        console.log(val);
+    _updateViewFilter(e,v) {
         this.setState({
-            trailerType: val
+            viewFilter: v
         });
     }
 
@@ -80,17 +79,18 @@ class Sandbox extends React.Component {
                 trailerTypeOptions.push(<Item value={val} defaultChecked={this.state.trailerType === val} key={key}>{val}</Item>);
             });
         }
+        console.log(this.state.viewFilter);
         return (
             <div>
 
 <div style={{color: 'white'}}>
 
-    <RadioButtonGroup name="viewFilter" ref="viewFilter">
+    <RadioButtonGroup name="viewFilter" ref="viewFilter" onChange={this._updateViewFilter}>
         <Item data-event-click="FILTER"
               data-event-desc="Submit doors No Filter"
               value=""
               key="item0"
-              defaultChecked={this.state.viewFilter === ""}>
+              defaultChecked={!this.state.viewFilter || this.state.viewFilter === ""}>
             No Filter
         </Item>
         <Item data-event-click="FILTER"

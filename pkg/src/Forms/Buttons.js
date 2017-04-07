@@ -3,6 +3,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
+import { Icon } from  '../Symbols/Icon'
 
 class FlatButton extends StripesTheme {
 
@@ -11,6 +12,8 @@ class FlatButton extends StripesTheme {
         disabled: false,
         label: null,
         style: {},
+        icon: null,
+        iconColor: 'white',
         onClick: () => { return false; }
     }
 
@@ -45,13 +48,16 @@ class FlatButton extends StripesTheme {
                 letterSpacing: '0px',
                 textTransform: 'uppercase',
                 outline: 'none',
-                padding: spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px',
+                padding: this.props.icon
+                    ? spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px ' + spacing.padding * 2 + 'px ' + spacing.padding * 8 + 'px'
+                    : spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px',
                 margin: spacing.padding + 'px ',
                 transition: '.5s background-color',
                 opacity: this.props.disabled ? .5 : 1.0,
                 cursor: this.props.disabled ? 'default' : 'pointer',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                basePadding: spacing.padding
             },
             ink: this.getBaseStyling(spacing, color).animation.ink
         }
@@ -60,6 +66,16 @@ class FlatButton extends StripesTheme {
     }
 
     render() {
+        var iconNode = null;
+        if(this.props.icon) {
+            iconNode = (
+                <Icon
+                    iconid={this.props.icon}
+                    size="small"
+                    basestyle={{position: 'absolute', left: this.state.style.basePadding*2 + 'px', top: (this.state.style.basePadding*2 - 2) + 'px'}}
+                    color={this.props.iconColor}
+                />);
+        }
         return (
             <button
                 className="FlatButton"
@@ -69,6 +85,7 @@ class FlatButton extends StripesTheme {
                 onClick={this.handleClick}
                 label={this.props.label}
             >
+                {iconNode}
                 {this.props.children}
                 <span className='ink' style={this.state.inkStyle}></span>
             </button>
@@ -84,6 +101,8 @@ class RaisedButton extends StripesTheme {
         disabled: false,
         label: null,
         style: {},
+        icon: null,
+        iconColor: 'white',
         onClick: () => { return false; }
     }
 
@@ -118,14 +137,17 @@ class RaisedButton extends StripesTheme {
                 letterSpacing: '0px',
                 textTransform: 'uppercase',
                 outline: 'none',
-                padding: spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px',
+                padding: this.props.icon
+                    ? spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px ' + spacing.padding * 2 + 'px ' + spacing.padding * 8 + 'px'
+                    : spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px',
                 margin: spacing.padding + 'px ',
                 transition: '.5s background-color',
                 opacity: this.props.disabled ? .5 : 1.0,
                 cursor: this.props.disabled ? 'default' : 'pointer',
                 boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                basePadding: spacing.padding
             },
             ink: this.getBaseStyling(spacing, color).animation.ink
         }
@@ -134,6 +156,16 @@ class RaisedButton extends StripesTheme {
     }
 
     render() {
+        var iconNode = null;
+        if(this.props.icon) {
+            iconNode = (
+                <Icon
+                    iconid={this.props.icon}
+                    size="small"
+                    basestyle={{position: 'absolute', left: this.state.style.basePadding*2 + 'px', top: (this.state.style.basePadding*2 - 2) + 'px'}}
+                    color={this.props.iconColor}
+                />);
+        }
         return (
             <button
                 className="RaisedButton"
@@ -143,6 +175,7 @@ class RaisedButton extends StripesTheme {
                 onClick={this.handleClick}
                 label={this.props.label}
             >
+                {iconNode}
                 {this.props.children}
                 <span className='ink' style={this.state.inkStyle}></span>
             </button>
