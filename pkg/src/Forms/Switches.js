@@ -244,6 +244,7 @@ class CheckBox extends StripesTheme {
         var styleObj = {
             label: {
                 opacity: this.props.disabled ? '.5' : '1',
+                color: color.textColor,
                 transition: '.5s opacity',
                 display: 'block',
                 cursor:  this.props.disabled ? 'default' : 'pointer',

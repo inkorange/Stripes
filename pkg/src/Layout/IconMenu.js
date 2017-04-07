@@ -100,7 +100,8 @@ export class IconMenu extends StripesTheme {
                 msUserSelect: 'none',
                 background: 'white',
                 boxShadow: this.state.open ? '0 3px 5px rgba(0,0,0,.5)' : '0 2px 0 rgba(0,0,0,0)',
-                zIndex: 2
+                zIndex: 2,
+                lineHeight: '1em'
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);

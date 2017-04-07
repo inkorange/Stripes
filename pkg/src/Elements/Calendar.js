@@ -64,6 +64,7 @@ export class Calendar extends StripesTheme {
         var styleObj = {
             base: {
                 borderRadius: spacing.borderRadius + 'px',
+                userSelect: 'none'
             },
             label: {
                 fontSize: '1.8rem',
@@ -92,7 +93,8 @@ export class Calendar extends StripesTheme {
                 fontSize: spacing.baseFontSize*1.25 + 'rem',
                 width: '80%',
                 textAlign: 'center',
-                lineHeight: spacing.padding*8 + 'px'
+                lineHeight: spacing.padding*8 + 'px',
+                color: color.idleColor
             },
             days: {
                 display: 'flex',
@@ -104,8 +106,10 @@ export class Calendar extends StripesTheme {
                 alignContent: 'stretch',
                 textAlign: 'center',
                 width: 100/7 + '%',
-                padding: spacing.padding * 1.5 + 'px',
-                cursor: 'pointer'
+                height: '100%',
+                padding: spacing.padding * 2 + 'px ' + spacing.padding * 1.5 + 'px',
+                cursor: 'pointer',
+                color: 'black'
             }
         }
         styleObj.dayitemhover = Object.assign({
@@ -115,10 +119,10 @@ export class Calendar extends StripesTheme {
             opacity: '.33'
         }, styleObj.dayitem);
         styleObj.dayitemSelected = Object.assign({
-            color: 'white',
-            borderRadius: '50%',
+            borderRadius: '100%',
             backgroundColor: color.headerBackgroundColor
         }, styleObj.dayitem);
+        styleObj.dayitemSelected.color = 'white';
         return styleObj;
     }
 

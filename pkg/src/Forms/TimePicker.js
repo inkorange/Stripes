@@ -32,7 +32,6 @@ export class TimeNode extends StripesTheme {
         };
         var hourSelectedStyle = {
             background: color.activeIcon,
-            color: 'white',
             cursor: 'default'
         };
         var hourStyle = {
@@ -42,12 +41,14 @@ export class TimeNode extends StripesTheme {
             lineHeight: '35px',
             borderRadius: '50%',
             transition: 'background .5s',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            color: color.idleColor
         };
 
         Object.assign(hourStyle, this.props.style);
         Object.assign(hourHoverStyle, hourStyle);
         Object.assign(hourSelectedStyle, hourStyle);
+        hourSelectedStyle.color = 'white';
 
         return (
             <span
@@ -92,6 +93,7 @@ export class TimePicker extends StripesTheme {
         this.cancel = this.cancel.bind(this);
         this.setTime = this.setTime.bind(this);
         this.getValue = this.getValue.bind(this);
+        this.resolveClickPoint = this.resolveClickPoint.bind(this);
 
         var initialTime = props.time ? props.time : null;
         this.state = {
@@ -176,7 +178,9 @@ export class TimePicker extends StripesTheme {
             container: {
                 display: 'inline-block',
                 margin: spacing.margin*2 + 'px 0',
-                width: this.props.width
+                width: this.props.width,
+                lineHeight: '1em',
+                userSelect: 'none'
             },
             base: {
                 border: 'none',
@@ -421,6 +425,39 @@ export class TimePicker extends StripesTheme {
         return minNodes;
     }
 
+    resolveClickPoint(e) {
+        var getOffsets = function( elem )
+        {
+            var offsetLeft = 0;
+            var offsetTop = 0;
+            do {
+                if ( !isNaN( elem.offsetLeft ) )
+                {
+                    offsetLeft += elem.offsetLeft;
+                }
+                if ( !isNaN( elem.offsetTop ) )
+                {
+                    offsetTop += elem.offsetTop;
+                }
+            } while( elem = elem.offsetParent );
+            return {
+                left: offsetLeft,
+                top: offsetTop
+            };
+        };
+
+        var containerNode = document.getElementsByClassName('handContainer')[0];
+        var width = containerNode.clientWidth;
+        var height = containerNode.clientHeight;
+        var offsets = getOffsets(containerNode);
+        var xpos = e.clientX - offsets.left;
+        var ypos = e.clientY - offsets.top;
+        var angle = Math.atan2(xpos,ypos)*rads;
+        console.log(angle);
+        console.log(e.offsetLeft, xpos);
+        //console.log(angle, offsets, xpos , ypos, document.getElementsByClassName('handContainer'));
+    }
+
     render() {
 
         var displayTime = this.state.time ? m(this.state.time).format(this.props.format) : "";
@@ -438,7 +475,7 @@ export class TimePicker extends StripesTheme {
         ];
 
         var hourContainer = (
-            <div style={this.state.style.hourContainer}>
+            <div style={this.state.style.hourContainer} className="handContainer" onClick={this.resolveClickPoint}>
                 {this.state.mode === 'hour' ? hourNodes : minNodes}
                 {handNode}
             </div>

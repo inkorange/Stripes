@@ -140,7 +140,8 @@ export class DatePicker extends StripesTheme {
             container: {
                 display: 'inline-block',
                 margin: spacing.margin*2 + 'px 0',
-                width: this.props.width
+                width: this.props.width,
+                lineHeight: '1em'
             },
             base: {
                 border: 'none',

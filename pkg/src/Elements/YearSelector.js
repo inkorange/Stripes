@@ -71,7 +71,8 @@ export class YearSelector extends StripesTheme {
                 top: '130px',
                 right: 0,
                 left: 0,
-                bottom: 0
+                bottom: 0,
+                lineHeight: '1em'
             },
             yearitem: {
                 display: 'block',
@@ -79,7 +80,8 @@ export class YearSelector extends StripesTheme {
                 textAlign: 'center',
                 padding: spacing.padding*4 + 'px',
                 fontSize: spacing.baseFontSize*1.5 + 'rem',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                color: color.idleColor
             }
         }
 
@@ -88,10 +90,10 @@ export class YearSelector extends StripesTheme {
         }, styleObj.yearitem);
 
         styleObj.yearitemselected = Object.assign({
-            color: color.headerBackgroundColor,
             backgroundColor: 'white',
             boxShadow: '0 0 10px rgba(0,0,0,.25)'
         }, styleObj.yearitem);
+        styleObj.yearitemselected.color = color.headerBackgroundColor;
 
         return styleObj;
     }

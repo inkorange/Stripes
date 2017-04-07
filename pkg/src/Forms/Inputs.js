@@ -374,7 +374,7 @@ class DropDown extends StripesTheme {
                     onClick={this.toggleSelect}
                     style={this.state.style.input}
                     readOnly="readonly"
-                    value={this.state.label}
+                    value={this.state.label ? this.state.label : ""}
                 />
                 <Icon
                     basestyle={this.state.style.baseicon}

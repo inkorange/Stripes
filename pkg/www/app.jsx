@@ -35,19 +35,10 @@ class Sandbox extends React.Component {
 
     constructor(props) {
         super(props);
-        this.changeIt = this.changeIt.bind(this);
-        this.toggle = this.toggle.bind(this);
-        this._clickAction = this._clickAction.bind(this);
+        this._updateTrailerType = this._updateTrailerType.bind(this);
 
         this.state = {
-            tabstyle: {width: '60%'},
-            loadareas: [],
-            showing: true,
-            leftnavopen: false,
-            selected_load_area: 10,
-            checked: false,
-            selected: 'load_history',
-            date: null //"Wed Feb 08 2017 05:22:00 GMT-0500 (EST)"
+            trailerType: '28DF'
         }
     }
 
@@ -69,104 +60,32 @@ class Sandbox extends React.Component {
         },2000);
     }
 
-    changeIt(e,v) {
-        console.log(v);
-    }
 
-    navigateto() {
-        console.log('navigate!!!');
-    }
-
-    toggle() {
-        this.refs.leftNav.toggleMenu(!this.refs.leftNav.isOpen());
-        /*
+    _updateTrailerType(val) {
+        console.log(val);
         this.setState({
-            leftnavopen: !this.refs.leftNav.isOpen()
+            trailerType: val
         });
-        */
-    }
-
-    triggerIt(val,selectedArea) {
-        console.log(val,selectedArea);
-    }
-
-    _clickAction(e,pos,targetValue) {
-        if(targetValue) {
-            this.setState({
-                selected: targetValue
-            });
-        }
-        console.log(targetValue);
-    }
-
-    _updateDateTimeFilter(data) {
-        console.log(data)
     }
 
     render() {
 
-        var labstyle = {
-            padding: '10px',
-            backgroundColor: 'rgb(240,240,240)'
-        };
-        var actions = ([
-            <FlatButton key="action1" ref="action1" secondary={true}>Submit</FlatButton>,
-            <FlatButton key="action2"
-                        data-event-click="EMAIL_FORM"
-                        ref="action2" secondary={true}>Cancel</FlatButton>
-        ]);
-
-        var loadAreaOptions = [];
-        this.state.loadareas.map((option,key) => {
-            //console.log(option.payload, this.state.selected_load_area);
-            var selectedID = this.state.selected_load_area === "all" ? "all" : this.state.selected_load_area*1;
-            var isArea = option.payload === selectedID;
-            loadAreaOptions.push(<Item value={option.payload} defaultChecked={isArea} key={key}>{option.text}</Item>);
-        });
-
-        let tabs = [
-            {
-                label: 'Active Doors',
-                route: 'active_doors'
-            },
-            {
-                label: 'Load History',
-                route: 'load_history'
-            },
-            {
-                label: 'Notes',
-                route: 'notes'
-            }
-        ];
-
-        var menuDOM = [];
-        console.log('rerendering: ', this.state.selected);
-        tabs.map((tab, key) => {
-            menuDOM.push(
-                <Item
-                    key={key}
-                    value={tab.route}
-                    data-value={tab.route}
-                    label={tab.label}
-                    selected={this.state.selected===tab.route}
-                />
-            )
-        });
-
-
+        var trailerTypeOptions = [];
+        var trailerTypes = ["28DF", "28SR", "45VAN", "48VAN", "53VAN", "33SR", "33DF"];
+        trailerTypeOptions.push(<Item value="" key="defaulttype">All Trailer Types</Item>);
+        if(trailerTypes) {
+            trailerTypes.map((val, key) => {
+                trailerTypeOptions.push(<Item value={val} defaultChecked={this.state.trailerType === val} key={key}>{val}</Item>);
+            });
+        }
         return (
-            <div style={{backgroundColor: 'red', height: '400px'}}>
+            <div>
 
-
-
+<div style={{color: 'white'}}>
                 <DateTimePicker
-                    id="open_after_date"
-                    ref="open_after_date"
-                    changeFn={this._updateDateTimeFilter}
-                    placeholder={["After Date", "Time"]}
-                    value={null}
+                    placeholder={["Date","Time"]}
                 />
-
+                </div>
                 {this.state.showing ?
                 <ProgressSpinner /> : null }
 

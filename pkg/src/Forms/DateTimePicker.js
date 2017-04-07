@@ -87,7 +87,7 @@ export class DateTimePicker extends StripesTheme {
 
     render() {
         return (
-            <div style={this.state.style}>
+            <div style={this.state.style.container}>
                 <TwoColumnLayout
                     columnOne={
                         <DatePicker
