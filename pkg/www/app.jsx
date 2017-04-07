@@ -38,7 +38,8 @@ class Sandbox extends React.Component {
         this._updateTrailerType = this._updateTrailerType.bind(this);
 
         this.state = {
-            trailerType: '28DF'
+            trailerType: '28DF',
+            viewFilter: 'only-open'
         }
     }
 
@@ -54,6 +55,7 @@ class Sandbox extends React.Component {
                     {payload: 15, text: 'load Area 5'}
                 ],
                 showing: false,
+                viewFilter: '',
                 //selected: 'notes',
                 tabstyle: {width: '100%'}
             });
@@ -82,6 +84,46 @@ class Sandbox extends React.Component {
             <div>
 
 <div style={{color: 'white'}}>
+
+    <RadioButtonGroup name="viewFilter" ref="viewFilter">
+        <Item data-event-click="FILTER"
+              data-event-desc="Submit doors No Filter"
+              value=""
+              key="item0"
+              defaultChecked={this.state.viewFilter === ""}>
+            No Filter
+        </Item>
+        <Item data-event-click="FILTER"
+              data-event-desc="Submit doors Only Alerts"
+              value="alerts"
+              key="item1"
+              defaultChecked={this.state.viewFilter === "alerts"}>
+            Only Alerts
+        </Item>
+        <Item data-event-click="FILTER"
+              data-event-desc="Submit doors Open Trailers"
+              value="only-open"
+              key="item2"
+              defaultChecked={this.state.viewFilter === "only-open"}>
+            Open Trailers
+        </Item>
+        <Item data-event-click="FILTER"
+              data-event-desc="Submit doors Top 10 Worst RT Cube"
+              value="rt-cubes-score"
+              key="item3"
+              defaultChecked={this.state.viewFilter === "rt-cubes-score"}>
+            Top 10 Worst RT Cube
+        </Item>
+        <Item data-event-click="FILTER"
+              data-event-desc="Submit doors Top 10 Trailer Weight"
+              value="trailer-weight"
+              key="item4"
+              defaultChecked={this.state.viewFilter === "trailer-weight"}>
+            Top 10 Trailer Weight
+        </Item>
+    </RadioButtonGroup>
+
+
                 <DateTimePicker
                     placeholder={["Date","Time"]}
                 />

@@ -44,11 +44,28 @@ class RadioButtonGroup extends StripesTheme {
 
     constructor(props) {
         super(props);
-        var items = [];
         this.updateValue = this.updateValue.bind(this);
         this.setChecked = this.setChecked.bind(this);
+        this._setChildrenMap = this._setChildrenMap.bind(this);
 
-        this.props.children.map((obj) => {
+        this.state = {
+            style: this.getStyles()
+        }
+    }
+
+    componentWillMount() {
+        this._setChildrenMap(this.props.children);
+    }
+
+    componentWillUpdate(props) {
+        if(props.children !== this.props.children) {
+            this._setChildrenMap(props.children);
+        }
+    }
+
+    _setChildrenMap(childItems) {
+        var items = [];
+        childItems.map((obj) => {
             items.push({
                 style: obj.props.style,
                 checked: obj.props.defaultChecked,
@@ -56,10 +73,10 @@ class RadioButtonGroup extends StripesTheme {
                 children: obj.props.children
             });
         });
-        this.state = {
-            style: this.getStyles(),
-            items: items
-        }
+        this.setState({
+                items: items
+            }, () => { this.setState({style: this.getStyles()})}
+        );
     }
 
     getValues() {
@@ -152,7 +169,6 @@ class RadioButtonGroup extends StripesTheme {
                         disabled={this.props.disabled}
                         onChange={this.handleSwitchOnChange}
                         style={this.state.style.input}
-                        checked={item.checked ? 'checked' : null}
                         type="radio"
                         value={item.value}
                     />
@@ -165,7 +181,7 @@ class RadioButtonGroup extends StripesTheme {
             </div>
         )
     }
-
+    // checked={item.checked ? 'checked' : null} // not sure I need this anymore.
 }
 
 /* *********************************************************************************************************************
