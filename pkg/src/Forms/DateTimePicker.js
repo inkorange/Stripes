@@ -24,7 +24,8 @@ export class DateTimePicker extends StripesTheme {
         dateFormat: 'ddd, MMMM D',
         format: 'M/D/YYYY',
         placeholder: ['Date','Time'],
-        value: null
+        value: null,
+        manual: false
     }
 
     constructor(props) {
@@ -59,6 +60,7 @@ export class DateTimePicker extends StripesTheme {
     }
 
     setTime(time) {
+        console.log('SETTING TIME: ', time);
         this.setState({
             value: addTimeToDate(this.state.value, time)
         }, this.fireCallback);
@@ -96,6 +98,7 @@ export class DateTimePicker extends StripesTheme {
                             onSet={this.setDate}
                             active={this.props.active}
                             date={m(new Date(this.state.value)).isSame('1900-01-01', 'year') ? null : this.state.value}
+                            manual={this.props.manual}
                         />}
                     columnTwo={
                         <TimePicker
@@ -104,6 +107,7 @@ export class DateTimePicker extends StripesTheme {
                             onSet={this.setTime}
                             active={this.props.active}
                             time={this.state.value}
+                            manual={this.props.manual}
                         />}
                     gutter="5"
                     columnOneWidth={this.props.datewidth}

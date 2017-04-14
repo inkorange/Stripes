@@ -36,6 +36,7 @@ class Sandbox extends React.Component {
     constructor(props) {
         super(props);
         this._updateViewFilter = this._updateViewFilter.bind(this);
+        this.showdate = this.showdate.bind(this);
 
         this.state = {
             trailerType: '28DF',
@@ -69,6 +70,10 @@ class Sandbox extends React.Component {
         });
     }
 
+    showdate() {
+        console.log(this.refs.dater.getValue());
+    }
+
     render() {
 
         var trailerTypeOptions = [];
@@ -85,48 +90,14 @@ class Sandbox extends React.Component {
 
 <div style={{color: 'white'}}>
 
-    <RadioButtonGroup name="viewFilter" ref="viewFilter" onChange={this._updateViewFilter}>
-        <Item data-event-click="FILTER"
-              data-event-desc="Submit doors No Filter"
-              value=""
-              key="item0"
-              defaultChecked={!this.state.viewFilter || this.state.viewFilter === ""}>
-            No Filter
-        </Item>
-        <Item data-event-click="FILTER"
-              data-event-desc="Submit doors Only Alerts"
-              value="alerts"
-              key="item1"
-              defaultChecked={this.state.viewFilter === "alerts"}>
-            Only Alerts
-        </Item>
-        <Item data-event-click="FILTER"
-              data-event-desc="Submit doors Open Trailers"
-              value="only-open"
-              key="item2"
-              defaultChecked={this.state.viewFilter === "only-open"}>
-            Open Trailers
-        </Item>
-        <Item data-event-click="FILTER"
-              data-event-desc="Submit doors Top 10 Worst RT Cube"
-              value="rt-cubes-score"
-              key="item3"
-              defaultChecked={this.state.viewFilter === "rt-cubes-score"}>
-            Top 10 Worst RT Cube
-        </Item>
-        <Item data-event-click="FILTER"
-              data-event-desc="Submit doors Top 10 Trailer Weight"
-              value="trailer-weight"
-              key="item4"
-              defaultChecked={this.state.viewFilter === "trailer-weight"}>
-            Top 10 Trailer Weight
-        </Item>
-    </RadioButtonGroup>
 
 
                 <DateTimePicker
+                    ref="dater"
                     placeholder={["Date","Time"]}
+                    manual={true}
                 />
+    <FlatButton onClick={this.showdate}>DATE????</FlatButton>
                 </div>
                 {this.state.showing ?
                 <ProgressSpinner /> : null }

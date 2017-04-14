@@ -70,6 +70,7 @@ export class TimePicker extends StripesTheme {
         width: '100%',
         type: 'default',
         format: 'h:mm A',
+        errorMessage: 'Invalide Date Format (h:mm A)',
         time: null,
         onSet: () => { return false; },
         disabled: false,
@@ -78,7 +79,8 @@ export class TimePicker extends StripesTheme {
         hours24: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
         selectorDimension: 260,
         placeholder: "Time",
-        active: false
+        active: false,
+        manual: false
     }
 
     constructor(props) {
@@ -86,12 +88,15 @@ export class TimePicker extends StripesTheme {
         this.toggleDialog = this.toggleDialog.bind(this);
         this.renderCleanTime = this.renderCleanTime.bind(this);
         this.setHour = this.setHour.bind(this);
+        this.hardSetTime = this.hardSetTime.bind(this);
         this.setMinute = this.setMinute.bind(this);
         this.changeMode = this.changeMode.bind(this);
         this.toggleAMPM = this.toggleAMPM.bind(this);
         this.toggleDialog = this.toggleDialog.bind(this);
         this.cancel = this.cancel.bind(this);
         this.setTime = this.setTime.bind(this);
+        this.setManualTime = this.setManualTime.bind(this);
+        this.pressManualTime = this.pressManualTime.bind(this);
         this.getValue = this.getValue.bind(this);
         this.resolveClickPoint = this.resolveClickPoint.bind(this);
 
@@ -105,7 +110,8 @@ export class TimePicker extends StripesTheme {
             mode: 'hour',
             hourhover: false,
             minhover: false,
-            amhover: false
+            amhover: false,
+            inputError: null
         }
     }
 
@@ -262,16 +268,17 @@ export class TimePicker extends StripesTheme {
         var hour = e.target.getAttribute('data-value')*1;
         var newTime = this.state.time ? m(this.state.time) : m(new Date());
         newTime.hour(hour);
-            this.setState({
-                hour: hour,
-                time: newTime.toDate()
-            }, () => {
-                setTimeout(() => {
-                    this.setState({
-                        mode: 'minute'
-                    }, this.updateStyles)
-                }, 500);
-            });
+        this.setState({
+            hour: hour,
+            time: newTime.toDate(),
+            inputError: null
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    mode: 'minute'
+                }, this.updateStyles)
+            }, 500);
+        });
     }
 
     setMinute(e) {
@@ -280,12 +287,12 @@ export class TimePicker extends StripesTheme {
         newTime.minute(minute);
         this.setState({
             minute: minute,
-            time: newTime.toDate()
+            time: newTime.toDate(),
+            inputError: null
         }, this.updateStyles);
-
     }
 
-    toggleAMPM() {
+    toggleAMPM(cb) {
         var time = m(this.state.time ? this.state.time : new Date());
         var day = time.format('d');
         if(m(time).add('hour', 12).format('d')*1 > day*1) {
@@ -295,7 +302,10 @@ export class TimePicker extends StripesTheme {
         }
         this.setState({
             time: m(time).toDate()
-        }, this.updateStyles);
+        }, ()=> {
+            if(cb) { cb(); }
+            this.updateStyles();
+        });
     }
 
     cancel() {
@@ -320,7 +330,8 @@ export class TimePicker extends StripesTheme {
         } else {
             var now = new Date();
             this.setState({
-                time: now
+                time: now,
+                inputError: null
             }, () => {
                 this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
                 this.props.onSet(this.state.time);
@@ -328,6 +339,74 @@ export class TimePicker extends StripesTheme {
         }
 
         this.toggleDialog(false);
+    }
+
+    hardSetTime(hour, minute, AMPM) {
+        var newTime = this.state.time ? m(this.state.time) : m(new Date());
+        newTime.hour(hour);
+        newTime.minute(minute);
+        if(newTime.isValid() && !isNaN(newTime) ) {
+            //console.log(newTime + ' is valid!');
+            this.setState({
+                hour: hour,
+                minute: minute,
+                time: newTime.toDate(),
+                inputError: null
+            }, () => {
+                if (AMPM === "PM") {
+                    this.toggleAMPM();
+                }
+                this.props.onSet(this.state.time);
+                this.updateStyles();
+            });
+        } else {
+            this.setState({
+                inputError: this.props.errorMessage
+            });
+        }
+    }
+
+    pressManualTime(e) {
+        if(e.keyCode === 13) {
+            this.refs.textbox.blur();
+            this.setManualTime();
+        }
+    }
+
+    setManualTime() {
+        if(this.refs.textbox.getValue()) {
+            var val = this.refs.textbox.getValue().toUpperCase();
+            val = val.replace(/\s/g, '');
+            var isAM = true;
+            if (val.indexOf(':') < 0) {
+                this.setState({
+                    inputError: this.props.errorMessage
+                });
+                this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
+            } else {
+                //console.log('how is this calculating? ', val);
+                val = val.replace('AM', '');
+                if (val.indexOf('PM') >= 0) {
+                    isAM = false;
+                    val = val.replace('PM', '');
+                }
+                var hr = val.split(':')[0] * 1;
+                var min = val.split(':')[1] * 1;
+                this.hardSetTime(hr, min, isAM ? 'AM' : 'PM');
+            }
+        } else {
+            var newTime = m();
+            var initialTime = m({
+                year: newTime.year(),
+                month: newTime.month(),
+                day: newTime.date()
+            });
+            this.setState({
+                hour: null,
+                minute: null,
+                time: initialTime
+            }, () => { this.props.onSet(this.state.time); });
+        }
     }
 
     getValue() {
@@ -426,40 +505,25 @@ export class TimePicker extends StripesTheme {
     }
 
     resolveClickPoint(e) {
-        var getOffsets = function( elem )
-        {
-            var offsetLeft = 0;
-            var offsetTop = 0;
-            do {
-                if ( !isNaN( elem.offsetLeft ) )
-                {
-                    offsetLeft += elem.offsetLeft;
-                }
-                if ( !isNaN( elem.offsetTop ) )
-                {
-                    offsetTop += elem.offsetTop;
-                }
-            } while( elem = elem.offsetParent );
-            return {
-                left: offsetLeft,
-                top: offsetTop
-            };
-        };
-
         var containerNode = document.getElementsByClassName('handContainer')[0];
         var width = containerNode.clientWidth;
         var height = containerNode.clientHeight;
-        var offsets = getOffsets(containerNode);
-        var xpos = e.clientX - offsets.left;
-        var ypos = e.clientY - offsets.top;
-        var angle = Math.atan2(xpos,ypos)*rads;
-        console.log(angle);
-        console.log(e.offsetLeft, xpos);
-        //console.log(angle, offsets, xpos , ypos, document.getElementsByClassName('handContainer'));
+        var ypos = e.clientY;// - offsets.top;
+        var xpos = e.clientY;// - offsets.left;
+        var x = (xpos - width/2)/(width/2);
+        var y = ((height/2) - ypos)/(height/2);
+        var angle = (Math.atan2(x,y) * 180 / Math.PI);
+
+        if(x < 0 && y > 0) {
+            angle = 360+angle;
+        }
+        if(x < 0 && y < 0) {
+            angle = 360+angle;
+        }
+        //console.log(angle, [width,height], [xpos,ypos], [x,y]);
     }
 
     render() {
-
         var displayTime = this.state.time ? m(this.state.time).format(this.props.format) : "";
 
         var color = this.getColors()[this.props.type];
@@ -473,9 +537,8 @@ export class TimePicker extends StripesTheme {
             <div key="hourhand" style={this.getHourHandStyle()}></div>,
             <div key="basehand" style={this.state.style.handcircle}></div>
         ];
-
         var hourContainer = (
-            <div style={this.state.style.hourContainer} className="handContainer" onClick={this.resolveClickPoint}>
+            <div style={this.state.style.hourContainer} onClick={this.resolveClickPoint} className="handContainer" >
                 {this.state.mode === 'hour' ? hourNodes : minNodes}
                 {handNode}
             </div>
@@ -486,16 +549,21 @@ export class TimePicker extends StripesTheme {
             <RaisedButton key="action2" onClick={this.setTime} type="primary">OK</RaisedButton>
         ];
 
+        //console.log(this.props.time);
+
         return (
             <div style={this.state.style.container}>
                 <TextBox
                     ref="textbox"
                     value={displayTime}
                     width="100%"
-                    anchor={<Icon iconid="clock" basestyle={{marginTop:'-5px'}} color={this.state.time ? color.activeIcon : color.inactiveIcon} size="small" />}
-                    onClick={this.toggleDialog}
-                    readOnly={true}
+                    anchor={<Icon iconid="clock" onClick={this.props.manual ? this.toggleDialog : null} basestyle={{marginTop:'-5px'}} color={this.state.time ? color.activeIcon : color.inactiveIcon} size="small" />}
+                    onClick={this.props.manual ? null : this.toggleDialog}
+                    readOnly={this.props.manual ? null : true}
                     placeholder={this.props.placeholder}
+                    onKeyUp={this.props.manual ? this.pressManualTime : null}
+                    onBlur={this.props.manual ? this.setManualTime : null}
+                    error={this.state.inputError}
                 />
                 <Dialog ref="Dialog"
                         modal={true}

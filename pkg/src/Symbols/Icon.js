@@ -9,7 +9,7 @@ export class Icon extends StripesTheme {
     static defaultProps = {
         inactive: false,
         enhancedClick: false,
-        onClick: () => { return false; },
+        onClick: null,
         type: 'default',
         basestyle: {},
         style: {},
@@ -27,7 +27,9 @@ export class Icon extends StripesTheme {
     }
 
     clickAction(e) {
-        this.props.onClick(e);
+        if(this.props.onClick) {
+            this.props.onClick(e);
+        }
     }
 
     getStyles() {
@@ -53,7 +55,8 @@ export class Icon extends StripesTheme {
 
         var styleObj = {
             Icon: {
-                display: 'inline-block'
+                display: 'inline-block',
+                cursor: this.props.onClick ? 'pointer' : 'default'
             },
             svg: {
                 fill: this.props.color ? this.props.color : color.iconColor,

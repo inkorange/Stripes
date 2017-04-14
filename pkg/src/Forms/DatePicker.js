@@ -27,7 +27,8 @@ export class DatePicker extends StripesTheme {
         dateFormat: 'ddd, MMMM D',
         format: 'M/D/YYYY',
         placeholder: null,
-        date: null
+        date: null,
+        manual: false
     }
 
     constructor(props) {
@@ -40,6 +41,8 @@ export class DatePicker extends StripesTheme {
         this.showYearPanel = this.showYearPanel.bind(this);
         this.updateStyles = this.updateStyles.bind(this);
         this.getValue = this.getValue.bind(this);
+        this.pressManualDate = this.pressManualDate.bind(this);
+        this.setManualDate = this.setManualDate.bind(this);
 
         var initialDate = props.date ? props.date : null;
 
@@ -133,6 +136,15 @@ export class DatePicker extends StripesTheme {
         }, this.updateStyles);
     }
 
+    pressManualDate() {
+
+    }
+
+    setManualDate() {
+
+    }
+
+
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
@@ -192,9 +204,11 @@ export class DatePicker extends StripesTheme {
                     ref="textbox"
                     value={this.state.date ? m(this.state.date).format(this.props.format) : ""}
                     width="100%"
-                    anchor={<Icon iconid="calendar" basestyle={{marginTop:'-5px'}} color={this.state.date ? color.activeIcon : color.inactiveIcon} size="small" />}
-                    onClick={this.toggleDialog}
-                    readOnly={true}
+                    anchor={<Icon iconid="calendar" onClick={this.props.manual ? this.toggleDialog : null} basestyle={{marginTop:'-5px'}} color={this.state.date ? color.activeIcon : color.inactiveIcon} size="small" />}
+                    onClick={this.props.manual ? null : this.toggleDialog}
+                    onKeyUp={this.props.manual ? this.pressManualDate : null}
+                    onBlur={this.props.manual ? this.setManualDate : null}
+                    readOnly={this.props.manual ? null : true}
                     placeholder={this.props.placeholder}
                 />
                 <Dialog ref="Dialog"

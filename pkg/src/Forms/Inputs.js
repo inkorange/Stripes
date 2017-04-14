@@ -21,6 +21,9 @@ class TextBox extends StripesTheme {
         suggestionData: [],
         anchor: null,
         onClick: null,
+        onBlur: null,
+        onKeyUp: null,
+        onKeyPress: null,
         onChange: null,
         disabled: false,
         readOnly: false
@@ -38,6 +41,7 @@ class TextBox extends StripesTheme {
         this.getValue = this.getValue.bind(this);
         this.applyValue = this.applyValue.bind(this);
         this.onCompleteInputBlur = this.onCompleteInputBlur.bind(this);
+        this.blur = this.blur.bind(this);
     }
 
     componentDidUpdate(props) {
@@ -56,6 +60,7 @@ class TextBox extends StripesTheme {
     onChange(e) {
         var val = e.target.value !== '' ? e.target.value : null;
         if(val !== this.state.value) {
+            console.log('i am setting : ', val);
             this.setState({
                 value: val,
                 suggestionItems: this.getSuggestions(val)
@@ -114,7 +119,14 @@ class TextBox extends StripesTheme {
             } else if(!this.props.showSuggestions) {
                 this.onInputBlur(e);
             }
+            if(this.props.onBlur) {
+                this.props.onBlur();
+            }
         }, 1);
+    }
+
+    blur() {
+        this.refs.input.blur();
     }
 
     getStyles() {
@@ -140,11 +152,12 @@ class TextBox extends StripesTheme {
             <div style={this.state.style.container}>
                 <input
                     ref="input"
-                    value={this.state.value}
                     disabled={this.props.disabled ? 'disabled' : null}
                     readOnly={this.props.readOnly ? 'readonly' : null}
                     placeholder={this.props.placeholder}
                     onClick={this.onInputClick}
+                    onKeyUp={this.props.onKeyUp}
+                    onKeyPress={this.props.onKeyPress}
                     onBlur={this.onCompleteInputBlur}
                     onChange={this.onChange}
                     style={this.state.style.input}
