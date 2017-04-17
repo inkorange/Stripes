@@ -60,7 +60,6 @@ class TextBox extends StripesTheme {
     onChange(e) {
         var val = e.target.value !== '' ? e.target.value : null;
         if(val !== this.state.value) {
-            console.log('i am setting : ', val);
             this.setState({
                 value: val,
                 suggestionItems: this.getSuggestions(val)
@@ -99,13 +98,16 @@ class TextBox extends StripesTheme {
         return results.sort(function(a,b) {return (a.code > b.code) ? 1 : ((b.code > a.code) ? -1 : 0);} );
     }
 
-    applyValue(val) {
-        if(val !== undefined) {
+    applyValue(val, stopFocus) {
+        console.log('applying value.', val);
+        if(val && val !== undefined) {
             this.setState({
                 value: val.value
             }, () => {
                 this.refs.input.value = this.state.value ? this.state.value : null;
-                this.refs.input.focus();
+                if(!stopFocus) {
+                    this.refs.input.focus();
+                }
             });
         }
     }

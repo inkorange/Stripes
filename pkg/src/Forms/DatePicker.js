@@ -28,7 +28,8 @@ export class DatePicker extends StripesTheme {
         format: 'M/D/YYYY',
         placeholder: null,
         date: null,
-        manual: false
+        manual: false,
+        errorMessage: 'Invalid Date Format (M/D/YYYY)'
     }
 
     constructor(props) {
@@ -119,7 +120,8 @@ export class DatePicker extends StripesTheme {
 
     setDate(date) {
         this.setState({
-            date: date
+            date: date,
+            inputError: null
         });
         this.refs.Dialog.close();
         this.refs.textbox.applyValue(m(date).format(this.props.format));
@@ -136,12 +138,56 @@ export class DatePicker extends StripesTheme {
         }, this.updateStyles);
     }
 
-    pressManualDate() {
-
+    pressManualDate(e) {
+        if(e.keyCode === 13) {
+            this.refs.textbox.blur();
+            this.setManualDate();
+        }
     }
 
-    setManualDate() {
+    setManualDate(e) {
 
+        var datesMatch = m(this.refs.textbox.getValue()).format(this.props.format) === m(this.state.date).format(this.props.format);
+        var isValid = m(new Date(this.refs.textbox.getValue())).isValid();
+        if(this.refs.textbox.getValue() && !datesMatch) {
+            var val = this.refs.textbox.getValue();
+            val = val.replace(/\s/g, '');
+            console.log('is this valid? ', isValid ? 'yes' : 'no');
+            if (val.indexOf('/') < 0 || !isValid) {
+                console.log('this is invalid: ', val, 'putting back: ', this.state.date);
+                this.setState({
+                    inputError: this.props.errorMessage
+                });
+                setTimeout(() => {
+                    this.refs.textbox.applyValue({value: this.state.date ? m(this.state.date).format(this.props.format) : null}, true);
+                    this.setState({
+                        inputError: null
+                    });
+                }, 1000);
+            } else {
+                console.log('im setting: ', new Date(val));
+                this.setState({
+                    date: new Date(val),
+                    inputError: null
+                }, () => { this.props.onSet(this.state.date); });
+            }
+        } else {
+            console.log('reverting display: ', this.state.date, isValid);
+            if(!isValid && this.refs.textbox.getValue()) {
+                this.setState({
+                    inputError: this.props.errorMessage
+                });
+                setTimeout(() => {
+                    this.setState({
+                        inputError: null
+                    });
+                    this.refs.textbox.applyValue({value: this.state.date ? m(this.state.date).format(this.props.format) : null}, true);
+                }, 1000)
+            } else {
+                this.refs.textbox.applyValue({value: this.state.date ? m(this.state.date).format(this.props.format) : null}, true);
+            }
+        }
+        return false;
     }
 
 
@@ -210,6 +256,7 @@ export class DatePicker extends StripesTheme {
                     onBlur={this.props.manual ? this.setManualDate : null}
                     readOnly={this.props.manual ? null : true}
                     placeholder={this.props.placeholder}
+                    error={this.state.inputError}
                 />
                 <Dialog ref="Dialog"
                     modal={true}

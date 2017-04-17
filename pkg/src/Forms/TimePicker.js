@@ -382,7 +382,7 @@ export class TimePicker extends StripesTheme {
                 this.setState({
                     inputError: this.props.errorMessage
                 });
-                this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
+                this.refs.textbox.applyValue({value: m(this.state.time).format(this.props.format)});
             } else {
                 //console.log('how is this calculating? ', val);
                 val = val.replace('AM', '');
@@ -520,6 +520,7 @@ export class TimePicker extends StripesTheme {
         if(x < 0 && y < 0) {
             angle = 360+angle;
         }
+        return true;
         //console.log(angle, [width,height], [xpos,ypos], [x,y]);
     }
 

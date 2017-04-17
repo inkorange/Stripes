@@ -54,6 +54,7 @@ export class DateTimePicker extends StripesTheme {
     }
 
     setDate(date) {
+        console.log(date);
         this.setState({
             value: mergeDates(date, this.state.value)
         }, this.fireCallback);
