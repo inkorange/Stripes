@@ -141,50 +141,72 @@ export class DatePicker extends StripesTheme {
     pressManualDate(e) {
         if(e.keyCode === 13) {
             this.refs.textbox.blur();
-            this.setManualDate();
         }
     }
 
     setManualDate(e) {
-
-        var datesMatch = m(this.refs.textbox.getValue()).format(this.props.format) === m(this.state.date).format(this.props.format);
-        var isValid = m(new Date(this.refs.textbox.getValue())).isValid();
-        if(this.refs.textbox.getValue() && !datesMatch) {
+        var dateValue = isNaN(this.refs.textbox.getValue()*1) ? this.refs.textbox.getValue() : this.refs.textbox.getValue()*1;
+        var datesMatch = m(new Date(dateValue)).format(this.props.format) === m(this.state.date).format(this.props.format);
+        var isValid = m(new Date(dateValue)).isValid();
+        var strippedSlashes = !isNaN(dateValue) ? dateValue :
+                              dateValue && isNaN(dateValue) ? dateValue.replace(/\//g, '') : "";
+        var throwTimedError = () => {
+            this.setState({
+                inputError: this.props.errorMessage
+            });
+            setTimeout(() => {
+                this.refs.textbox.applyValue({value: this.state.date ? m(this.state.date).format(this.props.format) : null}, true);
+                this.setState({
+                    inputError: null
+                });
+            }, 1500);
+        };
+        if (datesMatch) {
+            if(dateValue && (strippedSlashes.length === 0 || isNaN(strippedSlashes))) {
+                throwTimedError();
+            }
+            return false;
+        }
+        if(dateValue) {
             var val = this.refs.textbox.getValue();
             val = val.replace(/\s/g, '');
-            console.log('is this valid? ', isValid ? 'yes' : 'no');
-            if (val.indexOf('/') < 0 || !isValid) {
-                console.log('this is invalid: ', val, 'putting back: ', this.state.date);
+            // this allows the user to enter a millisecond date
+            if (isValid && !isNaN(dateValue) && (dateValue.toString().length >= 12 && dateValue.toString().length < 14)) { // this is a valid milisecond time
                 this.setState({
-                    inputError: this.props.errorMessage
-                });
-                setTimeout(() => {
-                    this.refs.textbox.applyValue({value: this.state.date ? m(this.state.date).format(this.props.format) : null}, true);
-                    this.setState({
-                        inputError: null
-                    });
-                }, 1000);
-            } else {
-                console.log('im setting: ', new Date(val));
-                this.setState({
-                    date: new Date(val),
+                    date: new Date(dateValue),
                     inputError: null
-                }, () => { this.props.onSet(this.state.date); });
+                }, () => {
+                    this.props.onSet(this.state.date);
+                });
+            // otherwise if it has no slashes or it's invalid we throw an error
+            } else if (val.indexOf('/') < 0 || !isValid) {
+                throwTimedError();
+
+            // finally, its a standard 1/1/1 input, so we create the date the old fashioned way
+            } else {
+                var m_date = m(new Date(val));
+                var matches = (val.match(/\//g) || []);
+                if(matches.length === 1 || val.substring(val.length-1) === '/') {
+                    m_date.year(m().year());
+                }
+                this.setState({
+                    date: m_date.toDate(),
+                    inputError: null
+                }, () => {
+                    this.props.onSet(this.state.date);
+                });
             }
         } else {
-            console.log('reverting display: ', this.state.date, isValid);
-            if(!isValid && this.refs.textbox.getValue()) {
-                this.setState({
-                    inputError: this.props.errorMessage
-                });
-                setTimeout(() => {
-                    this.setState({
-                        inputError: null
-                    });
-                    this.refs.textbox.applyValue({value: this.state.date ? m(this.state.date).format(this.props.format) : null}, true);
-                }, 1000)
+            if(!isValid && (this.refs.textbox.getValue() || strippedSlashes.length === 0)) {
+                throwTimedError();
             } else {
-                this.refs.textbox.applyValue({value: this.state.date ? m(this.state.date).format(this.props.format) : null}, true);
+                this.setState({
+                    date: null,
+                    inputError: null
+                }, () => {
+                    this.refs.textbox.applyValue("");
+                    this.props.onSet(this.state.date);
+                });
             }
         }
         return false;
@@ -242,6 +264,7 @@ export class DatePicker extends StripesTheme {
     }
 
     render() {
+        //console.log(this.state.date);
         var color = this.getColors()[this.props.type];
         var cleanDate = this.renderCleanDate();
         return (

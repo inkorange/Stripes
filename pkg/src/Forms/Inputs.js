@@ -99,7 +99,6 @@ class TextBox extends StripesTheme {
     }
 
     applyValue(val, stopFocus) {
-        console.log('applying value.', val);
         if(val && val !== undefined) {
             this.setState({
                 value: val.value
@@ -154,6 +153,7 @@ class TextBox extends StripesTheme {
             <div style={this.state.style.container}>
                 <input
                     ref="input"
+                    value={this.state.value ? this.state.value : ''}
                     disabled={this.props.disabled ? 'disabled' : null}
                     readOnly={this.props.readOnly ? 'readonly' : null}
                     placeholder={this.props.placeholder}

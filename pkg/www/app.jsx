@@ -45,6 +45,7 @@ class Sandbox extends React.Component {
     }
 
     componentDidMount() {
+        /*
         setTimeout(() => {
             this.setState({
                 loadareas: [
@@ -61,6 +62,7 @@ class Sandbox extends React.Component {
                 tabstyle: {width: '100%'}
             });
         },2000);
+        */
     }
 
 
@@ -72,6 +74,9 @@ class Sandbox extends React.Component {
 
     showdate() {
         console.log(this.refs.dater.getValue());
+    }
+    _updateNotesFilter(a,b) {
+        console.log('HEY', a,b);
     }
 
     render() {
@@ -89,14 +94,33 @@ class Sandbox extends React.Component {
             <div>
 
 <div style={{color: 'white'}}>
-
-
+    <RadioButtonGroup data-automation-id="Filter Group" name="sort_by">
+        <Item data-event-click="FILTER"
+              data-event-desc={"Submit doors "}
+              data-automation-id={"myid"}
+              key={"item1"}>
+            Howdy!!!!
+        </Item>
+        <Item data-event-click="FILTER"
+              data-event-desc={"Submit doors "}
+              data-automation-id={"myid2"}
+              key={"item2"}>
+            Howdy2!!!!
+        </Item>
+    </RadioButtonGroup>
 
                 <DateTimePicker
                     ref="dater"
                     placeholder={["Date","Time"]}
                     manual={true}
+
                 />
+
+    <CheckBox
+        ref="show_notes"
+        label="Notes"
+        onCheck={this._updateNotesFilter}
+    />
     <FlatButton onClick={this.showdate}>DATE????</FlatButton>
                 </div>
                 {this.state.showing ?
@@ -104,7 +128,7 @@ class Sandbox extends React.Component {
 
             </div>
         )
-
+// value={new Date("Mon Apr 17 2017 10:16:13 GMT-0400 (EDT)")}
         /*
         return (
 

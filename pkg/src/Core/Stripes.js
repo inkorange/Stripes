@@ -184,6 +184,16 @@ export class StripesTheme extends React.Component {
         return date;
     }
 
+    getDataSet(props) {
+        var dataset = {};
+        Object.keys(props).filter (value => {
+            if (/data-\S+/gi.test(value)) {
+                dataset[value] = props[value];
+            }
+        });
+        return dataset;
+    }
+
     addTimeToDate(date, datetime, ignoreDate) {
         /*
          if the ignoreDate flag is passed in as true, it will set the binding date for the time to be 1900.

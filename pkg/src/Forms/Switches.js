@@ -19,9 +19,9 @@ class Item extends StripesTheme {
     }
 
     render() {
-
+        console.log(this.props.dataset);
         return (
-            <div style={this.props.style}>
+            <div {...this.props.dataset} style={this.props.style}>
                 {this.props.children}
             </div>
         )
@@ -67,13 +67,13 @@ class RadioButtonGroup extends StripesTheme {
         var items = [];
         childItems.map((obj) => {
             items.push({
+                dataset: this.getDataSet(obj.props),
                 style: obj.props.style,
                 checked: obj.props.defaultChecked,
                 value: obj.props.value !== null ? obj.props.value : obj.props.children,
                 children: obj.props.children
             });
         });
-        console.log(items);
         this.setState({
                 items: items
             }, () => { this.setState({style: this.getStyles()})}
@@ -154,7 +154,7 @@ class RadioButtonGroup extends StripesTheme {
         var itemNodes = [];
         this.state.items.map((item, i) => {
             itemNodes.push(
-                <label data-itemid={i} checked={item.checked ? 'checked' : null} onClick={this.updateValue} key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
+                <label {...item.dataset} data-itemid={i} checked={item.checked ? 'checked' : null} onClick={this.updateValue} key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
                     <div style={item.checked ? this.state.style.radio.active : this.state.style.radio.inactive}></div>
                     <input
                         data-itemid={i}
@@ -169,7 +169,7 @@ class RadioButtonGroup extends StripesTheme {
                 </label>);
         });
         return (
-            <div style={Object.assign(this.props.style, this.state.style.group)}>
+            <div {...this.getDataSet(this.props)} style={Object.assign(this.props.style, this.state.style.group)}>
                 {itemNodes}
             </div>
         )
@@ -420,7 +420,7 @@ class CheckBoxGroup extends StripesTheme {
                         style={this.state.style.input}
                         checked={item.checked ? 'checked' : null}
                         type="checkbox"
-                        value={item.value}
+                        value={item.value ? item.value : ''}
                     />
                     {item.children}
                 </label>);

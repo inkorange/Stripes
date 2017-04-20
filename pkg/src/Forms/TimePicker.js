@@ -70,7 +70,7 @@ export class TimePicker extends StripesTheme {
         width: '100%',
         type: 'default',
         format: 'h:mm A',
-        errorMessage: 'Invalide Date Format (h:mm A)',
+        errorMessage: 'Invalid Time Format (h:mm A)',
         time: null,
         onSet: () => { return false; },
         disabled: false,
@@ -92,7 +92,6 @@ export class TimePicker extends StripesTheme {
         this.setMinute = this.setMinute.bind(this);
         this.changeMode = this.changeMode.bind(this);
         this.toggleAMPM = this.toggleAMPM.bind(this);
-        this.toggleDialog = this.toggleDialog.bind(this);
         this.cancel = this.cancel.bind(this);
         this.setTime = this.setTime.bind(this);
         this.setManualTime = this.setManualTime.bind(this);
@@ -123,8 +122,17 @@ export class TimePicker extends StripesTheme {
 
     componentWillUpdate(props) {
         if(props.time !== this.props.time) {
+            var updatedTime = null;
+            if(props.time) {
+                var m_propTime = m(props.time);
+                if(m_propTime.hours() === 0 && m_propTime.minutes() === 0 && m_propTime.seconds() === 0) {
+                    updatedTime = null;
+                } else {
+                    updatedTime = props.time
+                }
+            }
             this.setState({
-                time: props.time
+                time: updatedTime
             });
             this.updateStyles();
         }
@@ -295,10 +303,10 @@ export class TimePicker extends StripesTheme {
     toggleAMPM(cb) {
         var time = m(this.state.time ? this.state.time : new Date());
         var day = time.format('d');
-        if(m(time).add('hour', 12).format('d')*1 > day*1) {
-            time.add('hour', 12);
+        if(m(time).add(12,'hour').format('d')*1 > day*1) {
+            time.add(12,'hour');
         } else {
-            time.subtract('hour', 12);
+            time.subtract(12, 'hour');
         }
         this.setState({
             time: m(time).toDate()
@@ -346,17 +354,21 @@ export class TimePicker extends StripesTheme {
         newTime.hour(hour);
         newTime.minute(minute);
         if(newTime.isValid() && !isNaN(newTime) ) {
-            //console.log(newTime + ' is valid!');
+            if(AMPM === 'PM' && hour < 12) {
+                hour = hour + 12;
+                newTime.hour(hour);
+            } else if(hour >= 12) {
+                hour = hour-12;
+                newTime.hour(hour);
+            }
             this.setState({
                 hour: hour,
                 minute: minute,
                 time: newTime.toDate(),
                 inputError: null
             }, () => {
-                if (AMPM === "PM") {
-                    this.toggleAMPM();
-                }
                 this.props.onSet(this.state.time);
+                //this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
                 this.updateStyles();
             });
         } else {
@@ -369,43 +381,90 @@ export class TimePicker extends StripesTheme {
     pressManualTime(e) {
         if(e.keyCode === 13) {
             this.refs.textbox.blur();
-            this.setManualTime();
+            //this.setManualTime();
         }
     }
 
     setManualTime() {
-        if(this.refs.textbox.getValue()) {
+
+        var isValid = () => {
+            var tempDateTime = m();
+            var timeObj = this.refs.textbox.getValue() ? this.refs.textbox.getValue().toUpperCase() : '';
+            // lets test it out *******************
+            if( !this.refs.textbox.getValue()) {
+                return false;
+            }
+            timeObj = timeObj.replace(/\s|PM|AM/g, '');
+            if(timeObj.indexOf(':') >= 0) {
+                var hour = timeObj.split(':')[0] * 1;
+                var minute = timeObj.split(':')[1] * 1;
+                // lets test it out *******************
+                if (isNaN(hour) || isNaN(minute)) {
+                    return false;
+                }
+                tempDateTime.hour(timeObj.split(':')[0] * 1);
+                tempDateTime.minute(timeObj.split(':')[1] * 1);
+            } else if(timeObj.length > 0 && !isNaN(timeObj*1)) {
+                tempDateTime.hour(timeObj);
+            } else {
+                return false;
+            }
+            return tempDateTime.isValid()
+        };
+
+        var timesMatch = this.refs.textbox.getValue() == m(this.state.time).format(this.props.format);
+        if(timesMatch) {
+            return false;
+        }
+        var isValid = isValid();
+        if(isValid && this.refs.textbox.getValue() && !timesMatch) {
             var val = this.refs.textbox.getValue().toUpperCase();
-            val = val.replace(/\s/g, '');
-            var isAM = true;
+            var ampm = val.indexOf('AM') >= 0 ? 'AM' : val.indexOf('PM') >= 0 ? 'PM' : false;
+            val = val.replace(/\s|PM|AM/g, '');
             if (val.indexOf(':') < 0) {
+                if(val.length > 0 && !isNaN(val*1)) {
+                    this.hardSetTime(val*1, 0, ampm);
+                } else {
+                    this.setState({
+                        inputError: this.props.errorMessage
+                    });
+                    setTimeout(() => {
+                        this.refs.textbox.applyValue({value: m(this.state.time).format(this.props.format)});
+                        this.setState({
+                            inputError: null
+                        });
+                    }, 1500);
+                }
+            } else { // conditional to actually traverse the string and set the time....
+                var hr = val.split(':')[0] * 1;
+                var min = val.split(':')[1] * 1;
+                this.hardSetTime(hr, min, ampm);
+            }
+        } else {
+            if(!isValid && this.refs.textbox.getValue()) {
                 this.setState({
                     inputError: this.props.errorMessage
                 });
-                this.refs.textbox.applyValue({value: m(this.state.time).format(this.props.format)});
+                setTimeout(() => {
+                    this.setState({
+                        inputError: null
+                    });
+                    this.refs.textbox.applyValue({value: this.state.time ? m(this.state.time).format(this.props.format) : null}, true);
+                }, 1500);
+            } else if(!this.refs.textbox.getValue()) {
+                this.setState({
+                    hour: m().hour,
+                    minute: m().minute,
+                    time: null,
+                    inputError: null
+                }, () => {
+                    this.props.onSet(this.state.time);
+                    this.refs.textbox.applyValue("");
+                    this.updateStyles();
+                });
             } else {
-                //console.log('how is this calculating? ', val);
-                val = val.replace('AM', '');
-                if (val.indexOf('PM') >= 0) {
-                    isAM = false;
-                    val = val.replace('PM', '');
-                }
-                var hr = val.split(':')[0] * 1;
-                var min = val.split(':')[1] * 1;
-                this.hardSetTime(hr, min, isAM ? 'AM' : 'PM');
+                this.refs.textbox.applyValue({value: this.state.time ? m(this.state.time).format(this.props.format) : null}, true);
             }
-        } else {
-            var newTime = m();
-            var initialTime = m({
-                year: newTime.year(),
-                month: newTime.month(),
-                day: newTime.date()
-            });
-            this.setState({
-                hour: null,
-                minute: null,
-                time: initialTime
-            }, () => { this.props.onSet(this.state.time); });
         }
     }
 
@@ -549,8 +608,6 @@ export class TimePicker extends StripesTheme {
             <FlatButton key="action1" onClick={this.cancel}>Cancel</FlatButton>,
             <RaisedButton key="action2" onClick={this.setTime} type="primary">OK</RaisedButton>
         ];
-
-        //console.log(this.props.time);
 
         return (
             <div style={this.state.style.container}>
