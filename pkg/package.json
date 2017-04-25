@@ -1,6 +1,6 @@
 {
   "name": "zebra-stripes",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": {
     "name": "Zebra Technologies"
   },
@@ -34,7 +34,7 @@
     "gulp-notify": "^2.1.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "react-router": "*"
+    "react-router": "^3.0.0"
   },
   "directories": {},
   "homepage": "",

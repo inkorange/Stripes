@@ -25,6 +25,7 @@ export function addTimeToDate(date, datetime, ignoreDate) {
         var m_date = m(date ? date : (ignoreDate || !datetime ? new Date(1900, 0, 1) : new Date()));
         m_date.hours(m_dateTime.hours());
         m_date.minutes(m_dateTime.minutes());
+        m_date.seconds(0);
         return m_date.toDate();
     }
 };

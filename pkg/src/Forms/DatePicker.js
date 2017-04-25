@@ -186,7 +186,8 @@ export class DatePicker extends StripesTheme {
             } else {
                 var m_date = m(new Date(val));
                 var matches = (val.match(/\//g) || []);
-                if(matches.length === 1 || val.substring(val.length-1) === '/') {
+                var validParts = val.split('/').length && (val.split('/')[0] && val.split('/')[1] && val.split('/')[2]) ? true : false;
+                if(matches.length === 1 || val.substring(val.length-1) === '/' || val.substring(0,1) === '/' || !validParts) {
                     m_date.year(m().year());
                 }
                 this.setState({

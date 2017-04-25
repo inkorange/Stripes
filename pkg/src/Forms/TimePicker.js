@@ -353,14 +353,18 @@ export class TimePicker extends StripesTheme {
         var newTime = this.state.time ? m(this.state.time) : m(new Date());
         newTime.hour(hour);
         newTime.minute(minute);
+        newTime.second(0);
         if(newTime.isValid() && !isNaN(newTime) ) {
-            if(AMPM === 'PM' && hour < 12) {
-                hour = hour + 12;
-                newTime.hour(hour);
-            } else if(hour >= 12) {
-                hour = hour-12;
-                newTime.hour(hour);
+            if(AMPM === 'PM') {
+                if(hour < 12) {
+                    hour = hour + 12;
+                }
+            } else {
+                if(hour >= 12) {
+                    hour = hour-12;
+                }
             }
+            newTime.hour(hour);
             this.setState({
                 hour: hour,
                 minute: minute,
@@ -411,14 +415,14 @@ export class TimePicker extends StripesTheme {
             }
             return tempDateTime.isValid()
         };
-
-        var timesMatch = this.refs.textbox.getValue() == m(this.state.time).format(this.props.format);
+        var timeVal = this.refs.textbox.getValue();
+        var timesMatch = timeVal == m(this.state.time).format(this.props.format);
         if(timesMatch) {
             return false;
         }
         var isValid = isValid();
-        if(isValid && this.refs.textbox.getValue() && !timesMatch) {
-            var val = this.refs.textbox.getValue().toUpperCase();
+        if(isValid && timeVal) {
+            var val = timeVal.toUpperCase();
             var ampm = val.indexOf('AM') >= 0 ? 'AM' : val.indexOf('PM') >= 0 ? 'PM' : false;
             val = val.replace(/\s|PM|AM/g, '');
             if (val.indexOf(':') < 0) {
@@ -441,7 +445,7 @@ export class TimePicker extends StripesTheme {
                 this.hardSetTime(hr, min, ampm);
             }
         } else {
-            if(!isValid && this.refs.textbox.getValue()) {
+            if(!isValid && timeVal) {
                 this.setState({
                     inputError: this.props.errorMessage
                 });
@@ -451,7 +455,7 @@ export class TimePicker extends StripesTheme {
                     });
                     this.refs.textbox.applyValue({value: this.state.time ? m(this.state.time).format(this.props.format) : null}, true);
                 }, 1500);
-            } else if(!this.refs.textbox.getValue()) {
+            } else if(!timeVal) {
                 this.setState({
                     hour: m().hour,
                     minute: m().minute,

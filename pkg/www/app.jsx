@@ -116,6 +116,8 @@ class Sandbox extends React.Component {
 
                 />
 
+    <TimePicker manual={true} />
+
     <CheckBox
         ref="show_notes"
         label="Notes"
