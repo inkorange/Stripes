@@ -49,7 +49,7 @@ export class Paper extends StripesTheme {
 
     render() {
         return (
-            <section style={this.state.style} tabIndex="1" ref="Paper" onBlur={this.props.onBlur}>
+            <section {...this.getDataSet(this.props)} style={this.state.style} tabIndex="1" ref="Paper" onBlur={this.props.onBlur}>
                 {this.props.children}
             </section>
         )

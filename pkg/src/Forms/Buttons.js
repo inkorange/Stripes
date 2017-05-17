@@ -78,6 +78,7 @@ class FlatButton extends StripesTheme {
         }
         return (
             <button
+                {...this.getDataSet(this.props)}
                 className="FlatButton"
                 style={this.state.hover ? this.state.hoverStyle : this.state.style}
                 onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
@@ -168,6 +169,7 @@ class RaisedButton extends StripesTheme {
         }
         return (
             <button
+                {...this.getDataSet(this.props)}
                 className="RaisedButton"
                 style={this.state.hover ? this.state.hoverStyle : this.state.style}
                 onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}

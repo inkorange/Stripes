@@ -141,7 +141,7 @@ export class LeftNav extends StripesTheme {
 
     render() {
         var navNODE = (
-            <section className={this.props.className} style={this.state.style.menu} tabIndex="1" ref="LeftNav" key="navmenu" onBlur={this.toggleOnBlur}>
+            <section {...this.getDataSet(this.props)} className={this.props.className} style={this.state.style.menu} tabIndex="1" ref="LeftNav" key="navmenu" onBlur={this.toggleOnBlur}>
                 {this.props.children}
             </section>
         );
@@ -152,6 +152,7 @@ export class LeftNav extends StripesTheme {
         return (
             <div>
                 <Icon
+                    {...this.getDataSet(this.props, '-MenuToggle')}
                     basestyle={this.state.style.icon}
                     iconid={this.props.icon}
                     size="medium"

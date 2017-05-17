@@ -61,7 +61,8 @@ export class StripesTheme extends React.Component {
                     resize: 'vertical',
                     textOverflow: 'ellipsis',
                     overflow: 'hidden',
-                    cursor: this.props.onClick ? 'pointer' : 'default'
+                    cursor: this.props.onClick ? 'pointer' : 'default',
+                    backgroundColor: color.inputBackground
                 },
                 anchor: {
                     position: 'absolute',
@@ -184,11 +185,11 @@ export class StripesTheme extends React.Component {
         return date;
     }
 
-    getDataSet(props) {
+    getDataSet(props, embellish) {
         var dataset = {};
         Object.keys(props).filter (value => {
             if (/data-\S+/gi.test(value)) {
-                dataset[value] = props[value];
+                dataset[value] = embellish ? props[value] + embellish : props[value];
             }
         });
         return dataset;

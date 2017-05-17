@@ -120,7 +120,7 @@ export class YearSelector extends StripesTheme {
         }
 
         return (
-            <ul ref="yearHolder" style={this.state.style.yearcontainer}>
+            <ul {...this.getDataSet(this.props)} ref="yearHolder" style={this.state.style.yearcontainer}>
                 {yearNode}
             </ul>
         )

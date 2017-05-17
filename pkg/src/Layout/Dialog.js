@@ -123,7 +123,7 @@ export class Dialog extends StripesTheme {
             );
         }
         return (
-            <section style={this.state.style.container} ref="dialogContainer" className="Dialog">
+            <section {...this.getDataSet(this.props)} style={this.state.style.container} ref="dialogContainer" className="Dialog">
                 <div style={this.state.style.dialog}>
                     <Card
                         title={titleNode}

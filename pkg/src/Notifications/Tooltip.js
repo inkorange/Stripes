@@ -81,7 +81,7 @@ export class Tooltip extends StripesTheme {
 
     render() {
         return (
-            <div ref="Tooltip" style={this.state.style.base}>
+            <div {...this.getDataSet(this.props)} ref="Tooltip" style={this.state.style.base}>
                 {this.props.iconid ? (
                     <Icon style={this.state.style.icon} basestyle={this.state.style.baseIcon} iconid={this.props.iconid} size="medium"/>
                 ): null}

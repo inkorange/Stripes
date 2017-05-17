@@ -161,8 +161,9 @@ export class Slider extends StripesTheme {
     render() {
         return (
             <div ref="slider"
-                 style={this.state.style.container}
-                 onMouseDown={this.pressing}
+                {...this.getDataSet(this.props)}
+                style={this.state.style.container}
+                onMouseDown={this.pressing}
             >
                 <div style={this.state.style.bar}></div>
                 <div style={this.state.style.value_box}>{this.getValue()}</div>

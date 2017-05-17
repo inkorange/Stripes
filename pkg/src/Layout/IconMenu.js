@@ -115,6 +115,7 @@ export class IconMenu extends StripesTheme {
             <section
                 style={this.state.style.base}
                 disabled={this.props.disabled}
+                {...this.getDataSet(this.props)}
             >
                 <Icon
                     iconid={this.props.iconid}

@@ -173,6 +173,7 @@ export class Calendar extends StripesTheme {
         return (
             <section
                 style={this.state.style.base}
+                {...this.getDataSet(this.props)}
             >
                 <div style={this.state.style.months}>
                     {hasPreviousMonth ? <Icon

@@ -78,7 +78,7 @@ export class NavBar extends StripesTheme {
             <span style={this.state.style.title}>{this.props.title}</span>
         ) : null;
         return (
-            <section ref="NavBar" className={this.props.className} style={this.state.style.base}>
+            <section {...this.getDataSet(this.props)} ref="NavBar" className={this.props.className} style={this.state.style.base}>
                 {this.props.leftIcon}
                 <span style={this.state.style.span}>{Title}</span>
                 <div style={this.state.style.rightside}>

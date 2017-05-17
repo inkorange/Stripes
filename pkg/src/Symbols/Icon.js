@@ -85,9 +85,7 @@ export class Icon extends StripesTheme {
             <div className="Icon"
                  title={this.props.title}
                  style={Iconstyle}
-                 data-event-click={this.props["data-event-click"]}
-                 data-event-desc={this.props["data-event-desc"]}
-                 data-highlight={this.props.highlight}
+                 {...this.getDataSet(this.props)}
                  data-name={this.props.iconid}
                  onClick={this.props.enhancedClick ? null : this.clickAction}
             >

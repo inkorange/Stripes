@@ -152,6 +152,7 @@ class TextBox extends StripesTheme {
         return (
             <div style={this.state.style.container}>
                 <input
+                    {...this.getDataSet(this.props)}
                     ref="input"
                     value={this.state.value ? this.state.value : ''}
                     disabled={this.props.disabled ? 'disabled' : null}
@@ -168,6 +169,7 @@ class TextBox extends StripesTheme {
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
                 {this.props.showSuggestions ?
                     <SelectPanel
+                        {...this.getDataSet(this.props, '-SuggestionsPanel')}
                         ref="selectPanel"
                         data={this.state.suggestionItems}
                         onSelect={this.applyValue}
@@ -248,6 +250,7 @@ class TextArea extends StripesTheme {
         return (
             <div style={this.state.style.container}>
                 <textarea
+                    {...this.getDataSet(this.props)}
                     placeholder={this.props.placeholder}
                     onClick={this.onInputClick}
                     onBlur={this.onInputBlur}
@@ -382,7 +385,7 @@ class DropDown extends StripesTheme {
 
     render() {
         return (
-            <div style={this.state.style.container}>
+            <div style={this.state.style.container} {...this.getDataSet(this.props)}>
                 <input
                     ref="input"
                     placeholder={this.props.placeholder}

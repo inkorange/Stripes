@@ -15,6 +15,7 @@ let secondaryColor = "";
 let tertiaryColor = "";
 let borderColor = accentBlue;
 let menuColor = "#2E4151";
+let inputBackground = "white";
 
 module.exports = {
     default: {
@@ -80,7 +81,8 @@ module.exports = {
         borderColor: borderColor,
         highlightColor: '#eeeeee',
         highlightBorderColor: primaryColor,
-        inactiveIcon: inactiveColor
+        inactiveIcon: inactiveColor,
+        inputBackground: inputBackground
     },
     navbar: {
         background: menuColor,

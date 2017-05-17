@@ -614,7 +614,7 @@ export class TimePicker extends StripesTheme {
         ];
 
         return (
-            <div style={this.state.style.container}>
+            <div style={this.state.style.container} {...this.getDataSet(this.props)}>
                 <TextBox
                     ref="textbox"
                     value={displayTime}

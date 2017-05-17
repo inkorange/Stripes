@@ -269,7 +269,7 @@ export class DatePicker extends StripesTheme {
         var color = this.getColors()[this.props.type];
         var cleanDate = this.renderCleanDate();
         return (
-            <div style={this.state.style.container}>
+            <div style={this.state.style.container} {...this.getDataSet(this.props)}>
                 <TextBox
                     ref="textbox"
                     value={this.state.date ? m(this.state.date).format(this.props.format) : ""}
@@ -283,6 +283,7 @@ export class DatePicker extends StripesTheme {
                     error={this.state.inputError}
                 />
                 <Dialog ref="Dialog"
+                    {...this.getDataSet(this.props, '-dialog')}
                     modal={true}
                     title={cleanDate}
                     showClose={true}

@@ -191,7 +191,7 @@ export class SelectPanel extends StripesTheme {
 
         var summaryNode = this.props.showSummary ? (<p key="summary" style={this.state.style.resultsp}>There are {this.props.data ? this.props.data.length : 'NO'} results</p>) : null;
         return (
-            <section style={this.state.style.results} className="SelectPanel" tabIndex="1" ref="panelcontainer" onBlur={this.close}>
+            <section {...this.getDataSet(this.props)} style={this.state.style.results} className="SelectPanel" tabIndex="1" ref="panelcontainer" onBlur={this.close}>
                 <ul style={this.state.style.resultsul}>
                     {resultsDOM}
                 </ul>

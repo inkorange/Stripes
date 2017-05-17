@@ -85,7 +85,7 @@ export class ShowHide extends StripesTheme {
 
     render() {
         return (
-            <section style={this.state.style.base} tabIndex="1">
+            <section {...this.getDataSet(this.props)} style={this.state.style.base} tabIndex="1">
                 <label onClick={this.changeShow} style={this.state.style.toggler}>
                     {this.props.label}
                     <Icon

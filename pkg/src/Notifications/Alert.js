@@ -71,7 +71,7 @@ export class Alert extends StripesTheme {
 
     render() {
         return (
-            <div ref="Alert" onClick={this.props.onClick} style={this.state.style}>
+            <div {...this.getDataSet(this.props)} ref="Alert" onClick={this.props.onClick} style={this.state.style}>
                 {this.props.children}
             </div>
         )

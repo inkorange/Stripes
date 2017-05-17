@@ -78,6 +78,7 @@ export class MenuItem extends StripesTheme {
                  onClick={this.props.onClick}
                  onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
                  onMouseDown={this.animateBackground}
+                 {...this.getDataSet(this.props)}
             >
                 <span className='ink' style={this.state.inkStyle}></span>
                 {this.props.icon ?

@@ -94,36 +94,24 @@ class Sandbox extends React.Component {
             <div>
 
 <div style={{color: 'white'}}>
-    <RadioButtonGroup data-automation-id="Filter Group" name="sort_by">
-        <Item data-event-click="FILTER"
-              data-event-desc={"Submit doors "}
-              data-automation-id={"myid"}
-              key={"item1"}>
-            Howdy!!!!
-        </Item>
-        <Item data-event-click="FILTER"
-              data-event-desc={"Submit doors "}
-              data-automation-id={"myid2"}
-              key={"item2"}>
-            Howdy2!!!!
-        </Item>
-    </RadioButtonGroup>
+
+
+    <CheckBoxGroup data-automation-id="Filter Group" data-event-click="CHECKBOXGROUP" ref="checkboxgroup" disabled={this.state.checkboxdisable}>
+        <Item data-automation-id="Checkbox 1" defaultChecked={true} key="option1">Checkbox Option 1</Item>
+        <Item data-automation-id="Checkbox 2" key="option2">Checkbox Option 2</Item>
+        <Item data-automation-id="Checkbox 3" key="option3">Checkbox Option 3</Item>
+    </CheckBoxGroup>
+<DatePicker data-automation-id="datepicker" />
+
 
                 <DateTimePicker
+                    data-automation-id="after_date_picker"
                     ref="dater"
                     placeholder={["Date","Time"]}
                     manual={true}
 
                 />
 
-    <TimePicker manual={true} />
-
-    <CheckBox
-        ref="show_notes"
-        label="Notes"
-        onCheck={this._updateNotesFilter}
-    />
-    <FlatButton onClick={this.showdate}>DATE????</FlatButton>
                 </div>
                 {this.state.showing ?
                 <ProgressSpinner /> : null }

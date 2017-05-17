@@ -57,13 +57,13 @@ export class TabularListing extends StripesTheme {
         });
 
         return (
-            <Table>
-                <TableHeader>
+            <Table {...this.getDataSet(this.props)}>
+                <TableHeader {...this.getDataSet(this.props, '-TableHeader')}>
                     <TableHeaderRow>
                         {tableHeaders}
                     </TableHeaderRow>
                 </TableHeader>
-                <TableBody height={this.props.bodyHeight} zebraStripes={this.props.zebraStripes}>
+                <TableBody {...this.getDataSet(this.props, '-TableBody')} height={this.props.bodyHeight} zebraStripes={this.props.zebraStripes}>
                     {tableCells}
                 </TableBody>
             </Table>

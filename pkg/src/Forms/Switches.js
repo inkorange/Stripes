@@ -19,7 +19,6 @@ class Item extends StripesTheme {
     }
 
     render() {
-        console.log(this.props.dataset);
         return (
             <div {...this.props.dataset} style={this.props.style}>
                 {this.props.children}
@@ -154,9 +153,10 @@ class RadioButtonGroup extends StripesTheme {
         var itemNodes = [];
         this.state.items.map((item, i) => {
             itemNodes.push(
-                <label {...item.dataset} data-itemid={i} checked={item.checked ? 'checked' : null} onClick={this.updateValue} key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
+                <label data-itemid={i} checked={item.checked ? 'checked' : null} onClick={this.updateValue} key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
                     <div style={item.checked ? this.state.style.radio.active : this.state.style.radio.inactive}></div>
                     <input
+                        {...item.dataset}
                         data-itemid={i}
                         name={this.props.name}
                         disabled={this.props.disabled}
@@ -281,6 +281,7 @@ class CheckBox extends StripesTheme {
             <label style={Object.assign(this.props.style, this.state.style.label)}>
                 <div style={this.state.checked ? this.state.style.checkbox.active : this.state.style.checkbox.inactive}></div>
                 <input
+                    {...this.getDataSet(this.props)}
                     disabled={this.props.disabled}
                     onChange={this._onChange}
                     onClick={this.updateValue}
@@ -313,6 +314,7 @@ class CheckBoxGroup extends StripesTheme {
         var items = [];
         this.props.children.map((obj) => {
             items.push({
+                dataset: this.getDataSet(obj.props),
                 style: obj.props.style,
                 checked: obj.props.defaultChecked,
                 value: obj.props.value !== null ? obj.props.value : obj.props.children,
@@ -380,6 +382,7 @@ class CheckBoxGroup extends StripesTheme {
                 display: 'block',
                 cursor:  this.props.disabled ? 'default' : 'pointer',
                 padding: spacing.padding*2 + 'px ' + spacing.padding + 'px',
+                color: color.textColor
             },
             input : {
                 marginRight: spacing.padding + 'px',
@@ -413,6 +416,7 @@ class CheckBoxGroup extends StripesTheme {
                 <label key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
                     <div style={item.checked ? this.state.style.checkbox.active : this.state.style.checkbox.inactive}></div>
                     <input
+                        {...item.dataset}
                         data-itemid={i}
                         disabled={this.props.disabled}
                         onChange={this.handleSwitchOnChange}
@@ -426,7 +430,7 @@ class CheckBoxGroup extends StripesTheme {
                 </label>);
         });
         return (
-            <div style={Object.assign(this.props.style, this.state.style.group)}>
+            <div {...this.getDataSet(this.props)} style={Object.assign(this.props.style, this.state.style.group)}>
                 {itemNodes}
             </div>
         )

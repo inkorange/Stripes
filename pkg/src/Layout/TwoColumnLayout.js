@@ -56,7 +56,7 @@ export class TwoColumnLayout extends StripesTheme {
         var baseStyle = Object.assign(this.state.style.base, this.props.style);
 
         return (
-            <section className="TwoColumnLayout" style={baseStyle}>
+            <section {...this.getDataSet(this.props)} className="TwoColumnLayout" style={baseStyle}>
                 <div style={this.state.style.left}   key="column1">{this.props.columnOne}</div>
                 <div style={this.state.style.right}  key="column2">{this.props.columnTwo}</div>
             </section>
