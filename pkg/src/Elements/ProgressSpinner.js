@@ -81,6 +81,7 @@ export class ProgressSpinner extends StripesTheme {
                 strokeLinecap: "round"
             }
         };
+        styleObj.base = Object.assign(styleObj.base, this.props.style);
         return styleObj;
     }
 

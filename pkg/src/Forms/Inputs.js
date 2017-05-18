@@ -34,8 +34,9 @@ class TextBox extends StripesTheme {
         this.state = {
             style: this.getStyles(),
             active: false,
-            value: this.props.value,
-            suggestionItems: []
+            value: '', //this.props.value,
+            suggestionItems: [],
+            bbb: ''
         };
         this.onChange = this.onChange.bind(this);
         this.getValue = this.getValue.bind(this);
@@ -47,8 +48,7 @@ class TextBox extends StripesTheme {
     componentDidUpdate(props) {
         if(props !== this.props) {
             this.setState({
-                style: this.getStyles(),
-                value: this.props.value
+                style: this.getStyles()
             });
         }
     }
@@ -154,7 +154,6 @@ class TextBox extends StripesTheme {
                 <input
                     {...this.getDataSet(this.props)}
                     ref="input"
-                    value={this.state.value ? this.state.value : ''}
                     disabled={this.props.disabled ? 'disabled' : null}
                     readOnly={this.props.readOnly ? 'readonly' : null}
                     placeholder={this.props.placeholder}

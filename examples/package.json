@@ -38,7 +38,7 @@
     "watchify": "^2.2.1",
     "jsx-to-string": "*",
     "react-prism": "^4.0.0",
-    "zebra-stripes": "../pkg/zebra-stripes-0.0.1.tgz"
+    "zebra-stripes": "../pkg/zebra-stripes-0.1.0.tgz"
   },
   "dependencies": {
     "babel-loader": "*",

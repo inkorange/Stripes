@@ -182,14 +182,15 @@ class RadioButtonGroup extends StripesTheme {
  ********************************************************************************************************************* */
 class CheckBox extends StripesTheme {
     static defaultProps = {
+        align: 'left',
+        checked: false,
+        disabled: false,
+        invertColors: false,
+        label: '',
+        onChange: () => { return false; },
         style: {},
         type: 'switches',
-        disabled: false,
-        onChange: () => { return false; },
-        onCheck: () => { return false; },
-        checked: false,
-        value: null,
-        label: null
+        value: ''
     }
 
     constructor(props) {
@@ -201,7 +202,6 @@ class CheckBox extends StripesTheme {
             checked: this.props.checked
         }
 
-        this._onChange = this._onChange.bind(this);
         this.updateValue = this.updateValue.bind(this);
         this.isChecked = this.isChecked.bind(this);
     }
@@ -224,15 +224,11 @@ class CheckBox extends StripesTheme {
         return this.state.checked;
     }
 
-    _onChange(e) {
-        this.props.onChange(e,this.getValue());
-    }
-
     updateValue() {
         this.setState({
             checked: !this.state.checked
         }, () => {
-                this.props.onCheck(this.state.checked, this.props.value);
+                this.props.onChange(this.state.checked, this.props.value);
         });
     }
 
@@ -240,20 +236,20 @@ class CheckBox extends StripesTheme {
         var spacing = this.getSpacing()[this.props.type];
         var color = this.getColors()[this.props.type];
         var baseCheckbox = {
-            float: 'left',
+            float: this.props.align,
             width: spacing.width + 'px', height: spacing.height + 'px',
-            border: 'solid 2px ' + color.borderColor,
+            border: 'solid 2px ' + (this.props.invertColors ? color.fillColorSecondary : color.fillColor),
             transition: '.5s all',
             borderRadius: spacing.borderRadius + 'px',
             marginLeft: spacing.margin + 'px',
-            backgroundColor: color.fillColor,
-            backgroundImage: color.checkImage,
+            backgroundColor: (this.props.invertColors ? color.fillColorSecondary : color.fillColor),
+            backgroundImage: color.checkImage(this.props.invertColors ? color.fillCheckColorSecondary : color.fillCheckColor),
             backgroundSize: 'cover'
         }
         var styleObj = {
             label: {
                 opacity: this.props.disabled ? '.5' : '1',
-                color: color.textColor,
+                //color: color.textColor,
                 transition: '.5s opacity',
                 display: 'block',
                 cursor:  this.props.disabled ? 'default' : 'pointer',
@@ -265,10 +261,10 @@ class CheckBox extends StripesTheme {
             },
             checkbox: {
                 inactive: Object.assign({
-                    boxShadow: '0 0 0 '+spacing.width/2+'px white inset, 0 0 0 0 rgba(0,0,0,.15)'
+                    boxShadow: '0 0 0 '+spacing.width/2+'px '+(this.props.invertColors ? color.fillColor : color.fillColorSecondary)+' inset, 0 0 0 0 rgba(0,0,0,.15)'
                 },baseCheckbox),
                 active: Object.assign({
-                    boxShadow: '0 0 0 0 white inset, 0 0 0 '+(spacing.width/1.5)+'px rgba(0,0,0,0)'
+                    boxShadow: '0 0 0 0 '+(this.props.invertColors ? color.fillColor : color.fillColorSecondary)+' inset, 0 0 0 '+(spacing.width/1.5)+'px rgba(0,0,0,0)'
                 },baseCheckbox)
             }
         };
@@ -278,15 +274,14 @@ class CheckBox extends StripesTheme {
 
     render() {
         return (
-            <label style={Object.assign(this.props.style, this.state.style.label)}>
+            <label style={Object.assign(this.props.style, this.state.style.label)} {...this.mouseEventProps(this.props)}>
                 <div style={this.state.checked ? this.state.style.checkbox.active : this.state.style.checkbox.inactive}></div>
                 <input
                     {...this.getDataSet(this.props)}
                     disabled={this.props.disabled}
-                    onChange={this._onChange}
-                    onClick={this.updateValue}
+                    onChange={this.updateValue}
                     style={this.state.style.input}
-                    /* checked={this.state.checked ? 'checked' : null} */
+                    checked={this.state.checked ? 'checked' : null}
                     type="checkbox"
                     value={this.props.value}
                 />
@@ -302,7 +297,9 @@ class CheckBox extends StripesTheme {
  ********************************************************************************************************************* */
 class CheckBoxGroup extends StripesTheme {
     static defaultProps = {
+        align: 'left',
         style: {},
+        invertColors: false,
         type: 'switches',
         disabled: false,
         onChange: () => { return false; },
@@ -363,14 +360,14 @@ class CheckBoxGroup extends StripesTheme {
         var spacing = this.getSpacing()[this.props.type];
         var color = this.getColors()[this.props.type];
         var baseCheckbox = {
-            float: 'left',
+            float: this.props.align,
             width: spacing.width + 'px', height: spacing.height + 'px',
-            border: 'solid 2px ' + color.borderColor,
+            border: 'solid 2px ' + (this.props.invertColors ? color.fillColorSecondary : color.fillColor),
             transition: '.5s all',
             borderRadius: spacing.borderRadius + 'px',
             marginLeft: spacing.margin + 'px',
-            backgroundColor: color.fillColor,
-            backgroundImage: color.checkImage,
+            backgroundColor: (this.props.invertColors ? color.fillColorSecondary : color.fillColor),
+            backgroundImage: color.checkImage(this.props.invertColors ? color.fillCheckColorSecondary : color.fillCheckColor),
             backgroundSize: 'cover'
         }
         var styleObj = {
@@ -382,7 +379,7 @@ class CheckBoxGroup extends StripesTheme {
                 display: 'block',
                 cursor:  this.props.disabled ? 'default' : 'pointer',
                 padding: spacing.padding*2 + 'px ' + spacing.padding + 'px',
-                color: color.textColor
+                //color: color.textColor
             },
             input : {
                 marginRight: spacing.padding + 'px',
@@ -390,11 +387,11 @@ class CheckBoxGroup extends StripesTheme {
             },
             checkbox: {
                 inactive: Object.assign({
-                            boxShadow: '0 0 0 '+spacing.width/2+'px white inset, 0 0 0 0 rgba(0,0,0,.15)'
-                        },baseCheckbox),
+                    boxShadow: '0 0 0 '+spacing.width/2+'px '+(this.props.invertColors ? color.fillColor : color.fillColorSecondary)+' inset, 0 0 0 0 rgba(0,0,0,.15)'
+                },baseCheckbox),
                 active: Object.assign({
-                            boxShadow: '0 0 0 0 white inset, 0 0 0 '+(spacing.width/1.5)+'px rgba(0,0,0,0)'
-                        },baseCheckbox)
+                    boxShadow: '0 0 0 0 '+(this.props.invertColors ? color.fillColor : color.fillColorSecondary)+' inset, 0 0 0 '+(spacing.width/1.5)+'px rgba(0,0,0,0)'
+                },baseCheckbox)
             }
         };
 
@@ -413,7 +410,7 @@ class CheckBoxGroup extends StripesTheme {
         var itemNodes = [];
         this.state.items.map((item, i) => {
             itemNodes.push(
-                <label key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
+                <label key={"label" + i} style={Object.assign(item.style, this.state.style.label)} {...this.mouseEventProps(this.props)}>
                     <div style={item.checked ? this.state.style.checkbox.active : this.state.style.checkbox.inactive}></div>
                     <input
                         {...item.dataset}

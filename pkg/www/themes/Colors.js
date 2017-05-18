@@ -62,6 +62,7 @@ module.exports = {
         aHoverColor: primaryBackground
     },
     notification: {
+        textColor: baseTextColor,
         borderColor: 'rgb(100,100,100)',
         backgroundColor: 'rgba(0,0,0,.75)',
         tooltipBackgroundColor: 'white'
@@ -70,7 +71,10 @@ module.exports = {
         textColor: baseTextColor,
         borderColor: primaryBackground,
         fillColor: primaryBackground,
-        checkImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'><polygon fill=\'white\' points=\'424 96 184 336 88 240 48 280 184 416 464 136 424 96\'/></svg>")'
+        fillColorSecondary: 'white',
+        fillCheckColor: 'white',
+        fillCheckColorSecondary: primaryBackground,
+        checkImage: (color) => { return 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'><polygon fill=\''+color+'\' points=\'424 96 184 336 88 240 48 280 184 416 464 136 424 96\'/></svg>")'; }
     },
     inputs: {
         textColor: baseTextColor,

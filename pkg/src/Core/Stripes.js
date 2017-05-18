@@ -61,7 +61,7 @@ export class StripesTheme extends React.Component {
                     resize: 'vertical',
                     textOverflow: 'ellipsis',
                     overflow: 'hidden',
-                    cursor: this.props.onClick ? 'pointer' : 'default',
+                    cursor: this.props.onClick ? 'pointer' : 'text',
                     backgroundColor: color.inputBackground
                 },
                 anchor: {
@@ -190,6 +190,17 @@ export class StripesTheme extends React.Component {
         Object.keys(props).filter (value => {
             if (/data-\S+/gi.test(value)) {
                 dataset[value] = embellish ? props[value] + embellish : props[value];
+            }
+        });
+        return dataset;
+    }
+
+    mouseEventProps(props) {
+        var dataset = {};
+        var eventList = ['onMouseDown', 'onMouseUp', 'onMouseOver', 'onMouseOut', 'onMouseEnter', 'onMouseLeave'];
+        Object.keys(props).filter (value => {
+            if(eventList.indexOf(value) >= 0) {
+                dataset[value] = props[value];
             }
         });
         return dataset;

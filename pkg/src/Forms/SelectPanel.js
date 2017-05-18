@@ -8,7 +8,6 @@ export class SelectPanel extends StripesTheme {
     static defaultProps = {
         style:  {},
         type: 'inputs',
-        selected: null,
         showSummary: false,
         data: [],
         show: false,
@@ -17,15 +16,13 @@ export class SelectPanel extends StripesTheme {
 
     constructor(props) {
         super(props);
-        this.state = {
-            style: {},
-            value: null,
-            show: this.props.show
-        };
 
-        this.state = {
-            style: this.getStyles()
-        };
+        var initialSelected = 0;
+        props.data.map((v, i) => {
+            if(v.checked) {
+                initialSelected = i;
+            }
+        });
 
         this.getStyles = this.getStyles.bind(this);
         this.moveHighlight = this.moveHighlight.bind(this);
@@ -34,6 +31,15 @@ export class SelectPanel extends StripesTheme {
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.keyboardListeners = this.keyboardListeners.bind(this);
+
+        this.state = {
+            style: {},
+            value: null,
+            show: props.show,
+            selected: null
+        };
+
+
     }
 
     componentDidMount() {
@@ -85,23 +91,35 @@ export class SelectPanel extends StripesTheme {
                 margin: '0',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
-                lineHeight: spacing.padding*4 + 'px',
-                color: color.textColor
+                lineHeight: spacing.padding*4 + 'px'
             },
             resultsp: {
                 color: 'black',
                 padding: spacing.padding*3 + 'px '+spacing.padding*3+'px '+spacing.padding+'px '+spacing.padding*3+'px',
                 margin: spacing.margin*2 + 'px -'+spacing.margin*2+'px 0 -'+spacing.margin*2+'px',
                 borderTop: '1px solid ' + color.borderColor
+            },
+            resultsliSelected: {
+                fontWeight: '600',
+                color: 'red'
             }
         };
+        styleObj.activeli = Object.assign({
+            background: color.highlightColor,
+            boxShadow: "2px 0 0 " + color.highlightBorderColor + " inset"
+        }, styleObj.resultsli);
+        styleObj.resultsliSelected = Object.assign({
+            fontWeight: '600',
+            color: color.highlightBorderColor
+        }, styleObj.resultsli);
+
         return styleObj;
     }
 
     moveHighlight(mod, e) {
         if(this.props.data.length) { // only if there are results
             this.refs.panelcontainer.focus();
-            var newSelect = this.state.selected + mod;
+            var newSelect = this.state.selected !== null ? this.state.selected + mod : 0;
             newSelect = newSelect < 0  ? this.props.data.length - 1 : newSelect;
             newSelect = newSelect >= this.props.data.length ? 0 : newSelect;
             this.setState({
@@ -116,7 +134,10 @@ export class SelectPanel extends StripesTheme {
 
     applyValue(selectedid, e) {
         if(this.props.data.length) {
-            selectedid = selectedid ? selectedid : this.state.selected;
+            selectedid = selectedid !== null ? selectedid : this.state.selected;
+            if(selectedid == null) {
+                return false;
+            }
             this.props.onSelect(this.props.data[selectedid]);
             this.setState({
                 value: this.props.data[selectedid].label,
@@ -152,7 +173,7 @@ export class SelectPanel extends StripesTheme {
     open(willFocus) {
         this.setState({
             show: true,
-            selected: 0
+            selected: null
         }, () => {
             if (willFocus === undefined || willFocus) {
                 this.refs.panelcontainer.focus();
@@ -178,13 +199,18 @@ export class SelectPanel extends StripesTheme {
         var resultsDOM = [];
         var color = this.getColors()[this.props.type];
         this.props.data.map((v, i) => {
-            var activeStyling = {
-                background: color.highlightColor,
-                boxShadow: "2px 0 0 " + color.highlightBorderColor + " inset"
-            };
-            var resultslistyle = Object.assign(this.state.selected === i ? activeStyling : v.value ? {} : {opacity: '.5'}, this.state.style.resultsli);
-
-            resultsDOM.push(<li key={"item-" + i} onClick={()=> { this.applyValue(i); }} onMouseOver={() => { this.updateSelected(i); }} data-selected={this.state.selected === i} style={resultslistyle}>
+            var resultslistyle = this.state.style.resultsli;
+            if(v.checked) {
+                resultslistyle = this.state.style.resultsliSelected;
+            }
+            if(this.state.selected === i) {
+                resultslistyle = this.state.style.activeli;
+            }
+            resultsDOM.push(
+                <li key={"item-" + i}
+                    onClick={()=> { this.applyValue(i); }}
+                    onMouseOver={() => { this.updateSelected(i); }}
+                    style={resultslistyle}>
                 {v.label}
             </li>);
         });

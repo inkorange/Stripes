@@ -35,50 +35,29 @@ class Sandbox extends React.Component {
 
     constructor(props) {
         super(props);
-        this._updateViewFilter = this._updateViewFilter.bind(this);
-        this.showdate = this.showdate.bind(this);
+        this._updateEmail = this._updateEmail.bind(this);
 
         this.state = {
-            trailerType: '28DF',
-            viewFilter: 'only-open'
+            perpage: 4,
+            toEmail: ''
         }
     }
 
     componentDidMount() {
-        /*
-        setTimeout(() => {
-            this.setState({
-                loadareas: [
-                    {payload: "all", text: 'all areas'},
-                    {payload: 11, text: 'Load area 1'},
-                    {payload: 10, text: 'Load area 2'},
-                    {payload: 9, defaultChecked:true, text: 'Load Area 3'},
-                    {payload: 13, text: 'Load Area 4'},
-                    {payload: 15, text: 'load Area 5'}
-                ],
-                showing: false,
-                viewFilter: '',
-                //selected: 'notes',
-                tabstyle: {width: '100%'}
-            });
-        },2000);
-        */
+
     }
 
-
-    _updateViewFilter(e,v) {
+    _updatePerPage(val) {
         this.setState({
-            viewFilter: v
+            perpage: val
         });
     }
 
-    showdate() {
-        console.log(this.refs.dater.getValue());
+    _updateEmail(e, email) {
+        this.setState({
+            toEmail: email
+        });
     }
-    _updateNotesFilter(a,b) {
-        console.log('HEY', a,b);
-    }
-
     render() {
 
         var trailerTypeOptions = [];
@@ -89,34 +68,24 @@ class Sandbox extends React.Component {
                 trailerTypeOptions.push(<Item value={val} defaultChecked={this.state.trailerType === val} key={key}>{val}</Item>);
             });
         }
-        console.log(this.state.viewFilter);
+
         return (
             <div>
 
-<div style={{color: 'white'}}>
-
-
-    <CheckBoxGroup data-automation-id="Filter Group" data-event-click="CHECKBOXGROUP" ref="checkboxgroup" disabled={this.state.checkboxdisable}>
-        <Item data-automation-id="Checkbox 1" defaultChecked={true} key="option1">Checkbox Option 1</Item>
-        <Item data-automation-id="Checkbox 2" key="option2">Checkbox Option 2</Item>
-        <Item data-automation-id="Checkbox 3" key="option3">Checkbox Option 3</Item>
-    </CheckBoxGroup>
-<DatePicker data-automation-id="datepicker" />
-
-
-                <DateTimePicker
-                    data-automation-id="after_date_picker"
-                    ref="dater"
-                    placeholder={["Date","Time"]}
-                    manual={true}
-
+                <TextBox
+                    width="100%"
+                    value=""
+                    ref="toemail"
+                    data-automation-id="Email Field"
+                    showSuggestions={true}
+                    suggestionData={['west@zebra.com']}
+                    placeholder="Enter valid emails"
+                    onChange={this._updateEmail}
+                    error={this.state.toEmailErrorText}
                 />
 
-                </div>
-                {this.state.showing ?
-                <ProgressSpinner /> : null }
-
             </div>
+
         )
 // value={new Date("Mon Apr 17 2017 10:16:13 GMT-0400 (EDT)")}
         /*

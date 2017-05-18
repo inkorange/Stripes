@@ -32,6 +32,14 @@ export class Tooltip extends StripesTheme {
         //console.log(this.props.target.getBoundingClientRect());
     }
 
+    componentDidUpdate(props) {
+        if(props.show !== this.props.show) {
+            this.setState({
+                style: this.getStyles()
+            });
+        }
+    }
+
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
@@ -41,13 +49,13 @@ export class Tooltip extends StripesTheme {
             position: 'absolute',
             zIndex: spacing.zIndex,
             backgroundColor: color.tooltipBackgroundColor,
-            paddingRight: spacing.padding + 'px',
+            //padding: spacing.padding*2 + 'px ' + spacing.padding*3 + 'px',
             border: 'solid 1px ' + color.borderColor,
             borderRadius: '2px',
             overflow: 'hidden',
-            color: 'black',
+            color: color.textColor,
             maxWidth: '400px',
-            fontSize: spacing.baseFontSize,
+            fontSize: spacing.baseFontSize + 'rem',
             width: this.props.width
         };
 
@@ -55,11 +63,12 @@ export class Tooltip extends StripesTheme {
         var left = this.props.position === 'left' ? 0 : null;
         var styleObj = {
             base: Object.assign({
-                    paddingLeft: this.props.iconid ? spacing.padding * 4 + 'px' : spacing.padding + 'px',
+                    paddingLeft: this.props.iconid ? spacing.padding * 12 + 'px' : spacing.padding*3 + 'px',
                     opacity: this.props.show ? 1 : 0,
                     maxHeight: this.props.show ? '100px' : '0px',
-                    paddingTop: this.props.show ? spacing.padding + 'px' : 0,
-                    paddingBottom: this.props.show ? spacing.padding + 'px' : 0,
+                    paddingTop: this.props.show ? spacing.padding*3 + 'px' : 0,
+                    paddingRight: this.props.show ? spacing.padding*3 + 'px' : 0,
+                    paddingBottom: this.props.show ? spacing.padding*3 + 'px' : 0,
                     right: right,
                     left: left
                 }
@@ -67,8 +76,8 @@ export class Tooltip extends StripesTheme {
             baseIcon: {
                 transition: 'top .5s .5s',
                 position: 'absolute',
-                left: spacing.padding + 'px',
-                top: this.props.show ? spacing.padding + 'px' : 0
+                left: spacing.padding*3 + 'px',
+                top: this.props.show ? spacing.padding*3 + 'px' : 0
             },
             icon: {
                 width: spacing.padding*2 + 'px',
@@ -80,10 +89,11 @@ export class Tooltip extends StripesTheme {
     }
 
     render() {
+        //console.log('should I show? ', this.props.show);
         return (
             <div {...this.getDataSet(this.props)} ref="Tooltip" style={this.state.style.base}>
                 {this.props.iconid ? (
-                    <Icon style={this.state.style.icon} basestyle={this.state.style.baseIcon} iconid={this.props.iconid} size="medium"/>
+                    <Icon basestyle={this.state.style.baseIcon} iconid={this.props.iconid} size="large"/>
                 ): null}
                 {this.props.children}
             </div>
