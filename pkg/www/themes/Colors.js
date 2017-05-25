@@ -100,7 +100,9 @@ module.exports = {
     table: {
         header: {
             backgroundColor: 'transparent',
-            border: '#A6A6A6'
+            border: '#e0e0e0',
+            highlight: primaryColor,
+            textColor: primaryColor
         },
         row: {
             border: '#e0e0e0',

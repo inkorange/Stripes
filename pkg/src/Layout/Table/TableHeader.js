@@ -33,7 +33,7 @@ export class TableHeader extends StripesTheme {
                 minHeight: spacing.minHeight + 'px',
                 lineHeight: spacing.minHeight + 'px',
                 backgroundColor: color.backgroundColor,
-                borderBottom: '2px solid ' + color.border
+                borderBottom: '1px solid ' + color.border
             },
             table: {
                 width: '100%'
@@ -45,7 +45,7 @@ export class TableHeader extends StripesTheme {
 
     render() {
         return (
-            <table style={this.state.style.table}>
+            <table className="TableHeader" style={this.state.style.table}>
                 <thead style={this.state.style.base}>
                     {this.props.columnMap ? this.extendChildren(this.props.children, { columnMap: this.props.columnMap }) : this.props.children}
                 </thead>

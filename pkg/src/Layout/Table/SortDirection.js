@@ -34,20 +34,17 @@ export class SortDirection extends StripesTheme {
                 position: 'absolute',
                 right: spacing.padding + 'px',
                 top: spacing.padding + 'px',
+                bottom: spacing.padding + 'px',
                 width: this.props.width + 'px'
             },
             asc : {
-                display: 'inline-block',
-                float: 'right',
-                position: 'relative',
+                position: 'absolute',
                 top: spacing.padding/2 + 'px'
             },
             desc: {
-                display: 'inline-block',
-                float: 'right',
-                position: 'relative',
+                position: 'absolute',
                 transform: 'rotate(180deg)',
-                top: -(spacing.padding/2 + (this.props.width*3.5)) + 'px'
+                top: (spacing.padding/2 + (this.props.width*1.5)) + 'px'
             }
         }
         return styleObj;
@@ -61,7 +58,7 @@ export class SortDirection extends StripesTheme {
         return (
             <div style={this.state.style.base}>
                 <Icon key="asc"  basestyle={this.state.style.asc}  size={this.props.width + 'px'} color={asccolor}  iconid="up" />
-                <Icon ley="desc" basestyle={this.state.style.desc} size={this.props.width + 'px'} color={desccolor} iconid="up" />
+                <Icon key="desc" basestyle={this.state.style.desc} size={this.props.width + 'px'} color={desccolor} iconid="up" />
             </div>
         )
     }

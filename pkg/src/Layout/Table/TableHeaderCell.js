@@ -14,8 +14,8 @@ export class TableHeaderCell extends StripesTheme {
         type: 'table',
         onClick: null,
         isSortable: false,
-        sortdirection: 'asc',
-        columnMap: null
+        sortdirection: null,
+        className: null
     }
 
     constructor(props) {
@@ -32,8 +32,8 @@ export class TableHeaderCell extends StripesTheme {
         });
     }
 
-    componentWillUpdate(props) {
-        this.updateStyling(props !== this.props);
+    componentDidUpdate(props, state) {
+        this.updateStyling(props !== this.props || this.state.hover !== state.hover);
     }
 
     onClick(e) {
@@ -45,8 +45,12 @@ export class TableHeaderCell extends StripesTheme {
 
     getStyles() {
         var spacing = this.getSpacing()[this.props.type].cell;
+        var color = this.getColors()[this.props.type].header;
+        var highlightBorder = ', 0 -3px 0px ' + (this.props.sortdirection && this.props.isSortable ? color.highlight : color.border) + ' inset';
         var styleObj = {
             base: {
+                boxShadow: (this.state.hover ? '0 -15px 50px -20px rgba(0,0,0,.25) inset' : '0 -5px 10px 0px rgba(0,0,0,0) inset') + highlightBorder,
+                transition: '.5s box-shadow',
                 padding: spacing.padding + 'px',
                 cursor: this.props.onClick || this.props.isSortable ? 'pointer' : 'default',
                 position: 'relative',
@@ -54,7 +58,13 @@ export class TableHeaderCell extends StripesTheme {
                 whiteSpace: !this.props.wrap ? 'nowrap' : null,
                 overflow: 'hidden',
                 textOverflow: !this.props.wrap ? 'ellipsis' : null,
-                fontSize: spacing.fontSize
+                textTransform: 'uppercase',
+                fontSize: spacing.fontSize,
+                fontWeight: 400,
+                textAlign: 'left',
+                lineHeight: spacing.lineHeight,
+                color: color.textColor,
+                userSelect: 'none'
             },
             sort: {
                 style: {
@@ -64,10 +74,6 @@ export class TableHeaderCell extends StripesTheme {
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
-        if(this.props.columnMap) {
-            var width = this.props.columnMap[this.props.index].width;
-            Object.assign(styleObj.base, {width: width});
-        }
         if(this.props.width) {
             Object.assign(styleObj.base, {width: this.props.width});
         }
@@ -75,18 +81,22 @@ export class TableHeaderCell extends StripesTheme {
     }
 
     render() {
-        var sortNODE = this.props.isSortable ? (
+        var sortNODE = this.props.sortdirection && this.props.isSortable ? (
             <SortDirection
+                key="sort_direction"
                 style={this.state.style.sort.style}
                 width={this.state.style.sort.width}
                 sortdirection={this.props.sortdirection}
             />
         ) : null;
         return (
-            <td onClick={this.onClick} className={this.props.columnMap ? this.props.columnMap[this.props.index].name : null} style={this.state.style.base}>
+            <th onClick={this.onClick}
+                className={this.props.className}
+                onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
+                style={this.state.style.base}>
                 {sortNODE}
-                {this.props.children}
-            </td>
+                {this.props.children}{this.state.hover}
+            </th>
         )
     }
 }

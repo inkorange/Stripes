@@ -70,7 +70,8 @@ var Theme = {
                 minHeight: 64 - (basePadding*2)
             },
             cell: {
-                fontSize: '1.5rem',
+                fontSize: '1.4rem',
+                lineHeight: '1.6rem',
                 padding: basePadding*2,
                 sortWidth: 10
             },

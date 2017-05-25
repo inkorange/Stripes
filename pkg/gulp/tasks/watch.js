@@ -11,4 +11,5 @@ module.exports = function() {
   gulp.watch(config.markup.src, ['markup']);
   gulp.watch('./src/**/*.js', ['build']);
   gulp.watch('./www/app.jsx', ['build']);
+  gulp.watch('./www/stylesheets/**/*.scss', ['sass']);
 };

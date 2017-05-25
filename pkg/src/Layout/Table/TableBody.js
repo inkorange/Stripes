@@ -31,9 +31,14 @@ export class TableBody extends StripesTheme {
         }
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(props) {
         if(this.props.zebraStripes) {
             this.stripeRows();
+        }
+        if(this.props.height !== props.height) {
+            this.setState({
+                style: this.getStyles()
+            });
         }
     }
 

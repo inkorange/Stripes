@@ -12,7 +12,7 @@ export class TableCell extends StripesTheme {
         width: null,
         type: 'table',
         onClick: null,
-        columnMap: null
+        className: null
     }
 
     constructor(props) {
@@ -55,10 +55,6 @@ export class TableCell extends StripesTheme {
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
-        if(this.props.columnMap) {
-            var width = this.props.columnMap[this.props.index].width;
-            Object.assign(styleObj.base, {width: width});
-        }
         if(this.props.width) {
             Object.assign(styleObj.base, {width: this.props.width});
         }
@@ -67,7 +63,7 @@ export class TableCell extends StripesTheme {
 
     render() {
         return (
-            <td onClick={this.onClick} className={this.props.columnMap ? this.props.columnMap[this.props.index].name : null} style={this.state.style.base}>
+            <td onClick={this.onClick} className={this.props.className} style={this.state.style.base}>
                 {this.props.children}
             </td>
         )

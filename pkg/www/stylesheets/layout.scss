@@ -50,6 +50,154 @@ footer.zebra {
     }
 }
 
+.TabularListing {
+    table {
+        thead,
+        tbody {
+            tr {
+                th {
+                    &.column-notes {
+                        .Icon {
+                            display: none!important;
+                        }
+                        @media #{$small} {
+                            .Icon {
+                                display: inline-block!important;
+                            }
+                            label {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+                td, th {
+                    padding: $baseMargin*2;
+                    vertical-align: top;
+                    overflow: initial!important;
+                    //box-shadow: 0 0 5px inset;
+                    label {
+                        > span {
+                            @media #{$small} {
+                                display: none;
+                            }
+                        }
+                    }
+                    em {
+
+                        font-size: 90%;
+                        display: inline;
+                        font-style: normal;
+                        &:before {
+                            clear: both;
+                            content: '';
+                            display: block;
+                        }
+
+                    }
+                    *[data-filterable=true] {
+                        cursor: pointer;
+                        &:hover {
+                            color: red;
+                        }
+                    }
+                    &.column-active-notes {
+                        width: 70px;
+                        overflow: initial!important;
+                    }
+                    &.column-notes {
+                        width: 70px;
+                        overflow: initial!important;
+                        @media #{$small} {
+                            width: 50px;
+                            label {
+                                display: none;
+                            }
+                            .Icon {
+                                display: block;
+                            }
+                        }
+                    }
+                    &.ad-column-opened {
+                        @media #{$large} {
+                            width: 140px;
+                        }
+                        @media #{$small} {
+                            width: 85px;
+                        }
+                    }
+                    &.column-opened,
+                    &.column-closed {
+                        @media #{$large} {
+                            width: 110px;
+                        }
+                        @media #{$small} {
+                            width: 65px;
+                        }
+                    }
+                    &.column-packages {
+                        @media #{$large} {
+                            width: 90px;
+                        }
+                        @media #{$small} {
+                            width: 60px;
+                        }
+                    }
+                    &.column-trailer {
+                        @media #{$large} {
+                            width: 90px;
+                        }
+                        @media #{$small} {
+                            width: 70px;
+                        }
+                        overflow: unset!important;
+                    }
+                    &.column-note {
+                        white-space: initial!important;
+                    }
+                    &.column-rtcube,
+                    &.column-full,
+                    &.column-scanrate {
+                        width: 120px;
+                        @media #{$large} {
+                            width: 50px;
+                            label {
+                                display: none;
+                            }
+
+                        }
+                        label {
+                            float: left;
+                            border-left: 25px solid transparent;
+                            margin-top: -25px;
+                        }
+                    }
+                    &.column-weight {
+                        width: 110px;
+                        @media #{$large} {
+                            width: 70px;
+                            label {
+                                display: none;
+                            }
+                        }
+                        label {
+                            float: left;
+                            border-left: 25px solid transparent;
+                            margin-top: -25px;
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        thead {
+            tr {
+                border-right: solid 35px transparent;
+            }
+        }
+        */
+    }
+
+}
 
 /*
 fieldset:first-of-type {
@@ -67,3 +215,4 @@ fieldset:first-of-type {
     }
 }
 */
+

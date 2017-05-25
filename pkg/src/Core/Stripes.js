@@ -206,6 +206,15 @@ export class StripesTheme extends React.Component {
         return dataset;
     }
 
+    dimensionalObjectResolution(data, objkey) {
+        var keys = objkey.split('.');
+        var value = null;
+        keys.map((k) => {
+            value = !value ? data[k] : value[k];
+        });
+        return value;
+    }
+
     addTimeToDate(date, datetime, ignoreDate) {
         /*
          if the ignoreDate flag is passed in as true, it will set the binding date for the time to be 1900.
