@@ -11,7 +11,9 @@ export class Slider extends StripesTheme {
         width: '100%',
         type: 'default',
         disabled: false,
+        value: 0,
         range: [0,100],
+        constraint: [0,100],
         snap: 1,
         handlesize: 20,
         showHandleValue: true,
@@ -24,12 +26,14 @@ export class Slider extends StripesTheme {
         this.pressing = this.pressing.bind(this);
         this.lifting = this.lifting.bind(this);
         this.dragging = this.dragging.bind(this);
+        this.getPercByValue = this.getPercByValue.bind(this);
+
         this.state = {
             active: false,
-            value: 0,
+            value: this.props.value,
             pressing: false,
             dragging: false,
-            handleX: 0
+            handleX: this.getPercByValue(this.props.value)
         }
     }
 
@@ -45,6 +49,10 @@ export class Slider extends StripesTheme {
         }
     }
 
+    getPercByValue(val) {
+        return ((val - this.props.range[0]) / (this.props.range[1]- this.props.range[0])) * 100;
+    }
+
     updateStyles() {
         this.setState({
             style: this.getStyles()
@@ -52,8 +60,7 @@ export class Slider extends StripesTheme {
     }
 
     getValue() {
-        //var offset = this.props.range[1] - this.props.range[0];
-        return this.props.format((this.props.range[1] * (this.state.handleX/100)) - this.props.range[0]);
+        return this.props.format(    ((this.props.range[1]-this.props.range[0]) * (this.state.handleX/100)) + this.props.range[0]     );
     }
 
     pressing(e) {
@@ -89,13 +96,17 @@ export class Slider extends StripesTheme {
         var handleX = 0;
         if(this.state.pressing) {
             var node = this.refs.slider;
-
             var x_on_bar = e.pageX - node.offsetLeft;
             handleX = x_on_bar * 100 / (node.offsetWidth);
-            handleX = handleX < 0 ? 0 : handleX;
-            handleX = handleX > 100 ? 100 : handleX;
-            //console.log(node.offsetWidth, node.getBoundingClientRect().width);
-
+            var value = Math.floor(   ((this.props.range[1]-this.props.range[0]) * (handleX/100)) + this.props.range[0]     );
+            if(value <= this.props.constraint[0]) {
+                handleX = this.getPercByValue(this.props.constraint[0]);
+            } else if(value >= this.props.constraint[1]) {
+                handleX = this.getPercByValue(this.props.constraint[1]);
+            } else {
+                handleX = handleX < 0 ? 0 : handleX;
+                handleX = handleX > 100 ? 100 : handleX;
+            }
         }
         this.setState({
             dragging: this.state.pressing,
@@ -150,10 +161,9 @@ export class Slider extends StripesTheme {
                 padding: spacing.padding + 'px',
                 userSelect: 'none',
                 borderRadius: spacing.borderRadius + 'px',
-                fontSize: '10px'
+                fontSize: spacing.baseFontSize*.75 + 'rem'
             }
-        }
-
+        };
         styleObj.container = Object.assign(styleObj.container, this.props.style);
         return styleObj;
     }
@@ -167,9 +177,7 @@ export class Slider extends StripesTheme {
             >
                 <div style={this.state.style.bar}></div>
                 <div style={this.state.style.value_box}>{this.getValue()}</div>
-                <div
-                    style={this.state.style.handle}
-                ></div>
+                <div style={this.state.style.handle}></div>
             </div>
         )
     }

@@ -23,7 +23,8 @@ export class TabularDetail extends StripesTheme {
         sortable: true,
         triggerLazyLoad: () => { return false; },
         showMoreLoading: false,
-        showLazyLoading: false
+        showLazyLoading: false,
+        style: {}
     }
 
     shouldComponentUpdate(props) {
@@ -48,6 +49,7 @@ export class TabularDetail extends StripesTheme {
         super(props);
         this.clickValue = this.clickValue.bind(this);
         this.resolveHeight = this.resolveHeight.bind(this);
+        this.headerClick = this.headerClick.bind(this);
         this.state = {
             style: this.getStyles(),
             bodyHeight: this.props.bodyHeight
@@ -98,7 +100,8 @@ export class TabularDetail extends StripesTheme {
                 flexFlow: 'row nowrap',
                 borderBottom: '1px solid #ccc',
                 padding: '0 ' + spacing.padding*2 + 'px',
-                background: 'white'
+                background: 'white',
+                position: 'relative'
             },
             detailContent: {
                 display: 'flex',
@@ -108,7 +111,8 @@ export class TabularDetail extends StripesTheme {
             },
             contentCell: {
                 color: 'black',
-                width: '80px'
+                width: '80px',
+                margin: spacing.padding*2 + 'px'
             },
             rowLabel: {
                 fontSize: '1.5rem',
@@ -118,6 +122,7 @@ export class TabularDetail extends StripesTheme {
             },
             activeIconColor: color.activeIcon
         };
+        styleObj.row = Object.assign(styleObj.row, this.props.style);
         return styleObj;
     }
 
@@ -158,16 +163,15 @@ export class TabularDetail extends StripesTheme {
                 });
 
                 cells.push(
-                    <p
-                        style={this.state.style.contentCell}
+                    <div
+                        style={Object.assign({width: header.width}, this.state.style.contentCell)}
                         className={header.className}
                         key={"headcell"+key}
-                        width={header.width}
                         data-filterable={header.filterable}
                         wrap={header.wrap ? true: false}>
                         <label style={this.state.style.rowLabel}>{labelDOM}</label>
                         {itemDOM}
-                    </p>
+                    </div>
                 );
 
             });
@@ -211,7 +215,7 @@ export class TabularDetail extends StripesTheme {
         });
 
         return (
-            <article className="TabularListing" ref="TabularListing"  style={this.props.style} {...this.getDataSet(this.props)}>
+            <article className="TabularListing" ref="TabularListing"  {...this.getDataSet(this.props)}>
                 <div ref="FieldSelector" style={this.state.style.fieldSelector}>
                     <div style={{position: 'relative', display: 'inline-block'}}>
                         <DropDown

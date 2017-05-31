@@ -52,7 +52,7 @@ export class TableHeaderCell extends StripesTheme {
             base: {
                 boxShadow: (this.state.hover ? '0 -15px 50px -20px rgba(0,0,0,.25) inset' : '0 -5px 10px 0px rgba(0,0,0,0) inset') + highlightBorder,
                 transition: '.5s box-shadow',
-                padding: spacing.padding + 'px',
+                padding: this.props.isSortable ? spacing.padding + 'px ' + spacing.padding*3 + 'px ' + spacing.padding + 'px ' + spacing.padding + 'px' : spacing.padding + 'px',
                 cursor: this.props.onClick || this.props.isSortable ? 'pointer' : 'default',
                 position: 'relative',
                 maxWidth: '0',

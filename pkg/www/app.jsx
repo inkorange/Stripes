@@ -183,14 +183,15 @@ class Sandbox extends React.Component {
         this._loadDrawer = this._loadDrawer.bind(this);
         this._executeInlineSearch = this._executeInlineSearch.bind(this);
         this.resolveHeight = this.resolveHeight.bind(this);
+        this.getthevalue = this.getthevalue.bind(this);
         this.state = {
             data: dataObj
         };
     }
 
     componentDidMount() {
-        this.resolveHeight();
-        window.addEventListener('resize', this.resolveHeight, true);
+        //this.resolveHeight();
+        //window.addEventListener('resize', this.resolveHeight, true);
     }
     componentWillUpdate(props) {
     }
@@ -220,7 +221,9 @@ class Sandbox extends React.Component {
         console.log('sorting...', field);
     }
 
-
+    getthevalue() {
+        console.log(this.refs.Slider.getValue());
+    }
 
 
     render() {
@@ -238,32 +241,14 @@ class Sandbox extends React.Component {
         var summaryText = "Showing 25 records of 1000";
 
         return (
-            <div className="testme" style={{position: 'absolute', top: '50px', right: 0, left: 0, bottom: '20px'}}>
-
-                {window.innerWidth > 600 ?
-                    <TabularListing
-                        height={this.state.height}
-                        data={this.state.data}
-                        onHeaderClick={this._sortByColumn}
-                        onRowClick={this._loadDrawer}
-                        onValueClick={this._executeInlineSearch}
-                        triggerLazyLoad={this._loadMoreRecords}
-                        showMoreLoading={true}
-                        showLazyLoading={false}
-                        listSummaryText={summaryText}
-                    /> :
-                    <TabularDetail
-                        height={this.state.height}
-                        data={this.state.data}
-                        onHeaderClick={this._sortByColumn}
-                        onRowClick={this._loadDrawer}
-                        onValueClick={this._executeInlineSearch}
-                        triggerLazyLoad={this._loadMoreRecords}
-                        showMoreLoading={true}
-                        showLazyLoading={false}
-                        listSummaryText={summaryText}
-                    />
-                }
+            <div style={{margin: '100px'}}>
+                <Slider
+                    ref="Slider"
+                    range={[23,444]}
+                    constraint={[23,444]}
+                    value={50}
+                />
+                <div onClick={this.getthevalue}>WHAT IS THE VALUE?</div>
 
             </div>
 
@@ -271,11 +256,31 @@ class Sandbox extends React.Component {
 
         /*
 
+         {window.innerWidth > 600 ?
+         <TabularListing
+         height={this.state.height}
+         data={this.state.data}
+         onHeaderClick={this._sortByColumn}
+         onRowClick={this._loadDrawer}
+         onValueClick={this._executeInlineSearch}
          triggerLazyLoad={this._loadMoreRecords}
-         showMoreLoading={haveAllRecordsText}
-         showLazyLoading={this.state.isLoading}
+         showMoreLoading={true}
+         showLazyLoading={false}
          listSummaryText={summaryText}
-
+         /> :
+         <TabularDetail
+         style={{paddingLeft: '50px'}}
+         height={this.state.height}
+         data={this.state.data}
+         onHeaderClick={this._sortByColumn}
+         onRowClick={this._loadDrawer}
+         onValueClick={this._executeInlineSearch}
+         triggerLazyLoad={this._loadMoreRecords}
+         showMoreLoading={true}
+         showLazyLoading={false}
+         listSummaryText={summaryText}
+         />
+         }
 
         */
     }

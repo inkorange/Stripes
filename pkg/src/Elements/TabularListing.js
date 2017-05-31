@@ -167,7 +167,7 @@ export class TabularListing extends StripesTheme {
                 </TableHeaderCell>
             )
         });
-        console.log(this.state.bodyHeight);
+
         return (
             <Table className="TabularListing" ref="TabularListing"  style={this.props.style} {...this.getDataSet(this.props)}>
                 <TableHeader key="TableHeader" ref="TableHeader" {...this.getDataSet(this.props, '-TableHeader')}>
