@@ -19,6 +19,7 @@ html {
 html,body {
     min-width: $minPageWidth;
     background-color: white;
+    height: 100%;
     &::-webkit-scrollbar {
         display: none;
     }

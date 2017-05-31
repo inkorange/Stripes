@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 
 export class SelectPanel extends StripesTheme {
@@ -36,7 +37,8 @@ export class SelectPanel extends StripesTheme {
             style: {},
             value: null,
             show: props.show,
-            selected: null
+            selected: null,
+            isBeyond: null
         };
 
 
@@ -59,14 +61,13 @@ export class SelectPanel extends StripesTheme {
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
-
         var styleObj = {
             results: {
                 position: 'absolute',
-                top: '32px',
+                top: spacing.dropDownOffset,
                 minWidth: '100%',
                 maxWidth: '100vw',
-                left: 0,
+                left: this.state.isBeyond ? '-' + this.state.isBeyond + 'px' : 0,
                 transition: 'all .3s',
                 maxHeight: this.state.show ? '500px' : '0px',
                 overflow: 'hidden',
@@ -91,7 +92,8 @@ export class SelectPanel extends StripesTheme {
                 margin: '0',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
-                lineHeight: spacing.padding*4 + 'px'
+                lineHeight: spacing.padding*4 + 'px',
+                textAlign: 'left'
             },
             resultsp: {
                 color: 'black',
@@ -175,6 +177,16 @@ export class SelectPanel extends StripesTheme {
             show: true,
             selected: null
         }, () => {
+            var El = ReactDOM.findDOMNode(this.refs.panelcontainer).getBoundingClientRect();
+            this.setState({
+                isBeyond: (El.left + El.width > window.innerWidth) ? (El.left + El.width) - window.innerWidth : null
+            }, () => {
+                if(this.state.isBeyond) {
+                    this.setState({
+                        style: this.getStyles()
+                    });
+                }
+            });
             if (willFocus === undefined || willFocus) {
                 this.refs.panelcontainer.focus();
             }

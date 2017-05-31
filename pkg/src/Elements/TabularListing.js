@@ -14,11 +14,11 @@ export class TabularListing extends StripesTheme {
         type: 'default',
         data: null,
         fullHeight: true,
-        height: '100%',
+        height: null,
+        bodyHeight: null,
         onRowClick: () => { return false;},
         onValueClick: () => { return false;},
-        headerClick: () => { return false;},
-        bodyHeight: 0,
+        onHeaderClick: () => { return false;},
         zebraStripes: true,
         sortable: true,
         triggerLazyLoad: () => { return false; },
@@ -32,11 +32,10 @@ export class TabularListing extends StripesTheme {
 
     componentDidMount() {
         this.resolveHeight();
-        window.onresize = this.resolveHeight;
     }
 
-    componentWillUpdate(props) {
-        if(props.data !== this.props.data) {
+    componentDidUpdate(props) {
+        if(props.height !== this.props.height) {
             this.resolveHeight();
         }
 
@@ -53,24 +52,22 @@ export class TabularListing extends StripesTheme {
     }
 
     resolveHeight() {
-        var _this = this;
-        var parentHeight = ReactDOM.findDOMNode(_this.refs.TabularListing).parentElement.clientHeight;
-        var tableHeaderHeight = ReactDOM.findDOMNode(_this.refs.TableHeader).clientHeight;
-        var bodyHeight = parentHeight - tableHeaderHeight;
-        //console.log('parent height: ', parentHeight);
-        //console.log('tableHeaderHeight height: ', tableHeaderHeight, ReactDOM.findDOMNode(_this.refs.TableHeader).getClientRects());
-        //console.log(bodyHeight);
-        _this.setState({
-            bodyHeight: bodyHeight
-        });
+        if(this.props.height) {
+            var parentHeight = this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularListing).parentElement.clientHeight;
+            var tableHeaderHeight = ReactDOM.findDOMNode(this.refs.TableHeader).clientHeight;
+            var bodyHeight = parentHeight - tableHeaderHeight;
+            this.setState({
+                bodyHeight: bodyHeight
+            });
+        }
     }
 
     clickValue(e) {
-        if(this.props.fnValueClick) {
+        if(this.props.onValueClick) {
             e.preventDefault();
             e.stopPropagation();
-            var filterValue = $(e.currentTarget).attr('data-value');
-            this.props.fnValueClick(filterValue);
+            var filterValue = e.currentTarget.getAttribute('data-value');
+            this.props.onValueClick(filterValue);
             return false;
         }
     }
@@ -82,7 +79,6 @@ export class TabularListing extends StripesTheme {
             var cells = [];
             this.props.data.structure.map((header, key) => {
                 var itemDOM = [];
-                var value = [];
                 header.field.map((field, index) => {
                     var dimObj = this.dimensionalObjectResolution(r, field);
                     var value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
@@ -102,23 +98,28 @@ export class TabularListing extends StripesTheme {
                         key={"headcell"+key}
                         width={header.width}
                         data-filterable={header.filterable}
-                        data-value={value}
                         wrap={header.wrap ? true: false}>
                             {itemDOM}
                     </TableCell>
                 );
             });
             tableCells.push(
-                <TableRow onClick={this.props.onRowClick} key={"row"+i}>
+                <TableRow onClick={(e) => { this.props.onRowClick(e, r); }} key={"row"+i}>
                     {cells}
                 </TableRow>
             );
         });
 
+        var showMoreStyle = {
+            textAlign: 'center',
+            backgroundColor: this.state.colors.inactiveIcon,
+            boxShadow: '0 2px 0 rgb(150,150,150) inset'
+        };
+
         if(tableCells && (this.props.showMoreLoading || this.props.listSummaryText)) {
             tableCells.push(
-                <tr key={"lazy_loading_line"}
-                    style={{textAlign: 'center'}}
+                <tr key="lazy_loading_line"
+                    style={showMoreStyle}
                     data-event-click="LOAD_MORE"
                     data-event-desc={"Loading " + this.props.showMoreLoading + " Records"}
                     data-event-active={this.props.showMoreLoading}
@@ -156,17 +157,19 @@ export class TabularListing extends StripesTheme {
                     className={c.className}
                     isSortable={c.sortable ? c.sortable : false}
                     width={c.width ? c.width : null}
-                    onClick={this.props.headerClick}
+                    onClick={this.props.onHeaderClick}
                     key={"headercell" + i}
                     wrap={c.wrap ? true: false}
                     sortdirection={sortdirection}
+                    field={c.field[0]}
                 >
                     {labelDOM}
                 </TableHeaderCell>
             )
         });
+        console.log(this.state.bodyHeight);
         return (
-            <Table className="TabularListing" ref="TabularListing" height={this.props.height} style={this.props.style} {...this.getDataSet(this.props)}>
+            <Table className="TabularListing" ref="TabularListing"  style={this.props.style} {...this.getDataSet(this.props)}>
                 <TableHeader key="TableHeader" ref="TableHeader" {...this.getDataSet(this.props, '-TableHeader')}>
                     <TableHeaderRow>
                         {tableHeaders}

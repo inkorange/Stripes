@@ -15,7 +15,8 @@ export class TableHeaderCell extends StripesTheme {
         onClick: null,
         isSortable: false,
         sortdirection: null,
-        className: null
+        className: null,
+        field: ''
     }
 
     constructor(props) {
@@ -38,7 +39,7 @@ export class TableHeaderCell extends StripesTheme {
 
     onClick(e) {
         if(this.props.onClick) {
-            this.props.onClick();
+            this.props.onClick(this.props.field);
             e.preventDefault();
         }
     }
@@ -64,7 +65,8 @@ export class TableHeaderCell extends StripesTheme {
                 textAlign: 'left',
                 lineHeight: spacing.lineHeight,
                 color: color.textColor,
-                userSelect: 'none'
+                userSelect: 'none',
+                backgroundColor: color.backgroundColor
             },
             sort: {
                 style: {
@@ -91,6 +93,8 @@ export class TableHeaderCell extends StripesTheme {
         ) : null;
         return (
             <th onClick={this.onClick}
+                data-sortkey={this.props.field}
+                data-sortable={this.props.isSortable}
                 className={this.props.className}
                 onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
                 style={this.state.style.base}>

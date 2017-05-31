@@ -31,10 +31,7 @@ export class TableRow extends StripesTheme {
     }
 
     onClick(e) {
-        if(this.props.onClick) {
-            this.props.onClick();
-            e.preventDefault();
-        }
+        this.props.onClick(e,this.props.model);
     }
 
     getStyles() {
@@ -45,7 +42,8 @@ export class TableRow extends StripesTheme {
                 borderBottom: '1px solid ' + color.border,
                 cursor: this.props.onClick ? 'pointer' : 'default',
                 transition: 'box-shadow .25s',
-                minHeight: spacing.minHeight + 'px'
+                minHeight: spacing.minHeight + 'px',
+                backgroundColor: color.backgroundColor
             }
         };
         styleObj.hover = Object.assign({boxShadow: '0 0 '+spacing.minHeight*2+'px 10px ' + color.hoverColor + " inset"}, styleObj.base);

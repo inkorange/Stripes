@@ -11,6 +11,7 @@ import { Stripes } from '../src/Core/Stripes'
 import {NavBar} from '../src/Layouts'
 import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from '../src/Table'
 import {TabularListing} from '../src/Elements/TabularListing'
+import {TabularDetail} from '../src/Elements/TabularDetail'
 import { Title, H1, H2, H3 } from '../src/Typography'
 import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider } from '../src/Forms'
 import { Card, LeftNav, MenuItem } from '../src/Layouts'
@@ -37,12 +38,10 @@ const annotationAlertFn = function(val, field) {
     }
 };
 
-const formatBydateTimeStacked = function(val, isResponsive) {
-    var m_dateTime = m(new Date(val));
-    var formatDateStr = isResponsive ? "M/D" : "M/D/YYYY";
-    var formatTimeStr = isResponsive ? "HH:mm" : "h:mm a";
-    return val ? (<span key="datespan">{m_dateTime.utc().format(formatDateStr)}<em>{m_dateTime.utc().format(formatTimeStr)}</em></span>) : null;
+const formatBydateTimeStacked = function(val, onClick) {
+    return val;
 };
+
 
 const weightFormatter = function(data) {
     var objDOM = [];
@@ -141,7 +140,6 @@ class Sandbox extends React.Component {
                     sortable: true,
                     filterable: false,
                     className: 'column-packages'
-                    //view: ['large','']
                 },
                 {
                     tooltip: 'RTCube score and TMS cube score',
@@ -149,7 +147,7 @@ class Sandbox extends React.Component {
                     className: 'column-rtcube',
                     icon: 'rtcube',
                     field: ['metrics.rtcube', 'metrics.tms_cube'],
-                    sidenav: true,
+                    featured: true,
                     sortable: true,
                     filterable: false
                 },
@@ -159,7 +157,7 @@ class Sandbox extends React.Component {
                     className: 'column-full',
                     icon: 'fullness',
                     field: ['metrics.full', 'metrics.tms_full'],
-                    sidenav: true,
+                    featured: true,
                     sortable: true,
                     filterable: false
                 },
@@ -169,7 +167,7 @@ class Sandbox extends React.Component {
                     className: 'column-weight',
                     icon: 'weight',
                     field: ['metrics.trailer_weight'],
-                    sidenav: true,
+                    featured: true,
                     sortable: true,
                     filterable: false,
                     formatFn: weightFormatter
@@ -182,28 +180,49 @@ class Sandbox extends React.Component {
             sort_direction:"desc"
         };
 
+        this._loadDrawer = this._loadDrawer.bind(this);
+        this._executeInlineSearch = this._executeInlineSearch.bind(this);
+        this.resolveHeight = this.resolveHeight.bind(this);
         this.state = {
             data: dataObj
         };
     }
 
     componentDidMount() {
+        this.resolveHeight();
+        window.addEventListener('resize', this.resolveHeight, true);
+    }
+    componentWillUpdate(props) {
+    }
+
+    resolveHeight() {
+        var topPos = document.getElementsByClassName('testme')[0].getBoundingClientRect().top;
+        //console.log(window.innerHeight, topPos, 'HEIGHT: ', window.innerHeight - topPos - 35);
+        this.setState({height: window.innerHeight - topPos - 35});
+    }
+
+    _loadDrawer(e,data) {
+        console.log('row click: ', e.currentTarget,data);
 
     }
 
-    _updatePerPage(val) {
-        this.setState({
-            perpage: val
-        });
+    _executeInlineSearch(term) {
+        console.log('inline search: ', term);
+
     }
+
 
     _loadMoreRecords() {
         console.log('i wil load more records...');
     }
 
-    _sortByColumn() {
-        console.log('sorting...');
+    _sortByColumn(field) {
+        console.log('sorting...', field);
     }
+
+
+
+
     render() {
 
         var trailerTypeOptions = [];
@@ -218,20 +237,33 @@ class Sandbox extends React.Component {
 
         var summaryText = "Showing 25 records of 1000";
 
-
         return (
-            <div style={{height: '600px', marginTop: '50px', background : 'black'}}>
+            <div className="testme" style={{position: 'absolute', top: '50px', right: 0, left: 0, bottom: '20px'}}>
 
-                <TabularListing
-                    style={{background: 'white'}}
-                    data={this.state.data}
-                    headerClick={this._sortByColumn}
-
-                    triggerLazyLoad={this._loadMoreRecords}
-                    showMoreLoading={true}
-                    showLazyLoading={false}
-                    listSummaryText={summaryText}
-                />
+                {window.innerWidth > 600 ?
+                    <TabularListing
+                        height={this.state.height}
+                        data={this.state.data}
+                        onHeaderClick={this._sortByColumn}
+                        onRowClick={this._loadDrawer}
+                        onValueClick={this._executeInlineSearch}
+                        triggerLazyLoad={this._loadMoreRecords}
+                        showMoreLoading={true}
+                        showLazyLoading={false}
+                        listSummaryText={summaryText}
+                    /> :
+                    <TabularDetail
+                        height={this.state.height}
+                        data={this.state.data}
+                        onHeaderClick={this._sortByColumn}
+                        onRowClick={this._loadDrawer}
+                        onValueClick={this._executeInlineSearch}
+                        triggerLazyLoad={this._loadMoreRecords}
+                        showMoreLoading={true}
+                        showLazyLoading={false}
+                        listSummaryText={summaryText}
+                    />
+                }
 
             </div>
 
@@ -268,32 +300,3 @@ render((
     </Router>
 
 ),  document.getElementById('app'));
-
-/*
- <Tooltip iconid="info" width="400px" show={true}>This option will email a PDF file that contains all the images in this drawer for this load period.</Tooltip>
-
- <Title>This is the title text and we need it to wrap This is the title text and we need it to wrap This is the title text and we need it to wrap</Title>
- <H1>this is header text that will wrap  this is header text that will wrap  this is header text that will wrap  this is header text that will wrap  this is header text that will wrap</H1>
- <H2>this is header text that will wrap this is header text that will wrap this is header text that will wrap this is header text that will wrap</H2>
- <H3>this is header text that will wrap this is header text that will wrap this is header text that will wrap this is header text that will wrap this is header text that will wrap</H3>
-
-
- <ShowHide
- label="Show Hide This"
- initialShow={true}
- labelStyle={labstyle}
- contentStyle={{padding: '10px'}}
- icons={["up","down"]}
- >
- <p>This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open</p>
- <p>This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open</p>
- <p>This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open</p>
- <p>This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open</p>
- <p>This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open</p>
- <p>This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open This Text will only show if this component is currently open</p>
- </ShowHide>
- <p>outside the text outside the text outside the text outside the text outside the text outside the text outside the text outside the text outside the text</p>
- <p>outside the text outside the text outside the text outside the text outside the text outside the text outside the text outside the text outside the text</p>
- <p>outside the text outside the text outside the text outside the text outside the text outside the text outside the text outside the text outside the text</p>
- <p>outside the text outside the text outside the text outside the text outside the text outside the text outside the text outside the text outside the text</p>
- */

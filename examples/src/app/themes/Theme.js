@@ -47,7 +47,8 @@ var Theme = {
             errorFontSize: '1.2rem',
             borderRadius: baseRadius,
             underlineHeight: 2,
-            menuZIndex: 2000
+            menuZIndex: 2000,
+            dropDownOffset: '10px'
         },
         navbar: {
             minHeight: 64,

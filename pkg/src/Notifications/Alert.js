@@ -40,8 +40,14 @@ export class Alert extends StripesTheme {
     }
 
     componentWillUpdate(props) {
+        console.log('will update...');
         if(this.props.show!=props.show) {
-            this.animateShow(this.refs.Alert, props.show);
+            this.setState({
+                style: this.getStyles()
+            }, () => {
+                this.animateShow(this.refs.Alert, props.show);
+            });
+
         }
     }
 

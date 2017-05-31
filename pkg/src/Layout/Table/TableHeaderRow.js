@@ -28,6 +28,7 @@ export class TableHeaderRow extends StripesTheme {
     getStyles() {
         var styleObj = {
             base: {
+                boxShadow: '0 3px 0 rgba(0,0,0,.1)'
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);

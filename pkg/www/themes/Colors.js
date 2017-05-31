@@ -99,7 +99,7 @@ module.exports = {
     },
     table: {
         header: {
-            backgroundColor: 'transparent',
+            backgroundColor: 'white',
             border: '#e0e0e0',
             highlight: primaryColor,
             textColor: primaryColor
@@ -107,7 +107,8 @@ module.exports = {
         row: {
             border: '#e0e0e0',
             hoverColor: '#f5f5f5',
-            zebraStripe: '#f5f5f5'
+            zebraStripe: '#f5f5f5',
+            backgroundColor: 'white'
         }
     }
 }

@@ -11,13 +11,11 @@ export class TableCell extends StripesTheme {
         wrap: false,
         width: null,
         type: 'table',
-        onClick: null,
         className: null
     }
 
     constructor(props) {
         super(props);
-        this.onClick = this.onClick.bind(this);
         this.state = {
             style: {}
         }
@@ -31,13 +29,6 @@ export class TableCell extends StripesTheme {
 
     componentWillUpdate(props) {
         this.updateStyling(props !== this.props);
-    }
-
-    onClick(e) {
-        if(this.props.onClick) {
-            this.props.onClick();
-            e.preventDefault();
-        }
     }
 
     getStyles() {
@@ -63,7 +54,7 @@ export class TableCell extends StripesTheme {
 
     render() {
         return (
-            <td onClick={this.onClick} className={this.props.className} style={this.state.style.base}>
+            <td className={this.props.className} style={this.state.style.base}>
                 {this.props.children}
             </td>
         )

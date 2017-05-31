@@ -72,20 +72,20 @@ class StripesDemo extends React.Component {
                     width: '150px',
                     name: 'Make',
                     icon: 'alert',
-                    field: 'make',
+                    field: ['make'],
                     filterable: false,
                     sortable: false,
                     className: 'column-notes'
                 },
                 {
                     name: 'Model',
-                    field: 'model',
+                    field: ['model'],
                     filterable: false,
                     sortable: true
                 },
                 {
                     name: 'Year',
-                    field: 'year',
+                    field: ['year'],
                     filterable: false,
                     sortable: true
                 }
@@ -215,7 +215,7 @@ class StripesDemo extends React.Component {
                     data={dataObj}
                     onRowClick={() => {}}
                     onValueClick={() => {}}
-                    headerClick={() => {}}
+                    onHeaderClick={() => {}}
                     sortable={() => {}}
                 />
 
@@ -228,20 +228,20 @@ class StripesDemo extends React.Component {
                                                 "           width: '150px',\n" +
                                                 "           name: 'Make',\n" +
                                                 "           icon: 'alert',\n" +
-                                                "           field: 'make',\n" +
+                                                "           field: ['make'],\n" +
                                                 "           filterable: false,\n" +
                                                 "           sortable: false,\n" +
                                                 "           className: 'column-notes'\n" +
                                                 "       },\n" +
                                                 "       {\n" +
                                                 "           name: 'Model',\n" +
-                                                "           field: 'model',\n" +
+                                                "           field: ['model'],\n" +
                                                 "           filterable: false,\n" +
                                                 "           sortable: true\n" +
                                                 "       },\n" +
                                                 "       {\n" +
                                                 "           name: 'Year',\n" +
-                                                "           field: 'year',\n" +
+                                                "           field: ['year'],\n" +
                                                 "           filterable: false,\n" +
                                                 "           sortable: true\n" +
                                                 "       }\n" +
@@ -273,7 +273,7 @@ class StripesDemo extends React.Component {
                                                 "    data={dataObj}\n" +
                                                 "    onRowClick={() => {}}\n" +
                                                 "    onValueClick={() => {}}\n" +
-                                                "    headerClick={() => {}}\n" +
+                                                "    onHeaderClick={() => {}}\n" +
                                                 "    sortable={() => {}}\n" +
                                                 "/>\n"
                                             }

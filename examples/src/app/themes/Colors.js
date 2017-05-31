@@ -63,7 +63,7 @@ module.exports = {
     switches: {
         borderColor: primaryBackground,
         fillColor: primaryBackground,
-        checkImage: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'><polygon fill=\'white\' points=\'424 96 184 336 88 240 48 280 184 416 464 136 424 96\'/></svg>")'
+        checkImage: (color) => { return 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'512\' height=\'512\'><polygon fill=\''+color+'\' points=\'424 96 184 336 88 240 48 280 184 416 464 136 424 96\'/></svg>")'; }
     },
     inputs: {
         textColor: baseTextColor,

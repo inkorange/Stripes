@@ -21,22 +21,22 @@ export class ComponentDocumentation extends React.Component {
                 {
                     width: '150px',
                     name: 'Props Name',
-                    field: 'name'
+                    field: ['name']
                 },
                 {
                     width: '175px',
                     name: 'Type',
-                    field: 'type'
+                    field: ['type']
                 },
                 {
                     name: 'Description',
-                    field: 'desc',
+                    field: ['desc'],
                     wrap: true
                 },
                 {
                     width: '125px',
                     name: 'Default Value',
-                    field: 'default'
+                    field: ['default']
                 }
             ],
             rows: this.props.propsMap
