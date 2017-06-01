@@ -180,16 +180,15 @@ class Sandbox extends React.Component {
             sort_direction:"desc"
         };
 
-        this._loadDrawer = this._loadDrawer.bind(this);
-        this._executeInlineSearch = this._executeInlineSearch.bind(this);
-        this.resolveHeight = this.resolveHeight.bind(this);
         this.getthevalue = this.getthevalue.bind(this);
         this.toggleForm = this.toggleForm.bind(this);
         this.updateValues = this.updateValues.bind(this);
+        this.textboxValues = this.textboxValues.bind(this);
         this.state = {
             data: dataObj,
             isactive: false,
-            deesvalues:[10,Infinity]
+            deesvalues:[16,88],
+            textvalue: 'SYRA'
         };
     }
 
@@ -200,30 +199,6 @@ class Sandbox extends React.Component {
     componentWillUpdate(props) {
     }
 
-    resolveHeight() {
-        var topPos = document.getElementsByClassName('testme')[0].getBoundingClientRect().top;
-        //console.log(window.innerHeight, topPos, 'HEIGHT: ', window.innerHeight - topPos - 35);
-        this.setState({height: window.innerHeight - topPos - 35});
-    }
-
-    _loadDrawer(e,data) {
-        console.log('row click: ', e.currentTarget,data);
-
-    }
-
-    _executeInlineSearch(term) {
-        console.log('inline search: ', term);
-
-    }
-
-
-    _loadMoreRecords() {
-        console.log('i wil load more records...');
-    }
-
-    _sortByColumn(field) {
-        console.log('sorting...', field);
-    }
 
     getthevalue() {
         console.log(this.refs.Slider.getValue());
@@ -239,6 +214,11 @@ class Sandbox extends React.Component {
         this.setState({
             deesvalues: values
         });
+
+    }
+
+    textboxValues(val) {
+        this.refs.destination.applyValue(val);
 
     }
 
@@ -266,6 +246,7 @@ class Sandbox extends React.Component {
                     range={[0,120]}
                     disabled={this.state.isactive}
                     showUnlimited={true}
+                    showHandleValue={false}
 
                 />
                 <br/>
@@ -274,11 +255,28 @@ class Sandbox extends React.Component {
                 <br/>
                 <FlatButton onClick={this.getthevalue}>WHAT IS THE VALUE?</FlatButton>
                 <FlatButton onClick={this.toggleForm}>TOGGLE</FlatButton>
-                <FlatButton onClick={() => { this.updateValues([38,66]); }}>POP THE VALUES 38,66</FlatButton>
+                <FlatButton onClick={() => { this.updateValues([null,null]); }}>POP THE VALUES null,null</FlatButton>
                 <FlatButton onClick={() => { this.updateValues([22,55]); }}>POP THE VALUES 22,55</FlatButton>
                 <FlatButton onClick={() => { this.updateValues([55,88]); }}>POP THE VALUES 55,88</FlatButton>
                 <br/>
-                <CheckBox onChange={() => {console.log('i clicked it, yes I did...');} } label="clicking.."/>
+
+                <TextBox
+                    width="50%"
+                    showSuggestions={true}
+                    suggestionData={['Alabama', 'Alaska','Arkansas','California','Colorado','New York','Connecticut']}
+                    placeholder="This is a placeholder" />
+
+                <br/><br/>
+
+                <TextBox
+                    style={{ marginTop: '-24px'}}
+                    placeholder={"Enter a value..."}
+                    data-automation-id="Destination"
+                    value={this.state.textvalue}
+                    width="100%"
+                    ref="destination" />
+
+                <FlatButton onClick={() => { this.textboxValues('HAPPY'); }}>Empty Value</FlatButton>
             </div>
 
         )

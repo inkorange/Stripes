@@ -198,7 +198,7 @@ export class Slider extends StripesTheme {
                 onMouseDown={this.pressing}
             >
                 <div style={this.state.style.bar}></div>
-                <div style={this.state.style.value_box}>{this.getValue()}</div>
+                {this.props.showHandleValue ? <div style={this.state.style.value_box}>{this.getValue()}</div> : null }
                 <div style={this.state.style.handle}></div>
             </div>
         )

@@ -34,7 +34,6 @@ class TextBox extends StripesTheme {
         this.state = {
             style: this.getStyles(),
             active: false,
-            value: '', //this.props.value,
             suggestionItems: [],
             bbb: ''
         };
@@ -53,24 +52,25 @@ class TextBox extends StripesTheme {
         }
     }
 
+    componentDidMount() {
+        this.refs.input.value = this.props.value ? this.props.value : '';
+    }
+
     getValue() {
-        return this.state.value;
+        return this.refs.input.value;
     }
 
     onChange(e) {
         var val = e.target.value !== '' ? e.target.value : null;
-        if(val !== this.state.value) {
-            this.setState({
-                value: val,
-                suggestionItems: this.getSuggestions(val)
-            }, () => {
-                if(this.props.showSuggestions && this.state.suggestionItems.length) {
-                    this.refs.selectPanel.open(false);
-                } else if(this.refs.selectPanel) {
-                    this.refs.selectPanel.close();
-                }
-            });
-        }
+        this.setState({
+            suggestionItems: this.getSuggestions(val)
+        }, () => {
+            if(this.props.showSuggestions && this.state.suggestionItems.length) {
+                this.refs.selectPanel.open(false);
+            } else if(this.refs.selectPanel) {
+                this.refs.selectPanel.close();
+            }
+        });
         if(this.props.onChange) {
             this.props.onChange(e, val);
         }
@@ -99,15 +99,13 @@ class TextBox extends StripesTheme {
     }
 
     applyValue(val, stopFocus) {
-        if(val && val !== undefined) {
-            this.setState({
-                value: val.value
-            }, () => {
-                this.refs.input.value = this.state.value ? this.state.value : null;
-                if(!stopFocus) {
-                    this.refs.input.focus();
-                }
-            });
+        if(val !== undefined) {
+            this.refs.input.value = val.value ? val.value : val ? val : '';
+            if(!stopFocus) {
+                this.refs.input.focus();
+            } else {
+                this.refs.input.blur();
+            }
         }
     }
 
@@ -149,6 +147,7 @@ class TextBox extends StripesTheme {
         if(this.props.anchor) {
             anchorNode = <div onClick={this.onInputClick} style={this.state.style.anchor}>{this.props.anchor}</div>
         }
+
         return (
             <div style={this.state.style.container}>
                 <input
@@ -163,6 +162,7 @@ class TextBox extends StripesTheme {
                     onBlur={this.onCompleteInputBlur}
                     onChange={this.onChange}
                     style={this.state.style.input}
+                    tabIndex="1"
                 />
                 {anchorNode}
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>

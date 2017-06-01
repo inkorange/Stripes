@@ -54,9 +54,9 @@ export class RangeSlider extends StripesTheme {
     componentWillUpdate(props) {
         if(props !== this.props) {
             this.setState({
-                minValue: props.value[0],
-                maxValue: props.value[1] === Infinity ? props.range[1] : props.value[1],
-                isUnlimited: props.value[1] === Infinity
+                minValue: props.value[0] ? props.value[0] : props.range[0],
+                maxValue: !props.value[1] || props.value[1]*1 === Infinity ? props.range[1] : props.value[1]*1,
+                isUnlimited: props.value[1]*1 === Infinity
             }, () => {
                 this.updateStyles();
                 this.refs.minSlider.setValue(this.state.minValue);
