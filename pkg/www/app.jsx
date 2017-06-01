@@ -13,7 +13,7 @@ import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow
 import {TabularListing} from '../src/Elements/TabularListing'
 import {TabularDetail} from '../src/Elements/TabularDetail'
 import { Title, H1, H2, H3 } from '../src/Typography'
-import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider } from '../src/Forms'
+import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider, RangeSlider } from '../src/Forms'
 import { Card, LeftNav, MenuItem } from '../src/Layouts'
 import {Icon} from  '../src/Symbols/Icon'
 import {Tooltip} from  '../src/Notifications/Tooltip'
@@ -184,8 +184,12 @@ class Sandbox extends React.Component {
         this._executeInlineSearch = this._executeInlineSearch.bind(this);
         this.resolveHeight = this.resolveHeight.bind(this);
         this.getthevalue = this.getthevalue.bind(this);
+        this.toggleForm = this.toggleForm.bind(this);
+        this.updateValues = this.updateValues.bind(this);
         this.state = {
-            data: dataObj
+            data: dataObj,
+            isactive: false,
+            deesvalues:[10,Infinity]
         };
     }
 
@@ -225,6 +229,19 @@ class Sandbox extends React.Component {
         console.log(this.refs.Slider.getValue());
     }
 
+    toggleForm() {
+        this.setState({
+            isactive: !this.state.isactive
+        })
+    }
+
+    updateValues(values) {
+        this.setState({
+            deesvalues: values
+        });
+
+    }
+
 
     render() {
 
@@ -242,14 +259,26 @@ class Sandbox extends React.Component {
 
         return (
             <div style={{margin: '100px'}}>
-                <Slider
+                <Slider />
+                <RangeSlider
                     ref="Slider"
-                    range={[23,444]}
-                    constraint={[23,444]}
-                    value={50}
-                />
-                <div onClick={this.getthevalue}>WHAT IS THE VALUE?</div>
+                    value={this.state.deesvalues}
+                    range={[0,120]}
+                    disabled={this.state.isactive}
+                    showUnlimited={true}
 
+                />
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <FlatButton onClick={this.getthevalue}>WHAT IS THE VALUE?</FlatButton>
+                <FlatButton onClick={this.toggleForm}>TOGGLE</FlatButton>
+                <FlatButton onClick={() => { this.updateValues([38,66]); }}>POP THE VALUES 38,66</FlatButton>
+                <FlatButton onClick={() => { this.updateValues([22,55]); }}>POP THE VALUES 22,55</FlatButton>
+                <FlatButton onClick={() => { this.updateValues([55,88]); }}>POP THE VALUES 55,88</FlatButton>
+                <br/>
+                <CheckBox onChange={() => {console.log('i clicked it, yes I did...');} } label="clicking.."/>
             </div>
 
         )

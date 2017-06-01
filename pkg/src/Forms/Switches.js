@@ -207,9 +207,10 @@ class CheckBox extends StripesTheme {
     }
 
     componentWillUpdate(props) {
-        if(props.checked !== this.state.checked) {
+        if(props.checked !== this.state.checked || props.disabled !== this.state.disabled) {
             this.setState({
-                checked: props.checked
+                checked: props.checked,
+                disabled: props.disabled !== this.state.disabled ? props.disabled : this.state.disabled
             }, this.setState({
                 style: this.getStyles()
             }));
