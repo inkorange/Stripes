@@ -134,6 +134,7 @@ export class TimePicker extends StripesTheme {
             this.setState({
                 time: updatedTime
             });
+            this.refs.textbox.applyValue(props.time ? m(props.time).format(this.props.format) : "");
             this.updateStyles();
         }
     }

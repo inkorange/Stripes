@@ -54,6 +54,7 @@ export class DateTimePicker extends StripesTheme {
     }
 
     setDate(date) {
+        console.log(date, this.state.value);
         this.setState({
             value: mergeDates(date, this.state.value)
         }, this.fireCallback);
@@ -88,7 +89,7 @@ export class DateTimePicker extends StripesTheme {
 
     render() {
         return (
-            <div style={this.state.style.container} {...this.getDataSet(this.props)}>
+            <div style={this.state.style.container} {...this.getDataSet(this.props)} className={this.props.className}>
                 <TwoColumnLayout
                     columnOne={
                         <DatePicker

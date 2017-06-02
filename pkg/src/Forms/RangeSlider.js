@@ -148,7 +148,8 @@ export class RangeSlider extends StripesTheme {
         //console.log('is this disabled? ', this.state.isUnlimited || this.props.disabled);
         return (
             <div ref="RangeSlider"
-                {...this.getDataSet(this.props)}
+                 className={this.props.className}
+                 {...this.getDataSet(this.props)}
                  style={this.state.style.container}
             >
                 <Slider

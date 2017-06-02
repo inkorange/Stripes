@@ -180,15 +180,11 @@ class Sandbox extends React.Component {
             sort_direction:"desc"
         };
 
-        this.getthevalue = this.getthevalue.bind(this);
-        this.toggleForm = this.toggleForm.bind(this);
-        this.updateValues = this.updateValues.bind(this);
-        this.textboxValues = this.textboxValues.bind(this);
+        this.wipeoutvalue = this.wipeoutvalue.bind(this);
+
         this.state = {
             data: dataObj,
-            isactive: false,
-            deesvalues:[16,88],
-            textvalue: 'SYRA'
+            datevalue: "Fri Jun 02 2017 12:30:00 GMT-0400 (EDT)"
         };
     }
 
@@ -199,84 +195,31 @@ class Sandbox extends React.Component {
     componentWillUpdate(props) {
     }
 
-
-    getthevalue() {
-        console.log(this.refs.Slider.getValue());
-    }
-
-    toggleForm() {
+    wipeoutvalue(val) {
         this.setState({
-            isactive: !this.state.isactive
-        })
-    }
-
-    updateValues(values) {
-        this.setState({
-            deesvalues: values
+            datevalue: val
+        }, () => {
+            this.refs.open_after_date.setDateTime(this.state.datevalue);
         });
-
     }
-
-    textboxValues(val) {
-        this.refs.destination.applyValue(val);
-
-    }
-
 
     render() {
 
-        var trailerTypeOptions = [];
-        var trailerTypes = ["28DF", "28SR", "45VAN", "48VAN", "53VAN", "33SR", "33DF"];
-        trailerTypeOptions.push(<Item value="" key="defaulttype">All Trailer Types</Item>);
-        if(trailerTypes) {
-            trailerTypes.map((val, key) => {
-                trailerTypeOptions.push(<Item value={val} defaultChecked={this.state.trailerType === val} key={key}>{val}</Item>);
-            });
-        }
-
-
-        var summaryText = "Showing 25 records of 1000";
-
         return (
             <div style={{margin: '100px'}}>
-                <Slider />
-                <RangeSlider
-                    ref="Slider"
-                    value={this.state.deesvalues}
-                    range={[0,120]}
-                    disabled={this.state.isactive}
-                    showUnlimited={true}
-                    showHandleValue={false}
 
+
+                <DateTimePicker
+                    data-automation-id="Open After Date Picker"
+                    id="open_after_date"
+                    ref="open_after_date"
+                    onChange={(data) => { console.log('changed: ', data); }}
+                    placeholder={["After Date", "Time"]}
+                    value={this.state.datevalue}
+                    manual={true}
                 />
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <FlatButton onClick={this.getthevalue}>WHAT IS THE VALUE?</FlatButton>
-                <FlatButton onClick={this.toggleForm}>TOGGLE</FlatButton>
-                <FlatButton onClick={() => { this.updateValues([null,null]); }}>POP THE VALUES null,null</FlatButton>
-                <FlatButton onClick={() => { this.updateValues([22,55]); }}>POP THE VALUES 22,55</FlatButton>
-                <FlatButton onClick={() => { this.updateValues([55,88]); }}>POP THE VALUES 55,88</FlatButton>
-                <br/>
 
-                <TextBox
-                    width="50%"
-                    showSuggestions={true}
-                    suggestionData={['Alabama', 'Alaska','Arkansas','California','Colorado','New York','Connecticut']}
-                    placeholder="This is a placeholder" />
-
-                <br/><br/>
-
-                <TextBox
-                    style={{ marginTop: '-24px'}}
-                    placeholder={"Enter a value..."}
-                    data-automation-id="Destination"
-                    value={this.state.textvalue}
-                    width="100%"
-                    ref="destination" />
-
-                <FlatButton onClick={() => { this.textboxValues('HAPPY'); }}>Empty Value</FlatButton>
+                <FlatButton onClick={() => {this.wipeoutvalue('Sat Jun 03 2017 05:18:00 GMT-0400 (EDT)');}}>Change Date</FlatButton> <FlatButton onClick={() => {this.wipeoutvalue(null);}}>Clear Date</FlatButton>
             </div>
 
         )

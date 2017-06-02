@@ -61,6 +61,7 @@ export class Fieldset extends StripesTheme {
                 style={this.state.style.base}
                 disabled={this.props.disabled}
                 {...this.getDataSet(this.props)}
+                className={this.props.className}
             >
                 <label style={this.state.style.label}>{this.props.title}</label>
                 {this.props.children}

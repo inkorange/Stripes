@@ -67,6 +67,7 @@ export class DatePicker extends StripesTheme {
                 date: props.date
             });
             this.updateStyles();
+            this.refs.textbox.applyValue(props.date ? m(props.date).format(this.props.format) : "");
         }
     }
 

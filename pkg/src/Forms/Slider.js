@@ -193,6 +193,7 @@ export class Slider extends StripesTheme {
     render() {
         return (
             <div ref="slider"
+                className={this.props.className}
                 {...this.getDataSet(this.props)}
                 style={this.state.style.container}
                 onMouseDown={this.pressing}

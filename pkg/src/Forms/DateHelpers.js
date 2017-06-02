@@ -28,7 +28,7 @@ export function addTimeToDate(date, datetime, ignoreDate) {
         m_date.seconds(0);
         return m_date.toDate();
     }
-};
+}
                         // new date   current date
 export function mergeDates(date, datewithtime) {
     if(!date) {
@@ -36,6 +36,13 @@ export function mergeDates(date, datewithtime) {
     } else if(datewithtime && !date) {
         var m_date = m();
         var m_dateTime = m(datewithtime);
+        m_date.hour(m_dateTime.format('HH'));
+        m_date.minute(m_dateTime.format('mm'));
+        m_date.seconds(0);
+        return m_date.toDate();
+    } else if(date && datewithtime) {
+        var m_dateTime = m(datewithtime);
+        var m_date = m(date);
         m_date.hour(m_dateTime.format('HH'));
         m_date.minute(m_dateTime.format('mm'));
         m_date.seconds(0);
@@ -48,4 +55,4 @@ export function mergeDates(date, datewithtime) {
         // need to blank out the hours and minutes
         return m_date.toDate();
     }
-};
+}

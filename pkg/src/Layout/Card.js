@@ -94,7 +94,7 @@ export class Card extends StripesTheme {
         var containerStyle = this.state.style.base;
 
         return (
-            <section {...this.getDataSet(this.props)} style={containerStyle} className="Card">
+            <section {...this.getDataSet(this.props)} style={containerStyle} className={"Card " + this.props.className}>
                 {this.props.title ? (
                     <header key="card_header" ref="card_header" style={this.state.style.header}>{this.props.title}</header>
                 ) : null}
