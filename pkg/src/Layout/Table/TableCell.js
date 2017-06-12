@@ -38,7 +38,9 @@ export class TableCell extends StripesTheme {
                 padding: spacing.padding + 'px',
                 cursor: this.props.onClick ? 'pointer' : 'default',
                 position: 'relative',
-                maxWidth: '0',
+                maxWidth: 0,
+                width: this.props.width,
+                minWidth: this.props.width,
                 whiteSpace: !this.props.wrap ? 'nowrap' : null,
                 overflow: 'hidden',
                 textOverflow: !this.props.wrap ? 'ellipsis' : null,
@@ -46,9 +48,6 @@ export class TableCell extends StripesTheme {
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
-        if(this.props.width) {
-            Object.assign(styleObj.base, {width: this.props.width});
-        }
         return styleObj;
     }
 

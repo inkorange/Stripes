@@ -35,6 +35,7 @@ export class RangeSlider extends StripesTheme {
         this.updateStyles = this.updateStyles.bind(this);
         this.getPercByValue = this.getPercByValue.bind(this);
         this.toggleUnlimited = this.toggleUnlimited.bind(this);
+        this.clickSlider = this.clickSlider.bind(this);
         this.state = {
             minValue: this.props.value[0],
             maxValue:  this.props.isUnlimited || this.props.value[1] === Infinity ? this.props.range[1]: this.props.value[1],
@@ -53,6 +54,7 @@ export class RangeSlider extends StripesTheme {
 
     componentWillUpdate(props) {
         if(props !== this.props) {
+            console.log('well.. props changes someway', props.value, [this.state.minValue,this.state.maxValue]);
             this.setState({
                 minValue: props.value[0] ? props.value[0] : props.range[0],
                 maxValue: !props.value[1] || props.value[1]*1 === Infinity ? props.range[1] : props.value[1]*1,
@@ -106,6 +108,14 @@ export class RangeSlider extends StripesTheme {
         });
     }
 
+    clickSlider(e) {
+        //e.preventDefault();
+        e.stopImmediatePropogation;
+        this.refs.minSlider.selectPoint(e);
+        this.refs.maxSlider.selectPoint(e);
+        //return false;
+    }
+
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
@@ -120,7 +130,8 @@ export class RangeSlider extends StripesTheme {
                 top: (this.props.handlesize - 2) + 'px',
                 height: '5px',
                 left: this.getPercByValue(this.state.minValue) + 1 + '%',
-                width: 'calc(' + (this.getPercByValue(this.state.maxValue) - this.getPercByValue(this.state.minValue)) + '% - ' + this.props.handlesize/2 + 'px)',
+                width: (this.getPercByValue(this.state.maxValue) - this.getPercByValue(this.state.minValue)) + '%',
+                //width: 'calc(' + (this.getPercByValue(this.state.maxValue) - this.getPercByValue(this.state.minValue)) + '% + ' + this.props.handlesize/3 + 'px)',
                 backgroundColor: color.activeIcon,
                 opacity: this.props.disabled ? '.05' : '.65',
                 zIndex: 0,
@@ -151,6 +162,7 @@ export class RangeSlider extends StripesTheme {
                  className={this.props.className}
                  {...this.getDataSet(this.props)}
                  style={this.state.style.container}
+                 onClick={this.clickSlider}
             >
                 <Slider
                     {...this.getDataSet(this.props, '-minSlider')}

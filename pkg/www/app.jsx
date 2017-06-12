@@ -14,7 +14,7 @@ import {TabularListing} from '../src/Elements/TabularListing'
 import {TabularDetail} from '../src/Elements/TabularDetail'
 import { Title, H1, H2, H3 } from '../src/Typography'
 import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider, RangeSlider } from '../src/Forms'
-import { Card, LeftNav, MenuItem } from '../src/Layouts'
+import { Card, LeftNav, MenuItem, TwoColumnLayout } from '../src/Layouts'
 import {Icon} from  '../src/Symbols/Icon'
 import {Tooltip} from  '../src/Notifications/Tooltip'
 import {ShowHide, TabMenu, IconMenu} from '../src/Layouts'
@@ -206,20 +206,28 @@ class Sandbox extends React.Component {
     render() {
 
         return (
-            <div style={{margin: '100px'}}>
+            <div style={{margin: '10px'}}>
 
-
-                <DateTimePicker
-                    data-automation-id="Open After Date Picker"
-                    id="open_after_date"
-                    ref="open_after_date"
-                    onChange={(data) => { console.log('changed: ', data); }}
-                    placeholder={["After Date", "Time"]}
-                    value={this.state.datevalue}
-                    manual={true}
+                <Slider />
+                <TwoColumnLayout
+                    gutter={20}
+                    columnOne={<RangeSlider ref="slider" showUnlimited={true} />}
+                    columnTwo={<RangeSlider showUnlimited={true} />}
                 />
 
-                <FlatButton onClick={() => {this.wipeoutvalue('Sat Jun 03 2017 05:18:00 GMT-0400 (EDT)');}}>Change Date</FlatButton> <FlatButton onClick={() => {this.wipeoutvalue(null);}}>Clear Date</FlatButton>
+
+                <IconMenu style={{float: 'right'}} iconid="filter" direction="left" max-width="400px" constrainHeight={true}>
+                    <TwoColumnLayout
+                                style={{padding: '20px', width: '300px'}}
+                                columnOne={<div><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p></div>}
+                                columnTwo={<div><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p></div>}
+                                 />
+                </IconMenu>
+
+
+
+
+                <FlatButton onClick={() => { console.log(this.refs.slider.getValue()); }}>GET FIRST VALUES</FlatButton> <FlatButton onClick={() => {this.wipeoutvalue(null);}}>Clear Date</FlatButton>
             </div>
 
         )

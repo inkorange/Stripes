@@ -17,6 +17,7 @@ export class Slider extends StripesTheme {
         snap: 1,
         handlesize: 20,
         showHandleValue: true,
+        removeActivateTimeout: 3000,
         onChange: () => { return false; },
         format: (n) => { return parseInt(n, 10); }
     }
@@ -29,13 +30,19 @@ export class Slider extends StripesTheme {
         this.dragging = this.dragging.bind(this);
         this.getPercByValue = this.getPercByValue.bind(this);
         this.setValue = this.setValue.bind(this);
+        this.activateHandle = this.activateHandle.bind(this);
+        this.selectPoint = this.selectPoint.bind(this);
+        this.resolveXThroughEvent = this.resolveXThroughEvent.bind(this);
+        this.deactivateHandle = this.deactivateHandle.bind(this);
 
         this.state = {
             active: false,
             value: this.props.value,
             pressing: false,
+            isActivated: false,
             dragging: false,
-            handleX: this.getPercByValue(this.props.value)
+            handleX: this.getPercByValue(this.props.value),
+            removeActivation: null
         }
     }
 
@@ -79,6 +86,7 @@ export class Slider extends StripesTheme {
     pressing(e) {
         this.setState({
             pressing: true
+            //isActivated: false
         }, () => {
             this.bindDragEvents();
             this.updateStyles();
@@ -109,29 +117,68 @@ export class Slider extends StripesTheme {
             return false;
         }
         e.stopPropagation();
-        var handleX = 0;
+        var resolvedObj = [null,null];
         if(this.state.pressing) {
-            var node = this.refs.slider;
-            var x_on_bar = e.pageX - node.getBoundingClientRect().left;
-            handleX = x_on_bar * 100 / (node.offsetWidth);
-            var value = Math.floor(   ((this.props.range[1]-this.props.range[0]) * (handleX/100)) + this.props.range[0]     );
-            if(value <= this.props.constraint[0]) {
-                handleX = this.getPercByValue(this.props.constraint[0]);
-            } else if(value >= this.props.constraint[1]) {
-                handleX = this.getPercByValue(this.props.constraint[1]);
-            } else {
-                handleX = handleX < 0 ? 0 : handleX;
-                handleX = handleX > 100 ? 100 : handleX;
-            }
+            resolvedObj = this.resolveXThroughEvent(e)
         }
         this.setState({
             dragging: this.state.pressing,
-            handleX: this.state.pressing ? handleX : this.state.handleX,
-            value: value
+            //isActivated: false,
+            handleX: this.state.pressing ? resolvedObj[0] : this.state.handleX,
+            value: resolvedObj[1]
         }, () => {
             this.updateStyles();
             this.props.onChange(this.getValue());
         });
+    }
+
+    resolveXThroughEvent(e) {
+        var handleX = 0;
+        var node = this.refs.slider;
+        var x_on_bar = e.pageX - node.getBoundingClientRect().left;
+        handleX = x_on_bar * 100 / (node.offsetWidth);
+        var value = Math.floor(   ((this.props.range[1]-this.props.range[0]) * (handleX/100)) + this.props.range[0]     );
+        if(value <= this.props.constraint[0]) {
+            handleX = this.getPercByValue(this.props.constraint[0]);
+        } else if(value >= this.props.constraint[1]) {
+            handleX = this.getPercByValue(this.props.constraint[1]);
+        } else {
+            handleX = handleX < 0 ? 0 : handleX;
+            handleX = handleX > 100 ? 100 : handleX;
+        }
+        return [handleX,value];
+    }
+
+    activateHandle(e) {
+        if(!this.props.disabled) {
+            clearTimeout(this.state.removeActivation);
+            //alert(!this.state.pressing + " | " + !this.state.isActivated);
+            this.setState(
+                {
+                    isActivated: (!this.state.pressing && !this.state.isActivated),
+                    removeActivation: setTimeout(this.deactivateHandle, this.props.removeActivateTimeout)
+                },
+                this.updateStyles
+            );
+        }
+    }
+
+    deactivateHandle() {
+        this.setState({isActivated: false},this.updateStyles);
+    }
+
+    selectPoint(e) {
+        if(!this.state.pressing && this.state.isActivated) {
+            var resolvedObj = this.resolveXThroughEvent(e);
+            this.setState({
+                isActivated: false,
+                handleX:resolvedObj[0],
+                value: resolvedObj[1]
+            }, () => {
+                this.updateStyles();
+                this.props.onChange(this.getValue());
+            });
+        }
     }
 
     getStyles() {
@@ -162,17 +209,17 @@ export class Slider extends StripesTheme {
                 position: 'absolute',
                 transition: 'box-shadow .5s, background-color .5s',
                 transform: 'translateX(-'+this.props.handlesize/2+'px)',
-                left: this.state.handleX + '%', //'calc(' + this.state.handleX + '% - ' + ((this.state.handleX / 10) - 5) + 'px)',
+                left: this.state.handleX + '%',
                 top: this.state.pressing ? '2px' : '1px',
                 width: this.props.handlesize + 'px',
                 height: this.props.handlesize + 'px',
-                boxShadow: this.state.pressing ? '0 3px 6px rgba(0,0,0,.5), 0 2px 2px rgba(255,255,255,.25) inset' : '0 2px 5px rgba(0,0,0,.25)',
+                boxShadow: this.state.pressing ? '0 3px 6px rgba(0,0,0,.5), 0 2px 2px rgba(255,255,255,.25) inset' : '0 2px 5px rgba(0,0,0,.25)' + (this.state.isActivated ? ', 0 0 0 10px rgba(0,0,0,.15)' : ''),
                 userSelect: 'none'
             },
             value_box: {
                 opacity: this.state.pressing ? '1.0' : '0',
                 position: 'absolute',
-                top: '-25px',
+                top: '-28px',
                 minWidth: '50px',
                 textAlign: 'center',
                 left: this.state.handleX + '%',
@@ -197,10 +244,14 @@ export class Slider extends StripesTheme {
                 {...this.getDataSet(this.props)}
                 style={this.state.style.container}
                 onMouseDown={this.pressing}
+                onClick={this.selectPoint}
             >
                 <div style={this.state.style.bar}></div>
                 {this.props.showHandleValue ? <div style={this.state.style.value_box}>{this.getValue()}</div> : null }
-                <div style={this.state.style.handle}></div>
+                <div
+                    onClick={this.activateHandle}
+                    style={this.state.style.handle}
+                ></div>
             </div>
         )
     }

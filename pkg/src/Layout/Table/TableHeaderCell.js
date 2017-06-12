@@ -52,21 +52,26 @@ export class TableHeaderCell extends StripesTheme {
             base: {
                 boxShadow: (this.state.hover ? '0 -15px 50px -20px rgba(0,0,0,.25) inset' : '0 -5px 10px 0px rgba(0,0,0,0) inset') + highlightBorder,
                 transition: '.5s box-shadow',
-                padding: this.props.isSortable ? spacing.padding + 'px ' + spacing.padding*3 + 'px ' + spacing.padding + 'px ' + spacing.padding + 'px' : spacing.padding + 'px',
+                padding: spacing.padding + 'px',
                 cursor: this.props.onClick || this.props.isSortable ? 'pointer' : 'default',
                 position: 'relative',
-                maxWidth: '0',
                 whiteSpace: !this.props.wrap ? 'nowrap' : null,
                 overflow: 'hidden',
                 textOverflow: !this.props.wrap ? 'ellipsis' : null,
                 textTransform: 'uppercase',
                 fontSize: spacing.fontSize,
                 fontWeight: 400,
+                maxWidth: 0,
+                minWidth: this.props.width,
+                width: this.props.width,
                 textAlign: 'left',
                 lineHeight: spacing.lineHeight,
                 color: color.textColor,
                 userSelect: 'none',
                 backgroundColor: color.backgroundColor
+            },
+            container: {
+                paddingRight: this.props.isSortable ? spacing.padding*3 + 'px ' : null
             },
             sort: {
                 style: {
@@ -76,9 +81,6 @@ export class TableHeaderCell extends StripesTheme {
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
-        if(this.props.width) {
-            Object.assign(styleObj.base, {width: this.props.width});
-        }
         return styleObj;
     }
 
@@ -99,7 +101,7 @@ export class TableHeaderCell extends StripesTheme {
                 onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
                 style={this.state.style.base}>
                 {sortNODE}
-                {this.props.children}{this.state.hover}
+                {this.props.children}
             </th>
         )
     }

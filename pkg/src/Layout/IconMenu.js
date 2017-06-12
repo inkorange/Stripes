@@ -18,14 +18,16 @@ export class IconMenu extends StripesTheme {
         contentStyle: {},
         iconStyle: {},
         "max-width": null,
-        onChange: null
+        onChange: null,
+        constrainHeight: false
     }
 
     constructor(props) {
         super(props);
 
         this.state = {
-            open: false
+            open: false,
+            maxHeight: null
         };
 
         this.toggleMenu = this.toggleMenu.bind(this);
@@ -48,8 +50,12 @@ export class IconMenu extends StripesTheme {
                 this.refs.MenuBody.focus();
             }
             this.setState({
-                style: this.getStyles()
-            },this.forceUpdate);
+                maxHeight: this.props.constrainHeight ? window.innerHeight - this.refs.MenuBody.getBoundingClientRect().top - 10 : null
+            }, () => {
+                this.setState({
+                    style: this.getStyles()
+                },this.forceUpdate);
+            });
             if(this.props.onChange) {
                 this.props.onChange(this.state.open);
             }
@@ -87,10 +93,10 @@ export class IconMenu extends StripesTheme {
                 left: this.props.direction === 'left' ? null : 0,
                 right: this.props.direction === 'left' ? 0 : null,
                 transition: 'all .5s',
-                maxHeight: this.state.open ? '800px' : '0',
+                maxHeight: this.state.open ? this.state.maxHeight ? this.state.maxHeight : '800px' : '0',
                 opacity: this.state.open ? '1.0' : '0.0',
                 maxWidth: this.props["max-width"],
-                overflow: 'hidden',
+                overflow: this.props.constrainHeight ? 'auto' : 'hidden',
                 padding: 0,
                 minWidth: '200px',
                 outline: 'none',

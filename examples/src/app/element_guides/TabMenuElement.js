@@ -45,9 +45,10 @@ export class TabMenuElement extends React.Component {
                 title="TabMenu"
                 location="import {TabMenu} from 'zebra-stripes/Layouts';import {Item} from 'zebra-stripes/Forms'"
                 propsMap={[
-                        {name: 'onClick',       type: 'function',  desc: 'Callback function fired when one of the tabs are clicked.', default: '() => {}'},
-                        {name: 'contentStyle',  type: 'Object',    desc: 'Extends the content area container of the TabMenu base styling.' , default: '{}'},
-                        {name: 'style',         type: 'Object',    desc: 'Extends the base styling of the TabMenu selector element.' , default: '{}'}
+                        {name: 'onClick',         type: 'function',  desc: 'Callback function fired when one of the tabs are clicked.', default: '() => {}'},
+                        {name: 'contentStyle',    type: 'Object',    desc: 'Extends the content area container of the TabMenu base styling.' , default: '{}'},
+                        {name: 'style',           type: 'Object',    desc: 'Extends the base styling of the TabMenu selector element.' , default: '{}'},
+                        {name: 'constrainHeight', type: 'boolean',   desc: 'Will force the vertical height to not exceed the screen height, when opened.' , default: 'false'},
                     ]}
                 colOneWidth="50%"
                 colTwoWidth="50%"

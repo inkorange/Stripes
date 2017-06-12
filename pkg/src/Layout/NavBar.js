@@ -57,6 +57,7 @@ export class NavBar extends StripesTheme {
                 position: 'absolute',
                 color: color.textColor,
                 right: spacing.padding + 'px',
+                top: 0,
                 lineHeight: spacing.minHeight + 'px'
             },
             span: {

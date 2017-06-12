@@ -373,6 +373,7 @@ class DropDown extends StripesTheme {
         };
 
         styleObj.container = Object.assign(styleObj.container, container);
+        styleObj.container = Object.assign(styleObj.container, this.props.style);
         styleObj.input = Object.assign(styleObj.input, input);
         styleObj.baseicon = baseicon;
         styleObj.icon = Object.assign(icon, this.props.iconStyle);

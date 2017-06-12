@@ -106,10 +106,12 @@ footer.zebra {
                     }
                     &.column-active-notes {
                         width: 70px;
+                        min-width: 70px;
                         overflow: initial!important;
                     }
                     &.column-notes {
                         width: 70px;
+                        min-width: 70px;
                         overflow: initial!important;
                         @media #{$small} {
                             width: 50px;
@@ -124,34 +126,42 @@ footer.zebra {
                     &.ad-column-opened {
                         @media #{$large} {
                             width: 140px;
+                            min-width: 140px;
                         }
                         @media #{$small} {
                             width: 85px;
+                            min-width: 85px;
                         }
                     }
                     &.column-opened,
                     &.column-closed {
                         @media #{$large} {
                             width: 110px;
+                            min-width: 110px;
                         }
                         @media #{$small} {
                             width: 65px;
+                            min-width: 65px;
                         }
                     }
                     &.column-packages {
                         @media #{$large} {
                             width: 90px;
+                            min-width: 90px;
                         }
                         @media #{$small} {
                             width: 60px;
+                            min-width: 60px;
                         }
                     }
                     &.column-trailer {
                         @media #{$large} {
                             width: 90px;
+                            min-width: 90px;
                         }
                         @media #{$small} {
                             width: 70px;
+                            min-width: 70px;
                         }
                         overflow: unset!important;
                     }
@@ -162,8 +172,10 @@ footer.zebra {
                     &.column-full,
                     &.column-scanrate {
                         width: 120px;
+                        min-width: 120px;
                         @media #{$large} {
                             width: 50px;
+                            min-width: 50px;
                             label {
                                 display: none;
                             }
@@ -177,8 +189,10 @@ footer.zebra {
                     }
                     &.column-weight {
                         width: 110px;
+                        min-width: 110px;
                         @media #{$large} {
                             width: 70px;
+                            min-width: 70px;
                             label {
                                 display: none;
                             }
