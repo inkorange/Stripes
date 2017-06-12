@@ -54,7 +54,6 @@ export class RangeSlider extends StripesTheme {
 
     componentWillUpdate(props) {
         if(props !== this.props) {
-            console.log('well.. props changes someway', props.value, [this.state.minValue,this.state.maxValue]);
             this.setState({
                 minValue: props.value[0] ? props.value[0] : props.range[0],
                 maxValue: !props.value[1] || props.value[1]*1 === Infinity ? props.range[1] : props.value[1]*1,

@@ -215,16 +215,26 @@ class Sandbox extends React.Component {
                     columnTwo={<RangeSlider showUnlimited={true} />}
                 />
 
-
-                <IconMenu style={{float: 'right'}} iconid="filter" direction="left" max-width="400px" constrainHeight={true}>
-                    <TwoColumnLayout
-                                style={{padding: '20px', width: '300px'}}
-                                columnOne={<div><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p></div>}
-                                columnTwo={<div><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p><p>This is content for the first column. This will display on the left side of the component.</p></div>}
-                                 />
-                </IconMenu>
-
-
+                <TabMenu
+                    className="TableNavigationTabItem"
+                    style={{textTransform: 'uppercase'}}
+                >
+                    <Item
+                        key="tab1"
+                        value="Arkansas"
+                        label="Arkansas"
+                    />
+                    <Item
+                        key="tab2"
+                        value="California"
+                        label="California"
+                    />
+                    <Item
+                        key="tab3"
+                        value="Florida"
+                        label="Florida"
+                    />
+                </TabMenu>
 
 
                 <FlatButton onClick={() => { console.log(this.refs.slider.getValue()); }}>GET FIRST VALUES</FlatButton> <FlatButton onClick={() => {this.wipeoutvalue(null);}}>Clear Date</FlatButton>
