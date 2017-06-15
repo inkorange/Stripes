@@ -37,23 +37,21 @@ export class RangeSlider extends StripesTheme {
         this.toggleUnlimited = this.toggleUnlimited.bind(this);
         this.clickSlider = this.clickSlider.bind(this);
         this.state = {
-            minValue: this.props.value[0],
-            maxValue:  this.props.isUnlimited || this.props.value[1] === Infinity ? this.props.range[1]: this.props.value[1],
-            isUnlimited: this.props.isUnlimited || this.props.value[1] === Infinity
+            minValue: props.value[0] ? props.value[0] : props.range[0],
+            maxValue:  props.isUnlimited || props.value[1] === Infinity ? props.range[1]: props.value[1] ? props.value[1] : props.range[1],
+            isUnlimited: props.isUnlimited || props.value[1] === Infinity
         }
     }
 
     componentWillMount() {
-        this.setState({
-            style: this.getStyles()
-        });
+        this.updateStyles();
         if(this.props.isUnlimited) {
             this.toggleUnlimited(true);
         }
     }
 
     componentWillUpdate(props) {
-        if(props !== this.props) {
+        if(!props.value.equals(this.props.value)) {
             this.setState({
                 minValue: props.value[0] ? props.value[0] : props.range[0],
                 maxValue: !props.value[1] || props.value[1]*1 === Infinity ? props.range[1] : props.value[1]*1,
@@ -63,6 +61,12 @@ export class RangeSlider extends StripesTheme {
                 this.refs.minSlider.setValue(this.state.minValue);
                 this.refs.maxSlider.setValue(this.state.maxValue);
             });
+        }
+    }
+
+    componentDidUpdate(props) {
+        if(props.disabled !== this.props.disabled) {
+            this.updateStyles();
         }
     }
 
@@ -80,6 +84,7 @@ export class RangeSlider extends StripesTheme {
         }, ()=> {
             this.props.onChange(this.getValue());
             this.updateStyles();
+            setTimeout(this.refs.minSlider.deactivateHandle, 500);
         });
     }
 
@@ -89,6 +94,7 @@ export class RangeSlider extends StripesTheme {
         }, ()=> {
             this.props.onChange(this.getValue());
             this.updateStyles();
+            setTimeout(this.refs.maxSlider.deactivateHandle, 500);
         });
     }
 
@@ -108,11 +114,24 @@ export class RangeSlider extends StripesTheme {
     }
 
     clickSlider(e) {
-        //e.preventDefault();
         e.stopImmediatePropogation;
         this.refs.minSlider.selectPoint(e);
         this.refs.maxSlider.selectPoint(e);
-        //return false;
+    }
+
+    reset() {
+        this.setState({
+            minValue: this.props.value[0] ? this.props.value[0] : this.props.range[0],
+            maxValue:  this.props.isUnlimited || this.props.value[1] === Infinity ? this.props.range[1]: this.props.value[1] ? this.props.value[1] : this.props.range[1],
+            isUnlimited: this.props.isUnlimited || this.props.value[1] === Infinity
+        }, () => {
+            this.props.onChange(this.getValue());
+            var maxNum = this.props.value[1] ? this.props.value[1] : this.props.range[1];
+            maxNum = maxNum === Infinity ? this.props.range[1] : maxNum;
+            this.refs.minSlider.setValue(this.props.value[0] ? this.props.value[0] : this.props.range[0]);
+            this.refs.maxSlider.setValue(maxNum);
+            this.updateStyles();
+        });
     }
 
     getStyles() {
@@ -167,7 +186,7 @@ export class RangeSlider extends StripesTheme {
                     {...this.getDataSet(this.props, '-minSlider')}
                     style={{position: 'absolute'}}
                     disabled={this.props.disabled}
-                    value={this.props.value[0]}
+                    value={this.props.value[0] ? this.props.value[0] : this.props.range[0]}
                     range={this.props.range}
                     constraint={[this.props.range[0],this.state.maxValue - this.props.snap]}
                     snap={this.props.snap}
@@ -179,7 +198,7 @@ export class RangeSlider extends StripesTheme {
                     {...this.getDataSet(this.props, '-maxSlider')}
                     style={{position: 'absolute'}}
                     disabled={this.state.isUnlimited || this.props.disabled}
-                    value={this.props.value[1] === Infinity ? this.props.range[1] : this.props.value[1]}
+                    value={this.props.value[1] === Infinity ? this.props.range[1] : this.props.value[1] ? this.props.value[1] : this.props.range[1]}
                     range={this.props.range}
                     constraint={[this.state.minValue + this.props.snap, this.props.range[1]]}
                     snap={this.props.snap}

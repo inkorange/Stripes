@@ -454,7 +454,7 @@ export class TimePicker extends StripesTheme {
                     this.setState({
                         inputError: null
                     });
-                    this.refs.textbox.applyValue({value: this.state.time ? m(this.state.time).format(this.props.format) : null}, true);
+                    this.refs.textbox.applyValue(this.state.time ? m(this.state.time).format(this.props.format) : '', true);
                 }, 1500);
             } else if(!timeVal) {
                 this.setState({
@@ -464,7 +464,7 @@ export class TimePicker extends StripesTheme {
                     inputError: null
                 }, () => {
                     this.props.onSet(this.state.time);
-                    this.refs.textbox.applyValue("");
+                    this.refs.textbox.applyValue("", true);
                     this.updateStyles();
                 });
             } else {

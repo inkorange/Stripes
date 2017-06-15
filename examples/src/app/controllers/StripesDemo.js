@@ -13,7 +13,8 @@ import {LeftNavElement} from '../element_guides/LeftNavElement'
 import {NavBarElement} from '../element_guides/NavBarElement'
 import {TabMenuElement} from '../element_guides/TabMenuElement'
 import {IconMenuElement} from '../element_guides/IconMenuElement'
-
+import {TableElement} from '../element_guides/TableElement'
+import {TabularListingElement} from '../element_guides/TabularListingElement'
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
@@ -179,33 +180,8 @@ class StripesDemo extends React.Component {
 
             "Navigation": [<H1>Navigation</H1>, <IconMenuElement />, <LeftNavElement />, <NavBarElement />, <TabMenuElement />],
 
-            "Table": (<div>
-                <H3>Table (no fixed height)</H3>
-                <Table>
-                    <TableHeader>
-                        <TableHeaderRow>
-                            <TableHeaderCell>Head 1</TableHeaderCell>
-                            <TableHeaderCell>Head 2</TableHeaderCell>
-                        </TableHeaderRow>
-                    </TableHeader>
-                    <TableBody>
-                        {tableCells}
-                    </TableBody>
-                </Table>
+            "Table": [<H1>Table</H1>, <TableElement/>],
 
-                <H3>Table (with a fixed height)</H3>
-                <Table>
-                    <TableHeader>
-                        <TableHeaderRow>
-                            <TableHeaderCell isSortable={true}>Head 1</TableHeaderCell>
-                            <TableHeaderCell isSortable={true} sortdirection="desc">Head 2</TableHeaderCell>
-                        </TableHeaderRow>
-                    </TableHeader>
-                    <TableBody height="200px" zebraStripes={true}>
-                        {tableCells}
-                    </TableBody>
-                </Table>
-            </div>),
             "TabularListing": (<div>
                 <H3>TableListing</H3>
                 <p>Users would pass through a complex table structure object, similar to an API response</p>

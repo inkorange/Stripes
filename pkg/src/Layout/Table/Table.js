@@ -37,8 +37,6 @@ export class Table extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
         var styleObj = {
             base: {
                 width: this.props.width,

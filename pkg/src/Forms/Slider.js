@@ -17,7 +17,7 @@ export class Slider extends StripesTheme {
         snap: 1,
         handlesize: 20,
         showHandleValue: true,
-        removeActivateTimeout: 3000,
+        removeActivateTimeout: 2000,
         onChange: () => { return false; },
         format: (n) => { return parseInt(n, 10); }
     }
@@ -133,10 +133,9 @@ export class Slider extends StripesTheme {
     }
 
     resolveXThroughEvent(e) {
-        var handleX = 0;
         var node = this.refs.slider;
         var x_on_bar = e.pageX - node.getBoundingClientRect().left;
-        handleX = x_on_bar * 100 / (node.offsetWidth);
+        var handleX = x_on_bar * 100 / (node.offsetWidth);
         var value = Math.floor(   ((this.props.range[1]-this.props.range[0]) * (handleX/100)) + this.props.range[0]     );
         if(value <= this.props.constraint[0]) {
             handleX = this.getPercByValue(this.props.constraint[0]);
@@ -244,6 +243,7 @@ export class Slider extends StripesTheme {
                 {...this.getDataSet(this.props)}
                 style={this.state.style.container}
                 onMouseDown={this.pressing}
+                onMouseUp={this.release}
                 onClick={this.selectPoint}
             >
                 <div style={this.state.style.bar}></div>

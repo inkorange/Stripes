@@ -19,6 +19,7 @@ import {Icon} from  '../src/Symbols/Icon'
 import {Tooltip} from  '../src/Notifications/Tooltip'
 import {ShowHide, TabMenu, IconMenu} from '../src/Layouts'
 import {ProgressSpinner} from '../src/Elements/ProgressSpinner'
+require('es6-object-assign').polyfill();
 
 import m from 'moment'
 
@@ -181,10 +182,17 @@ class Sandbox extends React.Component {
         };
 
         this.wipeoutvalue = this.wipeoutvalue.bind(this);
+        this._updateNotesFilter = this._updateNotesFilter.bind(this);
+        this.resetSlider = this.resetSlider.bind(this);
 
         this.state = {
             data: dataObj,
-            datevalue: "Fri Jun 02 2017 12:30:00 GMT-0400 (EDT)"
+            trailerType: '',
+            notes: false,
+            datevalue: "Fri Jun 02 2017 12:30:00 GMT-0400 (EDT)",
+            tlaFullStart: null,
+            tlaFullEnd: null,
+            sliderenabled: true
         };
     }
 
@@ -203,41 +211,69 @@ class Sandbox extends React.Component {
         });
     }
 
+    _updateNotesFilter(isChecked) {
+        this.setState({
+            notes: isChecked
+        });
+    }
+
+    resetSlider() {
+        this.refs.tmsCube_range.reset();
+    }
+
     render() {
+        var trailerTypeOptions = [];
+        var trailerTypes = ["28DF", "28SR", "45VAN", "48VAN", "53VAN", "33SR", "33DF"];
+        trailerTypeOptions.push(<Item value="" data-automation-id="Trailer Option - All" key="defaulttype">All Trailer Types</Item>);
+        if(trailerTypes) {
+            trailerTypes.map((val, key) => {
+                trailerTypeOptions.push(<Item data-automation-id={"Trailer Option - " + val} value={val} defaultChecked={this.state.trailerType === val} key={key}>{val}</Item>);
+            });
+        }
 
         return (
             <div style={{margin: '10px'}}>
 
-                <Slider />
-                <TwoColumnLayout
-                    gutter={20}
-                    columnOne={<RangeSlider ref="slider" showUnlimited={true} />}
-                    columnTwo={<RangeSlider showUnlimited={true} />}
+                <DateTimePicker key="d1" ref="d1" manual={true} />
+                <div style={{margin: '40px'}}>
+                    <Slider />
+                </div>
+                <div style={{margin: '40px'}}>
+                    <CheckBox
+                        ref="tmsCubeon"
+                        checked={false}
+                        onChange={() => { this.setState({sliderenabled: !this.state.sliderenabled})}} />
+                </div>
+                <div style={{margin: '40px'}}>
+                    <RangeSlider
+                        disabled={this.state.sliderenabled}
+                        ref="tmsCube_range"
+                        value={[this.state.tlaFullStart, this.state.tlaFullEnd]}
+                        range={[0,100]}
+                        showUnlimited={true}
+                    />
+                </div>
+                <CheckBox
+                    ref="show_notes"
+                    checked={this.state.notes}
+                    label={"Show Notes"}
+                    onChange={this._updateNotesFilter}
                 />
-
-                <TabMenu
-                    className="TableNavigationTabItem"
-                    style={{textTransform: 'uppercase'}}
+                <DropDown
+                    placeholder="All trailer types"
+                    showEmpty={true}
+                    width="100%"
+                    key="trailerTypes"
+                    style={{margin: '-24px 0 0 0'}}
+                    onChange={(val) => { this.setState({trailerType: val})} }
                 >
-                    <Item
-                        key="tab1"
-                        value="Arkansas"
-                        label="Arkansas"
-                    />
-                    <Item
-                        key="tab2"
-                        value="California"
-                        label="California"
-                    />
-                    <Item
-                        key="tab3"
-                        value="Florida"
-                        label="Florida"
-                    />
-                </TabMenu>
+                    {trailerTypeOptions}
+                </DropDown>
 
-
-                <FlatButton onClick={() => { console.log(this.refs.slider.getValue()); }}>GET FIRST VALUES</FlatButton> <FlatButton onClick={() => {this.wipeoutvalue(null);}}>Clear Date</FlatButton>
+                <FlatButton onClick={() => { console.log(this.refs.tmsCube_range.getValue()); }}>GET FIRST VALUES</FlatButton>
+                <FlatButton onClick={() => {this.setState({tlaFullStart:22, tlaFullEnd:Infinity});}}>22,Infinity</FlatButton>
+                <FlatButton onClick={() => {this.setState({tlaFullStart:50, tlaFullEnd:80});}}>50,80</FlatButton>
+                <FlatButton onClick={this.resetSlider}>Reset SLider</FlatButton>
             </div>
 
         )

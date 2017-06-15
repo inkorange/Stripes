@@ -126,6 +126,9 @@ class TextBox extends StripesTheme {
 
     blur() {
         this.refs.input.blur();
+        this.setState({
+            active: false
+        });
     }
 
     getStyles() {
@@ -201,6 +204,7 @@ class TextArea extends StripesTheme {
 
         this.getValue = this.getValue.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.blur = this.blur.bind(this);
 
         this.state = {
             style: this.getStyles(),
@@ -231,6 +235,13 @@ class TextArea extends StripesTheme {
 
     getValue() {
         return this.state.value;
+    }
+
+    blur() {
+        this.refs.input.blur();
+        this.setState({
+            active: false
+        });
     }
 
     getStyles() {

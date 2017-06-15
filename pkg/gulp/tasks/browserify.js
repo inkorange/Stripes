@@ -31,14 +31,12 @@ module.exports = function(assetVersion) {
   var browserifyThis = function(bundleConfig) {
 
     var bundler = browserify({
-      // Required watchify args
-      cache: {},
-      packageCache: {},
+      require: ['react','react-dom'],
       fullPaths: true,
       // Specify the entry point of your app
       entries: bundleConfig.entries,
       // Add file extentions to make optional in your requires
-      extensions: config.extensions,
+      //extensions: config.extensions,
       // Enable source maps!
       debug: !config.minify
     });
@@ -69,11 +67,9 @@ module.exports = function(assetVersion) {
         return bundlerObj;
     };
 
-    //bundler.transform("babelify", {presets: ["es2015", "react"]});
-
     bundler.transform(babelify.configure(
         {
-          //presets: ["es2016", "es2015", "react", "stage-2"],
+          presets: ["es2015", "react", "stage-2"],
           plugins: ["transform-react-jsx"],
           extensions: ['.js','.jsx']
         }

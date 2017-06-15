@@ -10,7 +10,7 @@ module.exports = {
   browserify: {
     debug: true,
     minify: minify,
-    extensions: ['es2015', 'react'],
+    extensions: ['react', 'react-dom'],
     bundleConfigs: [{
       entries: './www/app.jsx',
       dest: dest + '/js',

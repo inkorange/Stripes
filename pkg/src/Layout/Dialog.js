@@ -16,7 +16,8 @@ export class Dialog extends StripesTheme {
         showClose: false,
         title: null,
         actions: null,
-        width: '80%'
+        width: '80%',
+        onClose: () => { return false; }
     }
 
     constructor(props) {
@@ -50,7 +51,8 @@ export class Dialog extends StripesTheme {
         this.toggleDialog(false);
         setTimeout(() => {
             this.refs.dialogContainer.style.display = "none";
-        }, 500);
+            this.props.onClose();
+        }, 250);
     }
 
     open() {

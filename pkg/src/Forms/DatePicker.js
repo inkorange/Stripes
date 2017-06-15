@@ -44,6 +44,7 @@ export class DatePicker extends StripesTheme {
         this.getValue = this.getValue.bind(this);
         this.pressManualDate = this.pressManualDate.bind(this);
         this.setManualDate = this.setManualDate.bind(this);
+        this.inputBlur = this.inputBlur.bind(this);
 
         var initialDate = props.date ? props.date : null;
 
@@ -119,6 +120,10 @@ export class DatePicker extends StripesTheme {
         return this.state.date
     }
 
+    inputBlur() {
+        this.refs.textbox.blur();
+    }
+
     setDate(date) {
         this.setState({
             date: date,
@@ -151,23 +156,25 @@ export class DatePicker extends StripesTheme {
         var isValid = m(new Date(dateValue)).isValid();
         var strippedSlashes = !isNaN(dateValue) ? dateValue :
                               dateValue && isNaN(dateValue) ? dateValue.replace(/\//g, '') : "";
+
         var throwTimedError = () => {
             this.setState({
                 inputError: this.props.errorMessage
             });
             setTimeout(() => {
-                this.refs.textbox.applyValue({value: this.state.date ? m(this.state.date).format(this.props.format) : null}, true);
+                this.refs.textbox.applyValue(this.state.date ? m(this.state.date).format(this.props.format) : '', true);
                 this.setState({
                     inputError: null
                 });
             }, 1500);
         };
         if (datesMatch) {
-            if(dateValue && (strippedSlashes.length === 0 || isNaN(strippedSlashes))) {
+            if(!isValid || (dateValue && (strippedSlashes.length === 0 || isNaN(strippedSlashes)))) {
                 throwTimedError();
             }
             return false;
         }
+
         if(dateValue) {
             var val = this.refs.textbox.getValue();
             val = val.replace(/\s/g, '');
@@ -206,7 +213,7 @@ export class DatePicker extends StripesTheme {
                     date: null,
                     inputError: null
                 }, () => {
-                    this.refs.textbox.applyValue("");
+                    this.refs.textbox.applyValue("", true);
                     this.props.onSet(this.state.date);
                 });
             }
@@ -288,6 +295,7 @@ export class DatePicker extends StripesTheme {
                     modal={true}
                     title={cleanDate}
                     showClose={true}
+                    onClose={this.inputBlur}
                     dialogStyle={this.state.style.dialog}
                     cardStyle={this.state.style.dialogcard}
                 >
