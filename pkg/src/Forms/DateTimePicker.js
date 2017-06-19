@@ -22,8 +22,10 @@ export class DateTimePicker extends StripesTheme {
         dateConstraint: [null,null], //['2013-11-05','2016-12-25'],
         yearFormat: 'YYYY',
         dateFormat: 'ddd, MMMM D',
+        timeFormat: 'hh:mm a',
         format: 'M/D/YYYY',
         placeholder: ['Date','Time'],
+        clockFormat: '12hr',
         value: null,
         manual: false
     }
@@ -109,6 +111,10 @@ export class DateTimePicker extends StripesTheme {
                             active={this.props.active}
                             time={this.state.value}
                             manual={this.props.manual}
+                            clockFormat={this.props.clockFormat}
+                            format={this.props.timeFormat}
+                            hourFormat={this.props.clockFormat === '12hr' ? 'h' : 'HH'}
+                            errorMessage={this.props.clockFormat === '12hr' ? 'Invalid Time Format (hh:mm)' : 'Invalid Time Format (HH:mm)'}
                         />}
                     gutter="5"
                     columnOneWidth={this.props.datewidth}

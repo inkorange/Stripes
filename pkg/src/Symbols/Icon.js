@@ -8,7 +8,6 @@ export class Icon extends StripesTheme {
 
     static defaultProps = {
         inactive: false,
-        enhancedClick: false,
         onClick: null,
         type: 'default',
         basestyle: {},
@@ -76,10 +75,6 @@ export class Icon extends StripesTheme {
         var SVGstyle = this.props.style ? Object.assign(styles.svg, this.props.style) : styles.svg;
         var Iconstyle = Object.assign(this.props.basestyle, styles.Icon);
         var svg = <svg data-id={this.props["data-id"]} style={SVGstyle} viewBox="0 0 100 100" dangerouslySetInnerHTML={{__html: useTag }} />;
-        var enhanced =  (<div style={{position: 'relative'}}>
-            {svg}
-            <div style={{position: 'absolute', cursor: 'pointer', top: 0, bottom: 0, right: 0, left: 0, backgroundColor:'rgba(0,0,0,.001)'}} className="icon-click-target" onClick={this.clickAction}></div>
-        </div>);
         return (
             <div className="Icon"
                  title={this.props.title}
@@ -88,7 +83,10 @@ export class Icon extends StripesTheme {
                  data-name={this.props.iconid}
                  onClick={this.props.enhancedClick ? null : this.clickAction}
             >
-                {this.props.enhancedClick ? enhanced : svg}
+                <div style={{position: 'relative'}}>
+                    {svg}
+                    <div style={{position: 'absolute', cursor: 'pointer', top: 0, bottom: 0, right: 0, left: 0, backgroundColor:'rgba(0,0,0,.001)'}} className="icon-click-target" onClick={this.clickAction}></div>
+                </div>
                 {this.props.children}
             </div>
         )

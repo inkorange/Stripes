@@ -190,8 +190,8 @@ class Sandbox extends React.Component {
             trailerType: '',
             notes: false,
             datevalue: "Fri Jun 02 2017 12:30:00 GMT-0400 (EDT)",
-            tlaFullStart: null,
-            tlaFullEnd: null,
+            tlaFullStart: 0,
+            tlaFullEnd: Infinity,
             sliderenabled: true
         };
     }
@@ -234,31 +234,22 @@ class Sandbox extends React.Component {
         return (
             <div style={{margin: '10px'}}>
 
-                <DateTimePicker key="d1" ref="d1" manual={true} />
-                <div style={{margin: '40px'}}>
-                    <Slider />
-                </div>
-                <div style={{margin: '40px'}}>
-                    <CheckBox
-                        ref="tmsCubeon"
-                        checked={false}
-                        onChange={() => { this.setState({sliderenabled: !this.state.sliderenabled})}} />
-                </div>
-                <div style={{margin: '40px'}}>
-                    <RangeSlider
-                        disabled={this.state.sliderenabled}
-                        ref="tmsCube_range"
-                        value={[this.state.tlaFullStart, this.state.tlaFullEnd]}
-                        range={[0,100]}
-                        showUnlimited={true}
-                    />
-                </div>
-                <CheckBox
-                    ref="show_notes"
-                    checked={this.state.notes}
-                    label={"Show Notes"}
-                    onChange={this._updateNotesFilter}
+                <DateTimePicker
+                    id="open_before_date"
+                    ref="open_before_date"
+                    placeholder={["Before Date", "Time"]}
+                    manual={true}
+                    clockFormat="24hr"
+                    timeFormat="HH:mm"
                 />
+
+                <DateTimePicker
+                    id="open_before_date"
+                    ref="open_before_date"
+                    placeholder={["Before Date", "Time"]}
+                    manual={true}
+                />
+
                 <DropDown
                     placeholder="All trailer types"
                     showEmpty={true}
@@ -271,9 +262,15 @@ class Sandbox extends React.Component {
                 </DropDown>
 
                 <FlatButton onClick={() => { console.log(this.refs.tmsCube_range.getValue()); }}>GET FIRST VALUES</FlatButton>
-                <FlatButton onClick={() => {this.setState({tlaFullStart:22, tlaFullEnd:Infinity});}}>22,Infinity</FlatButton>
+                <FlatButton onClick={() => {this.setState({tlaFullStart:22, tlaFullEnd:"Infinity"});}}>22,Infinity</FlatButton>
                 <FlatButton onClick={() => {this.setState({tlaFullStart:50, tlaFullEnd:80});}}>50,80</FlatButton>
                 <FlatButton onClick={this.resetSlider}>Reset SLider</FlatButton>
+
+                <TabularListing
+                    height={this.state.height}
+                    data={this.state.data}
+                />
+
             </div>
 
         )

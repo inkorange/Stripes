@@ -70,6 +70,8 @@ export class TimePicker extends StripesTheme {
         width: '100%',
         type: 'default',
         format: 'h:mm A',
+        hourFormat: 'h',
+        minuteFormat: 'mm',
         errorMessage: 'Invalid Time Format (h:mm A)',
         time: null,
         onSet: () => { return false; },
@@ -98,13 +100,14 @@ export class TimePicker extends StripesTheme {
         this.pressManualTime = this.pressManualTime.bind(this);
         this.getValue = this.getValue.bind(this);
         this.resolveClickPoint = this.resolveClickPoint.bind(this);
+        this.inputBlur = this.inputBlur.bind(this);
 
         var initialTime = props.time ? props.time : null;
         this.state = {
             opentime: initialTime,
             active: false,
-            hour: m(initialTime ? initialTime : new Date()).format('h')*1,
-            minute: m(initialTime ? initialTime : new Date()).format('m')*1,
+            hour: m(initialTime ? initialTime : new Date()).format(this.props.hourFormat)*1,
+            minute: m(initialTime ? initialTime : new Date()).format(this.props.minuteFormat)*1,
             time: initialTime,
             mode: 'hour',
             hourhover: false,
@@ -143,8 +146,8 @@ export class TimePicker extends StripesTheme {
         var show = open !== undefined ? open : !this.state.active;
         this.setState({
             active: show,
-            hour: m(this.state.time ? this.state.time : new Date()).format('h')*1,
-            minute: m(this.state.time ? this.state.time : new Date()).format('m')*1,
+            hour: m(this.state.time ? this.state.time : new Date()).format(this.props.hourFormat)*1,
+            minute: m(this.state.time ? this.state.time : new Date()).format(this.props.minuteFormat)*1,
             opentime: show ? this.state.time : this.state.opentime
         }, () => {
             if(open) {
@@ -166,10 +169,12 @@ export class TimePicker extends StripesTheme {
         var timeValue = this.state.time ? this.state.time : new Date();
         return (
             <div key="timetitle" style={this.state.style.time}>
-                <span style={this.state.hourhover || this.state.mode === 'hour' ? this.state.style.timeparthover : this.state.style.timepart} onMouseOver={()=> {this.setState({hourhover: true})}} onMouseOut={()=> {this.setState({hourhover: false})}} onClick={()=> {this.changeMode('hour')}}>{m(timeValue).format('h')}</span>
+                <span style={this.state.hourhover || this.state.mode === 'hour' ? this.state.style.timeparthover : this.state.style.timepart} onMouseOver={()=> {this.setState({hourhover: true})}} onMouseOut={()=> {this.setState({hourhover: false})}} onClick={()=> {this.changeMode('hour')}}>{m(timeValue).format(this.props.hourFormat)}</span>
                 :
-                <span style={this.state.minhover || this.state.mode === 'minute' ? this.state.style.timeparthover : this.state.style.timepart}  onMouseOver={()=> {this.setState({minhover: true})}} onMouseOut={()=> {this.setState({minhover: false})}} onClick={()=> {this.changeMode('minute')}}>{m(timeValue).format('mm')}</span>
+                <span style={this.state.minhover || this.state.mode === 'minute' ? this.state.style.timeparthover : this.state.style.timepart}  onMouseOver={()=> {this.setState({minhover: true})}} onMouseOut={()=> {this.setState({minhover: false})}} onClick={()=> {this.changeMode('minute')}}>{m(timeValue).format(this.props.minuteFormat)}</span>
+                {this.props.clockFormat === "12hr" ?
                 <span style={this.state.amhover ? this.state.style.timeparthover : this.state.style.timepart}  onMouseOver={()=> {this.setState({amhover: true})}} onMouseOut={()=> {this.setState({amhover: false})}} onClick={()=> {this.toggleAMPM()}}>{m(timeValue).format('A')}</span>
+                    : null}
 
             </div>);
     }
@@ -317,6 +322,10 @@ export class TimePicker extends StripesTheme {
         });
     }
 
+    inputBlur() {
+        this.refs.textbox.blur();
+    }
+
     cancel() {
         var initialTime = this.props.time ? this.props.time : new Date();
         this.setState({
@@ -356,16 +365,18 @@ export class TimePicker extends StripesTheme {
         newTime.minute(minute);
         newTime.second(0);
         if(newTime.isValid() && !isNaN(newTime) ) {
-            if(AMPM === 'PM') {
-                if(hour < 12) {
-                    hour = hour + 12;
+            if (this.props.clockFormat === "12hr") {
+                if (AMPM === 'PM') {
+                    if (hour < 12) {
+                        hour = hour + 12;
+                    }
+                } else {
+                    if (hour >= 12) {
+                        hour = hour - 12;
+                    }
                 }
-            } else {
-                if(hour >= 12) {
-                    hour = hour-12;
-                }
+                newTime.hour(hour);
             }
-            newTime.hour(hour);
             this.setState({
                 hour: hour,
                 minute: minute,
@@ -634,6 +645,7 @@ export class TimePicker extends StripesTheme {
                         dialogStyle={this.state.style.dialog}
                         cardStyle={this.state.style.dialogcard}
                         actions={actionsNode}
+                        onClose={this.inputBlur}
                 >
                     {hourContainer}
                 </Dialog>
