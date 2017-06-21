@@ -42,7 +42,7 @@ export class TableRow extends StripesTheme {
                 borderBottom: '1px solid ' + color.border,
                 cursor: this.props.onClick ? 'pointer' : 'default',
                 transition: 'box-shadow .25s',
-                minHeight: spacing.minHeight + 'px',
+                height: spacing.minHeight + 'px',
                 backgroundColor: color.backgroundColor
             }
         };

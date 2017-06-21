@@ -34,7 +34,7 @@ export class ComponentDocumentation extends React.Component {
                     wrap: true
                 },
                 {
-                    width: '125px',
+                    width: '150px',
                     name: 'Default Value',
                     field: ['default']
                 }
@@ -42,9 +42,11 @@ export class ComponentDocumentation extends React.Component {
             rows: this.props.propsMap
         };
 
-        var paramNodes = this.props.propsMap ? <TabularListing key="tablisting"
-            data={dataObj}
-        /> : <p>There are no parameters.</p>;
+        var paramNodes = this.props.propsMap ?
+            <TabularListing key="tablisting"
+                zebraStripes={true}
+                data={dataObj}
+            /> : <p>There are no parameters.</p>;
 
 
         var codeExamples = [];

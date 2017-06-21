@@ -68,7 +68,7 @@ export class DatePicker extends StripesTheme {
                 date: props.date
             });
             this.updateStyles();
-            this.refs.textbox.applyValue(props.date ? m(props.date).format(this.props.format) : "");
+            this.refs.textbox.applyValue(props.date ? m(props.date).format(this.props.format) : "", true);
         }
     }
 
@@ -130,7 +130,7 @@ export class DatePicker extends StripesTheme {
             inputError: null
         });
         this.refs.Dialog.close();
-        this.refs.textbox.applyValue(m(date).format(this.props.format));
+        this.refs.textbox.applyValue(m(date).format(this.props.format), true);
         this.props.onSet(date);
     }
 
@@ -152,11 +152,12 @@ export class DatePicker extends StripesTheme {
 
     setManualDate(e) {
         var dateValue = isNaN(this.refs.textbox.getValue()*1) ? this.refs.textbox.getValue() : this.refs.textbox.getValue()*1;
+        var slashCount = dateValue.toString().indexOf("/") > 0 ? (dateValue.match(/\//g) || []).length : 0;
+        dateValue = slashCount === 1 ? dateValue + '/' + (new Date().getFullYear()): dateValue;
         var datesMatch = m(new Date(dateValue)).format(this.props.format) === m(this.state.date).format(this.props.format);
         var isValid = m(new Date(dateValue)).isValid();
         var strippedSlashes = !isNaN(dateValue) ? dateValue :
                               dateValue && isNaN(dateValue) ? dateValue.replace(/\//g, '') : "";
-
         var throwTimedError = () => {
             this.setState({
                 inputError: this.props.errorMessage
@@ -192,6 +193,7 @@ export class DatePicker extends StripesTheme {
 
             // finally, its a standard 1/1/1 input, so we create the date the old fashioned way
             } else {
+                val = slashCount === 1 ? val + '/' + (new Date().getFullYear()): val;
                 var m_date = m(new Date(val));
                 var matches = (val.match(/\//g) || []);
                 var validParts = val.split('/').length && (val.split('/')[0] && val.split('/')[1] && val.split('/')[2]) ? true : false;

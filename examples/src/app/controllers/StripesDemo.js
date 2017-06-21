@@ -15,6 +15,7 @@ import {TabMenuElement} from '../element_guides/TabMenuElement'
 import {IconMenuElement} from '../element_guides/IconMenuElement'
 import {TableElement} from '../element_guides/TableElement'
 import {TabularListingElement} from '../element_guides/TabularListingElement'
+import {SliderElement, RangeSliderElement} from '../element_guides/SliderElements'
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
@@ -45,74 +46,10 @@ class StripesDemo extends React.Component {
         this.toggleRadioDisable = this.toggleRadioDisable.bind(this);
         this.toggleError = this.toggleError.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this);
-        this._setTableState = this._setTableState.bind(this);
         this._scrollToFromMenu = this._scrollToFromMenu.bind(this);
     }
 
     componentDidMount() {
-        //window.addEventListener('scroll', this._syncWithLeftNav);
-        var els = document.getElementsByTagName('section');
-        //console.log(els);
-        /*
-        els.map(el => {
-           console.log(el.offsetTop);
-        });
-        */
-    }
-
-    componentWillUnmount() {
-    }
-
-    componentWillUpdate() {
-    }
-
-    _setTableState() {
-        return {
-            structure: [
-                {
-                    width: '150px',
-                    name: 'Make',
-                    icon: 'alert',
-                    field: ['make'],
-                    filterable: false,
-                    sortable: false,
-                    className: 'column-notes'
-                },
-                {
-                    name: 'Model',
-                    field: ['model'],
-                    filterable: false,
-                    sortable: true
-                },
-                {
-                    name: 'Year',
-                    field: ['year'],
-                    filterable: false,
-                    sortable: true
-                }
-            ],
-            rows: [
-                {make: 'Ford', model: 'Focus', year: '2005'},
-                {make: 'Ford', model: 'Bronco', year: '2001'},
-                {make: 'Acura', model: 'TSX', year: '2012'},
-                {make: 'Acura', model: 'TLX', year: '2016'},
-                {make: 'Toyota', model: 'Camery', year: '2015'},
-                {make: 'Toyota', model: 'Corolla', year: '2017'},
-                {make: 'Toyota', model: 'Avalon', year: '2010'},
-                {make: 'Nissan', model: 'Altima', year: '2008'},
-                {make: 'Honda', model: 'CRV', year: '2015'},
-                {make: 'Honda', model: 'Accord', year: '2014'}
-            ],
-            collection: {
-                end: 10,
-                returned: 10,
-                start: 1,
-                timestamp: 1484924493000,
-                total: 10
-            },
-            sort_by: "model",
-            sort_direction: "desc"
-        };
     }
 
     toggleCheckboxDisable() {
@@ -132,8 +69,6 @@ class StripesDemo extends React.Component {
             inputerror: this.state.inputerror ? null : 'you have an error.'
         });
     }
-
-
 
     toggleMenu() {
         this.refs.LeftNav.toggleMenu();
@@ -169,8 +104,6 @@ class StripesDemo extends React.Component {
             );
         };
 
-        var dataObj = this._setTableState();
-
         var StyleGuideConfig = {
 
             // layouts
@@ -182,82 +115,9 @@ class StripesDemo extends React.Component {
 
             "Table": [<H1>Table</H1>, <TableElement/>],
 
-            "TabularListing": (<div>
-                <H3>TableListing</H3>
-                <p>Users would pass through a complex table structure object, similar to an API response</p>
+            "TabularListing": [<H1>TabularListing</H1>, <TabularListingElement/>],
 
-                <TabularListing
-                    bodyHeight="250px"
-                    data={dataObj}
-                    onRowClick={() => {}}
-                    onValueClick={() => {}}
-                    onHeaderClick={() => {}}
-                    sortable={() => {}}
-                />
-
-                                        <pre>
-                                        <code className="language-js">
-                                            {
-                                                "var dataObj = {\n" +
-                                                "   structure: [\n" +
-                                                "       {\n" +
-                                                "           width: '150px',\n" +
-                                                "           name: 'Make',\n" +
-                                                "           icon: 'alert',\n" +
-                                                "           field: ['make'],\n" +
-                                                "           filterable: false,\n" +
-                                                "           sortable: false,\n" +
-                                                "           className: 'column-notes'\n" +
-                                                "       },\n" +
-                                                "       {\n" +
-                                                "           name: 'Model',\n" +
-                                                "           field: ['model'],\n" +
-                                                "           filterable: false,\n" +
-                                                "           sortable: true\n" +
-                                                "       },\n" +
-                                                "       {\n" +
-                                                "           name: 'Year',\n" +
-                                                "           field: ['year'],\n" +
-                                                "           filterable: false,\n" +
-                                                "           sortable: true\n" +
-                                                "       }\n" +
-                                                "   ],\n" +
-                                                "   rows: [\n" +
-                                                "       {make: 'Ford', model: 'Focus', year: '2005'},\n" +
-                                                "       {make: 'Ford', model: 'Bronco', year: '2001'},\n" +
-                                                "       {make: 'Acura', model: 'TSX', year: '2012'},\n" +
-                                                "       {make: 'Acura', model: 'TLX', year: '2016'},\n" +
-                                                "       {make: 'Toyota', model: 'Camery', year: '2015'},\n" +
-                                                "       {make: 'Toyota', model: 'Corolla', year: '2017'},\n" +
-                                                "       {make: 'Toyota', model: 'Avalon', year: '2010'},\n" +
-                                                "       {make: 'Nissan', model: 'Altima', year: '2008'},\n" +
-                                                "       {make: 'Honda', model: 'CRV', year: '2015'},\n" +
-                                                "       {make: 'Honda', model: 'Accord', year: '2014'}\n" +
-                                                "   ],\n" +
-                                                "   collection: {\n" +
-                                                "       end: 10,\n" +
-                                                "       returned: 10,\n" +
-                                                "       start: 1,\n" +
-                                                "       timestamp: 1484924493000,\n" +
-                                                "       total: 10\n" +
-                                                "   },\n" +
-                                                "   sort_by: 'model',\n" +
-                                                "   sort_direction: 'desc'\n" +
-                                                "};\n\n" +
-                                                "<TabularListing\n" +
-                                                "    bodyHeight='250px'\n" +
-                                                "    data={dataObj}\n" +
-                                                "    onRowClick={() => {}}\n" +
-                                                "    onValueClick={() => {}}\n" +
-                                                "    onHeaderClick={() => {}}\n" +
-                                                "    sortable={() => {}}\n" +
-                                                "/>\n"
-                                            }
-                                        </code>
-                                        </pre>
-            </div>),
-
-            "Form Elements": ([<H1>FieldSet</H1>, <FieldsetElement />]),
+            "Form Elements": ([<H1>Form Elements</H1>, <FieldsetElement />, <SliderElement />, <RangeSliderElement/>]),
 
             //inputs
             "DateTimePicker":(<div>
@@ -279,10 +139,6 @@ class StripesDemo extends React.Component {
                             />
                         </section>
                 </div>),
-            "Slider": (<div>
-                <H3>Slider</H3>
-                <Slider />
-            </div>),
             "Buttons": (<div>
             <section>
                 <H3>FlatButton</H3>

@@ -13,14 +13,51 @@ export class TabularListingElement extends React.Component {
     }
 
     render() {
-        var tableCells = [];
-        for(var i =0; i < 8; i++) {
-            tableCells.push(
-                <TableRow key={"row"+i}>
-                    <TableCell>A{i}</TableCell>
-                    <TableCell>B{i}</TableCell>
-                </TableRow>
-            );
+        var dataObj = {
+            structure: [
+                {
+                    width: '150px',
+                    name: 'Make',
+                    icon: 'alert',
+                    field: ['make'],
+                    filterable: false,
+                    sortable: false,
+                    className: 'column-notes'
+                },
+                {
+                    name: 'Model',
+                    field: ['model'],
+                    filterable: false,
+                    sortable: true
+                },
+                {
+                    name: 'Year',
+                    field: ['year'],
+                    filterable: false,
+                    sortable: true
+                }
+            ],
+            rows: [
+                {make: 'Ford', model: 'Focus', year: '2005'},
+                {make: 'Ford', model: 'Bronco', year: '2001'},
+                {make: 'Acura', model: 'TSX', year: '2012'},
+                {make: 'Acura', model: 'TLX', year: '2016'},
+                {make: 'Toyota', model: 'Camery', year: '2015'},
+                {make: 'Toyota', model: 'Corolla', year: '2017'},
+                {make: 'Toyota', model: 'Avalon', year: '2010'},
+                {make: 'Nissan', model: 'Altima', year: '2008'},
+                {make: 'Honda', model: 'CRV', year: '2015'},
+                {make: 'Honda', model: 'Accord', year: '2014'}
+            ],
+            collection: {
+                end: 10,
+                returned: 10,
+                start: 1,
+                timestamp: 1484924493000,
+                total: 10
+            },
+            sort_by: "model",
+            sort_direction: "desc"
         };
 
         return (
@@ -29,17 +66,16 @@ export class TabularListingElement extends React.Component {
                 location="import {TabularListing} from 'zebra-stripes/Elements/TabularListing';"
                 propsMap={[
                     {name: 'data',              type: 'Object',     desc: 'A complex data object that contains the table\'s structure, data, and pagination information.', default: 'null'},
-                    {name: 'fullHeight',        type: 'boolean',    desc: 'Sets the table height, a string in css value format.' , default: 'true'},
-                    {name: 'height',            type: 'string',     desc: 'Sets the table width, a string in css value format.', default: 'null'},
-                    {name: 'bodyHeight',        type: 'string',     desc: 'Sets the table width, a string in css value format.', default: 'null'},
-                    {name: 'onRowClick',        type: 'function',   desc: 'Sets the table width, a string in css value format.', default: '() => { return false;}'},
-                    {name: 'onValueClick',      type: 'function',   desc: 'Sets the table width, a string in css value format.', default: '() => { return false;}'},
-                    {name: 'onHeaderClick',     type: 'function',   desc: 'Sets the table width, a string in css value format.', default: '() => { return false;}'},
-                    {name: 'zebraStripes',      type: 'boolean',    desc: 'Sets the table width, a string in css value format.', default: 'true'},
-                    {name: 'sortable',          type: 'boolean',    desc: 'Sets the table width, a string in css value format.', default: 'true'},
-                    {name: 'triggerLazyLoad',   type: 'function',   desc: 'Sets the table width, a string in css value format.', default: '() => { return false;}'},
-                    {name: 'showMoreLoading',   type: 'boolean',    desc: 'Sets the table width, a string in css value format.', default: 'false'},
-                    {name: 'showLazyLoading',   type: 'boolean',    desc: 'Sets the table width, a string in css value format.', default: 'false'},
+                    {name: 'height',            type: 'string',     desc: 'CSS value that defines the height of the full table being rendered. A null value will not force a height on the table.', default: 'null'},
+                    {name: 'bodyHeight',        type: 'string',     desc: 'CSS value that defines the height of the table body. A null value will not force a height.', default: 'null'},
+                    {name: 'onRowClick',        type: 'function',   desc: 'Callback function that is fired when the user clicks on a row.', default: '() => { return false;}'},
+                    {name: 'onValueClick',      type: 'function',   desc: 'Callback function that is fired when the user clicks a value within a table cell. This is typically used for inline filtering.', default: '() => { return false;}'},
+                    {name: 'onHeaderClick',     type: 'function',   desc: 'Callback function when the user clicks the header, this callback is typically used when doing sort handling.', default: '() => { return false;}'},
+                    {name: 'zebraStripes',      type: 'boolean',    desc: 'Will set the colors of the rows to be striped for better readability.', default: 'true'},
+                    {name: 'sortable',          type: 'boolean',    desc: 'Toggle that allows the table to be sortable. This overrides the data structure\'s designation for sorting.', default: 'true'},
+                    {name: 'triggerLazyLoad',   type: 'function',   desc: 'Callback function that is fired when the user clicks the summary row at the bottom of the table.', default: '() => { return false;}'},
+                    {name: 'showMoreLoading',   type: 'boolean',    desc: 'Toggle to show the summary and \'Show More\' row at the bottom of the table.', default: 'false'},
+                    {name: 'showLazyLoading',   type: 'boolean',    desc: 'Toggle to show the lazy loading row at the bottom of te table.', default: 'false'}
                 ]}
                 colOneWidth="50%"
                 colTwoWidth="50%"
@@ -52,38 +88,38 @@ export class TabularListingElement extends React.Component {
                                 'var dataObj = {\n' +
                                                 '   structure: [\n' +
                                                 '       {\n' +
-                                                '           width: '150px',\n' +
-                                                '           name: 'Make',\n' +
-                                                '           icon: 'alert',\n' +
-                                                '           field: ['make'],\n' +
+                                                '           width: "150px",\n' +
+                                                '           name: "Make",\n' +
+                                                '           icon: "alert",\n' +
+                                                '           field: ["make"],\n' +
                                                 '           filterable: false,\n' +
                                                 '           sortable: false,\n' +
-                                                '           className: 'column-notes'\n' +
+                                                '           className: "column-notes"\n' +
                                                 '       },\n' +
                                                 '       {\n' +
-                                                '           name: 'Model',\n' +
-                                                '           field: ['model'],\n' +
+                                                '           name: "Model",\n' +
+                                                '           field: ["model"],\n' +
                                                 '           filterable: false,\n' +
                                                 '           sortable: true\n' +
                                                 '       },\n' +
                                                 '       {\n' +
-                                                '           name: 'Year',\n' +
-                                                '           field: ['year'],\n' +
+                                                '           name: "Year",\n' +
+                                                '           field: ["year"],\n' +
                                                 '           filterable: false,\n' +
                                                 '           sortable: true\n' +
                                                 '       }\n' +
                                                 '   ],\n' +
                                                 '  rows: [\n' +
-                                                '       {make: 'Ford', model: 'Focus', year: '2005'},\n' +
-                                                '       {make: 'Ford', model: 'Bronco', year: '2001'},\n' +
-                                                '       {make: 'Acura', model: 'TSX', year: '2012'},\n' +
-                                                '       {make: 'Acura', model: 'TLX', year: '2016'},\n' +
-                                                '       {make: 'Toyota', model: 'Camery', year: '2015'},\n' +
-                                                '       {make: 'Toyota', model: 'Corolla', year: '2017'},\n' +
-                                                '       {make: 'Toyota', model: 'Avalon', year: '2010'},\n' +
-                                                '       {make: 'Nissan', model: 'Altima', year: '2008'},\n' +
-                                                '       {make: 'Honda', model: 'CRV', year: '2015'},\n' +
-                                                '       {make: 'Honda', model: 'Accord', year: '2014'}\n' +
+                                                '       {make: "Ford", model: "Focus", year: "2005"},\n' +
+                                                '       {make: "Ford", model: "Bronco", year: "2001"},\n' +
+                                                '       {make: "Acura", model: "TSX", year: "2012"},\n' +
+                                                '       {make: "Acura", model: "TLX", year: "2016"},\n' +
+                                                '       {make: "Toyota", model: "Camery", year: "2015"},\n' +
+                                                '       {make: "Toyota", model: "Corolla", year: "2017"},\n' +
+                                                '       {make: "Toyota", model: "Avalon", year: "2010"},\n' +
+                                                '       {make: "Nissan", model: "Altima", year: "2008"},\n' +
+                                                '       {make: "Honda", model: "CRV", year: "2015"},\n' +
+                                                '       {make: "Honda", model: "Accord", year: "2014"}\n' +
                                                 '   ],\n' +
                                                 '   collection: {\n' +
                                                 '       end: 10,\n' +
@@ -92,29 +128,20 @@ export class TabularListingElement extends React.Component {
                                                 '       timestamp: 1484924493000,\n' +
                                                 '       total: 10\n' +
                                                 '   },\n' +
-                                                '   sort_by: 'model',\n' +
-                                                '   sort_direction: 'desc'\n' +
+                                                '   sort_by: "model",\n' +
+                                                '   sort_direction: "desc"\n' +
                                                 '};\n\n' +
                                                 '<TabularListing\n' +
-                                                '    bodyHeight='250px'\n' +
+                                                '    bodyHeight="250px"\n' +
                                                 '    data={dataObj}\n' +
-                                                '    onRowClick={() => {}}\n' +
-                                                '    onValueClick={() => {}}\n' +
-                                                '    onHeaderClick={() => {}}\n' +
-                                                '    sortable={() => {}}\n' +
+                                                '    sortable={true}\n' +
                                                 '/>\n',
                             example: (
-                                <Table>
-                                    <TableHeader>
-                                        <TableHeaderRow>
-                                            <TableHeaderCell>Head 1</TableHeaderCell>
-                                            <TableHeaderCell>Head 2</TableHeaderCell>
-                                        </TableHeaderRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {tableCells}
-                                    </TableBody>
-                                </Table>
+                                <TabularListing
+                                    bodyHeight="250px"
+                                    data={dataObj}
+                                    sortable={true}
+                                />
                             )
                         }
                     ]}

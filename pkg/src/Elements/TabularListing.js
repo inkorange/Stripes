@@ -13,7 +13,6 @@ export class TabularListing extends StripesTheme {
     static defaultProps = {
         type: 'default',
         data: null,
-        fullHeight: true,
         height: null,
         bodyHeight: null,
         onRowClick: () => { return false;},

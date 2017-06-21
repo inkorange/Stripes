@@ -137,7 +137,7 @@ export class TimePicker extends StripesTheme {
             this.setState({
                 time: updatedTime
             });
-            this.refs.textbox.applyValue(props.time ? m(props.time).format(this.props.format) : "");
+            this.refs.textbox.applyValue(props.time ? m(props.time).format(this.props.format) : "", true);
             this.updateStyles();
         }
     }
@@ -343,7 +343,7 @@ export class TimePicker extends StripesTheme {
         }, this.updateStyles);
 
         if(this.state.time) {
-            this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
+            this.refs.textbox.applyValue(m(this.state.time).format(this.props.format), true);
             this.props.onSet(this.state.time);
         } else {
             var now = new Date();
@@ -351,7 +351,7 @@ export class TimePicker extends StripesTheme {
                 time: now,
                 inputError: null
             }, () => {
-                this.refs.textbox.applyValue(m(this.state.time).format(this.props.format));
+                this.refs.textbox.applyValue(m(this.state.time).format(this.props.format), true);
                 this.props.onSet(this.state.time);
             });
         }
@@ -365,7 +365,7 @@ export class TimePicker extends StripesTheme {
         newTime.minute(minute);
         newTime.second(0);
         if(newTime.isValid() && !isNaN(newTime) ) {
-            if (this.props.clockFormat === "12hr") {
+            if (AMPM || this.props.clockFormat === "12hr") {
                 if (AMPM === 'PM') {
                     if (hour < 12) {
                         hour = hour + 12;
@@ -445,7 +445,7 @@ export class TimePicker extends StripesTheme {
                         inputError: this.props.errorMessage
                     });
                     setTimeout(() => {
-                        this.refs.textbox.applyValue({value: m(this.state.time).format(this.props.format)});
+                        this.refs.textbox.applyValue({value: m(this.state.time).format(this.props.format)}, true);
                         this.setState({
                             inputError: null
                         });
