@@ -58,7 +58,7 @@ export class TabularDetail extends StripesTheme {
 
     resolveHeight() {
         if(this.props.height) {
-            var parentHeight = this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularListing).parentElement.clientHeight;
+            var parentHeight = this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularDetail).parentElement.clientHeight;
             var tableHeaderHeight = ReactDOM.findDOMNode(this.refs.FieldSelector).clientHeight;
             var bodyHeight = parentHeight - tableHeaderHeight;
             this.setState({
@@ -148,13 +148,13 @@ export class TabularDetail extends StripesTheme {
                 header.field.map((field, index) => {
                     var dimObj = this.dimensionalObjectResolution(r, field);
                     var value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
-                    if (index === 0) {
+                    if (index === 0 && value) {
                         itemDOM.push(
                             <span key={"prim" + key + "" + index}
                                   onClick={header.filterable ? this.clickValue : false}
                                   data-filterable={header.filterable} data-value={dimObj}>{value}</span>
                         );
-                    } else {
+                    } else if(value){
                         itemDOM.push(
                             <em key={"sec" + key + "" + index} onClick={header.filterable ? this.clickValue : false}
                                 data-filterable={header.filterable} data-value={dimObj}>{value}</em>
@@ -215,7 +215,7 @@ export class TabularDetail extends StripesTheme {
         });
 
         return (
-            <article className="TabularListing" ref="TabularListing"  {...this.getDataSet(this.props)}>
+            <article className="TabularDetail" ref="TabularDetail"  {...this.getDataSet(this.props)}>
                 <div ref="FieldSelector" style={this.state.style.fieldSelector}>
                     <div style={{position: 'relative', display: 'inline-block'}}>
                         <DropDown
@@ -227,7 +227,7 @@ export class TabularDetail extends StripesTheme {
                         </DropDown>
                     </div>
                 </div>
-                <div ref="TabularDetailContent" style={{height: this.state.bodyHeight, overflow: 'auto'}}>
+                <div ref="TabularDetailContent" style={{height: this.state.bodyHeight ? this.state.bodyHeight : null, overflow: 'auto'}}>
                     {tableRows}
                 </div>
             </article>

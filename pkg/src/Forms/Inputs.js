@@ -321,7 +321,8 @@ class DropDown extends StripesTheme {
             items.push({
                 checked: obj.props.defaultChecked,
                 label: label,
-                value: obj.props.value === undefined ? label : obj.props.value
+                value: obj.props.value === undefined ? label : obj.props.value,
+                ...this.getDataSet(obj.props)
             });
         });
         return {items: items, currentCheckedLabel: currentCheckedLabel, currentCheckedValue: currentCheckedValue};
@@ -416,6 +417,7 @@ class DropDown extends StripesTheme {
                 <SelectPanel
                     ref="selectPanel"
                     data={this.state.items}
+                    {...this.getDataSet(this.props, '-SelectPanel')}
                     onSelect={this.applyValue}
                     onClose={this.onInputBlur}
                 />

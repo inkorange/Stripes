@@ -209,7 +209,6 @@ export class SelectPanel extends StripesTheme {
 
     render() {
         var resultsDOM = [];
-        var color = this.getColors()[this.props.type];
         this.props.data.map((v, i) => {
             var resultslistyle = this.state.style.resultsli;
             if(v.checked) {
@@ -222,7 +221,9 @@ export class SelectPanel extends StripesTheme {
                 <li key={"item-" + i}
                     onClick={()=> { this.applyValue(i); }}
                     onMouseOver={() => { this.updateSelected(i); }}
-                    style={resultslistyle}>
+                    style={resultslistyle}
+                    {...this.getDataSet(v)}
+                >
                 {v.label}
             </li>);
         });

@@ -252,11 +252,13 @@ class Sandbox extends React.Component {
 
                 <DropDown
                     placeholder="All trailer types"
+                    data-automation-id="Load Area Selector"
                     showEmpty={true}
                     width="100%"
                     key="trailerTypes"
                     style={{margin: '-24px 0 0 0'}}
                     onChange={(val) => { this.setState({trailerType: val})} }
+
                 >
                     {trailerTypeOptions}
                 </DropDown>
@@ -265,6 +267,7 @@ class Sandbox extends React.Component {
                 <FlatButton onClick={() => {this.setState({tlaFullStart:22, tlaFullEnd:"Infinity"});}}>22,Infinity</FlatButton>
                 <FlatButton onClick={() => {this.setState({tlaFullStart:50, tlaFullEnd:80});}}>50,80</FlatButton>
                 <FlatButton onClick={this.resetSlider}>Reset SLider</FlatButton>
+
 
                 <TabularListing
                     height={this.state.height}

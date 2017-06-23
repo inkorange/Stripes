@@ -61,11 +61,11 @@ footer.zebra {
             tr {
                 th {
                     &.column-notes {
-                        .Icon {
+                        .Icon[data-name="alert"] {
                             display: none!important;
                         }
                         @media #{$small} {
-                            .Icon {
+                            .Icon[data-name="alert"] {
                                 display: inline-block!important;
                             }
                             label {
@@ -78,7 +78,8 @@ footer.zebra {
                     padding: $baseMargin*2;
                     vertical-align: top;
                     overflow: initial!important;
-                    //box-shadow: 0 0 5px inset;
+                    line-height: 1.6rem;
+                    min-height: 60px;
                     label {
                         > span {
                             @media #{$small} {
@@ -87,7 +88,6 @@ footer.zebra {
                         }
                     }
                     em {
-
                         font-size: 90%;
                         display: inline;
                         font-style: normal;
@@ -105,22 +105,49 @@ footer.zebra {
                         }
                     }
                     &.column-active-notes {
-                        width: 70px;
-                        min-width: 70px;
+                        width: 60px;
+                        min-width: 60px;
                         overflow: initial!important;
                     }
                     &.column-notes {
-                        width: 70px;
-                        min-width: 70px;
+                        width: 80px;
+                        min-width: 80px;
                         overflow: initial!important;
                         @media #{$small} {
                             width: 50px;
+                            min-width: 50px;
                             label {
                                 display: none;
                             }
                             .Icon {
                                 display: block;
                             }
+                        }
+                        em {
+                            float: left;
+                            margin-right: 5px;
+                        }
+                        > span + em {
+                            display: none;
+                        }
+                        > span + em + em {
+                            top: -8px;
+                            position: relative;
+                            left: -8px;
+                            svg {
+                                fill: white!important;
+                            }
+                        }
+                    }
+                    &.column-dest,
+                    &.column-code {
+                        @media #{$large} {
+                            width: 100px;
+                            min-width: 100px;
+                        }
+                        @media #{$small} {
+                            width: 85px;
+                            min-width: 85px;
                         }
                     }
                     &.ad-column-opened {
@@ -140,11 +167,12 @@ footer.zebra {
                             min-width: 110px;
                         }
                         @media #{$small} {
-                            width: 65px;
-                            min-width: 65px;
+                            width: 95px;
+                            min-width: 95px;
                         }
                     }
                     &.column-packages {
+                        text-align: right;
                         @media #{$large} {
                             width: 90px;
                             min-width: 90px;
@@ -152,6 +180,10 @@ footer.zebra {
                         @media #{$small} {
                             width: 60px;
                             min-width: 60px;
+                        }
+                        label {
+                            float: right;
+                            border-left: 5px solid transparent;
                         }
                     }
                     &.column-trailer {
@@ -171,51 +203,57 @@ footer.zebra {
                     &.column-rtcube,
                     &.column-full,
                     &.column-scanrate {
-                        width: 130px;
-                        min-width: 130px;
+                        text-align: right;
+                        padding-right: 20px!important;
                         @media #{$large} {
-                            width: 50px;
-                            min-width: 50px;
                             label {
                                 display: none;
                             }
-
                         }
-                        .Icon {
-                            float: left;
-                        }
-                        label {
-                            float: left;
-                            border-left: 5px solid transparent;
-                            //margin-top: -25px;
+                        @media #{$small} {
+                            width: 50px;
+                            min-width: 50px;
                         }
                     }
                     &.column-weight {
-                        width: 110px;
-                        min-width: 110px;
+                        padding-right: 20px!important;
                         @media #{$large} {
-                            width: 70px;
-                            min-width: 70px;
                             label {
                                 display: none;
                             }
                         }
+                        @media #{$small} {
+                            width: 70px;
+                            min-width: 70px;
+                        }
+
+                    }
+
+                    &.number {
+                        > div:first-of-type {
+                            right: -5px!important;
+                        }
+                        text-align: right;
+                        .Icon {
+                            float: right;
+                            position: relative;
+                            left: -5px;
+                        }
                         label {
-                            float: left;
-                            border-left: 25px solid transparent;
-                            margin-top: -25px;
+                            float: right;
+                            border-right: 10px solid transparent;
                         }
                     }
                 }
             }
         }
-        /*
-        thead {
-            tr {
-                border-right: solid 35px transparent;
+        tbody {
+            td {
+                &.number {
+                    text-align: right;
+                }
             }
         }
-        */
     }
 
 }

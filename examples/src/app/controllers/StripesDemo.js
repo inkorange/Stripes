@@ -16,7 +16,7 @@ import {IconMenuElement} from '../element_guides/IconMenuElement'
 import {TableElement} from '../element_guides/TableElement'
 import {TabularListingElement} from '../element_guides/TabularListingElement'
 import {SliderElement, RangeSliderElement} from '../element_guides/SliderElements'
-import {DatePickerElement} from '../element_guides/DateTimeElements'
+import {DatePickerElement, TimePickerElement, DateTimePickerElement} from '../element_guides/DateTimeElements'
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
@@ -120,7 +120,7 @@ class StripesDemo extends React.Component {
 
             "Form Elements": ([<H1>Form Elements</H1>, <FieldsetElement />, <SliderElement />, <RangeSliderElement/>]),
 
-            "DateTimePicker":([<H1>DateTime Elements</H1>, <DatePickerElement/>]),
+            "DateTimePicker":([<H1>DateTime Elements</H1>, <DatePickerElement/>, <TimePickerElement/>, <DateTimePickerElement/>]),
             /*
             //inputs
             "DateTimePicker":(<div>
