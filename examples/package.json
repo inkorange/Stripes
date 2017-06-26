@@ -1,6 +1,6 @@
 {
   "name": "Zebra-Stripes-Design-System",
-  "version": "0.0.1",
+  "version": "0.1.5",
   "description": "Zebra Stripes Examples",
   "scripts": {
     "start": "gulp buildandrun"
@@ -12,6 +12,7 @@
     "del": "^2.2.1",
     "disc": "*",
     "enzyme": "^2.0.0-rc1",
+    "es6-object-assign": "*",
     "git-rev": "^0.2.1",
     "gulp": "^3.9.1",
     "gulp-babel": "*",
@@ -38,10 +39,9 @@
     "watchify": "^2.2.1",
     "jsx-to-string": "*",
     "react-prism": "^4.0.0",
-    "zebra-stripes": "../pkg/zebra-stripes-0.1.0.tgz"
+    "zebra-stripes": "../pkg/zebra-stripes-0.1.5.tgz"
   },
   "dependencies": {
-    "babel-loader": "*",
     "babel-preset-es2016": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
@@ -51,9 +51,9 @@
     "inline-style-prefixer": "^0.6.2",
     "lodash._basefor": "^3.0.3",
     "moment": "*",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "react-router": "^3.0.0"
+    "react": "^15.4.0",
+    "react-dom": "^15.4.1",
+    "react-router": "^3.0.1"
   }
 }
 

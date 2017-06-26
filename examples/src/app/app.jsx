@@ -7,6 +7,7 @@ import Router from 'react-router/lib/Router'
 import IndexRoute from 'react-router/lib/IndexRoute'
 import browserHistory from 'react-router/lib/browserHistory'
 import { Stripes } from 'zebra-stripes/Core/Stripes'
+require('es6-object-assign').polyfill();
 
 // layouts
 const MainLayout = require('./layouts/MainLayout');
