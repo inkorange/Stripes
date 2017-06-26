@@ -81,11 +81,10 @@ export class Icon extends StripesTheme {
                  style={Iconstyle}
                  {...this.getDataSet(this.props)}
                  data-name={this.props.iconid}
-                 onClick={this.props.enhancedClick ? null : this.clickAction}
             >
                 <div style={{position: 'relative'}}>
                     {svg}
-                    <div style={{position: 'absolute', cursor: 'pointer', top: 0, bottom: 0, right: 0, left: 0, backgroundColor:'rgba(0,0,0,.001)'}} className="icon-click-target" onClick={this.clickAction}></div>
+                    { this.props.onClick ? <div style={{position: 'absolute', cursor: 'pointer', top: 0, bottom: 0, right: 0, left: 0, backgroundColor:'rgba(0,0,0,.001)'}} className="icon-click-target" onClick={this.clickAction}></div> : null }
                 </div>
                 {this.props.children}
             </div>

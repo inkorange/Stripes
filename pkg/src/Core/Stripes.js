@@ -280,22 +280,19 @@ export class StripesTheme extends React.Component {
             iterations: 1,
             fill: 'both'
         };
-        var aniExplode = [
+        var aniExplode = direction ? [
             { opacity: 0},
             { opacity: 1}
+        ] : [
+            { opacity: 1},
+            { opacity: 0}
         ];
         var animation = node.animate(
             aniExplode,
             aniTiming
         );
-        animation.pause(); // must pause out of the gate or it will just run.
-
-        if(direction) {
-            animation.play();
-        } else {
-            animation.reverse();
-        }
-
+        //animation.pause(); // must pause out of the gate or it will just run.
+        animation.play();
     }
 
     animateSlide(node, direction) {

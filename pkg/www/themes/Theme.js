@@ -51,7 +51,7 @@ var Theme = {
             errorFontSize: '1.2rem',
             borderRadius: baseRadius,
             underlineHeight: 2,
-            dropDownOffset: basePadding + 'px',
+            dropDownOffset: 0,
             menuZIndex: 2000
         },
         navbar: {

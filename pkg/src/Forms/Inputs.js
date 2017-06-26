@@ -287,7 +287,6 @@ class DropDown extends StripesTheme {
         placeholder: 'Select...',
         error: null,
         width: null,
-        showEmpty: false,
         iconStyle: {},
         value: null,
         onChange: () => { return false; }

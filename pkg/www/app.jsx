@@ -18,6 +18,7 @@ import { Card, LeftNav, MenuItem, TwoColumnLayout } from '../src/Layouts'
 import {Icon} from  '../src/Symbols/Icon'
 import {Tooltip} from  '../src/Notifications/Tooltip'
 import {ShowHide, TabMenu, IconMenu} from '../src/Layouts'
+import {Alert} from '../src/Notifications/Alert'
 import {ProgressSpinner} from '../src/Elements/ProgressSpinner'
 require('es6-object-assign').polyfill();
 
@@ -192,7 +193,8 @@ class Sandbox extends React.Component {
             datevalue: "Fri Jun 02 2017 12:30:00 GMT-0400 (EDT)",
             tlaFullStart: 0,
             tlaFullEnd: Infinity,
-            sliderenabled: true
+            sliderenabled: true,
+            alertshow: false
         };
     }
 
@@ -234,7 +236,17 @@ class Sandbox extends React.Component {
         return (
             <div style={{margin: '50px', position: 'relative'}}>
 
-                <RaisedButton type="primary" ref="buttest">Testing the click animation!!!!</RaisedButton><br/><br/>
+                <div style={{position: "relative",  width: "35px",margin: "20px"}}>
+                    <Icon
+                        iconid="admin"
+                        size="large"
+                        style={{cursor: "pointer"}}
+                        onClick={() => {this.setState({alertshow: !this.state.alertshow})}}
+                    />
+                    <Alert show={this.state.alertshow} position="right">This is an alert on the right</Alert>
+                </div>
+
+                <br/><br/>
 
                 <CheckBoxGroup ref="checkboxgroup">
                     <Item defaultChecked={true} key="option1">Checkbox Option 1</Item>

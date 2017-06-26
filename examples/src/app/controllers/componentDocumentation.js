@@ -78,31 +78,31 @@ export class ComponentDocumentation extends React.Component {
                     style={style.base}
                     headerStyle={style.header}
                 >
-
-                <div style={style.details}>
-                    {this.props.description}
-                    <div style={style.properties}>
+                    <div style={style.details}>
+                        {this.props.description}
+                        <div key="properties" style={style.properties}>
+                            <ShowHide
+                                label={this.props.title + " Properties"}
+                                labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(20, 20, 20)', fontSize: '2rem'}}
+                                contentStyle={{padding: '20px'}}
+                                icons={["up","down"]}
+                                initialShow={true}
+                            >
+                                <div style={{backgroundColor: 'white'}}>
+                                    {paramNodes}
+                                </div>
+                            </ShowHide>
+                        </div>
                         <ShowHide
-                            label={this.props.title + " Properties"}
+                            label="Examples in Practice"
                             labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(20, 20, 20)', fontSize: '2rem'}}
                             contentStyle={{padding: '20px'}}
                             icons={["up","down"]}
-                            initialShow={true}
+                            key="showhide"
                         >
-                            <div style={{backgroundColor: 'white'}}>
-                                {paramNodes}
-                            </div>
+                            {codeExamples}
                         </ShowHide>
                     </div>
-                    <ShowHide
-                        label="Examples in Practice"
-                        labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(20, 20, 20)', fontSize: '2rem'}}
-                        contentStyle={{padding: '20px'}}
-                        icons={["up","down"]}
-                    >
-                        {codeExamples}
-                    </ShowHide>
-                </div>
                 </Card>
 
         )

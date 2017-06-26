@@ -61,10 +61,12 @@ export class SelectPanel extends StripesTheme {
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
+        var parentHeight = this.refs.panelcontainer.parentElement.offsetHeight;
+        //console.log(this.refs.panelcontainer,  this.refs.panelcontainer.parentElement, 'parent height: ', parentHeight);
         var styleObj = {
             results: {
                 position: 'absolute',
-                top: spacing.dropDownOffset,
+                top: parentHeight + spacing.dropDownOffset + 'px',
                 minWidth: '100%',
                 maxWidth: '100vw',
                 left: this.state.isBeyond ? '-' + this.state.isBeyond + 'px' : 0,

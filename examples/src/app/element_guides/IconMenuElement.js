@@ -66,8 +66,8 @@ export class IconMenuElement extends React.Component {
                                  <IconMenu style={{float: 'right'}} iconid="filter" direction="top" max-width="400px">
                                      <TwoColumnLayout
                                      style={{padding: '20px', width: '300px'}}
-                                     columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
-                                     columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
+                                     columnOne={<div key="col1">This is content for the first column. This will display on the left side of the component.</div>}
+                                     columnTwo={<div key="col2">This is content for the second column. This will display on the right side of the component.</div>}
                                      />
                                  </IconMenu>
                             )

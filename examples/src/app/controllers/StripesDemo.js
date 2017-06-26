@@ -18,6 +18,10 @@ import {TabularListingElement} from '../element_guides/TabularListingElement'
 import {SliderElement, RangeSliderElement} from '../element_guides/SliderElements'
 import {DatePickerElement, TimePickerElement, DateTimePickerElement} from '../element_guides/DateTimeElements'
 import {FlatButtonElement, RaisedButtonElement} from '../element_guides/ButtonElements'
+import {CheckBoxElement, CheckBoxGroupElement, RadioButtonGroupElement} from '../element_guides/SwitchElements'
+import {IconElement} from '../element_guides/IconElement'
+import {AlertElement} from '../element_guides/AlertElement'
+import {TextBoxElement, TextAreaElement, DropDownElement} from '../element_guides/InputElements'
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
@@ -123,132 +127,36 @@ class StripesDemo extends React.Component {
 
             "DateTimePicker":([<H1>DateTime Elements</H1>, <DatePickerElement/>, <TimePickerElement/>, <DateTimePickerElement/>]),
 
-            "Buttons":([<H1></H1>, <FlatButtonElement/>,<RaisedButtonElement/> ]),
+            "Buttons":([<H1>Buttons</H1>, <FlatButtonElement/>,<RaisedButtonElement/> ]),
 
-            "Checkbox": (<div>
-                <H3>Checkbox ({this.state.checkboxdisable ? 'DISABLED' : 'VISIBLE'})</H3>
-                <CheckBoxGroup ref="checkboxgroup" disabled={this.state.checkboxdisable}>
-                    <Item defaultChecked={true} key="option1">Checkbox Option 1</Item>
-                    <Item key="option2">Checkbox Option 2</Item>
-                    <Item key="option3">Checkbox Option 3</Item>
-                </CheckBoxGroup>
-                <RaisedButton key="button1" onClick={() => { alert("Selected Values Are: " + this.refs.checkboxgroup.getValues()); }}>What are the Values?</RaisedButton>
-                <RaisedButton key="button2" onClick={() => { this.refs.checkboxgroup.setChecked("Checkbox Option 1", false); }}>Un-checking A</RaisedButton>
-                <RaisedButton key="button3" onClick={this.toggleCheckboxDisable}>Toggle Disable</RaisedButton>
-            </div>),
-            "RadioButtonGroup": (<div>
-                    <H3>RadioButtonGroup ({this.state.radiobuttondisabled ? 'DISABLED' : 'VISIBLE'})</H3>
-                    <RadioButtonGroup ref="radiobuttongroup" name="group1" disabled={this.state.radiobuttondisabled}>
-                        <Item key="option1" defaultChecked={true} >Radio Option 1</Item>
-                        <Item value="opt2" key="option2">Radio Option 2</Item>
-                        <Item key="option3">Radio Option 3</Item>
-                    </RadioButtonGroup>
-                    <RaisedButton key="button1" onClick={() => { alert("Selected value is: " + this.refs.radiobuttongroup.getValues()); }}>What is the Value?</RaisedButton>
-                    <RaisedButton key="button2" onClick={() => { this.refs.radiobuttongroup.setChecked("Radio Option 1", false); }}>Un-checking A</RaisedButton>
-                    <RaisedButton key="button3" onClick={this.toggleRadioDisable}>Toggle Disable</RaisedButton>
-                </div>),
-            "Textbox": (<div>
-                <H3>TextBox</H3>
-                <Fieldset>
-                    <TextBox placeholder="This is a placeholder" />
-                </Fieldset>
-                <Fieldset>
-                    <TextBox width="50%" placeholder="This is a placeholder" />
-                </Fieldset>
-                <Fieldset>
-                    <TextBox width="100%" placeholder="This is a placeholder" />
-                </Fieldset>
-                <Fieldset title="Input with Suggestions" style={{marginTop: "20px"}} >
-                    <TextBox
-                        width="50%"
-                        showSuggestions={true}
-                        suggestionData={['Alabama', 'Alaska','Arkansas','California','Colorado','New York','Connecticut']}
-                        placeholder="This is a placeholder" />
-                </Fieldset>
-                <Fieldset>
-                    <TextBox placeholder="This is a placeholder" error={this.state.inputerror}/>
-                    <RaisedButton key="button1" onClick={this.toggleError}>Trigger Error</RaisedButton>
-                </Fieldset>
-            </div>),
-            "TextArea": (<div>
-                <H3>TextArea</H3>
-                <Fieldset>
-                    <TextArea placeholder="This is a placeholder" />
-                </Fieldset>
-                <Fieldset>
-                    <TextArea width="100%" placeholder="This is a placeholder" />
-                </Fieldset>
-            </div>),
-            "DropDown": (<div>
-                <H3>DropDown</H3>
-                <Fieldset>
-                    <DropDown
-                        placeholder="Please select an option..."
-                        showEmpty={true}
-                        width="250px"
-                    >
-                        <Item value={null} key="option0">--- select one ---</Item>
-                        <Item value="1" key="option1">Select Option 1</Item>
-                        <Item value="2" key="option2">Select Option 2</Item>
-                        <Item value="3" key="option3">Select Option 3</Item>
-                        <Item value="4" key="option4">Select Option 4</Item>
-                        <Item value="5" key="option5">Select Option 5</Item>
-                        <Item value="6" key="option6">Select Option 6</Item>
-                        <Item value="7" key="option7">Select Option 7</Item>
-                        <Item value="8" key="option8">Select Option 8</Item>
-                        <Item value="9" key="option9">Select Option 9</Item>
-                        <Item value="10" key="option10">Select Option 10</Item>
-                        <Item value="11" key="option11">Select Option 11</Item>
-                        <Item value="12" key="option12">Select Option 12</Item>
-                        <Item value="13" key="option13">Super long input for this select Option 13</Item>
-                    </DropDown>
-                </Fieldset>
-            </div>),
+            "Switches":([<H1>Switches</H1>,<CheckBoxElement/>,<CheckBoxGroupElement/>, <RadioButtonGroupElement/> ]),
+
+            "Icon": ([<H1>Icons</H1>, <IconElement />]),
+
+            "Inputs": ([<H1>Inputs</H1>, <TextBoxElement/>, <TextAreaElement/>, <DropDownElement/>]),
 
             // components
-            "Alert": (<div>
-                <H3>Alert</H3>
+            "Alert": ([<H1>Alert</H1>, <AlertElement/>])
+
+                /*
                 <div style={{position: "relative", width: '35px', margin: '20px 20px 20px 200px'}}>
                     <Icon
                         iconid="admin"
                         size="large"/>
                     <Alert show={true}>This is an alert on the left</Alert>
                 </div>
-                <div style={{position: "relative",  width: '35px',margin: '20px'}}>
+                <div style={{position: "relative",  width: "35px",margin: "20px"}}>
                     <Icon
                         iconid="admin"
                         size="large"
-                        style={{cursor: 'pointer'}}
+                        style={{cursor: "pointer"}}
                         onClick={() => {this.setState({alertshow: !this.state.alertshow})}}
                     />
                     <Alert show={this.state.alertshow} position="right">This is an alert on the right</Alert>
                 </div>
-            </div>),
-            "Icon": (<div>
-                <H3>Icon</H3>
-                <Icon
-                    style={{margin: '10px'}}
-                    iconid="view_by_2"
-                    size="large"
-                />
-                <Icon
-                    style={{margin: '10px'}}
-                    iconid="view_by_2"
-                    size="large"
-                    type="primary"
-                />
-                <Icon
-                    style={{margin: '10px'}}
-                    iconid="view_by_2"
-                    size="large"
-                    color="orange"
-                />
             </div>)
-        };
+            */
 
-        var h1style = {
-            borderBottom: 'solid 1px #3366CC',
-            paddingBottom: '20px'
         };
 
         var navSideStyle = {
