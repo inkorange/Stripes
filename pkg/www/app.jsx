@@ -232,7 +232,15 @@ class Sandbox extends React.Component {
         }
 
         return (
-            <div style={{margin: '10px'}}>
+            <div style={{margin: '50px', position: 'relative'}}>
+
+                <RaisedButton type="primary" ref="buttest">Testing the click animation!!!!</RaisedButton><br/><br/>
+
+                <CheckBoxGroup ref="checkboxgroup">
+                    <Item defaultChecked={true} key="option1">Checkbox Option 1</Item>
+                    <Item key="option2">Checkbox Option 2</Item>
+                    <Item key="option3">Checkbox Option 3</Item>
+                </CheckBoxGroup>
 
                 <DateTimePicker
                     id="open_before_date"

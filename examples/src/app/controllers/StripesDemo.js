@@ -17,6 +17,7 @@ import {TableElement} from '../element_guides/TableElement'
 import {TabularListingElement} from '../element_guides/TabularListingElement'
 import {SliderElement, RangeSliderElement} from '../element_guides/SliderElements'
 import {DatePickerElement, TimePickerElement, DateTimePickerElement} from '../element_guides/DateTimeElements'
+import {FlatButtonElement, RaisedButtonElement} from '../element_guides/ButtonElements'
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
 
@@ -121,42 +122,9 @@ class StripesDemo extends React.Component {
             "Form Elements": ([<H1>Form Elements</H1>, <FieldsetElement />, <SliderElement />, <RangeSliderElement/>]),
 
             "DateTimePicker":([<H1>DateTime Elements</H1>, <DatePickerElement/>, <TimePickerElement/>, <DateTimePickerElement/>]),
-            /*
-            //inputs
-            "DateTimePicker":(<div>
-                        <section>
-                            <H3>Date and Time Pickers</H3>
-                            <DatePicker
-                                width="150px"
-                                placeholder="Select Date"
-                            />
-                            <TimePicker
-                                width="150px"
-                                placeholder="Select Time"
-                            />
-                        </section>
-                        <section>
-                            <H3>Date/Time Picker</H3>
-                            <DateTimePicker
-                                placeholder={["Date","Time"]}
-                            />
-                        </section>
-                </div>),*/
-            "Buttons": (<div>
-            <section>
-                <H3>FlatButton</H3>
-                <FlatButton key="button1">FlatButton</FlatButton>
-                <FlatButton key="button2" type="primary">FlatButton</FlatButton>
-                <FlatButton key="button3" type="secondary" onClick={() => { alert('I clicked'); }}>FlatButton</FlatButton>
-                <FlatButton key="button4" disabled={true}>FlatButton</FlatButton>
-            </section>
-            <section>
-                <H3>RaisedButton</H3>
-                <RaisedButton key="button5">RaisedButton</RaisedButton>
-                <RaisedButton key="button6" type="primary">RaisedButton</RaisedButton>
-                <RaisedButton key="button7" type="secondary">RaisedButton</RaisedButton>
-            </section>
-                </div>),
+
+            "Buttons":([<H1></H1>, <FlatButtonElement/>,<RaisedButtonElement/> ]),
+
             "Checkbox": (<div>
                 <H3>Checkbox ({this.state.checkboxdisable ? 'DISABLED' : 'VISIBLE'})</H3>
                 <CheckBoxGroup ref="checkboxgroup" disabled={this.state.checkboxdisable}>

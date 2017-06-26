@@ -29,7 +29,7 @@ export class DatePickerElement extends React.Component {
                         {name: 'manual',          type: 'boolean',  desc: 'Toggle that, when set, allows the user to manually enter a date in the input field. By default, clicking the input will launch the DatePicker dialog.', default: 'false'},
                         {name: 'onSet',           type: 'function', desc: 'Callback function fired when the date value is changed.', default: '() => { return false; }'},
                         {name: 'placeholder',     type: 'string',   desc: 'The default placeholder text when there is no value entered.', default: 'null'},
-                        {name: 'style',           type: 'Object',   desc: 'Style object that will override the component\'s container', default: '{}'},
+                        {name: 'style',           type: 'object',   desc: 'Style object that will override the component\'s container', default: '{}'},
                         {name: 'width',           type: 'string',   desc: 'The css property value for the width of the DatePicker input.', default: '100%'},
                         {name: 'yearFormat',      type: 'string',   desc: 'The year format to be displayed on the Year picker dialog.', default: 'YYYY'}
                     ]}
@@ -87,7 +87,7 @@ export class TimePickerElement extends React.Component {
                         {name: 'manual',        type: 'boolean',   desc: 'Toggle to enable the input to be manually entered, keeping this false will launch the Time selector when the user clicks the input.', default: 'false'},
                         {name: 'onSet',         type: 'function',  desc: 'Callback function fired when the value of the Time picker is changed.', default: ' () => { return false; }'},
                         {name: 'placeholder',   type: 'string',    desc: 'The placeholder string shown when no value is entered.', default: 'Time'},
-                        {name: 'style',         type: 'Object',    desc: 'Style overrides for the container of the Time picker.', default: '{}'},
+                        {name: 'style',         type: 'object',    desc: 'Style overrides for the container of the Time picker.', default: '{}'},
                         {name: 'time',          type: 'string',    desc: 'The initial time value, in date string format', default: 'null'},
                         {name: 'width',         type: 'string',    desc: 'CSS value for the width of the Time component.' , default: '100%'},
                     ]}
@@ -145,7 +145,7 @@ export class DateTimePickerElement extends React.Component {
                         {name: 'manual',         type: 'boolean',   desc: 'Toggle to enable the input to be manually entered, keeping this false will launch the Time selector when the user clicks the input.', default: 'false'},
                         {name: 'onChange',       type: 'function',  desc: 'Callback function fired when the value of the DateTimePicker is changed.', default: ' () => { return false; }'},
                         {name: 'placeholder',    type: 'Array',    desc: 'An array of strings that represent the placeholder for the date and time inputs.', default: '[\'Date\',\'Time\']'},
-                        {name: 'style',          type: 'Object',    desc: 'Style overrides for the container of the DateTimePicker.', default: '{}'},
+                        {name: 'style',          type: 'object',    desc: 'Style overrides for the container of the DateTimePicker.', default: '{}'},
                         {name: 'timeFormat',     type: 'string',    desc: 'The format displayed of the selected time.', default: 'hh:mm a'},
                         {name: 'timewidth',      type: 'string',    desc: 'The css value, typically a percentage of 100%, that defines the width of the time selector.', default: '40%'},
                         {name: 'value',          type: 'string',    desc: 'The string representation of a date object used for the initial date and time of the form input.' , default: 'null'},

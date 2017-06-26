@@ -244,6 +244,8 @@ export class StripesTheme extends React.Component {
 
     animateBackground(e) {
         var target = e.target;
+
+
         var inkNode = target.querySelector('.ink');
         if(!inkNode) {
             return false;
@@ -257,8 +259,10 @@ export class StripesTheme extends React.Component {
             { opacity: 0, transform: 'scale(2.5)'}
         ];
         var d = Math.max(target.offsetWidth, target.offsetHeight);
-        var x = e.pageX - target.offsetLeft - inkNode.clientWidth/2;
-        var y = e.pageY - target.offsetTop - inkNode.clientHeight/2;
+        //var x = e.pageX - target.offsetLeft - inkNode.clientWidth/2;
+        //console.log(e.pageY, target.offsetTop, target.getBoundingClientRect());
+        var x = e.pageX - target.getBoundingClientRect().left - inkNode.clientWidth/2;
+        var y = e.pageY - target.offsetTop - inkNode.clientHeight/2 - target.getBoundingClientRect().height;
         inkNode.style.height=d + "px";
         inkNode.style.width=d + "px";
         inkNode.style.top=y + "px";

@@ -11,7 +11,7 @@ var Theme = {
             padding: basePadding,
             margin: baseMargin,
             menuZIndex: 2000,
-            baseFontSize: 1.6,
+            baseFontSize: 1.6
         },
         primary: {
             borderRadius: baseRadius,
@@ -26,14 +26,18 @@ var Theme = {
             baseFontSize: 1.6,
         },
         notification: {
-            padding: basePadding
+            padding: basePadding,
+            zIndex: 2000,
+            baseFontSize: 1.4
         },
         switches: {
             padding: basePadding,
             margin: baseMargin,
             borderRadius: baseRadius,
             width: 20,
-            height: 20
+            height: 20,
+            fontSize: '1.6rem',
+            errorFontSize: '1.2rem'
         },
         typography: {
             baseFontSize: 1.6,
@@ -47,8 +51,8 @@ var Theme = {
             errorFontSize: '1.2rem',
             borderRadius: baseRadius,
             underlineHeight: 2,
-            menuZIndex: 2000,
-            dropDownOffset: '10px'
+            dropDownOffset: basePadding + 'px',
+            menuZIndex: 2000
         },
         navbar: {
             minHeight: 64,
@@ -62,17 +66,18 @@ var Theme = {
             indicatorHeight: 2
         },
         table: {
-            fontSize: '1.4rem',
+            fontSize: '1.5rem',
             header: {
-                minHeight: 48 - (basePadding*2)
+                minHeight: 64 - (basePadding*2)
             },
             cell: {
                 fontSize: '1.4rem',
+                lineHeight: '1.6rem',
                 padding: basePadding*2,
                 sortWidth: 10
             },
             row: {
-                minHeight: 48
+                minHeight: 54
             }
         }
     }

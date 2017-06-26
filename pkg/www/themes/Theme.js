@@ -11,7 +11,7 @@ var Theme = {
             padding: basePadding,
             margin: baseMargin,
             menuZIndex: 2000,
-            baseFontSize: 1.6,
+            baseFontSize: 1.6
         },
         primary: {
             borderRadius: baseRadius,
