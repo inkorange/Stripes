@@ -45,27 +45,17 @@ export class TableBody extends StripesTheme {
     stripeRows() {
         var color = this.getColors()[this.props.type].row;
         var rows = this.refs.tableBody.getElementsByTagName("TR");
-
         for (var i = 0; i < rows.length; i = i + 2) {
             rows[i].style.backgroundColor = color.zebraStripe;
         }
-
-        // color.zebraStripe
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type].row;
-        var spacing = this.getSpacing()[this.props.type].row;
         var styleObj = {
             base: {
                 height: this.props.height,
-                overflow: 'auto'
-                /*
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0 */
+                overflow: 'auto',
+                width: '100%'
             },
             table: {
                 width: '100%'

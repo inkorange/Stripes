@@ -56,16 +56,17 @@ class A extends Stripes.StripesTheme {
         this.state = {
             hover: false
         }
+        this._clickAction = this._clickAction.bind(this);
     }
 
     getStyles() {
-        var spacing = this.getSpacing()[this.props.type];
         var color = this.getColors()[this.props.type];
         var styleObj = {
             base: {
                 color: color.aColor,
                 textDecoration: 'none',
-                fontWeight: 200
+                fontWeight: 200,
+                cursor: this.props.disabled ? 'default' : 'pointer'
             },
             hover: {
                 color: color.aHoverColor,
@@ -76,6 +77,14 @@ class A extends Stripes.StripesTheme {
         styleObj.base = Object.assign(styleObj.base, this.props.style);
         styleObj.hover = Object.assign(styleObj.hover, this.props.style);
         return styleObj;
+    }
+
+    _clickAction(e) {
+        if(!this.props.disabled) {
+            this.props.onClick(e);
+        }
+        e.preventDefault();
+        return false;
     }
 
     render() {
@@ -92,7 +101,7 @@ class A extends Stripes.StripesTheme {
                 href={this.props.href}
                 target={this.props.target}
                 {...dataprops}
-                onClick={!this.props.disabled ? this.props.onClick : () => { return false; } }
+                onClick={this._clickAction}
                 onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
             >
                 {this.props.children}

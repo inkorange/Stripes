@@ -93,11 +93,18 @@ class RadioButtonGroup extends StripesTheme {
         if(this.props.disabled) {
             return false;
         }
+        var isChanged = true;
         var pos = e.target.getAttribute("data-itemid")*1;
         this.state.items.map((item, i) => {
+            if(this.state.items[i].checked && i === pos) {
+                isChanged = false;
+            }
             this.state.items[i].checked = i === pos ? 'checked' : null;
         });
-        //e.stopImmediatePropagation;
+        if(isChanged) {
+            this.props.onChange(e, this.getValues()[0]);
+        }
+        e.preventDefault();
         this.forceUpdate();
     }
 
@@ -153,14 +160,14 @@ class RadioButtonGroup extends StripesTheme {
         var itemNodes = [];
         this.state.items.map((item, i) => {
             itemNodes.push(
-                <label data-itemid={i} checked={item.checked ? 'checked' : null} onClick={this.updateValue} key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
+                <label data-itemid={i} checked={item.checked ? 'checked' : null} key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
                     <div style={item.checked ? this.state.style.radio.active : this.state.style.radio.inactive}></div>
                     <input
                         {...item.dataset}
                         data-itemid={i}
                         name={this.props.name}
                         disabled={this.props.disabled}
-                        onChange={this.handleSwitchOnChange}
+                        onClick={this.updateValue}
                         style={this.state.style.input}
                         type="radio"
                         value={item.value}

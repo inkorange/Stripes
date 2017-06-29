@@ -12,7 +12,7 @@ import {NavBar} from '../src/Layouts'
 import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from '../src/Table'
 import {TabularListing} from '../src/Elements/TabularListing'
 import {TabularDetail} from '../src/Elements/TabularDetail'
-import { Title, H1, H2, H3 } from '../src/Typography'
+import { A, Title, H1, H2, H3 } from '../src/Typography'
 import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider, RangeSlider } from '../src/Forms'
 import { Card, LeftNav, MenuItem, TwoColumnLayout } from '../src/Layouts'
 import {Icon} from  '../src/Symbols/Icon'
@@ -223,6 +223,10 @@ class Sandbox extends React.Component {
         this.refs.tmsCube_range.reset();
     }
 
+    _updateFilter(a,b) {
+        console.log('I FIRED AN UPDATE!', a,b);
+    }
+
     render() {
         var trailerTypeOptions = [];
         var trailerTypes = ["28DF", "28SR", "45VAN", "48VAN", "53VAN", "33SR", "33DF"];
@@ -233,26 +237,34 @@ class Sandbox extends React.Component {
             });
         }
 
+        var radioobj = [{"label":"No Filter","value":""},{"label":"Only Alerts","value":"alerts"},{"label":"Open Trailers","value":"only-open"},{"label":"Top 10 Worst RT Cube","value":"rt-cubes-score"},{"label":"Top 10 Trailer Weight","value":"trailer-weight"}];
+        var filterItems = [];
+        radioobj.map((v) => {
+            filterItems.push(
+                <Item data-event-click="FILTER"
+                      data-event-desc={"Submit doors "+v.label}
+                      data-automation-id={"Submit Filter By " + v.label}
+                      key={"item"-v.value}
+                      value={v.value}
+                      defaultChecked={this.state.viewFilter === v.value} >
+                    {v.label}
+                </Item>
+            );
+        });
+
         return (
+
             <div style={{margin: '50px', position: 'relative'}}>
+                <p><A disabled={true} onClick={() => { alert('takethat!'); } }>This is disabled.</A></p>
+                <p><A disabled={false} onClick={() => { alert('takethat!'); } }>This is ENABLED!.</A></p>
 
-                <div style={{position: "relative",  width: "35px",margin: "20px"}}>
-                    <Icon
-                        iconid="admin"
-                        size="large"
-                        style={{cursor: "pointer"}}
-                        onClick={() => {this.setState({alertshow: !this.state.alertshow})}}
-                    />
-                    <Alert show={this.state.alertshow} position="right">This is an alert on the right</Alert>
-                </div>
+                <br/>
+                <Slider />
 
-                <br/><br/>
 
-                <CheckBoxGroup ref="checkboxgroup">
-                    <Item defaultChecked={true} key="option1">Checkbox Option 1</Item>
-                    <Item key="option2">Checkbox Option 2</Item>
-                    <Item key="option3">Checkbox Option 3</Item>
-                </CheckBoxGroup>
+            <br/><br/>
+
+
 
                 <DateTimePicker
                     id="open_before_date"
@@ -283,16 +295,7 @@ class Sandbox extends React.Component {
                     {trailerTypeOptions}
                 </DropDown>
 
-                <FlatButton onClick={() => { console.log(this.refs.tmsCube_range.getValue()); }}>GET FIRST VALUES</FlatButton>
-                <FlatButton onClick={() => {this.setState({tlaFullStart:22, tlaFullEnd:"Infinity"});}}>22,Infinity</FlatButton>
-                <FlatButton onClick={() => {this.setState({tlaFullStart:50, tlaFullEnd:80});}}>50,80</FlatButton>
-                <FlatButton onClick={this.resetSlider}>Reset SLider</FlatButton>
 
-
-                <TabularListing
-                    height={this.state.height}
-                    data={this.state.data}
-                />
 
             </div>
 

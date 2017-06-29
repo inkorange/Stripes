@@ -11,7 +11,8 @@ export class ProgressSpinner extends StripesTheme {
         style: {},
         size: 125,
         type: 'default',
-        strokeDasharray: [50,50]
+        strokeDasharray: [50,50],
+        show: true
     }
 
     constructor(props) {
@@ -26,13 +27,20 @@ export class ProgressSpinner extends StripesTheme {
     componentDidMount() {
         animator = setInterval(() => {
                 this.setState({
-                        strokeOffset: this.state.strokeOffset + 25,
-                        //strokeDasharray: [this.state.strokeDasharray[0] + 5, this.state.strokeDasharray[0] + 20]
+                        strokeOffset: this.state.strokeOffset + 25
                     }, this.setState({
                         style: this.getStyles()
                     })
                 )
         }, 100);
+    }
+
+    componentDidUpdate(props) {
+        if(this.props.show !== props.show) {
+            this.setState({
+                style: this.getStyles()
+            });
+        }
     }
 
     componentWillUnmount() {
@@ -48,7 +56,8 @@ export class ProgressSpinner extends StripesTheme {
                 top: 'calc(50% - '+this.props.size/2+'px)',
                 left: 'calc(50% - '+this.props.size/2+'px)',
                 width: this.props.size + 'px',
-                height: this.props.size + 'px'
+                height: this.props.size + 'px',
+                display: this.props.show ? 'block' : 'none'
             },
             spinner1: {
                 transition: 'all .2s',

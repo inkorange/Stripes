@@ -156,11 +156,11 @@ export class Calendar extends StripesTheme {
             days.push(
                 <A
                     key={"date" + i}
-                    style={isSelectedDate ? this.state.style.dayitemSelected : isAvailable ? this.state.style.dayitem : this.state.style.dayitemUnavailable}
+                    style={isSelectedDate && day ? this.state.style.dayitemSelected : isAvailable ? this.state.style.dayitem : this.state.style.dayitemUnavailable}
                     data-date={thisDate.toDate().toString()}
-                    onClick={ i > 0 ? this.selectDate : null}
+                    onClick={ i > 0 && day ? this.selectDate : null}
                     data-date={thisDate.toDate().toString()}
-                    disabled={!isAvailable}
+                    disabled={!isAvailable || !day}
                 >
                     {day}
                 </A>
