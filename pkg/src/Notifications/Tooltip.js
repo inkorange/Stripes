@@ -12,9 +12,11 @@ export class Tooltip extends StripesTheme {
         duration: 500,
         target: null,
         width: 'auto',
+        height: '100px',
         iconid: null,
         position: 'right',
-        type: 'notification'
+        type: 'notification',
+        style: {}
     }
 
     constructor(props) {
@@ -45,16 +47,16 @@ export class Tooltip extends StripesTheme {
         var spacing = this.getSpacing()[this.props.type];
 
         var ComponentStyle = {
-            transition: 'all .5s .5s',
+            transition: 'all .25s '+this.props.duration+'ms',
             position: 'absolute',
             zIndex: spacing.zIndex,
             backgroundColor: color.tooltipBackgroundColor,
-            //padding: spacing.padding*2 + 'px ' + spacing.padding*3 + 'px',
             border: 'solid 1px ' + color.borderColor,
             borderRadius: '2px',
-            overflow: 'hidden',
+            overflowX: 'hidden',
+            overflowY: 'auto',
             color: color.textColor,
-            maxWidth: '400px',
+            maxWidth: this.props.width,
             fontSize: spacing.baseFontSize + 'rem',
             width: this.props.width
         };
@@ -65,7 +67,7 @@ export class Tooltip extends StripesTheme {
             base: Object.assign({
                     paddingLeft: this.props.iconid ? spacing.padding * 12 + 'px' : spacing.padding*3 + 'px',
                     opacity: this.props.show ? 1 : 0,
-                    maxHeight: this.props.show ? '100px' : '0px',
+                    maxHeight: this.props.show ? this.props.height : '0px',
                     paddingTop: this.props.show ? spacing.padding*3 + 'px' : 0,
                     paddingRight: this.props.show ? spacing.padding*3 + 'px' : 0,
                     paddingBottom: this.props.show ? spacing.padding*3 + 'px' : 0,
@@ -74,7 +76,7 @@ export class Tooltip extends StripesTheme {
                 }
                 , ComponentStyle),
             baseIcon: {
-                transition: 'top .5s .5s',
+                transition: 'top .25s '+this.props.duration+'ms',
                 position: 'absolute',
                 left: spacing.padding*3 + 'px',
                 top: this.props.show ? spacing.padding*3 + 'px' : 0
@@ -85,11 +87,12 @@ export class Tooltip extends StripesTheme {
             }
         };
 
+        styleObj.base = Object.assign(styleObj.base, this.props.style);
+
         return styleObj;
     }
 
     render() {
-        //console.log('should I show? ', this.props.show);
         return (
             <div {...this.getDataSet(this.props)} ref="Tooltip" style={this.state.style.base}>
                 {this.props.iconid ? (

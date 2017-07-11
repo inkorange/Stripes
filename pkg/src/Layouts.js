@@ -8,6 +8,7 @@ import {NavBar} from  './Layout/NavBar'
 import {MenuItem} from  './Layout/MenuItem'
 import {ShowHide} from './Layout/ShowHide'
 import {TabMenu} from  './Layout/TabMenu'
+import {Tag} from  './Layout/Tag'
 import {TwoColumnLayout} from  './Layout/TwoColumnLayout'
 
 module.exports = {
@@ -22,6 +23,7 @@ module.exports = {
     Paper: Paper,
     ShowHide: ShowHide,
     TabMenu: TabMenu,
+    Tag: Tag,
     Title: Title,
     TwoColumnLayout: TwoColumnLayout
 }

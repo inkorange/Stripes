@@ -14,10 +14,10 @@ import {TabularListing} from '../src/Elements/TabularListing'
 import {TabularDetail} from '../src/Elements/TabularDetail'
 import { A, Title, H1, H2, H3 } from '../src/Typography'
 import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider, RangeSlider } from '../src/Forms'
-import { Card, LeftNav, MenuItem, TwoColumnLayout } from '../src/Layouts'
+import { Dialog, Card, LeftNav, MenuItem, TwoColumnLayout } from '../src/Layouts'
 import {Icon} from  '../src/Symbols/Icon'
 import {Tooltip} from  '../src/Notifications/Tooltip'
-import {ShowHide, TabMenu, IconMenu} from '../src/Layouts'
+import {Tag, ShowHide, TabMenu, IconMenu} from '../src/Layouts'
 import {Alert} from '../src/Notifications/Alert'
 import {ProgressSpinner} from '../src/Elements/ProgressSpinner'
 require('es6-object-assign').polyfill();
@@ -182,19 +182,12 @@ class Sandbox extends React.Component {
             sort_direction:"desc"
         };
 
-        this.wipeoutvalue = this.wipeoutvalue.bind(this);
-        this._updateNotesFilter = this._updateNotesFilter.bind(this);
-        this.resetSlider = this.resetSlider.bind(this);
+        this.onRemove = this.onRemove.bind(this);
+        this.toggleTooltip = this.toggleTooltip.bind(this);
 
         this.state = {
             data: dataObj,
-            trailerType: '',
-            notes: false,
-            datevalue: "Fri Jun 02 2017 12:30:00 GMT-0400 (EDT)",
-            tlaFullStart: 0,
-            tlaFullEnd: Infinity,
-            sliderenabled: true,
-            alertshow: false
+            showTooltip: false
         };
     }
 
@@ -205,26 +198,16 @@ class Sandbox extends React.Component {
     componentWillUpdate(props) {
     }
 
-    wipeoutvalue(val) {
+
+    onRemove(e,b) {
+        console.log(e,b);
+        this.refs.tag1.close();
+    }
+
+    toggleTooltip() {
         this.setState({
-            datevalue: val
-        }, () => {
-            this.refs.open_after_date.setDateTime(this.state.datevalue);
+            showTooltip: !this.state.showTooltip
         });
-    }
-
-    _updateNotesFilter(isChecked) {
-        this.setState({
-            notes: isChecked
-        });
-    }
-
-    resetSlider() {
-        this.refs.tmsCube_range.reset();
-    }
-
-    _updateFilter(a,b) {
-        console.log('I FIRED AN UPDATE!', a,b);
     }
 
     render() {
@@ -254,48 +237,31 @@ class Sandbox extends React.Component {
 
         return (
 
-            <div style={{margin: '50px', position: 'relative'}}>
-                <p><A disabled={true} onClick={() => { alert('takethat!'); } }>This is disabled.</A></p>
-                <p><A disabled={false} onClick={() => { alert('takethat!'); } }>This is ENABLED!.</A></p>
-
-                <br/>
-                <Slider />
-
+            <div style={{margin: '50px'}}>
 
             <br/><br/>
 
+                <Tag key="tag1" ref="tag1" value="Option 1" onClick={() => {console.log('CLICK');}} onRemove={() => {console.log('REMOVE');}}>Big Test Here</Tag>
+                <Tag key="tag2" value="Option 2" onRemove={this.onRemove}>f gfdgdfg  gf 2</Tag>
+                <Tag key="tag3">Option 3</Tag>
+                <Tag key="tag4" disabled={true}>Option 4</Tag>
+                <Tag key="tag5" disabled={true} ref="tag1" value="Option 5" onRemove={this.onRemove}>Op dffdgfdgfgdtion 1</Tag>
+                <Tag key="tag6" value="Option 2" onRemove={this.onRemove}>Option 2</Tag>
+                <Tag key="tag7" disabled={true} ref="tag1" value="Option 7" onRemove={this.onRemove}>Optfdgfsadaa af d dsf ion 1</Tag>
+                <Tag key="tag8" value="Option 2" onRemove={this.onRemove}>Option 2</Tag>
 
-
-                <DateTimePicker
-                    id="open_before_date"
-                    ref="open_before_date"
-                    placeholder={["Before Date", "Time"]}
-                    manual={true}
-                    clockFormat="24hr"
-                    timeFormat="HH:mm"
-                />
-
-                <DateTimePicker
-                    id="open_before_date"
-                    ref="open_before_date"
-                    placeholder={["Before Date", "Time"]}
-                    manual={true}
-                />
-
-                <DropDown
-                    placeholder="All trailer types"
-                    data-automation-id="Load Area Selector"
-                    showEmpty={true}
-                    width="100%"
-                    key="trailerTypes"
-                    style={{margin: '-24px 0 0 0'}}
-                    onChange={(val) => { this.setState({trailerType: val})} }
-
-                >
-                    {trailerTypeOptions}
-                </DropDown>
-
-
+                <div style={{display: 'inline-block', float: 'right', position: 'relative'}}>
+                    <Icon ref="save_icon"
+                        onClick={this.toggleTooltip}  key="saved_icon"  iconid="menu" color="red" size="2.2rem"
+                    />
+                    <Tooltip ref="tooltip"
+                         width="400px"
+                             style={{paddingBottom: '10px'}}
+                         show={this.state.showTooltip}>
+                        <Tag key="tag1" ref="tag1" value="Option 1" onRemove={this.onRemove}>Opdsftion 1</Tag>
+                        <Tag key="tag2" value="Option 2" onRemove={this.onRemove}>f gfdgdfg  gf 2</Tag>
+                    </Tooltip>
+                </div>
 
             </div>
 

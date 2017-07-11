@@ -17,6 +17,8 @@ export class Dialog extends StripesTheme {
         title: null,
         actions: null,
         width: '80%',
+        className: "",
+        modal: true,
         onClose: () => { return false; }
     }
 
@@ -75,7 +77,7 @@ export class Dialog extends StripesTheme {
                 display: 'none',
                 opacity: this.state.open ? 1 : 0,
                 transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
-                background: 'rgba(0,0,0,.75)',
+                background: this.props.modal ? 'rgba(0,0,0,.75)' : 'rgba(0,0,0,.2)',
                 zIndex: spacing.menuZIndex
             },
             dialog: {
@@ -84,7 +86,7 @@ export class Dialog extends StripesTheme {
                 top: '45%',
                 left: '50%',
                 transform: 'translate(-50%, ' + (this.state.open ? '-50%' : '-80%') + ')',
-                transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+                transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
             },
             card: {
                 base: {

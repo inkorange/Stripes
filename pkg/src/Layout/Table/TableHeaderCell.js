@@ -95,6 +95,7 @@ export class TableHeaderCell extends StripesTheme {
         ) : null;
         return (
             <th onClick={this.onClick}
+                data-sort={this.props.sortdirection}
                 data-sortkey={this.props.field}
                 data-sortable={this.props.isSortable}
                 className={this.props.className}
