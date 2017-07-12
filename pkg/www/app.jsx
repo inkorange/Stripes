@@ -237,7 +237,7 @@ class Sandbox extends React.Component {
 
         return (
 
-            <div style={{margin: '50px'}}>
+            <div style={{margin: '50px', textAlign: 'right', background: 'gray'}}>
 
             <br/><br/>
 
@@ -250,13 +250,14 @@ class Sandbox extends React.Component {
                 <Tag key="tag7" disabled={true} ref="tag1" value="Option 7" onRemove={this.onRemove}>Optfdgfsadaa af d dsf ion 1</Tag>
                 <Tag key="tag8" value="Option 2" onRemove={this.onRemove}>Option 2</Tag>
 
-                <div style={{display: 'inline-block', float: 'right', position: 'relative'}}>
+                <div style={{display: 'inline', position: 'relative', height: '52px', marginRight: '5px'}}>
                     <Icon ref="save_icon"
                         onClick={this.toggleTooltip}  key="saved_icon"  iconid="menu" color="red" size="2.2rem"
                     />
                     <Tooltip ref="tooltip"
                          width="400px"
-                             style={{paddingBottom: '10px'}}
+                             duration="0"
+                             style={{paddingBottom: this.state.showTooltip ? '10px' : '0'}}
                          show={this.state.showTooltip}>
                         <Tag key="tag1" ref="tag1" value="Option 1" onRemove={this.onRemove}>Opdsftion 1</Tag>
                         <Tag key="tag2" value="Option 2" onRemove={this.onRemove}>f gfdgdfg  gf 2</Tag>

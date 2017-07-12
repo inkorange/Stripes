@@ -31,7 +31,6 @@ export class Tooltip extends StripesTheme {
         this.setState({
             target: this.refs.Tooltip.parentNode
         });
-        //console.log(this.props.target.getBoundingClientRect());
     }
 
     componentDidUpdate(props) {
@@ -51,18 +50,19 @@ export class Tooltip extends StripesTheme {
             position: 'absolute',
             zIndex: spacing.zIndex,
             backgroundColor: color.tooltipBackgroundColor,
-            border: 'solid 1px ' + color.borderColor,
-            borderRadius: '2px',
-            overflowX: 'hidden',
-            overflowY: 'auto',
+            //border: 'solid 1px ' + color.borderColor,
+            boxShadow: '0 1px 6px rgba(0,0,0,.25)',
+            borderRadius: spacing.borderRadius + 'px',
+            //overflowX: 'hidden',
+            overflowY: this.props.show ? 'visible' : 'hidden',
             color: color.textColor,
             maxWidth: this.props.width,
             fontSize: spacing.baseFontSize + 'rem',
             width: this.props.width
         };
 
-        var right = this.props.position === 'right' ? 0 : null;
-        var left = this.props.position === 'left' ? 0 : null;
+        var right = this.props.position === 'right' ? spacing.padding*-2 + 'px' : null;
+        var left = this.props.position === 'left' ? spacing.padding*-2 + 'px' : null;
         var styleObj = {
             base: Object.assign({
                     paddingLeft: this.props.iconid ? spacing.padding * 12 + 'px' : spacing.padding*3 + 'px',
@@ -72,7 +72,8 @@ export class Tooltip extends StripesTheme {
                     paddingRight: this.props.show ? spacing.padding*3 + 'px' : 0,
                     paddingBottom: this.props.show ? spacing.padding*3 + 'px' : 0,
                     right: right,
-                    left: left
+                    left: left,
+                    marginTop: spacing.padding + 'px'
                 }
                 , ComponentStyle),
             baseIcon: {
@@ -84,6 +85,19 @@ export class Tooltip extends StripesTheme {
             icon: {
                 width: spacing.padding*2 + 'px',
                 height: spacing.padding*2 + 'px'
+            },
+            arrow: {
+                transition: 'all .25s '+this.props.duration+'ms',
+                position: 'absolute',
+                top: this.props.show ? '-10px' : '0px',
+                right: (spacing.padding*2) + 'px',
+                width: '0px',
+                height: '0px',
+                opacity: this.props.show ? 1 : 0,
+                zIndex: spacing.zIndex+1,
+                borderLeft: '10px solid transparent',
+                borderRight: '10px solid transparent',
+                borderBottom: (this.props.show ? '10px' : '0') + ' solid white'
             }
         };
 
@@ -94,11 +108,15 @@ export class Tooltip extends StripesTheme {
 
     render() {
         return (
-            <div {...this.getDataSet(this.props)} ref="Tooltip" style={this.state.style.base}>
-                {this.props.iconid ? (
-                    <Icon basestyle={this.state.style.baseIcon} iconid={this.props.iconid} size="large"/>
-                ): null}
-                {this.props.children}
+            <div style={{display:'inline'}}>
+                <div {...this.getDataSet(this.props)} ref="Tooltip" style={this.state.style.base}>
+                    {this.props.iconid ? (
+                        <Icon basestyle={this.state.style.baseIcon} iconid={this.props.iconid} size="large"/>
+                    ): null}
+                    {this.props.children}
+                    <div style={this.state.style.arrow}></div>
+                </div>
+
             </div>
         )
     }

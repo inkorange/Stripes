@@ -82,7 +82,7 @@ export class Tag extends StripesTheme {
             icon: {
                 position: 'relative',
                 top: '5px',
-                right: '-5px',
+                right: '0px',
                 marginLeft: spacing.padding*2 + 'px'
             }
         };
