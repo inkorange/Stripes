@@ -76,14 +76,16 @@ export class Tag extends StripesTheme {
                 opacity: this.props.disabled ? '.5' : '1',
                 cursor: this.props.onClick ? 'pointer' : 'default'
             },
+            tagtext: {
+                paddingRight: this.props.onRemove ? spacing.padding*1.5 + 'px' : '0'
+            },
             containerClose: {
                 transform: 'scale(0,0)'
             },
             icon: {
                 position: 'relative',
                 top: '5px',
-                right: '0px',
-                marginLeft: spacing.padding*2 + 'px'
+                right: '0px'
             }
         };
         styleObj.container = Object.assign(styleObj.container, this.props.style);
@@ -94,7 +96,7 @@ export class Tag extends StripesTheme {
     render() {
         return (
             <div {...this.getDataSet(this.props)} style={this.state.closed ? this.state.style.containerClose : this.state.style.container} tabIndex="1" ref="Tag" onClick={this.props.onClick}>
-                {this.props.children}
+                <span style={this.state.style.tagtext}>{this.props.children}</span>
                 {this.props.onRemove ? <Icon style={this.state.style.icon} iconid={this.props.closeIconID} onClick={!this.props.disabled ? this.onRemove : null} size="small"/> : null}
             </div>
         )

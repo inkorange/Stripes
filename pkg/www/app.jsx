@@ -238,7 +238,10 @@ class Sandbox extends React.Component {
         return (
 
             <div style={{margin: '50px', textAlign: 'right', background: 'gray'}}>
-
+            <TextBox
+                width="50%"
+                maxLength={10}
+            />
             <br/><br/>
 
                 <Tag key="tag1" ref="tag1" value="Option 1" onClick={() => {console.log('CLICK');}} onRemove={() => {console.log('REMOVE');}}>Big Test Here</Tag>
@@ -255,12 +258,21 @@ class Sandbox extends React.Component {
                         onClick={this.toggleTooltip}  key="saved_icon"  iconid="menu" color="red" size="2.2rem"
                     />
                     <Tooltip ref="tooltip"
+                             className="HELLO"
                          width="400px"
                              duration="0"
                              style={{paddingBottom: this.state.showTooltip ? '10px' : '0'}}
                          show={this.state.showTooltip}>
                         <Tag key="tag1" ref="tag1" value="Option 1" onRemove={this.onRemove}>Opdsftion 1</Tag>
                         <Tag key="tag2" value="Option 2" onRemove={this.onRemove}>f gfdgdfg  gf 2</Tag>
+                        <Tag key="tag1" ref="tag1" value="Option 1" onClick={() => {console.log('CLICK');}} onRemove={() => {console.log('REMOVE');}}>Big Test Here</Tag>
+                        <Tag key="tag2" value="Option 2" onRemove={this.onRemove}>f gfdgdfg  gf 2</Tag>
+                        <Tag key="tag3">Option 3</Tag>
+                        <Tag key="tag4" disabled={true}>Option 4</Tag>
+                        <Tag key="tag5" disabled={true} ref="tag1" value="Option 5" onRemove={this.onRemove}>Op dffdgfdgfgdtion 1</Tag>
+                        <Tag key="tag6" value="Option 2" onRemove={this.onRemove}>Option 2</Tag>
+                        <Tag key="tag7" disabled={true} ref="tag1" value="Option 7" onRemove={this.onRemove}>Optfdgfsadaa af d dsf ion 1</Tag>
+                        <Tag key="tag8" value="Option 2" onRemove={this.onRemove}>Option 2</Tag>
                     </Tooltip>
                 </div>
 

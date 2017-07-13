@@ -12,10 +12,11 @@ export class Tooltip extends StripesTheme {
         duration: 500,
         target: null,
         width: 'auto',
-        height: '100px',
+        height: null,
         iconid: null,
         position: 'right',
         type: 'notification',
+        className: '',
         style: {}
     }
 
@@ -108,7 +109,7 @@ export class Tooltip extends StripesTheme {
 
     render() {
         return (
-            <div style={{display:'inline'}}>
+            <div className={this.props.className} style={{display:'inline'}}>
                 <div {...this.getDataSet(this.props)} ref="Tooltip" style={this.state.style.base}>
                     {this.props.iconid ? (
                         <Icon basestyle={this.state.style.baseIcon} iconid={this.props.iconid} size="large"/>
