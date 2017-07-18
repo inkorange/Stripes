@@ -1,5 +1,5 @@
 
-let primaryColor = "#3366CC";
+let primaryColor = "#007CB0";
 let primaryBackground = "#1565C0";
 let accentBlue = "#007CB0";
 let accentYellow = "#FFD200";

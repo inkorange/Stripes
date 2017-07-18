@@ -6,12 +6,13 @@ import ReactDOM from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Icon } from  '../Symbols/Icon'
 import { FlatButton } from  '../Forms/Buttons'
-import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from '../Table'
+import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell, ColumnSelector} from '../Table'
 
 export class TabularListing extends StripesTheme {
 
     static defaultProps = {
         type: 'default',
+        columnSelector: false,
         data: null,
         height: null,
         bodyHeight: null,
@@ -37,7 +38,9 @@ export class TabularListing extends StripesTheme {
         if(props.height !== this.props.height) {
             this.resolveHeight();
         }
-
+        if(props.data !== this.props.data) {
+            this.resolveHiddenFields();
+        }
     }
 
     constructor(props) {
@@ -71,6 +74,12 @@ export class TabularListing extends StripesTheme {
         }
     }
 
+    resolveHiddenFields() {
+        if(this.refs.ColumnSelector) {
+            this.refs.ColumnSelector.update();
+        }
+    }
+
     render() {
         var sort_by = this.props.data.sort_by;
         var tableCells = [];
@@ -91,9 +100,11 @@ export class TabularListing extends StripesTheme {
                         );
                     }
                 });
+                var name = header.name !== "" ? header.name.replace(/(<([^>]+)>)|( )/ig, "") : header.field[0];
                 cells.push(
                     <TableCell
                         className={header.className}
+                        data-name={name}
                         key={"headcell"+key}
                         width={header.width}
                         data-filterable={header.filterable}
@@ -102,6 +113,14 @@ export class TabularListing extends StripesTheme {
                     </TableCell>
                 );
             });
+            if(this.props.columnSelector) {
+                cells.push(
+                    <TableCell
+                        key="columnSelector"
+                        width="30px"
+                    />
+                );
+            }
             tableCells.push(
                 <TableRow onClick={(e) => { this.props.onRowClick(e, r); }} key={"row"+i}>
                     {cells}
@@ -124,7 +143,7 @@ export class TabularListing extends StripesTheme {
                     data-event-active={this.props.showMoreLoading}
                     data-automation-id="Load More Records"
                     onClick={this.props.triggerLazyLoad} className={"lazy_loading_empty " + (this.props.showLazyLoading ? 'loading' : null)}>
-                    <td colSpan={this.state.smallView ? null : this.props.data.structure.length}>
+                    <td colSpan={this.state.smallView ? null : this.props.data.structure.length + (this.props.columnSelector ? 1 : 0)}>
                         {this.props.listSummaryText ? this.props.listSummaryText : null}
                         {this.props.showLazyLoading ?
                             null : this.props.showMoreLoading ?
@@ -151,10 +170,12 @@ export class TabularListing extends StripesTheme {
             if(c.field[0] === sort_by && this.props.sortable) {
                 sortdirection = this.props.data.sort_direction
             }
+            var name = c.name !== "" ? c.name.replace(/(<([^>]+)>)|( )/ig, "") : c.field[0];
             tableHeaders.push(
                 <TableHeaderCell
                     className={c.className}
                     isSortable={c.sortable ? c.sortable : false}
+                    data-name={name}
                     width={c.width ? c.width : null}
                     onClick={this.props.onHeaderClick}
                     key={"headercell" + i}
@@ -164,16 +185,34 @@ export class TabularListing extends StripesTheme {
                 >
                     {labelDOM}
                 </TableHeaderCell>
-            )
+            );
         });
+        if(this.props.columnSelector) {
+            tableHeaders.push(
+                <TableHeaderCell key="ColumnSelector" width="30px" className="ColumnSelector"/>
+            );
+        }
+
+        var headerWrap = {
+            position: 'relative'
+        };
 
         return (
             <Table className="TabularListing" ref="TabularListing"  style={this.props.style} {...this.getDataSet(this.props)}>
-                <TableHeader key="TableHeader" ref="TableHeader" {...this.getDataSet(this.props, '-TableHeader')}>
-                    <TableHeaderRow>
-                        {tableHeaders}
-                    </TableHeaderRow>
-                </TableHeader>
+                <div style={headerWrap}>
+                    <TableHeader key="TableHeader" ref="TableHeader" {...this.getDataSet(this.props, '-TableHeader')}>
+                        <TableHeaderRow>
+                            {tableHeaders}
+                        </TableHeaderRow>
+                    </TableHeader>
+                    {this.props.columnSelector ?
+                        <ColumnSelector
+                            key="ColumnSelector"
+                            ref="ColumnSelector"
+                            structure={this.props.data.structure}
+                        /> : null
+                    }
+                </div>
                 <TableBody key="TableBody" {...this.getDataSet(this.props, '-TableBody')} height={this.state.bodyHeight} zebraStripes={this.props.zebraStripes}>
                     {tableCells}
                 </TableBody>

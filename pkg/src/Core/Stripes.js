@@ -170,7 +170,7 @@ export class StripesTheme extends React.Component {
     }
 
     handleSwitchOnChange(e) {
-        this.props.onChange(e, this.getValues()[0]);
+        this.props.onChange(e, this.getValues());
     }
 
     resolveStyling(obj) {

@@ -16,7 +16,8 @@ export class TableHeaderCell extends StripesTheme {
         isSortable: false,
         sortdirection: null,
         className: null,
-        field: ''
+        field: '',
+        ignoreHover: false
     }
 
     constructor(props) {
@@ -50,7 +51,7 @@ export class TableHeaderCell extends StripesTheme {
         var highlightBorder = ', 0 -3px 0px ' + (this.props.sortdirection && this.props.isSortable ? color.highlight : color.border) + ' inset';
         var styleObj = {
             base: {
-                boxShadow: (this.state.hover ? '0 -15px 50px -20px rgba(0,0,0,.25) inset' : '0 -5px 10px 0px rgba(0,0,0,0) inset') + highlightBorder,
+                boxShadow: (!this.props.ignoreHover && this.state.hover ? '0 -15px 50px -20px rgba(0,0,0,.25) inset' : '0 -5px 10px 0px rgba(0,0,0,0) inset') + highlightBorder,
                 transition: '.5s box-shadow',
                 padding: spacing.padding + 'px',
                 cursor: this.props.onClick || this.props.isSortable ? 'pointer' : 'default',
@@ -95,11 +96,12 @@ export class TableHeaderCell extends StripesTheme {
         ) : null;
         return (
             <th onClick={this.onClick}
+                {...this.getDataSet(this.props)}
                 data-sort={this.props.sortdirection}
                 data-sortkey={this.props.field}
                 data-sortable={this.props.isSortable}
                 className={this.props.className}
-                onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
+                onMouseOver={!this.props.isAction ? this.mouseOver : null} onMouseOut={this.mouseOut}
                 style={this.state.style.base}>
                 {sortNODE}
                 {this.props.children}

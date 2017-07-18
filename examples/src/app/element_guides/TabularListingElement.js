@@ -65,9 +65,10 @@ export class TabularListingElement extends React.Component {
                 title="TabularListing"
                 location="import {TabularListing} from 'zebra-stripes/Elements/TabularListing';"
                 propsMap={[
+                    {name: 'bodyHeight',        type: 'string',     desc: 'CSS value that defines the height of the table body. A null value will not force a height.', default: 'null'},
+                    {name: 'columnSelector',    type: 'boolean',    desc: 'Toggles the feature to add a column selector widget to the right side of the table rendering.', default: 'false'},
                     {name: 'data',              type: 'Object',     desc: 'A complex data object that contains the table\'s structure, data, and pagination information.', default: 'null'},
                     {name: 'height',            type: 'string',     desc: 'CSS value that defines the height of the full table being rendered. A null value will not force a height on the table.', default: 'null'},
-                    {name: 'bodyHeight',        type: 'string',     desc: 'CSS value that defines the height of the table body. A null value will not force a height.', default: 'null'},
                     {name: 'onRowClick',        type: 'function',   desc: 'Callback function that is fired when the user clicks on a row.', default: '() => { return false;}'},
                     {name: 'onValueClick',      type: 'function',   desc: 'Callback function that is fired when the user clicks a value within a table cell. This is typically used for inline filtering.', default: '() => { return false;}'},
                     {name: 'onHeaderClick',     type: 'function',   desc: 'Callback function when the user clicks the header, this callback is typically used when doing sort handling.', default: '() => { return false;}'},
@@ -139,6 +140,72 @@ export class TabularListingElement extends React.Component {
                             example: (
                                 <TabularListing
                                     bodyHeight="250px"
+                                    data={dataObj}
+                                    sortable={true}
+                                />
+                            )
+                        },
+                        {
+                            desc: 'TablularListing with ColumnSelector',
+                            code:
+                                'import {TabularListing} from \'zebra-stripes/Elements/TabularListing\'\n' +
+                                '\n' +
+                                'var dataObj = {\n' +
+                                                '   structure: [\n' +
+                                                '       {\n' +
+                                                '           width: "150px",\n' +
+                                                '           name: "Make",\n' +
+                                                '           icon: "alert",\n' +
+                                                '           field: ["make"],\n' +
+                                                '           filterable: false,\n' +
+                                                '           sortable: false,\n' +
+                                                '           className: "column-notes"\n' +
+                                                '       },\n' +
+                                                '       {\n' +
+                                                '           name: "Model",\n' +
+                                                '           field: ["model"],\n' +
+                                                '           filterable: false,\n' +
+                                                '           sortable: true\n' +
+                                                '       },\n' +
+                                                '       {\n' +
+                                                '           name: "Year",\n' +
+                                                '           field: ["year"],\n' +
+                                                '           filterable: false,\n' +
+                                                '           sortable: true\n' +
+                                                '       }\n' +
+                                                '   ],\n' +
+                                                '  rows: [\n' +
+                                                '       {make: "Ford", model: "Focus", year: "2005"},\n' +
+                                                '       {make: "Ford", model: "Bronco", year: "2001"},\n' +
+                                                '       {make: "Acura", model: "TSX", year: "2012"},\n' +
+                                                '       {make: "Acura", model: "TLX", year: "2016"},\n' +
+                                                '       {make: "Toyota", model: "Camery", year: "2015"},\n' +
+                                                '       {make: "Toyota", model: "Corolla", year: "2017"},\n' +
+                                                '       {make: "Toyota", model: "Avalon", year: "2010"},\n' +
+                                                '       {make: "Nissan", model: "Altima", year: "2008"},\n' +
+                                                '       {make: "Honda", model: "CRV", year: "2015"},\n' +
+                                                '       {make: "Honda", model: "Accord", year: "2014"}\n' +
+                                                '   ],\n' +
+                                                '   collection: {\n' +
+                                                '       end: 10,\n' +
+                                                '       returned: 10,\n' +
+                                                '       start: 1,\n' +
+                                                '       timestamp: 1484924493000,\n' +
+                                                '       total: 10\n' +
+                                                '   },\n' +
+                                                '   sort_by: "model",\n' +
+                                                '   sort_direction: "desc"\n' +
+                                                '};\n\n' +
+                                                '<TabularListing\n' +
+                                                '    bodyHeight="250px"\n' +
+                                                '    columnSelector={true}\n' +
+                                                '    data={dataObj}\n' +
+                                                '    sortable={true}\n' +
+                                                '/>\n',
+                            example: (
+                                <TabularListing
+                                    bodyHeight="250px"
+                                    columnSelector={true}
                                     data={dataObj}
                                     sortable={true}
                                 />

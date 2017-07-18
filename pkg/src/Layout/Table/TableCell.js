@@ -53,7 +53,7 @@ export class TableCell extends StripesTheme {
 
     render() {
         return (
-            <td className={this.props.className} style={this.state.style.base}>
+            <td className={this.props.className} style={this.state.style.base} {...this.getDataSet(this.props)}>
                 {this.props.children}
             </td>
         )

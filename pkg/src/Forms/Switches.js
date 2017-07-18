@@ -11,7 +11,8 @@ class Item extends StripesTheme {
     static defaultProps = {
         style:  {},
         defaultChecked: false,
-        value: null
+        value: null,
+        disabled: false
     }
 
     constructor(props) {
@@ -316,6 +317,19 @@ class CheckBoxGroup extends StripesTheme {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            style: this.getStyles(),
+            items: this.resolveChildren()
+        }
+
+        this.updateValue = this.updateValue.bind(this);
+        this.setChecked = this.setChecked.bind(this);
+        this.resolveChildren = this.resolveChildren.bind(this);
+
+    }
+
+    resolveChildren() {
         var items = [];
         this.props.children.map((obj) => {
             items.push({
@@ -323,16 +337,11 @@ class CheckBoxGroup extends StripesTheme {
                 style: obj.props.style,
                 checked: obj.props.defaultChecked,
                 value: obj.props.value !== null ? obj.props.value : obj.props.children,
-                children: obj.props.children
+                children: obj.props.children,
+                disabled: obj.props.disabled
             });
         });
-        this.state = {
-            style: this.getStyles(),
-            items: items
-        }
-
-        this.updateValue = this.updateValue.bind(this);
-        this.setChecked = this.setChecked.bind(this);
+        return items;
     }
 
     getValues() {
@@ -351,7 +360,6 @@ class CheckBoxGroup extends StripesTheme {
         }
         var pos = e.target.getAttribute("data-itemid");
         this.state.items[pos].checked = !this.state.items[pos].checked;
-        //e.stopImmediatePropagation;
         this.forceUpdate();
     }
 
@@ -387,7 +395,12 @@ class CheckBoxGroup extends StripesTheme {
                 display: 'block',
                 cursor:  this.props.disabled ? 'default' : 'pointer',
                 padding: spacing.padding*2 + 'px ' + spacing.padding + 'px',
-                //color: color.textColor
+            },
+            labelDisabled : {
+                display: 'block',
+                cursor:  this.props.disabled ? 'default' : 'pointer',
+                padding: spacing.padding*2 + 'px ' + spacing.padding + 'px',
+                opacity: '.5'
             },
             input : {
                 marginRight: spacing.padding + 'px',
@@ -409,7 +422,8 @@ class CheckBoxGroup extends StripesTheme {
     componentDidUpdate(props) {
         if(props !== this.props) {
             this.setState({
-                style: this.getStyles()
+                style: this.getStyles(),
+                items: props.children !== this.props.children ? this.resolveChildren() : this.state.items
             });
         }
     }
@@ -417,13 +431,14 @@ class CheckBoxGroup extends StripesTheme {
     render() {
         var itemNodes = [];
         this.state.items.map((item, i) => {
+
             itemNodes.push(
-                <label key={"label" + i} style={Object.assign(item.style, this.state.style.label)} {...this.mouseEventProps(this.props)}>
+                <label key={"label" + i} style={Object.assign(item.style, item.disabled ? this.state.style.labelDisabled : this.state.style.label)} {...this.mouseEventProps(this.props)}>
                     <div style={item.checked ? this.state.style.checkbox.active : this.state.style.checkbox.inactive}></div>
                     <input
                         {...item.dataset}
                         data-itemid={i}
-                        disabled={this.props.disabled}
+                        disabled={item.disabled}
                         onChange={this.handleSwitchOnChange}
                         onClick={this.updateValue}
                         style={this.state.style.input}

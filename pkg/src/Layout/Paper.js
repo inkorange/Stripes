@@ -38,7 +38,7 @@ export class Paper extends StripesTheme {
         var styleObj = {
             outline: 'none',
             background: 'white',
-            borderRadius: spacing.spacing.borderRadius + 'px',
+            borderRadius: spacing.borderRadius + 'px',
             display: 'inline-block',
             padding: spacing.padding*2 + 'px',
             transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',

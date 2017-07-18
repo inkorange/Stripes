@@ -13,14 +13,16 @@ export class IconMenu extends StripesTheme {
         disabled: false,
         iconid: 'filter',
         style: {},
+        iconSize: 'medium',
         iconColor: [null,null],                       // [closed, open]
         backgroundColor: ['transparent', 'white'],    // [closed, open]
         contentStyle: {},
         iconStyle: {},
         "max-width": null,
         onChange: null,
-        constrainHeight: false
-    }
+        constrainHeight: false,
+        closeOnBlur: false
+    };
 
     constructor(props) {
         super(props);
@@ -29,6 +31,8 @@ export class IconMenu extends StripesTheme {
             open: false,
             maxHeight: null
         };
+
+        this.blurTime = new Date();
 
         this.toggleMenu = this.toggleMenu.bind(this);
         this.getStyles = this.getStyles.bind(this);
@@ -43,10 +47,12 @@ export class IconMenu extends StripesTheme {
     }
 
     toggleMenu(show) {
+        var timeDelta = (new Date().getTime()) - this.blurTime.getTime();
         this.setState({
-            open: show === undefined || typeof show === "object" ? !this.state.open : show
+            open: (timeDelta > 0 && timeDelta < 200) ? false :
+                show === undefined || typeof show === "object" ? !this.state.open : show
         }, () => {
-            if(this.state.open) {
+            if (this.state.open) {
                 this.refs.MenuBody.focus();
             }
             this.setState({
@@ -54,15 +60,21 @@ export class IconMenu extends StripesTheme {
             }, () => {
                 this.setState({
                     style: this.getStyles()
-                },this.forceUpdate);
+                }, this.forceUpdate);
             });
-            if(this.props.onChange) {
+            if (this.props.onChange) {
                 this.props.onChange(this.state.open);
             }
+            this.blurTime = new Date();
         });
+
     }
 
     toggleMenuOnBlur(e) {
+        this.blurTime = new Date();
+        if(this.props.closeOnBlur) {
+            this.toggleMenu(false);
+        }
         return false;
     }
 
@@ -126,7 +138,7 @@ export class IconMenu extends StripesTheme {
                 <Icon
                     iconid={this.props.iconid}
                     color={this.state.open ? this.props.iconColor[1] : this.props.iconColor[0]}
-                    size="medium"
+                    size={this.props.iconSize}
                     onClick={this.toggleMenu}
                     basestyle={this.state.style.icon}
                 />

@@ -26,6 +26,14 @@ export class Icon extends StripesTheme {
         this.clickAction = this.clickAction.bind(this);
     }
 
+    componentWillUpdate(props) {
+        if(this.props.color !== props.color) {
+            this.state = {
+                style: this.getStyles()
+            }
+        }
+    }
+
     clickAction(e) {
         if(this.props.onClick) {
             this.props.onClick(e);

@@ -25,7 +25,8 @@ export class IconMenuElement extends React.Component {
                         {name: 'iconid',         type: 'string',  desc: 'Icon component reference for the icon to use, this can be any iconid configured to be used in the design system.', default: 'filter'},
                         {name: 'iconStyle',      type: 'Object',  desc: 'Extends the icon baseStyle object.' , default: '{}'},
                         {name: 'max-width',      type: 'String',  desc: 'CSS size value, % or unit-based. This field enforces the max-width of the container.' , default: 'null'},
-                        {name: 'style',          type: 'Object',  desc: 'Extends the base styling of the TabMenu selector element.' , default: '{}'}
+                        {name: 'style',          type: 'Object',  desc: 'Extends the base styling of the TabMenu selector element.' , default: '{}'},
+                        {name: 'closeOnBlur',    type: 'boolean', desc: 'When the IconMenu is clicked away (blurred), it will automatically close.' , default: 'false'}
                     ]}
                 colOneWidth="30%"
                 colTwoWidth="70%"

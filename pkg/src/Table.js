@@ -5,6 +5,7 @@ import {TableHeaderCell} from  './Layout/Table/TableHeaderCell'
 import {TableBody} from  './Layout/Table/TableBody'
 import {TableRow} from  './Layout/Table/TableRow'
 import {TableCell} from  './Layout/Table/TableCell'
+import {ColumnSelector} from  './Layout/Table/ColumnSelector'
 
 module.exports = {
     Table: Table,
@@ -13,5 +14,6 @@ module.exports = {
     TableHeaderCell: TableHeaderCell,
     TableBody: TableBody,
     TableRow: TableRow,
-    TableCell: TableCell
+    TableCell: TableCell,
+    ColumnSelector: ColumnSelector
 }
