@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { render } from 'react-dom'
 
 import Link from 'react-router/lib/Link'
 import Route from 'react-router/lib/Route'
@@ -77,6 +77,34 @@ const MainLayout = React.createClass({
 });
 
 class Sandbox extends React.Component {
+
+    static defaultProps = {
+        className: '',
+        doors: [
+            {title: 'RS-TITLE1', value: '3:32', className: 'inactive'},
+            {title: 'RS-TITLE2', value: '', className: 'active'},
+            {title: 'RS-TITLE3', value: '22%', className: 'inactive'},
+            {title: 'RS-TITLE4', value: '33%', className: 'needsimprovement'},
+            {title: 'RS-TITLE5', value: '', className: 'ready'},
+            {title: 'RS-TITLE6', value: '55%', className: 'ready'},
+            {title: 'RS-TITLE7', value: '', className: 'ready'},
+            {title: 'RS-TITLE8', value: '', className: 'unavailable'},
+            {title: 'RS-TITLE9', value: '23%', className: 'poor'},
+            {title: 'RS-TITLE10', value: '', className: 'ready'},
+            {title: 'RS-TITLE11', value: '', className: 'ready'},
+            {title: 'RS-TITLE1', value: '3:32', className: 'inactive'},
+            {title: 'RS-TITLE2', value: '', className: 'active'},
+            {title: 'RS-TITLE3', value: '22%', className: 'inactive'},
+            {title: 'RS-TITLE4', value: '33%', className: 'needsimprovement'},
+            {title: 'RS-TITLE5', value: '', className: 'ready'},
+            {title: 'RS-TITLE6', value: '55%', className: 'ready'},
+            {title: 'RS-TITLE7', value: '', className: 'ready'},
+            {title: 'RS-TITLE8', value: '', className: 'unavailable'},
+            {title: 'RS-TITLE9', value: '23%', className: 'poor'},
+            {title: 'RS-TITLE10', value: '', className: 'ready'},
+            {title: 'RS-TITLE11', value: '', className: 'ready'}
+        ]
+    }
 
     constructor(props) {
         super(props);
@@ -191,6 +219,9 @@ class Sandbox extends React.Component {
 
     componentDidMount() {
         setTimeout(this.updateTable, 1000);
+        this.setState({
+            anchorTo: this.refs.navbar
+        })
     }
 
     componentWillUpdate(props) {
@@ -305,14 +336,18 @@ class Sandbox extends React.Component {
 
     render() {
 
+        var DoorsEl = [];
+        this.props.doors.map(door => {
+            DoorsEl.push(
+                <div style={{width: '25%', float: 'left',  height: '100px'}}>{door.value}</div>
+            )
+        });
+
+
         return (
 
-            <div style={{margin: '50px', textAlign: 'right', background: 'gray'}}>
-                <TabularListing
-                    height={this.state.height}
-                    data={this.state.data}
-                    columnSelector={true}
-                />
+            <div>
+               <CheckBox label="This is a checkbox." />
             </div>
 
         )

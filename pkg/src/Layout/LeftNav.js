@@ -13,6 +13,7 @@ export class LeftNav extends StripesTheme {
         modal: false,
         color: 'black',
         icon: 'menu',
+        width: '250px',
         iconstyle: {},
         closeOnBlur: true,
         className: null,
@@ -115,10 +116,10 @@ export class LeftNav extends StripesTheme {
                 cursor: 'pointer'
             },
             menu: {
-                width: '250px',
+                width: this.props.width,
                 background: 'white',
                 position: 'fixed',
-                left: this.state.open ? '0px' : '-260px',
+                left: this.state.open ? '0px' : 'calc(-' + this.props.width + ' - 10px)',
                 top: 0,
                 bottom: 0,
                 transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',

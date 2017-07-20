@@ -19,6 +19,7 @@ export class Dialog extends StripesTheme {
         width: '80%',
         className: "",
         modal: true,
+        anchorTo: null,
         onClose: () => { return false; }
     }
 
@@ -29,7 +30,8 @@ export class Dialog extends StripesTheme {
         this.open = this.open.bind(this);
         this.state = {
             open: false,
-            style: {}
+            style: {},
+            top: props.anchorTo ? this.getElementTop(props.anchorTo) : '50%'
         }
     }
 
@@ -37,6 +39,26 @@ export class Dialog extends StripesTheme {
         this.setState({
             style: this.getStyles()
         });
+    }
+
+    componentDidUpdate(props) {
+        if(this.props.anchorTo !== props.anchorTo) {
+            this.setState({
+                top: this.props.anchorTo ? this.getElementTop(this.props.anchorTo) : '50%'
+            }, () => {
+                this.setState({
+                    style: this.getStyles()
+                });
+            });
+        }
+    }
+
+    getElementTop(element) {
+        if(typeof element === 'string') {
+            return element;
+        }
+        var elRect = element.getBoundingClientRect();
+        return elRect.top + elRect.height + 'px';
     }
 
     toggleDialog(open) {
@@ -83,9 +105,9 @@ export class Dialog extends StripesTheme {
             dialog: {
                 width: this.props.width,
                 position: 'absolute',
-                top: '45%',
+                top: this.state.top,
                 left: '50%',
-                transform: 'translate(-50%, ' + (this.state.open ? '-50%' : '-80%') + ')',
+                transform: 'translate(-50%, ' + (this.state.open ? '-' + (this.props.anchorTo ? 0 : this.state.top) : '-80%') + ')',
                 transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
             },
             card: {

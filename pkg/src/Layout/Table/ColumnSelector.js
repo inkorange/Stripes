@@ -121,8 +121,9 @@ export class ColumnSelector extends StripesTheme {
         this.props.structure.map((c, i) => {
             var name = c.name.replace(/(<([^>]+)>)|( )/ig, "");
                 name = name === "" ? c.field[0] : name;
-            var label = c.name.replace(/(<([^>]+)>)|( )/ig, " ");
+            var label = c.name.replace(/(<([^>]+)>)/ig, "/");
                 label = label === "" ? c.field[0] : label;
+                label = label.substring(label.length - 1) === "/" ? label.substring(0, label.length - 1) : label;
             ColumnItems.push(
                 <Item style={this.state.style.item}
                       defaultChecked={this.state.savedColumnVisibility ? this.state.savedColumnVisibility.indexOf(name) >= 0 : true}

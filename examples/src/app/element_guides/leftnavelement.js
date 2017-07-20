@@ -31,7 +31,8 @@ export class LeftNavElement extends React.Component {
                         {name: 'iconstyle',     type: 'object',     desc: 'Extends the base icon styling used for the left nav trigger.', default: '{}'},
                         {name: 'modal',         type: 'boolean',    desc: 'Add a darkened background around the menu, to represent focus on the launched menu.', default: 'false'},
                         {name: 'onBlur',        type: 'function',   desc: 'This callback function will fire when the menu is blurred.', default: '{return false;}'},
-                        {name: 'open',          type: 'boolean',    desc: 'A boolean that will change the open and close state of the menu.' , default: 'false'}
+                        {name: 'open',          type: 'boolean',    desc: 'A boolean that will change the open and close state of the menu.' , default: 'false'},
+                        {name: 'width',         type: 'string',     desc: 'A CSS width property used to set the width of the menu that slides out.' , default: '250px'}
                     ]}
                 colOneWidth="25%"
                 colTwoWidth="75%"
@@ -63,12 +64,13 @@ export class LeftNavElement extends React.Component {
                                 '    ref="LeftNav"\n' +
                                 '    icon="home"\n' +
                                 '    modal={true}\n' +
+                                '    width="50%"\n' +
                                 '    closeOnBlur={false}>\n' +
                                 '    <RaisedButton style={{position: "absolute", bottom: 0, left: 0, width: "calc(100% - 10px)"}}\n' +
                                 '         key="button6" type="primary" onClick={this.closeMenu}>Manually Close</RaisedButton>\n' +
                                 '</LeftNav>',
                             example: (
-                                <LeftNav ref="LeftNav" icon="home" modal={true} closeOnBlur={false}>
+                                <LeftNav ref="LeftNav" width="50%" icon="home" modal={true} closeOnBlur={false}>
                                     <RaisedButton style={{position: 'absolute', bottom: 0, left: 0, width: 'calc(100% - 10px)'}}
                                      key="button6" type="primary" onClick={this.closeMenu}>Manually Close</RaisedButton>
                                 </LeftNav>
