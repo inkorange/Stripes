@@ -348,6 +348,14 @@ class Sandbox extends React.Component {
 
             <div>
                <CheckBox label="This is a checkbox." />
+
+                <TabularListing
+                    height={this.state.height}
+                    data={this.state.data}
+                    height="500px"
+                    columnSelector={true}
+                />
+
             </div>
 
         )

@@ -28,15 +28,18 @@ export class ColumnSelector extends StripesTheme {
             savedColumnVisibility: window.localStorage["tableShowing" + this.getEndPointKey()] ? JSON.parse(window.localStorage["tableShowing" + this.getEndPointKey()]) : null
         }
     }
-
     componentWillMount() {
         this.setState({
             style: this.getStyles(),
-            allChecked: (!this.props.structure || !this.state.savedColumnVisibility) || (this.props.structure.length === this.state.savedColumnVisibility.length)
         });
         if (this.state.savedColumnVisibility) {
             this.toggleShowHide(null, this.state.savedColumnVisibility);
         }
+    }
+    componentDidMount() {
+        this.setState({
+            allChecked: (!this.props.structure || !this.state.savedColumnVisibility) || (this.props.structure.length === this.state.savedColumnVisibility.length)
+        });
     }
 
     getEndPointKey() {
@@ -107,7 +110,7 @@ export class ColumnSelector extends StripesTheme {
                 lineHeight: '20px'
             },
             selectall: {
-                borderTop: '1px solid ' + color.border,
+                borderBottom: '1px solid ' + color.border,
                 padding: spacing.padding + 'px',
                 opacity: this.state.allChecked ? '.5' : '1'
             }
@@ -146,14 +149,6 @@ export class ColumnSelector extends StripesTheme {
                 iconStyle={this.state.style.iconStyle}
                 closeOnBlur={true}
             >
-                <CheckBoxGroup
-                    key="checkboxgroup"
-                    style={{margin: '10px'}}
-                    ref="checkboxgroup"
-                    onChange={this.toggleShowHide}
-                >
-                    {ColumnItems}
-                </CheckBoxGroup>
                 <div key="checkbox_holder" style={this.state.style.selectall}>
                     <CheckBox key="allcheck"
                               ref="allcheck"
@@ -162,6 +157,14 @@ export class ColumnSelector extends StripesTheme {
                               checked={this.state.allChecked}
                               label="Select All"/>
                 </div>
+                <CheckBoxGroup
+                    key="checkboxgroup"
+                    style={{margin: '10px'}}
+                    ref="checkboxgroup"
+                    onChange={this.toggleShowHide}
+                >
+                    {ColumnItems}
+                </CheckBoxGroup>
             </IconMenu>
         )
     }
