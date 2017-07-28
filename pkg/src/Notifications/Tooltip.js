@@ -32,6 +32,8 @@ export class Tooltip extends StripesTheme {
         this.setState({
             target: this.refs.Tooltip.parentNode
         });
+        this.refs.Tooltip.style.overflow = this.props.show ? 'visible' : 'hidden';
+        this.refs.Tooltip.style.height = this.props.show ? this.props.height : '0px';
     }
 
     componentDidUpdate(props) {
@@ -39,6 +41,10 @@ export class Tooltip extends StripesTheme {
             this.setState({
                 style: this.getStyles()
             });
+            setTimeout(() => {
+                this.refs.Tooltip.style.overflow = this.props.show ? 'visible' : 'hidden';
+                this.refs.Tooltip.style.height = this.props.show ? this.props.height : '0px';
+            }, this.props.duration + 100);
         }
     }
 
@@ -54,8 +60,7 @@ export class Tooltip extends StripesTheme {
             //border: 'solid 1px ' + color.borderColor,
             boxShadow: '0 1px 6px rgba(0,0,0,.25)',
             borderRadius: spacing.borderRadius + 'px',
-            //overflowX: 'hidden',
-            overflowY: this.props.show ? 'visible' : 'hidden',
+            //overflowY: this.props.show ? 'visible' : 'hidden',
             color: color.textColor,
             maxWidth: this.props.width,
             fontSize: spacing.baseFontSize + 'rem',
@@ -66,15 +71,15 @@ export class Tooltip extends StripesTheme {
         var left = this.props.position === 'left' ? spacing.padding*-2 + 'px' : null;
         var styleObj = {
             base: Object.assign({
-                    paddingLeft: this.props.iconid ? spacing.padding * 12 + 'px' : spacing.padding*3 + 'px',
                     opacity: this.props.show ? 1 : 0,
-                    maxHeight: this.props.show ? this.props.height : '0px',
+                    //height:  this.props.show ? this.props.height : '0px',
                     paddingTop: this.props.show ? spacing.padding*3 + 'px' : 0,
-                    paddingRight: this.props.show ? spacing.padding*3 + 'px' : 0,
+                    paddingRight: spacing.padding*3 + 'px',
+                    paddingLeft: this.props.iconid ? spacing.padding * 12 + 'px' : spacing.padding*3 + 'px',
                     paddingBottom: this.props.show ? spacing.padding*3 + 'px' : 0,
                     right: right,
                     left: left,
-                    marginTop: spacing.padding + 'px'
+                    marginTop: this.props.show ? spacing.padding + 'px' : 0
                 }
                 , ComponentStyle),
             baseIcon: {

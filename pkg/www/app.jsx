@@ -213,7 +213,8 @@ class Sandbox extends React.Component {
 
         this.state = {
             data: dataObj,
-            showTooltip: false
+            showTooltip: false,
+            saveIconHover: false
         };
     }
 
@@ -347,14 +348,13 @@ class Sandbox extends React.Component {
         return (
 
             <div>
-               <CheckBox label="This is a checkbox." />
-
-                <TabularListing
-                    height={this.state.height}
-                    data={this.state.data}
-                    height="500px"
-                    columnSelector={true}
-                />
+                    <div className="saveSearchContainer"
+                         onMouseOver={() => { this.setState({saveIconHover: true}); }}
+                         onMouseOut={() => { this.setState({saveIconHover: false}); }}
+                    >
+                        <Icon iconid="save" color="red" size="medium"/>
+                    </div>
+                <Tooltip width="300px" style={{textAlign: 'left', marginRight: '20px'}} key="savetooltip" show={this.state.saveIconHover}>You can save current filters by clicking the save icon above.<br/><img src="/images/save-help.jpg" /><br/>Use the apply search icon above to activate the search.</Tooltip>
 
             </div>
 
