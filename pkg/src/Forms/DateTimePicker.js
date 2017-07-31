@@ -24,6 +24,7 @@ export class DateTimePicker extends StripesTheme {
         dateFormat: 'ddd, MMMM D',
         timeFormat: 'hh:mm a',
         format: 'M/D/YYYY',
+        baseDateTime: new Date(),
         placeholder: ['Date','Time'],
         clockFormat: '12hr',
         value: null,
@@ -57,13 +58,13 @@ export class DateTimePicker extends StripesTheme {
 
     setDate(date) {
         this.setState({
-            value: mergeDates(date, this.state.value)
+            value: mergeDates(date, this.state.value, this.props.baseDateTime)
         }, this.fireCallback);
     }
 
     setTime(time) {
         this.setState({
-            value: addTimeToDate(this.state.value, time)
+            value: addTimeToDate(this.state.value, time, this.props.baseDateTime)
         }, this.fireCallback);
     }
 
@@ -96,6 +97,7 @@ export class DateTimePicker extends StripesTheme {
                         <DatePicker
                             {...this.getDataSet(this.props, '-DatePicker')}
                             ref="datePicker"
+                            baseDateTime={this.props.baseDateTime}
                             placeholder={this.props.placeholder[0]}
                             onSet={this.setDate}
                             active={this.props.active}
@@ -107,6 +109,7 @@ export class DateTimePicker extends StripesTheme {
                         <TimePicker
                             {...this.getDataSet(this.props, '-TimePicker')}
                             ref="timePicker"
+                            baseDateTime={this.props.baseDateTime}
                             placeholder={this.props.placeholder[1]}
                             onSet={this.setTime}
                             active={this.props.active}

@@ -26,6 +26,7 @@ export class DatePicker extends StripesTheme {
         yearFormat: 'YYYY',
         dateFormat: 'ddd, MMMM D',
         format: 'M/D/YYYY',
+        baseDateTime: new Date(),
         placeholder: null,
         date: null,
         manual: false,
@@ -91,7 +92,7 @@ export class DatePicker extends StripesTheme {
             showCalendar: true,
             showYear: false
         }, () => {
-            this.refs.Calendar.switchToDate(this.state.date ? this.state.date : new Date());
+            this.refs.Calendar.switchToDate(this.state.date ? this.state.date : this.props.baseDateTime);
             this.updateStyles();
         });
     }
@@ -110,7 +111,7 @@ export class DatePicker extends StripesTheme {
     }
 
     renderCleanDate() {
-        var dateval = this.state.date ? this.state.date : new Date();
+        var dateval = this.state.date ? this.state.date : this.props.baseDateTime;
         var year = <div key="yeartitle" onClick={this.showYearPanel} style={this.state.style.year}>{m(dateval).format(this.props.yearFormat)}</div>;
         var date = <div key="datetitle" onClick={this.showCalendar}  style={this.state.style.date}>{m(dateval).format(this.props.dateFormat)}</div>;
         return [year,date];
@@ -135,7 +136,7 @@ export class DatePicker extends StripesTheme {
     }
 
     setYear(year) {
-        var mDate = m(this.state.date ? this.state.date : new Date());
+        var mDate = m(this.state.date ? this.state.date : this.props.baseDateTime);
         mDate.year(year);
         this.setState({
             date: new Date(mDate.toString()),
@@ -304,13 +305,13 @@ export class DatePicker extends StripesTheme {
                     {this.state.showYear ? <YearSelector
                         ref="YearSelector"
                         onClick={this.setYear}
-                        date={this.state.date ? this.state.date : new Date()}
+                        date={this.state.date ? this.state.date : this.props.baseDateTime}
                         dateConstraint={this.props.dateConstraint}
                     /> : null }
                     {this.state.showCalendar ? <Calendar
                         ref="Calendar"
                         onClick={this.setDate}
-                        date={this.state.date ? this.state.date : new Date()}
+                        date={this.state.date ? this.state.date : this.props.baseDateTime}
                         dateConstraint={this.props.dateConstraint}
                     /> : null }
                 </Dialog>

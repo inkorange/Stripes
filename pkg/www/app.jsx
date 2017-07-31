@@ -348,14 +348,7 @@ class Sandbox extends React.Component {
         return (
 
             <div>
-                    <div className="saveSearchContainer"
-                         onMouseOver={() => { this.setState({saveIconHover: true}); }}
-                         onMouseOut={() => { this.setState({saveIconHover: false}); }}
-                    >
-                        <Icon iconid="save" color="red" size="medium"/>
-                    </div>
-                <Tooltip width="300px" style={{textAlign: 'left', marginRight: '20px'}} key="savetooltip" show={this.state.saveIconHover}>You can save current filters by clicking the save icon above.<br/><img src="/images/save-help.jpg" /><br/>Use the apply search icon above to activate the search.</Tooltip>
-
+                   <DateTimePicker clockFormat="24hr" baseDateTime={new Date('2017-07-30 13:00:00')} />
             </div>
 
         )

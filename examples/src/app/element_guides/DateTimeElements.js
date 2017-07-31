@@ -20,6 +20,7 @@ export class DatePickerElement extends React.Component {
                 location="import {DatePicker} from 'zebra-stripes/Forms';"
 
                 propsMap={[
+                        {name: 'baseDateTime',    type: 'Date',     desc: 'Used to set the local date/time, typically from a server. If this is not set, it will use the client\'s datetime.', default: 'new Date()'},
                         {name: 'date',            type: 'Date',     desc: 'The initial date value of the Date selector.', default: 'null'},
                         {name: 'dateConstraint',  type: 'Array',    desc: 'An array of dates that the Date picker will be forced to choose between.', default: 'false'},
                         {name: 'dateFormat',      type: 'string',   desc: 'The date format displayed in the header of the DatePicker dialog.', default: 'ddd, MMMM D'},
@@ -78,6 +79,7 @@ export class TimePickerElement extends React.Component {
                 location="import {TimePicker} from 'zebra-stripes/Forms';"
 
                 propsMap={[
+                        {name: 'baseDateTime',    type: 'Date',     desc: 'Used to set the local date/time, typically from a server. If this is not set, it will use the client\'s datetime.', default: 'new Date()'},
                         {name: 'clockFormat',   type: 'string',    desc: 'Sets the clock selector to be in 12hr, or 24hr (Military) time format.', default: '12hr'},
                         {name: 'disabled',      type: 'boolean',   desc: 'Toggle to disables the form to be interacted with.', default: 'false'},
                         {name: 'errorMessage',  type: 'string',    desc: 'The error message line thrown when the inputted time is invalid.', default: 'Invalid Time Format (h:mm A)'},
@@ -136,6 +138,7 @@ export class DateTimePickerElement extends React.Component {
                 location="import {DateTimePicker} from 'zebra-stripes/Forms';"
 
                 propsMap={[
+                        {name: 'baseDateTime',    type: 'Date',     desc: 'Used to set the local date/time, typically from a server. If this is not set, it will use the client\'s datetime.', default: 'new Date()'},
                         {name: 'clockFormat',    type: 'string',    desc: 'Sets the clock selector to be in 12hr, or 24hr (Military) time format.', default: '12hr'},
                         {name: 'datewidth',      type: 'string',   desc: 'The css value, typically a percentage of 100%, that defines the width of the date input selector.', default: '60%'},
                         {name: 'dateConstraint', type: 'Array',    desc: 'An array of strings that defines the lower and upper extent of dates that are selectable.', default: '[null,null]'},

@@ -4,7 +4,7 @@ export function flattenDate(date) {
     return date;
 };
 
-export function addTimeToDate(date, datetime, ignoreDate) {
+export function addTimeToDate(date, datetime, baseDateTime) {
     /*
      if the ignoreDate flag is passed in as true, it will set the binding date for the time to be 1900.
      Being 1900 has it not show in the view, this is important in cases where we want to distinguish between
@@ -14,7 +14,7 @@ export function addTimeToDate(date, datetime, ignoreDate) {
     if(!date && !datetime) {
         return null;
     } else if(date && !datetime) {
-        var m_date = m(date ? date : (ignoreDate || !datetime ? new Date(1900, 0, 1) : new Date()));
+        var m_date = m(date ? date : (!datetime ? new Date(1900, 0, 1) : baseDateTime));
         m_date.hours(0);
         m_date.minutes(0);
         m_date.seconds(0);
@@ -22,7 +22,7 @@ export function addTimeToDate(date, datetime, ignoreDate) {
     }
     else {
         var m_dateTime = datetime ? m(datetime) : m().hour(null).minute(null);
-        var m_date = m(date ? date : (ignoreDate || !datetime ? new Date(1900, 0, 1) : new Date()));
+        var m_date = m(date ? date : (!datetime ? new Date(1900, 0, 1) : baseDateTime));
         m_date.hours(m_dateTime.hours());
         m_date.minutes(m_dateTime.minutes());
         m_date.seconds(0);
@@ -30,11 +30,11 @@ export function addTimeToDate(date, datetime, ignoreDate) {
     }
 }
                         // new date   current date
-export function mergeDates(date, datewithtime) {
+export function mergeDates(date, datewithtime, baseDateTime) {
     if(!date) {
         return null;
     } else if(datewithtime && !date) {
-        var m_date = m();
+        var m_date = m(baseDateTime);
         var m_dateTime = m(datewithtime);
         m_date.hour(m_dateTime.format('HH'));
         m_date.minute(m_dateTime.format('mm'));

@@ -80,6 +80,7 @@ export class TimePicker extends StripesTheme {
         hours12: [1,2,3,4,5,6,7,8,9,10,11,12],
         hours24: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
         selectorDimension: 260,
+        baseDateTime: new Date(),
         placeholder: "Time",
         active: false,
         manual: false
@@ -101,13 +102,12 @@ export class TimePicker extends StripesTheme {
         this.getValue = this.getValue.bind(this);
         this.resolveClickPoint = this.resolveClickPoint.bind(this);
         this.inputBlur = this.inputBlur.bind(this);
-
         var initialTime = props.time ? props.time : null;
         this.state = {
             opentime: initialTime,
             active: false,
-            hour: m(initialTime ? initialTime : new Date()).format(this.props.hourFormat)*1,
-            minute: m(initialTime ? initialTime : new Date()).format(this.props.minuteFormat)*1,
+            hour: m(initialTime ? initialTime : this.props.baseDateTime).format(this.props.hourFormat)*1,
+            minute: m(initialTime ? initialTime : this.props.baseDateTime).format(this.props.minuteFormat)*1,
             time: initialTime,
             mode: 'hour',
             hourhover: false,
@@ -146,8 +146,8 @@ export class TimePicker extends StripesTheme {
         var show = open !== undefined ? open : !this.state.active;
         this.setState({
             active: show,
-            hour: m(this.state.time ? this.state.time : new Date()).format(this.props.hourFormat)*1,
-            minute: m(this.state.time ? this.state.time : new Date()).format(this.props.minuteFormat)*1,
+            hour: m(this.state.time ? this.state.time : this.props.baseDateTime).format(this.props.hourFormat)*1,
+            minute: m(this.state.time ? this.state.time : this.props.baseDateTime).format(this.props.minuteFormat)*1,
             opentime: show ? this.state.time : this.state.opentime
         }, () => {
             if(open) {
@@ -166,7 +166,7 @@ export class TimePicker extends StripesTheme {
     }
 
     renderCleanTime() {
-        var timeValue = this.state.time ? this.state.time : new Date();
+        var timeValue = this.state.time ? this.state.time : this.props.baseDateTime;
         return (
             <div key="timetitle" style={this.state.style.time}>
                 <span style={this.state.hourhover || this.state.mode === 'hour' ? this.state.style.timeparthover : this.state.style.timepart} onMouseOver={()=> {this.setState({hourhover: true})}} onMouseOut={()=> {this.setState({hourhover: false})}} onClick={()=> {this.changeMode('hour')}}>{m(timeValue).format(this.props.hourFormat)}</span>
@@ -280,7 +280,12 @@ export class TimePicker extends StripesTheme {
 
     setHour(e) {
         var hour = e.target.getAttribute('data-value')*1;
-        var newTime = this.state.time ? m(this.state.time) : m(new Date());
+        var newTime = this.state.time ? m(this.state.time) : m(this.props.baseDateTime);
+        if(this.props.clockFormat === "12hr") {
+            if(hour < 12 && newTime.hour() >= 12) {
+                hour += 12;
+            }
+        }
         newTime.hour(hour);
         this.setState({
             hour: hour,
@@ -297,7 +302,7 @@ export class TimePicker extends StripesTheme {
 
     setMinute(e) {
         var minute = e.target.getAttribute('data-value')*1;
-        var newTime = this.state.time ? m(this.state.time) : m(new Date());
+        var newTime = this.state.time ? m(this.state.time) : m(this.props.baseDateTime);
         newTime.minute(minute);
         this.setState({
             minute: minute,
@@ -307,7 +312,7 @@ export class TimePicker extends StripesTheme {
     }
 
     toggleAMPM(cb) {
-        var time = m(this.state.time ? this.state.time : new Date());
+        var time = m(this.state.time ? this.state.time : this.props.baseDateTime);
         var day = time.format('d');
         if(m(time).add(12,'hour').format('d')*1 > day*1) {
             time.add(12,'hour');
@@ -327,7 +332,7 @@ export class TimePicker extends StripesTheme {
     }
 
     cancel() {
-        var initialTime = this.props.time ? this.props.time : new Date();
+        var initialTime = this.props.time ? this.props.time : this.props.baseDateTime;
         this.setState({
             time: this.state.opentime,
             mode: 'hour',
@@ -360,7 +365,7 @@ export class TimePicker extends StripesTheme {
     }
 
     hardSetTime(hour, minute, AMPM) {
-        var newTime = this.state.time ? m(this.state.time) : m(new Date());
+        var newTime = this.state.time ? m(this.state.time) : m(this.props.baseDateTime);
         newTime.hour(hour);
         newTime.minute(minute);
         newTime.second(0);
