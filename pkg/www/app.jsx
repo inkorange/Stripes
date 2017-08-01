@@ -335,6 +335,10 @@ class Sandbox extends React.Component {
 
     }
 
+    trigger() {
+        console.log('trigger');
+    }
+
     render() {
 
         var DoorsEl = [];
@@ -348,7 +352,11 @@ class Sandbox extends React.Component {
         return (
 
             <div>
-                   <Slider data-automation-id="Fullness Slider" />
+                <TabularListing
+                    height="300px"
+                    data={this.state.data}
+                />
+
             </div>
 
         )

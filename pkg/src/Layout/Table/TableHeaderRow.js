@@ -29,7 +29,7 @@ export class TableHeaderRow extends StripesTheme {
         var spacing = this.getSpacing()[this.props.type].row;
         var styleObj = {
             base: {
-                boxShadow: '0 3px 0 rgba(0,0,0,.1)',
+                boxShadow: '0 5px 5px rgba(0,0,0,.05)',
                 height: spacing.minHeight + 'px'
             }
         };

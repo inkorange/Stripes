@@ -71,11 +71,26 @@ export class IconMenu extends StripesTheme {
     }
 
     toggleMenuOnBlur(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if(this.props.closeOnBlur) {
+            setTimeout(() => {
+                var target = document.activeElement;
+                var isNested = this.refs.MenuBody.contains(target);
+                if (!isNested) {
+                    this.toggleMenu(false);
+                }
+            }, 150);
+        }
+
+        /*
+
         this.blurTime = new Date();
         if(this.props.closeOnBlur) {
             this.toggleMenu(false);
         }
         return false;
+        */
     }
 
     isOpen() {
