@@ -348,7 +348,7 @@ class Sandbox extends React.Component {
         return (
 
             <div>
-                   <DateTimePicker clockFormat="24hr" baseDateTime={new Date('2017-07-30 13:00:00')} />
+                   <Slider data-automation-id="Fullness Slider" />
             </div>
 
         )
