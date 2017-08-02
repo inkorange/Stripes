@@ -153,7 +153,7 @@ export class LeftNav extends StripesTheme {
         return (
             <div>
                 <Icon
-                    {...this.getDataSet(this.props, '-MenuToggle')}
+                    {...this.getDataSet(this.props)}
                     basestyle={this.state.style.icon}
                     iconid={this.props.icon}
                     size="medium"
