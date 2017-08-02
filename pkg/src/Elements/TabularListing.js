@@ -196,7 +196,6 @@ export class TabularListing extends StripesTheme {
         var headerWrap = {
             position: 'relative'
         };
-
         return (
             <Table className="TabularListing" ref="TabularListing"  style={this.props.style} {...this.getDataSet(this.props)}>
                 <div style={headerWrap}>
@@ -207,6 +206,7 @@ export class TabularListing extends StripesTheme {
                     </TableHeader>
                     {this.props.columnSelector ?
                         <ColumnSelector
+                            {...this.getDataSet(this.props, '-ColumnSelector')}
                             key="ColumnSelector"
                             ref="ColumnSelector"
                             structure={this.props.data.structure}

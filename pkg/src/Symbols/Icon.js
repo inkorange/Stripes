@@ -92,7 +92,7 @@ export class Icon extends StripesTheme {
                  data-name={this.props.iconid}
             >
                 {svg}
-                { this.props.onClick ? <div style={{position: 'absolute', cursor: 'pointer', top: 0, bottom: 0, right: 0, left: 0, backgroundColor:'rgba(0,0,0,.001)'}} className="icon-click-target" onClick={this.clickAction}></div> : null }
+                { this.props.onClick ? <div style={{position: 'absolute', cursor: 'pointer', top: 0, bottom: 0, right: 0, left: 0, backgroundColor:'rgba(0,0,0,.001)'}} className="icon-click-target" onClick={this.clickAction} {...this.getDataSet(this.props, '-clickTarget')}></div> : null }
                 {this.props.children}
             </div>
         )

@@ -132,12 +132,14 @@ export class ColumnSelector extends StripesTheme {
                       defaultChecked={this.state.savedColumnVisibility ? this.state.savedColumnVisibility.indexOf(name) >= 0 : true}
                       disabled={this.state.selectorDisabled && (this.state.savedColumnVisibility ? this.state.savedColumnVisibility.indexOf(name) >= 0 : true)}
                       value={name}
+                      {...this.getDataSet(this.props, '-' + label)}
                       key={"option"+i}>{label}</Item>
             );
         });
         var someColsHidden = this.state.savedColumnVisibility && this.state.savedColumnVisibility.length !== this.props.structure.length;
         return (
             <IconMenu
+                {...this.getDataSet(this.props)}
                 backgroundColor={["transparent","white"]}
                 iconColor={[someColsHidden ? this.getColors()['default'].activeIcon : this.getColors()['default'].inactiveIcon, this.getColors()['default'].activeIcon]}
                 iconid="column"
