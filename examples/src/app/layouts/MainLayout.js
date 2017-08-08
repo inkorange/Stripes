@@ -1,6 +1,9 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { Route } from 'react-router-dom'
 
+const StripesDemo = require('../controllers/StripesDemo');
+const Intro = require('../controllers/Intro');
 import { Stripes } from 'zebra-stripes/Core/Stripes'
 import {H1, H2, H3, Title, A} from 'zebra-stripes/Typography'
 // elements
@@ -103,7 +106,10 @@ const MainLayout = React.createClass({
                         <li key="menu_1" style={hstyle.topMenuItem}><A href="/">Introduction</A></li>
                     </ul>
                 </header>
-                {React.cloneElement(this.props.children, { menuOpen: this.state.leftnavopen, condensed: this.state.condensed })}
+
+                <Route exact path="/home" component={Intro} />
+                <Route exact path="/components" component={StripesDemo} />
+
                 <footer className="zebra" style={{zIndex: 1000, display: 'none'}}>
                     <img src="./images/zebralogo.svg" />
                     <p>&copy;2017 ZIH Corp and/or its affiliates. All Rights Reserved. Zebra and the stylized Zebra head are trademarks of ZIH Corp, registered in many jurisdictions worldwide.</p>

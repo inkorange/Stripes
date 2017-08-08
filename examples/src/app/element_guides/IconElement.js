@@ -55,7 +55,7 @@ export class IconElement extends React.Component {
     render() {
         var iconItems = [];
         iconJSON.svg.symbol.map(icon => {
-            iconItems.push(<div style={{display: 'inline-block', width: '100px', float: 'left', padding: '5px', textAlign: 'center'}}><Icon iconid={icon["@attributes"].id} size="large"/><p>{icon["@attributes"].id}</p></div>)
+            iconItems.push(<div key={'div-' + icon["@attributes"].id} style={{display: 'inline-block', width: '100px', float: 'left', padding: '5px', textAlign: 'center'}}><Icon iconid={icon["@attributes"].id} size="large"/><p>{icon["@attributes"].id}</p></div>)
         });
 
         return (
@@ -82,7 +82,7 @@ export class IconElement extends React.Component {
                                 '<Icon iconid="home" />\n'+
                                 '<Icon iconid="home" size="medium" />\n'+
                                 '<Icon iconid="home" size="large" />\n',
-                            example: [<Icon iconid="home"/>,<Icon iconid="home" size="medium"/>,<Icon iconid="home" size="large"/>]
+                            example: [<Icon key="ic1" iconid="home"/>,<Icon key="ic2" iconid="home" size="medium"/>,<Icon key="ic3" iconid="home" size="large"/>]
                         },
                         {
                             desc: 'Icon with Click Event Bindings',
@@ -101,9 +101,9 @@ export class IconElement extends React.Component {
                                 '    style={{margin: "10px"}}\n' +
                                 '    onClick={() => { alert("clicked rtcube"); }}\n'+
                                 '    size="large" />\n',
-                            example: [  <Icon iconid="admin" style={{margin: "10px"}} onClick={() => { alert("clicked admin"); }} size="large"/>,
-                                        <Icon iconid="email" style={{margin: "10px"}} onClick={() => { alert("clicked email"); }} size="large"/>,
-                                        <Icon iconid="rtcube" style={{margin: "10px"}} onClick={() => { alert("clicked rtcube"); }} size="large"/>]
+                            example: [  <Icon key="ic11" iconid="admin" style={{margin: "10px"}} onClick={() => { alert("clicked admin"); }} size="large"/>,
+                                        <Icon key="ic12" iconid="email" style={{margin: "10px"}} onClick={() => { alert("clicked email"); }} size="large"/>,
+                                        <Icon key="ic13" iconid="rtcube" style={{margin: "10px"}} onClick={() => { alert("clicked rtcube"); }} size="large"/>]
                         }
                     ]}
                 description={[

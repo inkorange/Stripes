@@ -52,8 +52,8 @@ export class CheckBoxElement extends React.Component {
                                 '   onClick={() => { this.setState({checked: !this.state.checked}); } }> \n' +
                                 '   Toggle Check \n' +
                                 '</RaisedButton>',
-                            example: [<CheckBox checked={this.state.checked1} label="CheckBox Option"/>,
-                                     <RaisedButton onClick={() => { this.setState({checked1: !this.state.checked1}); } }>Toggle Check</RaisedButton>]
+                            example: [<CheckBox key="ch1" checked={this.state.checked1} label="CheckBox Option"/>,
+                                     <RaisedButton key="ch2" onClick={() => { this.setState({checked1: !this.state.checked1}); } }>Toggle Check</RaisedButton>]
                         },
                     ]}
                 description={[
@@ -110,7 +110,7 @@ export class CheckBoxGroupElement extends React.Component {
                                 '    onClick={() => { alert("Selected values are: " + this.refs.checkboxgroup.getValues()); }}>\n' +
                                 '    What are the Values?\n' +
                                 '</RaisedButton>',
-                            example: [<CheckBoxGroup ref="checkboxgroup">
+                            example: [<CheckBoxGroup key="ckbg1" ref="checkboxgroup">
                                         <Item defaultChecked={true} key="option1">Checkbox Option 1</Item>
                                         <Item key="option2">Checkbox Option 2</Item>
                                         <Item key="option3">Checkbox Option 3</Item>

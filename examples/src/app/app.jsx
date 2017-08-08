@@ -1,11 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-
-import Link from 'react-router/lib/Link'
-import Route from 'react-router/lib/Route'
-import Router from 'react-router/lib/Router'
-import IndexRoute from 'react-router/lib/IndexRoute'
-import browserHistory from 'react-router/lib/browserHistory'
+import { browserHistory} from 'react-router';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { Stripes } from 'zebra-stripes/Core/Stripes'
 require('es6-object-assign').polyfill();
 
@@ -16,8 +12,7 @@ const MainLayout = require('./layouts/MainLayout');
 const theme = require('./themes/Theme');
 
 // page components
-const StripesDemo = require('./controllers/StripesDemo');
-const Intro = require('./controllers/Intro');
+
 const icons = require('./themes/iconLibrary.js');
 
 Stripes({
@@ -27,13 +22,11 @@ Stripes({
 });
 
 render((
-
-    <Router history={browserHistory}>
-        <Route path="/" component={MainLayout}>
-            <IndexRoute component={Intro} />
-            <Route name="home" path="home" component={Intro}/>
-            <Route name="components" path="components" component={StripesDemo}/>
-        </Route>
-    </Router>
-
+    <BrowserRouter history={ browserHistory }>
+        <div>
+            <Route exact path="/" render={() => <Redirect to={"home"} />} />
+            <Route exact path="/home" component={MainLayout} />
+            <Route exact path="/components" component={MainLayout} />
+        </div>
+    </BrowserRouter>
 ),  document.getElementById('app'));

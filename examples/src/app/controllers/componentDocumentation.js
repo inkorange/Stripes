@@ -74,7 +74,7 @@ export class ComponentDocumentation extends React.Component {
         return (
 
                 <Card
-                    title={this.props.location ? [<p style={style.location}>{this.props.location}</p>, this.props.title] : this.props.title}
+                    title={this.props.location ? [<p key="location" style={style.location}>{this.props.location}</p>, this.props.title] : this.props.title}
                     style={style.base}
                     headerStyle={style.header}
                 >
@@ -99,6 +99,7 @@ export class ComponentDocumentation extends React.Component {
                             contentStyle={{padding: '20px'}}
                             icons={["up","down"]}
                             key="showhide"
+                            initialShow={true}
                         >
                             {codeExamples}
                         </ShowHide>

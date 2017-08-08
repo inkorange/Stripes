@@ -91,14 +91,6 @@ class StripesDemo extends React.Component {
         return false;
     }
 
-    _syncWithLeftNav() {
-        console.log(window.scrollY);
-        if(window.scrollY > 50) {
-            console.log('add class');
-        }
-
-    }
-
     render() {
         var tableCells = [];
         for(var i =0; i < 10; i++) {
@@ -115,48 +107,27 @@ class StripesDemo extends React.Component {
             // layouts
             "Typography": (<Typography />),
 
-            "Layouts": [<H1>Layouts</H1>, <CardElement />, <PaperElement />, <TwoColumnElement />, <DialogElement />],
+            "Layouts": [<H1 key="l1">Layouts</H1>, <CardElement key="l2" />, <PaperElement key="l3" />, <TwoColumnElement key="l4" />, <DialogElement key="l5" />],
 
-            "Navigation": [<H1>Navigation</H1>, <IconMenuElement />, <LeftNavElement />, <NavBarElement />, <TabMenuElement />],
+            "Navigation": [<H1 key="n1">Navigation</H1>, <IconMenuElement key="n2" />, <LeftNavElement key="n3" />, <NavBarElement key="n4" />, <TabMenuElement key="n5" />],
 
-            "Table": [<H1>Table</H1>, <TableElement/>],
+            "Table": [<H1 key="t1">Table</H1>, <TableElement key="t2"/>],
 
-            "TabularListing": [<H1>TabularListing</H1>, <TabularListingElement/>],
+            "TabularListing": [<H1 key="tb1">TabularListing</H1>, <TabularListingElement key="tb2"/>],
 
-            "Form Elements": ([<H1>Form Elements</H1>, <FieldsetElement />, <SliderElement />, <RangeSliderElement/>]),
+            "Form Elements": ([<H1 key="f1">Form Elements</H1>, <FieldsetElement key="f2" />, <SliderElement key="f3" />, <RangeSliderElement key="f4"/>]),
 
-            "DateTimePicker":([<H1>DateTime Elements</H1>, <DatePickerElement/>, <TimePickerElement/>, <DateTimePickerElement/>]),
+            "DateTimePicker":([<H1 key="d1">DateTime Elements</H1>, <DatePickerElement key="d2"/>, <TimePickerElement key="d3"/>, <DateTimePickerElement key="d4"/>]),
 
-            "Buttons":([<H1>Buttons</H1>, <FlatButtonElement/>,<RaisedButtonElement/> ]),
+            "Buttons":([<H1 key="b1">Buttons</H1>, <FlatButtonElement key="b2"/>,<RaisedButtonElement key="b3"/> ]),
 
-            "Switches":([<H1>Switches</H1>,<CheckBoxElement/>,<CheckBoxGroupElement/>, <RadioButtonGroupElement/> ]),
+            "Switches":([<H1 key="s1">Switches</H1>,<CheckBoxElement key="s2"/>,<CheckBoxGroupElement key="s3"/>, <RadioButtonGroupElement key="s4"/> ]),
 
-            "Icon": ([<H1>Icons</H1>, <IconElement />]),
+            "Icon": ([<H1 key="i1">Icons</H1>, <IconElement key="i2" />]),
 
-            "Inputs": ([<H1>Inputs</H1>, <TextBoxElement/>, <TextAreaElement/>, <DropDownElement/>]),
+            "Inputs": ([<H1 key="ii1">Inputs</H1>, <TextBoxElement key="ii2"/>, <TextAreaElement key="ii3"/>, <DropDownElement key="ii4"/>]),
 
-            // components
-            "Alert": ([<H1>Alert</H1>, <AlertElement/>])
-
-                /*
-                <div style={{position: "relative", width: '35px', margin: '20px 20px 20px 200px'}}>
-                    <Icon
-                        iconid="admin"
-                        size="large"/>
-                    <Alert show={true}>This is an alert on the left</Alert>
-                </div>
-                <div style={{position: "relative",  width: "35px",margin: "20px"}}>
-                    <Icon
-                        iconid="admin"
-                        size="large"
-                        style={{cursor: "pointer"}}
-                        onClick={() => {this.setState({alertshow: !this.state.alertshow})}}
-                    />
-                    <Alert show={this.state.alertshow} position="right">This is an alert on the right</Alert>
-                </div>
-            </div>)
-            */
-
+            "Alert": ([<H1 key="a1">Alert</H1>, <AlertElement key="a2"/>])
         };
 
         var navSideStyle = {
@@ -169,13 +140,6 @@ class StripesDemo extends React.Component {
             marginLeft: '200px',
             position: 'relative'
         };
-
-
-
-
-
-
-
 
         var LayoutNavigator = [];
         var LayoutSect = [];
@@ -192,10 +156,10 @@ class StripesDemo extends React.Component {
 
         return (
             <article className="main_content_child" style={{padding: '0 0 105px 0', marginTop: '140px'}}>
-                <div style={navSideStyle}>
+                <div key="navside" style={navSideStyle}>
                     {LayoutNavigator}
                 </div>
-                <div style={contentSideStyle}>
+                <div key="layoutside" style={contentSideStyle}>
                     {LayoutSect}
                 </div>
 

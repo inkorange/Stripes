@@ -43,10 +43,10 @@ export class IconMenuElement extends React.Component {
                                 '     <p>This is pure IconMenu content. This is pure IconMenu content. This is pure IconMenu content. This is pure IconMenu content. This is pure IconMenu content.</p>\n' +
                                 '</IconMenu>',
                             example: ([
-                                 <IconMenu style={{float: 'left'}} contentStyle={{padding: '20px'}} iconid="filter" direction="right" max-width="400px">
+                                 <IconMenu key="ic1" style={{float: 'left'}} contentStyle={{padding: '20px'}} iconid="filter" direction="right" max-width="400px">
                                      <p>This is pure IconMenu content. This is pure IconMenu content. This is pure IconMenu content. This is pure IconMenu content. This is pure IconMenu content.</p>
                                  </IconMenu>,
-                                 <IconMenu style={{float: 'right'}} contentStyle={{padding: '20px'}}  iconid="filter" direction="left" max-width="400px">
+                                 <IconMenu key="ic2" style={{float: 'right'}} contentStyle={{padding: '20px'}}  iconid="filter" direction="left" max-width="400px">
                                      <p>This is pure IconMenu content. This is pure IconMenu content. This is pure IconMenu content. This is pure IconMenu content. This is pure IconMenu content.</p>
                                  </IconMenu>
                             ])

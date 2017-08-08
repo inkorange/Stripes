@@ -98,8 +98,8 @@ export class TextBoxElement extends React.Component {
                                 '    Trigger Error\n' +
                                 '</RaisedButton>',
                             example: [
-                                <TextBox placeholder="This is a placeholder" error={this.state.inputerror}/>,
-                                <RaisedButton style={{marginTop: "25px"}} key="button1" onClick={this.toggleError}>Trigger Error</RaisedButton>
+                                <TextBox key="tb" placeholder="This is a placeholder" error={this.state.inputerror}/>,
+                                <RaisedButton key="rb" style={{marginTop: "25px"}} key="button1" onClick={this.toggleError}>Trigger Error</RaisedButton>
                             ]
                         }
                     ]}
