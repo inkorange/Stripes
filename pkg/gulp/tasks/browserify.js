@@ -21,17 +21,10 @@ var rename = require("gulp-rename");
 
 
 module.exports = function(assetVersion) {
-
-  console.log("Building (browserify) codebase per browserify'" + configfile.environment + "' environment.");
-  console.log("NOTE: All external API calls wil point to: " + configfile.apiEndpoint);
-  console.log("To get a visualization, use: discify app.js > disc.html");
-
   var bundleQueue = config.bundleConfigs.length;
-
   var browserifyThis = function(bundleConfig) {
 
     var bundler = browserify({
-      require: ['react','react-dom'],
       fullPaths: true,
       // Specify the entry point of your app
       entries: bundleConfig.entries,
@@ -53,11 +46,8 @@ module.exports = function(assetVersion) {
             // desired output filename here.
             .pipe(source(bundleConfig.outputName));
 
-        if(config.minify) {
-          bundlerObj.pipe(streamify(uglify({compress: true})));
-        }
-
         // updating filename to asset Version
+
         bundlerObj.pipe(rename(function (path) {
           path.basename += "-" + assetVersion;
         }))
@@ -69,12 +59,10 @@ module.exports = function(assetVersion) {
 
     bundler.transform(babelify.configure(
         {
-          presets: ["es2015", "react", "stage-2"],
           plugins: ["transform-react-jsx"],
           extensions: ['.js','.jsx']
         }
     ));
-
 
     if (global.isWatching) {
       // Wrap with watchify and rebundle on changes
@@ -86,15 +74,6 @@ module.exports = function(assetVersion) {
     var reportFinished = function() {
       // Log when bundling completes
       bundleLogger.end(bundleConfig.outputName);
-
-      if (bundleQueue) {
-        bundleQueue--;
-        if (bundleQueue === 0) {
-          // If queue is empty, tell gulp the task is complete.
-          // https://github.com/gulpjs/gulp/blob/master/docs/API.md#accept-a-callback
-          //callback();
-        }
-      }
     };
 
     return bundle();

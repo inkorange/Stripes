@@ -18,7 +18,7 @@ module.exports = {
                 setTimeout(function() {
                     console.log('Deleted files and folders:\n', paths.join('\n'));
                     cb(null);
-                },5000);
+                },100);
             });
         });
     },

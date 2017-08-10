@@ -25,7 +25,6 @@ gulp.task('movepackage', () => {
 
 var getAssetVersion = function(cb) {
     git.short(function (short) {
-        console.log('running getAssetVersion callback........');
         cb(short);
     });
 };
