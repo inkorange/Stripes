@@ -105,15 +105,16 @@ export class TimePickerElement extends React.Component {
                             example: <TimePicker/>
                         },
                         {
-                            desc: 'Manual TimePicker Control with a Set Value',
+                            desc: 'Manual TimePicker Control with a Set Value and 24hr Clock',
                             code:
                                 'import {TimePicker} from \'zebra-stripes/Forms\'\n' +
                                 '\n' +
                                 '<TimePicker\n' +
                                 '   manual={true}\n' +
+                                '   clockFormat="24hr"\n' +
                                 '   time="Wed Jun 21 2017 1:00:00 GMT-0400 (EDT)"\n' +
                                 '/>\n',
-                            example: <TimePicker manual={true} time="Wed Jun 21 2017 1:00:00 GMT-0400 (EDT)"/>
+                            example: <TimePicker manual={true} clockFormat="24hr" time="Wed Jun 21 2017 1:00:00 GMT-0400 (EDT)"/>
                         }
                     ]}
                 description={[

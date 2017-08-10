@@ -86,7 +86,7 @@ export class ComponentDocumentation extends React.Component {
                                 labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(20, 20, 20)', fontSize: '2rem'}}
                                 contentStyle={{padding: '20px'}}
                                 icons={["up","down"]}
-                                initialShow={true}
+                                initialShow={false}
                             >
                                 <div style={{backgroundColor: 'white'}}>
                                     {paramNodes}
