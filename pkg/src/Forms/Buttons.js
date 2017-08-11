@@ -4,7 +4,6 @@ import React from 'react'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Icon } from  '../Symbols/Icon'
-
 class FlatButton extends StripesTheme {
 
     static defaultProps = {

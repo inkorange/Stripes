@@ -12,6 +12,7 @@ import {TabularDetail} from '../src/Elements/TabularDetail'
 import { A, Title, H1, H2, H3 } from '../src/Typography'
 import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider, RangeSlider } from '../src/Forms'
 import { Dialog, Card, LeftNav, MenuItem, TwoColumnLayout } from '../src/Layouts'
+import {Calendar} from '../src/Elements/Calendar'
 import {Icon} from  '../src/Symbols/Icon'
 import {Tooltip} from  '../src/Notifications/Tooltip'
 import {Tag, ShowHide, TabMenu, IconMenu} from '../src/Layouts'
@@ -57,6 +58,7 @@ class Sandbox extends React.Component {
                       style={{margin: "10px"}}
                       onClick={() => { alert("clicked admin"); }}
                       size="large"/>
+                <Calendar />
             </div>
         )
     }
