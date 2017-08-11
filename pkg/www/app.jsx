@@ -42,6 +42,7 @@ class Sandbox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            showtooltip: false
         };
     }
 
@@ -54,11 +55,35 @@ class Sandbox extends React.Component {
     render() {
         return (
             <div>
-                <Icon iconid="admin"
-                      style={{margin: "10px"}}
-                      onClick={() => { alert("clicked admin"); }}
-                      size="large"/>
-                <Calendar />
+                <IconMenu
+                    iconid="filter"
+                    closeOnBlur={true}
+                >
+                    <div>
+                        <p>%%%%%%%%%%%%%%%%%%%%%</p>
+                        <div><DateTimePicker /></div>
+                        <div><DatePicker /></div>
+                        <div><TimePicker /></div>
+                        <p>%%%%%%%%%%%%%%%%%%%%%</p>
+                    </div>
+                </IconMenu>
+                <div style={{position: 'relative', float: 'left'}}>
+                    <Icon iconid="menu"
+                          color="blue"
+                          size="medium"
+                          onClick={() => {this.refs.tooltip.toggleShow(); }}
+                    />
+                    <Tooltip ref="tooltip"
+                             width="475px"
+                             duration="0"
+                             position="left"
+                             show={false}
+                             closeOnBlur={true}
+                    >
+                        This is where we will show a tooltip
+                    </Tooltip>
+                </div>
+
             </div>
         )
     }

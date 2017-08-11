@@ -77,7 +77,6 @@ export class DateTimePicker extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
         var styleObj = {
             container: {

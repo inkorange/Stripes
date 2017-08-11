@@ -82,15 +82,6 @@ export class IconMenu extends StripesTheme {
                 }
             }, 150);
         }
-
-        /*
-
-        this.blurTime = new Date();
-        if(this.props.closeOnBlur) {
-            this.toggleMenu(false);
-        }
-        return false;
-        */
     }
 
     isOpen() {
@@ -98,7 +89,6 @@ export class IconMenu extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
         var styleObj = {
             base: {

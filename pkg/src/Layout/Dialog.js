@@ -73,14 +73,19 @@ export class Dialog extends StripesTheme {
 
     close() {
         this.toggleDialog(false);
+        this.props.onClose();
         setTimeout(() => {
-            this.refs.dialogContainer.style.display = "none";
-            this.props.onClose();
+            // setting display to none forces a blur back to the body! Need to make it a height of 0.
+            this.refs.dialogContainer.style.bottom = "auto";
+            this.refs.dialogContainer.style.overflow = "hidden";
         }, 250);
+
     }
 
     open() {
+        this.refs.dialogContainer.style.bottom = "0";
         this.refs.dialogContainer.style.display = "block";
+        this.refs.dialogContainer.style.overflow = "auto";
         setTimeout(() => {
             this.toggleDialog(true);
         }, 50);
