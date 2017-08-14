@@ -80,13 +80,15 @@ export class TabularDetail extends StripesTheme {
 
     getStyles() {
         var color = this.getColors()[this.props.type];
+        var rowColor = this.getColors().table.row;
         var spacing = this.getSpacing()[this.props.type];
         var styleObj = {
             base: {
 
             },
             fieldSelector: {
-                background: '#ccc',
+                background: rowColor.zebraStripe,
+                borderBottom: 'solid 1px ' + color.border,
                 textAlign: 'right',
                 padding: spacing.padding
             },
@@ -98,9 +100,8 @@ export class TabularDetail extends StripesTheme {
             row: {
                 display: 'flex',
                 flexFlow: 'row nowrap',
-                borderBottom: '1px solid #ccc',
+                borderBottom: '1px solid ' + color.border,
                 padding: '0 ' + spacing.padding*2 + 'px',
-                background: 'white',
                 position: 'relative'
             },
             detailContent: {
@@ -132,6 +133,7 @@ export class TabularDetail extends StripesTheme {
 
     render() {
         var sort_by = this.props.data.sort_by;
+        var color = this.getColors().table.row;
 
         var tableRows = [];
 
@@ -176,7 +178,7 @@ export class TabularDetail extends StripesTheme {
 
             });
             tableRows.push(
-                <div style={this.state.style.row} onClick={(e) => { this.props.onRowClick(e, r); }} key={"row"+i}>
+                <div style={Object.assign({background: i%2 ? color.zebraStripe : 'white'}, this.state.style.row)} onClick={(e) => { this.props.onRowClick(e, r); }} key={"row"+i}>
                     <div style={this.state.style.detailContent}>{cells}</div>
                 </div>
             );
@@ -202,13 +204,17 @@ export class TabularDetail extends StripesTheme {
         var fieldOptions = [];
         this.props.data.structure.map((c, i) => {
             if(c.sortable) {
+                var label = c.name.replace(/(<([^>]+)>)/ig, "/");
+                label = label === "" ? c.field[0] : label;
+                label = label.substring(label.length - 1) === "/" ? label.substring(0, label.length - 1) : label;
+
                 fieldOptions.push(
                     <Item
                         data-automation-id={"Field Sorter - " + c.field[0]}
                         value={c.field[0]}
                         defaultChecked={c.field[0] === sort_by && this.props.sortable}
                         key={"fielditem" + i}>
-                        {c.name.replace(/<\/?[^>]+(>|$)/g, " ").trim()}
+                        {label}
                     </Item>
                 );
             }
@@ -218,6 +224,7 @@ export class TabularDetail extends StripesTheme {
             <article className="TabularDetail" ref="TabularDetail"  {...this.getDataSet(this.props)}>
                 <div ref="FieldSelector" style={this.state.style.fieldSelector}>
                     <div style={{position: 'relative', display: 'inline-block'}}>
+                        <label>Sort By: </label>
                         <DropDown
                             placeholder="All trailer types"
                             showEmpty={true}

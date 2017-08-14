@@ -22,7 +22,7 @@ module.exports = {
         textColor: primaryColor,
         idleColor: idleColor,
         hoverText: '',
-        border: '',
+        border: '#e0e0e0',
         backgroundColor: 'transparent',
         backgroundHover: 'rgba(0,0,0,.08)',
         iconColor: accentBlue,
