@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Icon } from  '../Symbols/Icon'
 import { FlatButton } from  '../Forms/Buttons'
-import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from '../Table'
 import { Item, DropDown } from '../Forms'
 export class TabularDetail extends StripesTheme {
 
@@ -121,6 +120,10 @@ export class TabularDetail extends StripesTheme {
                 color: 'gray',
                 textTransform: 'uppercase'
             },
+            clickLink: {
+                cursor: 'pointer',
+                color: color.activeIcon
+            },
             activeIconColor: color.activeIcon
         };
         styleObj.row = Object.assign(styleObj.row, this.props.style);
@@ -142,40 +145,44 @@ export class TabularDetail extends StripesTheme {
             this.props.data.structure.map((header, key) => {
                 var itemDOM = [];
                 var labelDOM = null;
+                var label = header.name; //.replace(/(<([^>]+)>)/ig, " ");
+                label = label === "" ? header.field[0] : label;
+                //label = label.substring(label.length - 1) === "/" ? label.substring(0, label.length - 1) : label;
 
                 // constructing the headers *****************************************
-                labelDOM = ( <label key="label" dangerouslySetInnerHTML={{__html: header.name}}/> );
+                labelDOM = ( <label key="label" dangerouslySetInnerHTML={{__html: label}}/> );
 
                 // constructing the values *****************************************
                 header.field.map((field, index) => {
                     var dimObj = this.dimensionalObjectResolution(r, field);
                     var value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
+                    var clickStyle = header.filterable ? this.state.style.clickLink : {};
                     if (index === 0 && value) {
                         itemDOM.push(
                             <span key={"prim" + key + "" + index}
+                                  className={header.filterable ? 'filterable' : ''}
                                   onClick={header.filterable ? this.clickValue : false}
+                                  style={clickStyle}
                                   data-filterable={header.filterable} data-value={dimObj}>{value}</span>
                         );
                     } else if(value){
                         itemDOM.push(
                             <em key={"sec" + key + "" + index} onClick={header.filterable ? this.clickValue : false}
+                                className={header.filterable ? 'filterable' : ''}
+                                style={clickStyle}
                                 data-filterable={header.filterable} data-value={dimObj}>{value}</em>
                         );
                     }
                 });
-
-                cells.push(
-                    <div
-                        style={Object.assign({width: header.width}, this.state.style.contentCell)}
-                        className={header.className}
-                        key={"headcell"+key}
-                        data-filterable={header.filterable}
-                        wrap={header.wrap ? true: false}>
-                        <label style={this.state.style.rowLabel}>{labelDOM}</label>
-                        {itemDOM}
-                    </div>
-                );
-
+                cells.push(<div
+                    style={Object.assign({width: header.width}, this.state.style.contentCell)}
+                    className={header.className}
+                    key={"headcell"+key}
+                    data-filterable={header.filterable}
+                    wrap={header.wrap ? true: false}>
+                    <label style={this.state.style.rowLabel}>{labelDOM}</label>
+                    {itemDOM}
+                </div>);
             });
             tableRows.push(
                 <div style={Object.assign({background: i%2 ? color.zebraStripe : 'white'}, this.state.style.row)} onClick={(e) => { this.props.onRowClick(e, r); }} key={"row"+i}>

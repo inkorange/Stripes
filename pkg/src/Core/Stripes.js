@@ -95,9 +95,11 @@ export class StripesTheme extends React.Component {
                     display: this.props.error ? 'block' : 'none',
                     fontSize: spacing.errorFontSize,
                     position: 'absolute',
-                    bottom: (spacing.margin * -4) + 'px',
+                    top: 'calc(100% + 5px)',
                     right: 0,
                     maxWidth: '100%',
+                    lineHeight: '1.2rem',
+                    textAlign: 'right',
                     color: color.underErrorlineColor
                 }
             },
