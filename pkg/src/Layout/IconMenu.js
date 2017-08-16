@@ -93,7 +93,8 @@ export class IconMenu extends StripesTheme {
         var styleObj = {
             base: {
                 position: 'relative',
-                display: 'inline'
+                display: 'inline',
+                opacity: this.props.disabled ? '.5' : '1'
             },
             icon: {
                 transition: 'all .5s',
@@ -145,7 +146,7 @@ export class IconMenu extends StripesTheme {
                     iconid={this.props.iconid}
                     color={this.state.open ? this.props.iconColor[1] : this.props.iconColor[0]}
                     size={this.props.iconSize}
-                    onClick={this.toggleMenu}
+                    onClick={!this.props.disabled ? this.toggleMenu : null}
                     basestyle={this.state.style.icon}
                 />
                 <div style={this.state.style.content}
