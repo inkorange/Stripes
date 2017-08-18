@@ -7,6 +7,7 @@ import { StripesTheme } from '../Core/Stripes'
 import { Icon } from  '../Symbols/Icon'
 import { FlatButton } from  '../Forms/Buttons'
 import { Item, DropDown } from '../Forms'
+import {ColumnSelector} from '../Table'
 export class TabularDetail extends StripesTheme {
 
     static defaultProps = {
@@ -19,6 +20,7 @@ export class TabularDetail extends StripesTheme {
         onHeaderClick: () => { return false;},
         bodyHeight: 0,
         zebraStripes: true,
+        columnSelector: false,
         sortable: true,
         triggerLazyLoad: () => { return false; },
         showMoreLoading: false,
@@ -174,9 +176,11 @@ export class TabularDetail extends StripesTheme {
                         );
                     }
                 });
+                var name = header.name !== "" ? header.name.replace(/(<([^>]+)>)|( )/ig, "") : header.field[0];
                 cells.push(<div
                     style={Object.assign({width: header.width}, this.state.style.contentCell)}
                     className={header.className}
+                    data-name={name}
                     key={"headcell"+key}
                     data-filterable={header.filterable}
                     wrap={header.wrap ? true: false}>
@@ -228,9 +232,9 @@ export class TabularDetail extends StripesTheme {
         });
 
         return (
-            <article className="TabularDetail" ref="TabularDetail"  {...this.getDataSet(this.props)}>
+            <article className="TabularDetail" style={{position: 'relative'}} ref="TabularDetail"  {...this.getDataSet(this.props)}>
                 <div ref="FieldSelector" style={this.state.style.fieldSelector}>
-                    <div style={{position: 'relative', display: 'inline-block'}}>
+                    <div style={{position: 'relative', display: 'inline-block', paddingRight: this.props.columnSelector ? '40px' : 0}}>
                         <label>Sort By: </label>
                         <DropDown
                             placeholder="All trailer types"
@@ -244,6 +248,15 @@ export class TabularDetail extends StripesTheme {
                 <div ref="TabularDetailContent" style={{height: this.state.bodyHeight ? this.state.bodyHeight : null, overflow: 'auto'}}>
                     {tableRows}
                 </div>
+                {this.props.columnSelector ?
+                    <ColumnSelector
+                        {...this.getDataSet(this.props, '-ColumnSelector')}
+                        key="ColumnSelector"
+                        ref="ColumnSelector"
+                        style={{marginTop: '-3px'}}
+                        structure={this.props.data.structure}
+                    /> : null
+                }
             </article>
         )
     }

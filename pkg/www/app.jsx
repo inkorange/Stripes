@@ -153,14 +153,12 @@ class Sandbox extends React.Component {
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Add Sandbox Creation BELOW %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
     render() {
         return (
-            <div>
-                <IconMenu iconid="filter" direction="right" max-width="400px" disabled={true}>
-                    <TwoColumnLayout
-                        style={{padding: '20px', width: '300px'}}
-                        columnOne={<div>This is content for the first column. This will display on the left side of the component.</div>}
-                        columnTwo={<div>This is content for the second column. This will display on the right side of the component.</div>}
-                    />
-                </IconMenu>
+            <div style={{height: '100vh'}}>
+                <TabularDetail
+                    columnSelector={true}
+                    height="100%"
+                    data={this.state.data}
+                />
 
             </div>
         )

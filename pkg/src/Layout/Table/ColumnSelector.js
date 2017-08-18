@@ -144,6 +144,7 @@ export class ColumnSelector extends StripesTheme {
                 iconColor={[someColsHidden ? this.getColors()['default'].activeIcon : this.getColors()['default'].inactiveIcon, this.getColors()['default'].activeIcon]}
                 iconid="column"
                 direction="left"
+                constrainHeight={true}
                 ref="ColumnSelectorIconMenu"
                 style={this.state.style.base}
                 contentStyle={this.state.style.content}
