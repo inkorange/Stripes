@@ -1,6 +1,7 @@
 
 let primaryColor = "#007CB0";
 let primaryBackground = "#1565C0";
+let alertBackground = "#FF9800";
 let accentBlue = "#007CB0";
 let accentYellow = "#FFD200";
 let accentRed = "#ED1C24";
@@ -63,8 +64,10 @@ module.exports = {
     },
     notification: {
         textColor: baseTextColor,
+        altTextColor: "white",
         borderColor: 'rgb(100,100,100)',
         backgroundColor: 'rgba(0,0,0,.75)',
+        alertBackgroundColor: alertBackground,
         tooltipBackgroundColor: 'white'
     },
     switches: {

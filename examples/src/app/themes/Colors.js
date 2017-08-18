@@ -1,6 +1,7 @@
 
 let primaryColor = "#007CB0";
 let primaryBackground = "#007CB0";
+let alertBackground = "#FF9800";
 let accentBlue = "#007CB0";
 let accentYellow = "#FFD200";
 let accentRed = "#ED1C24";
@@ -22,7 +23,7 @@ module.exports = {
         textColor: primaryColor,
         idleColor: idleColor,
         hoverText: '',
-        border: '',
+        border: '#e0e0e0',
         backgroundColor: 'transparent',
         backgroundHover: 'rgba(0,0,0,.08)',
         iconColor: accentBlue,
@@ -63,8 +64,10 @@ module.exports = {
     },
     notification: {
         textColor: baseTextColor,
+        altTextColor: "white",
         borderColor: 'rgb(100,100,100)',
         backgroundColor: 'rgba(0,0,0,.75)',
+        alertBackgroundColor: alertBackground,
         tooltipBackgroundColor: 'white'
     },
     switches: {

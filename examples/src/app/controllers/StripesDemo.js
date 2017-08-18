@@ -20,7 +20,7 @@ import {DatePickerElement, TimePickerElement, DateTimePickerElement} from '../el
 import {FlatButtonElement, RaisedButtonElement} from '../element_guides/ButtonElements'
 import {CheckBoxElement, CheckBoxGroupElement, RadioButtonGroupElement} from '../element_guides/SwitchElements'
 import {IconElement} from '../element_guides/IconElement'
-import {AlertElement} from '../element_guides/AlertElement'
+import {AlertElement, RibbonElement} from '../element_guides/AlertElement'
 import {TextBoxElement, TextAreaElement, DropDownElement} from '../element_guides/InputElements'
 
 import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
@@ -127,7 +127,7 @@ class StripesDemo extends React.Component {
 
             "Inputs": ([<H1 key="ii1">Inputs</H1>, <TextBoxElement key="ii2"/>, <TextAreaElement key="ii3"/>, <DropDownElement key="ii4"/>]),
 
-            "Alert": ([<H1 key="a1">Alert</H1>, <AlertElement key="a2"/>])
+            "Alert": ([<H1 key="a1">Alert</H1>, <AlertElement key="a2"/>, <RibbonElement key="a3" />])
         };
 
         var navSideStyle = {

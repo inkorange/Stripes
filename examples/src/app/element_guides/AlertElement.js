@@ -5,6 +5,8 @@ import { render } from 'react-dom'
 
 import {ComponentDocumentation} from '../controllers/ComponentDocumentation'
 import {Alert} from 'zebra-stripes/Notifications/Alert'
+import {RaisedButton} from 'zebra-stripes/Forms'
+import {Ribbon} from 'zebra-stripes/Notifications/Ribbon'
 import {Icon} from 'zebra-stripes/Symbols/Icon'
 
 export class AlertElement extends React.Component {
@@ -102,6 +104,63 @@ export class AlertElement extends React.Component {
     }
 }
 
+export class RibbonElement extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            showribbon: false
+        };
+    }
+
+
+    render() {
+        return (
+            <ComponentDocumentation
+                title="Ribbon"
+                location="import {Ribbon} from 'zebra-stripes/Notifications';"
+
+                propsMap={[
+                        {name: 'show',        type: 'boolean',  desc: 'Defines if the Ribbon should show or not.', default: 'false'},
+                        {name: 'iconid',      type: 'string',   desc: 'Callback function fired when the input is blurred.', default: 'null'},
+                        {name: 'onClick',     type: 'function', desc: 'Callback function fired when the input is clicked.', default: 'null'},
+                        {name: 'height',      type: 'string',   desc: 'The CSS property value of the height of the Ribbon.', default: '50px'},
+                        {name: 'position',    type: 'string',   desc: 'One of top, or bottom that defines where the Ribbon will show.', default: 'top'}
+                    ]}
+                colOneWidth="50%"
+                colTwoWidth="50%"
+                samples={[
+                        {
+                            desc: 'Basic Ribbon Usage',
+                            code:
+                                'import {Ribbon} from \'zebra-stripes/Notifications\'\n' +
+                                'import {RaisedButton} from \'zebra-stripes/Forms\'\n' +
+                                '\n' +
+                                '<div style={{position: "relative"}}>\n' +
+                                '    <RaisedButton type="primary" onClick={() => {this.setState({showribbon: !this.state.showribbon})}}>Toggle Ribbon</RaisedButton>\n' +
+                                '    <Ribbon\n' +
+                                '        iconid="alert"\n' +
+                                '        show={this.state.showribbon}\n' +
+                                '        position="bottom"\n' +
+                                '    >\n' +
+                                '       This is a Message\n' +
+                                '   </Ribbon>\n' +
+                                '</div>',
+                            example: <div style={{position: "relative"}}>
+                                        <RaisedButton type="primary" onClick={ () => { this.setState({showribbon: !this.state.showribbon})}}>Toggle Ribbon</RaisedButton>
+                                        <Ribbon show={this.state.showribbon} position="bottom" iconid="alert">This is a Message</Ribbon>
+                                    </div>
+                        }
+                    ]}
+                description={[
+                        <p key="p1">The TextBox component is a versatile input that doubles for both a suggestive search input as well as a standard textbox input component.</p>,
+                        <p key="p2">Consistent error handling is maintained across all form elements with the use of the error attribute. This value both triggers an error state on this element, as well as defines the text to be displayed in the event of an error.</p>
+                    ]}
+            />
+        )
+    }
+}
 module.exports = {
-    AlertElement: AlertElement
+    AlertElement: AlertElement,
+    RibbonElement: RibbonElement
 };
