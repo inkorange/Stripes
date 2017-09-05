@@ -97,6 +97,7 @@ module.exports = {
     },
     tabmenu: {
         background: primaryColor,
+        selectedBackground: primaryColor,
         textColor: secondaryTextColor,
         indicator: '#FFFF8C'
     },

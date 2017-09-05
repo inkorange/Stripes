@@ -36,14 +36,18 @@ export class LeftNav extends StripesTheme {
     }
 
     componentDidMount() {
-        this.setState({
-            style: this.getStyles()
-        });
+        this.updateStyles();
     }
 
     componentWillUpdate(props) {
         if(props.open !== this.props.open) {
             this.toggleMenu(props.open);
+        }
+    }
+
+    componentDidUpdate(props) {
+        if(props.width !== this.props.width) {
+            this.updateStyles();
         }
     }
 
@@ -54,9 +58,7 @@ export class LeftNav extends StripesTheme {
             if(this.state.open) {
                 this.refs.LeftNav.focus();
             }
-            this.setState({
-                style: this.getStyles()
-            });
+            this.updateStyles();
         })
     }
 

@@ -254,6 +254,7 @@ export class TabularDetail extends StripesTheme {
                         key="ColumnSelector"
                         ref="ColumnSelector"
                         style={{marginTop: '-3px'}}
+                        hasData={(this.props.data.rows && this.props.data.rows.length) ? true: false}
                         structure={this.props.data.structure}
                     /> : null
                 }

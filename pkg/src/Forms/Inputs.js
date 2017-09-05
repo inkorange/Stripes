@@ -288,7 +288,9 @@ class DropDown extends StripesTheme {
         error: null,
         width: null,
         iconStyle: {},
+        showFocus: true,
         value: null,
+        disabled: false,
         onChange: () => { return false; }
     }
 
@@ -358,8 +360,10 @@ class DropDown extends StripesTheme {
     }
 
     toggleSelect() {
-        this.onInputClick();
-        this.refs.selectPanel.open();
+        if(!this.props.disabled) {
+            this.onInputClick();
+            this.refs.selectPanel.open();
+        }
     }
 
     getStyles() {
@@ -377,7 +381,8 @@ class DropDown extends StripesTheme {
             position: 'absolute',
             right: '0',
             top: '-2px',
-            height: '20px'
+            height: '20px',
+            opacity: this.props.disabled ? '.5' : '1.0'
         };
         var icon = {
             fill: color.inactiveIcon
@@ -388,8 +393,8 @@ class DropDown extends StripesTheme {
         styleObj.input = Object.assign(styleObj.input, input);
         styleObj.baseicon = baseicon;
         styleObj.icon = Object.assign(icon, this.props.iconStyle);
-        styleObj.active.on = Object.assign(styleObj.active.on, styleObj.active.base);
-        styleObj.active.off = Object.assign(styleObj.active.off, styleObj.active.base);
+        styleObj.active.on = this.props.showFocus ? Object.assign(styleObj.active.on, styleObj.active.base) : {display: 'none'};
+        styleObj.active.off = this.props.showFocus ? Object.assign(styleObj.active.off, styleObj.active.base) : {display: 'none'};
 
         return styleObj;
     }

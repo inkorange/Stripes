@@ -217,6 +217,10 @@ export class StripesTheme extends React.Component {
         return value;
     }
 
+    hardExtend(into, extend) {
+        return Object.assign(into ? JSON.parse(JSON.stringify(into)) : {}, extend ? JSON.parse(JSON.stringify(extend)) : {});
+    }
+
     animateBackground(e) {
         var target = e.target;
 

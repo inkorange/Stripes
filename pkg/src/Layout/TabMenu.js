@@ -78,7 +78,9 @@ export class TabMenu extends StripesTheme {
                 flexWrap: 'nowrap'
             },
             item: Object.assign({opacity:.5}, itemBase),
-            selecteditem: Object.assign({opacity: 1}, itemBase),
+            selecteditem: Object.assign(
+                {opacity: 1, backgroundColor: color.selectedBackground},
+                itemBase),
             indicator: {
                 transition: 'left .5s',
                 position: 'absolute',
@@ -101,8 +103,8 @@ export class TabMenu extends StripesTheme {
     }
 
     clickItem(e) {
-        var pos = e.target.getAttribute("data-itemid")*1;
-        var value = e.target.getAttribute("data-value");
+        var pos = e.currentTarget.getAttribute("data-itemid")*1;
+        var value = e.currentTarget.getAttribute("data-value");
         this.setState({
             selected: pos
         }, () => {
@@ -117,9 +119,11 @@ export class TabMenu extends StripesTheme {
         var items = [];
         var content = [];
         this.props.children.map((item, pos) => {
+            var style = pos == this.state.selected ? this.state.style.selecteditem : this.state.style.item;
+            style = this.hardExtend(style, item.props.style);
             items.push(
-                <div onClick={this.clickItem} data-value={item.props.value} data-itemid={pos} key={"item" + pos} style={pos == this.state.selected ? this.state.style.selecteditem : this.state.style.item}>
-                    {item.props.label}
+                <div onClick={this.clickItem} data-value={item.props.value} data-itemid={pos} key={"item" + pos} style={style}>
+                    {item.props.label ? item.props.label : item.props.children}
                 </div>
             );
             content.push(item.props.children ? item.props.children : null);

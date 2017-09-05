@@ -142,21 +142,31 @@ class Sandbox extends React.Component {
         this.state = {
             data: dataObj,
             showtooltip: false,
-            showribbon: false
+            showribbon: false,
+            navwidth: '200px'
         };
     }
 
     componentDidMount() {
-
     }
 
     componentWillUpdate(props) {
     }
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Add Sandbox Creation BELOW %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
     render() {
+        console.log(this.state.navwidth);
         return (
-            <div style={{height: '100vh'}}>
+            <div style={{height: '100vh', width: '360px'}}>
                 <RaisedButton type="primary" onClick={() => {this.setState({showribbon: !this.state.showribbon})}}>Toggle Ribbon</RaisedButton>
+
+                <TabMenu className="TabMenu">
+                    <Item key="tab1" style={{padding: '0 5px'}} label={<div style={{fontSize: '12px'}}>All</div>} selected={true}/>
+                    <Item key="tab2" style={{padding: '0 5px'}} label={<div style={{fontSize: '12px'}}>Poor util.</div>}/>
+                    <Item key="tab3" style={{padding: '0 5px'}} label={<div style={{fontSize: '12px'}}>Inactive</div>}/>
+                    <Item key="tab4" style={{padding: '0 5px'}} label="Empty"/>
+                    <Item key="tab4" style={{padding: '0 5px'}} label={<Icon iconid="menu" color="white"/>}/>
+                </TabMenu>
+
                 <Ribbon
                     iconid="alert"
                     show={this.state.showribbon}

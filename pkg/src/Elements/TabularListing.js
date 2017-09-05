@@ -209,6 +209,7 @@ export class TabularListing extends StripesTheme {
                             {...this.getDataSet(this.props, '-ColumnSelector')}
                             key="ColumnSelector"
                             ref="ColumnSelector"
+                            hasData={(this.props.data.rows && this.props.data.rows.length) ? true: false}
                             structure={this.props.data.structure}
                         /> : null
                     }

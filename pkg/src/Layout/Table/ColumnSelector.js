@@ -13,7 +13,8 @@ export class ColumnSelector extends StripesTheme {
     static defaultProps = {
         type: 'table',
         className: null,
-        structure: []
+        structure: [],
+        hasData: false
     }
 
     constructor(props) {
@@ -30,12 +31,19 @@ export class ColumnSelector extends StripesTheme {
     }
     componentWillMount() {
         this.setState({
-            style: this.getStyles(),
+            style: this.getStyles()
         });
-        if (this.state.savedColumnVisibility) {
+        if (this.state.savedColumnVisibility && this.props.hasData) {
             this.toggleShowHide(null, this.state.savedColumnVisibility);
         }
     }
+
+    componentWillUpdate(props) {
+        if (this.state.savedColumnVisibility && (props.hasData !== this.props.hasData)) {
+            this.toggleShowHide(null, this.state.savedColumnVisibility);
+        }
+    }
+
     componentDidMount() {
         this.setState({
             allChecked: (!this.props.structure || !this.state.savedColumnVisibility) || (this.props.structure.length === this.state.savedColumnVisibility.length)
