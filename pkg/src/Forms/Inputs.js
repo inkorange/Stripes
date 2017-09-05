@@ -23,7 +23,7 @@ class TextBox extends StripesTheme {
         onClick: null,
         onBlur: null,
         onKeyUp: null,
-        onKeyPress: null,
+        onKeyPress: () => { return true; },
         onChange: null,
         disabled: false,
         readOnly: false
@@ -42,6 +42,7 @@ class TextBox extends StripesTheme {
         this.applyValue = this.applyValue.bind(this);
         this.onCompleteInputBlur = this.onCompleteInputBlur.bind(this);
         this.blur = this.blur.bind(this);
+        this.inputKeyPress = this.inputKeyPress.bind(this);
     }
 
     componentDidUpdate(props) {
@@ -54,6 +55,7 @@ class TextBox extends StripesTheme {
 
     componentDidMount() {
         this.refs.input.value = this.props.value ? this.props.value : '';
+
     }
 
     getValue() {
@@ -131,6 +133,13 @@ class TextBox extends StripesTheme {
         });
     }
 
+    inputKeyPress(e) {
+        if(e.charCode === 13) {
+            this.blur();
+        }
+        this.props.onKeyPress();
+    }
+
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
@@ -161,7 +170,7 @@ class TextBox extends StripesTheme {
                     placeholder={this.props.placeholder}
                     onClick={this.onInputClick}
                     onKeyUp={this.props.onKeyUp}
-                    onKeyPress={this.props.onKeyPress}
+                    onKeyPress={this.inputKeyPress}
                     onBlur={this.onCompleteInputBlur}
                     onChange={this.onChange}
                     style={this.state.style.input}

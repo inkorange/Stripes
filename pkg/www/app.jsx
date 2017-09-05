@@ -166,7 +166,7 @@ class Sandbox extends React.Component {
                     <Item key="tab4" style={{padding: '0 5px'}} label="Empty"/>
                     <Item key="tab4" style={{padding: '0 5px'}} label={<Icon iconid="menu" color="white"/>}/>
                 </TabMenu>
-
+                <TextBox width="200px"/>
                 <Ribbon
                     iconid="alert"
                     show={this.state.showribbon}

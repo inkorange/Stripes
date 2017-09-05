@@ -46,6 +46,14 @@ export class IconMenu extends StripesTheme {
         });
     }
 
+    componentDidUpdate(props) {
+        if(this.props.disabled !== props.disabled) {
+            this.setState({
+                style: this.getStyles()
+            });
+        }
+    }
+
     toggleMenu(show) {
         var timeDelta = (new Date().getTime()) - this.blurTime.getTime();
         this.setState({
