@@ -47,7 +47,7 @@ export class IconMenu extends StripesTheme {
     }
 
     componentDidUpdate(props) {
-        if(this.props.disabled !== props.disabled) {
+        if(this.props.disabled !== props.disabled || this.props.style !== props.style) {
             this.setState({
                 style: this.getStyles()
             });
