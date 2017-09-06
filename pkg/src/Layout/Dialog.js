@@ -1,6 +1,7 @@
 "use strict"
 
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Card } from './Card'
@@ -57,7 +58,7 @@ export class Dialog extends StripesTheme {
         if(typeof element === 'string') {
             return element;
         }
-        var elRect = element.getBoundingClientRect();
+        var elRect = ReactDOM.findDOMNode(element).getBoundingClientRect();
         return elRect.top + elRect.height + 'px';
     }
 

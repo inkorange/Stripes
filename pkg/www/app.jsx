@@ -37,10 +37,12 @@ Stripes({
 class Sandbox extends React.Component {
 
     static defaultProps = {
+        NavBar: null
     }
 
     constructor(props) {
         super(props);
+        this.toggleDialog = this.toggleDialog.bind(this);
         var dataObj = {
             structure: [
                 {
@@ -148,33 +150,56 @@ class Sandbox extends React.Component {
     }
 
     componentDidMount() {
+        this.setState({
+            NavBar: this.refs.top
+        })
     }
 
     componentWillUpdate(props) {
     }
+
+    toggleDialog(open) {
+        if(open) {
+            this.refs.Dialog.open();
+        } else {
+            this.refs.Dialog.close();
+        }
+    }
+
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Add Sandbox Creation BELOW %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
     render() {
-        console.log(this.state.navwidth);
         return (
-            <div style={{height: '100vh', width: '360px'}}>
-                <RaisedButton type="primary" onClick={() => {this.setState({showribbon: !this.state.showribbon})}}>Toggle Ribbon</RaisedButton>
-
-                <TabMenu className="TabMenu">
-                    <Item key="tab1" style={{padding: '0 5px'}} label={<div style={{fontSize: '12px'}}>All</div>} selected={true}/>
-                    <Item key="tab2" style={{padding: '0 5px'}} label={<div style={{fontSize: '12px'}}>Poor util.</div>}/>
-                    <Item key="tab3" style={{padding: '0 5px'}} label={<div style={{fontSize: '12px'}}>Inactive</div>}/>
-                    <Item key="tab4" style={{padding: '0 5px'}} label="Empty"/>
-                    <Item key="tab4" style={{padding: '0 5px'}} label={<Icon iconid="menu" color="white"/>}/>
-                </TabMenu>
-                <TextBox width="200px"/>
-                <Ribbon
-                    iconid="alert"
-                    show={this.state.showribbon}
-                    position="bottom"
+            <div ref="top">
+                <NavBar
+                    ref="NavBar"
+                    leftIcon={(
+                       <Icon
+                           color="white"
+                           iconid="menu"
+                           size="medium"
+                           basestyle={{cursor: "pointer", height: "25px", marginTop: "18px", lineHeight: 0}}
+                       />)}
+                    title="NavBar Title"
                 >
-                    This is a Message
-                </Ribbon>
-
+                    This is my nav bar.
+                </NavBar>
+                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
+                <Dialog ref="Dialog"
+                        modal={true}
+                        title="This is the Card Title"
+                        width="100%"
+                        key="dialog1"
+                        anchorTo="0px"
+                        actions={[
+                            <FlatButton key="action1a" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
+                            <RaisedButton key="action2b" onClick={() => { this.toggleDialog(false); }}type="primary">Cancel</RaisedButton>
+                        ]}
+                >
+                    <p>This is the content area of the dialog.This is the content area of the dialog.This is the content
+                        area of the dialog.This is the content area of the dialog.This is the content area of the
+                        dialog.This is the content area of the dialog.This is the content area of the dialog.This is the
+                        content area of the dialog.</p>
+                </Dialog>
             </div>
         )
     }

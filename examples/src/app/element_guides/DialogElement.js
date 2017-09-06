@@ -30,6 +30,7 @@ export class DialogElement extends React.Component {
                 location="import {Dialog} from 'zebra-stripes/Layouts';"
                 propsMap={[
                         {name: 'actions', type: '[ReactComponent(s)]', desc: 'A collection of React component objects to be included in the footer. Bindings are expected to already be attached to the elements.', default: 'null'},
+                        {name: 'anchorTo', type: 'object', desc: 'Pass through a react component reference, or a css top position value (this.ref.NavBar or "0px").', default: 'null'},
                         {name: 'cardStyle', type: 'object', desc: 'Extends the base card styling which is contained in the Dialog body.', default: '{}'},
                         {name: 'dialogStyle', type: 'object', desc: 'Extends the wrapping Dialog container styling.', default: '{}'},
                         {name: 'title', type: 'string', desc: 'Text to be added to the header of the Dialog panel.', default: 'null'},
