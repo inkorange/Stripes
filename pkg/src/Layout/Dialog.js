@@ -113,6 +113,7 @@ export class Dialog extends StripesTheme {
                 position: 'absolute',
                 top: this.state.top,
                 left: '50%',
+                margin: '0 auto',
                 transform: 'translate(-50%, ' + (this.state.open ? '-' + (this.props.anchorTo ? 0 : this.state.top) : '-80%') + ')',
                 transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
             },

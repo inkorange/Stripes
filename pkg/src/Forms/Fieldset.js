@@ -39,7 +39,6 @@ export class Fieldset extends StripesTheme {
                 border: 'none',
                 margin: spacing.padding*2 + 'px' + ' 0',
                 padding: 0,
-                position: 'relative',
                 display: this.props.visible ? 'block' : 'none',
                 opacity: this.props.disabled ? '.25' : '1.0'
             },

@@ -185,6 +185,7 @@ class TextBox extends StripesTheme {
                         data={this.state.suggestionItems}
                         onSelect={this.applyValue}
                         onClose={this.onInputBlur}
+                        dropOffset={35}
                     />
                     : null}
                 <span style={this.state.style.error}>{this.props.error}</span>
@@ -410,7 +411,7 @@ class DropDown extends StripesTheme {
 
     render() {
         return (
-            <div style={this.state.style.container} {...this.getDataSet(this.props)}>
+            <div ref="DropDown" style={this.state.style.container} {...this.getDataSet(this.props)}>
                 <input
                     ref="input"
                     placeholder={this.props.placeholder}
@@ -433,6 +434,8 @@ class DropDown extends StripesTheme {
                     {...this.getDataSet(this.props, '-SelectPanel')}
                     onSelect={this.applyValue}
                     onClose={this.onInputBlur}
+                    width={this.props.width}
+                    dropOffset={35}
                 />
                 <span style={this.state.style.error}>{this.props.error}</span>
             </div>

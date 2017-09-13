@@ -346,12 +346,11 @@ export class TimePicker extends StripesTheme {
         this.setState({
             mode: 'hour'
         }, this.updateStyles);
-
         if(this.state.time) {
             this.refs.textbox.applyValue(m(this.state.time).format(this.props.format), true);
             this.props.onSet(this.state.time);
         } else {
-            var now = new Date();
+            var now = this.props.baseDateTime ? this.props.baseDateTime : new Date();
             this.setState({
                 time: now,
                 inputError: null
@@ -629,7 +628,6 @@ export class TimePicker extends StripesTheme {
             <FlatButton key="action1" onClick={this.cancel}>Cancel</FlatButton>,
             <RaisedButton key="action2" onClick={this.setTime} type="primary">OK</RaisedButton>
         ];
-
         return (
             <div style={this.state.style.container} {...this.getDataSet(this.props)}>
                 <TextBox

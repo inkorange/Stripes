@@ -63,6 +63,7 @@ export class DateTimePicker extends StripesTheme {
     }
 
     setTime(time) {
+        console.log(time);
         this.setState({
             value: addTimeToDate(this.state.value, time, this.props.baseDateTime)
         }, this.fireCallback);

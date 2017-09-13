@@ -12,6 +12,8 @@ export class SelectPanel extends StripesTheme {
         showSummary: false,
         data: [],
         show: false,
+        width: null,
+        dropOffset: null,
         onClose: () => {}
     }
 
@@ -52,25 +54,54 @@ export class SelectPanel extends StripesTheme {
 
     componentDidUpdate(props) {
         if(props !== this.props) {
+            console.log('updating...');
             this.setState({
                 style: this.getStyles()
             });
         }
     }
 
+    withinFixed(el) {
+        var isFixed = false;
+        var scrollTop = 0;
+        var top = 0;
+        do  {
+            el = el.parentElement;
+            if(el) {
+                scrollTop += el.scrollTop;
+                top = el.offsetTop;
+                if (window.getComputedStyle(el).getPropertyValue('position').toLowerCase() === 'fixed') {
+                    isFixed = true;
+                }
+            }
+        } while (el);
+        return {fixed: isFixed, top: top, scrollTop: scrollTop};
+    }
+
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
-        var parentHeight = this.refs.panelcontainer.parentElement.offsetHeight;
-        //console.log(this.refs.panelcontainer,  this.refs.panelcontainer.parentElement, 'parent height: ', parentHeight);
+        var parent = this.refs.panelcontainer.parentElement;
+        var parentClient = parent.getBoundingClientRect();
+        var parentHeight = parentClient.top + (this.props.dropOffset ? this.props.dropOffset : spacing.dropDownOffset);
+        var parentLeft = parentClient.left;
+        var resultHeight = this.refs.resultList.offsetHeight + 20;
+        var isFixedDom = this.withinFixed(this.refs.panelcontainer.parentElement);
+
+        var top = parentHeight + spacing.dropDownOffset;
+        if(isFixedDom.fixed) {
+            top = parent.offsetTop + spacing.dropDownOffset + parentClient.height - isFixedDom.scrollTop;
+        } else {
+            top = top + resultHeight > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;
+        }
         var styleObj = {
             results: {
-                position: 'absolute',
-                top: parentHeight + spacing.dropDownOffset + 'px',
-                minWidth: '100%',
-                maxWidth: '100vw',
-                left: this.state.isBeyond ? '-' + this.state.isBeyond + 'px' : 0,
-                transition: 'all .3s',
+                position: 'fixed',
+                top: top + 'px',
+                maxWidth: this.props.width,
+                width: this.props.width ? this.props.width : parentClient.width + 'px',
+                left: isFixedDom.fixed ? parent.offsetLeft + 'px' : parentLeft + 'px',
+                transition: 'opacity .3s, max-height .3s',
                 maxHeight: this.state.show ? '500px' : '0px',
                 overflow: 'hidden',
                 opacity: this.state.show ? '1.0' : '0.25',
@@ -95,7 +126,9 @@ export class SelectPanel extends StripesTheme {
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 lineHeight: spacing.padding*4 + 'px',
-                textAlign: 'left'
+                textAlign: 'left',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
             },
             resultsp: {
                 color: 'black',
@@ -116,6 +149,8 @@ export class SelectPanel extends StripesTheme {
             fontWeight: '600',
             color: color.highlightBorderColor
         }, styleObj.resultsli);
+        //console.log((parentHeight + spacing.dropDownOffset) + 'px', this.props.style);
+        styleObj.results = Object.assign(styleObj.results, this.props.style);
 
         return styleObj;
     }
@@ -233,7 +268,7 @@ export class SelectPanel extends StripesTheme {
         var summaryNode = this.props.showSummary ? (<p key="summary" style={this.state.style.resultsp}>There are {this.props.data ? this.props.data.length : 'NO'} results</p>) : null;
         return (
             <section {...this.getDataSet(this.props)} style={this.state.style.results} className="SelectPanel" tabIndex="1" ref="panelcontainer" onBlur={this.close}>
-                <ul style={this.state.style.resultsul}>
+                <ul ref="resultList" style={this.state.style.resultsul}>
                     {resultsDOM}
                 </ul>
                 {summaryNode}
