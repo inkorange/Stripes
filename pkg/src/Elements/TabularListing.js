@@ -19,6 +19,7 @@ export class TabularListing extends StripesTheme {
         onRowClick: () => { return false;},
         onValueClick: () => { return false;},
         onHeaderClick: () => { return false;},
+        onColumnSelect: () => { return false;},
         zebraStripes: true,
         sortable: true,
         triggerLazyLoad: () => { return false; },
@@ -87,6 +88,7 @@ export class TabularListing extends StripesTheme {
             var cells = [];
             this.props.data.structure.map((header, key) => {
                 var itemDOM = [];
+                var fieldStr = "";
                 header.field.map((field, index) => {
                     var dimObj = this.dimensionalObjectResolution(r, field);
                     var value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
@@ -99,6 +101,7 @@ export class TabularListing extends StripesTheme {
                             <em key={"sec" + key + "" + index} onClick={header.filterable ? this.clickValue : false} data-filterable={header.filterable} data-value={dimObj} >{value}</em>
                         );
                     }
+                    fieldStr += field + " ";
                 });
                 var name = header.name !== "" ? header.name.replace(/(<([^>]+)>)|( )/ig, "") : header.field[0];
                 cells.push(
@@ -108,6 +111,7 @@ export class TabularListing extends StripesTheme {
                         key={"headcell"+key}
                         width={header.width}
                         data-filterable={header.filterable}
+                        { ...(header.filterable ? this.getDataSet(this.props, ' TableCell ' + fieldStr) : {}) }
                         wrap={header.wrap ? true: false}>
                             {itemDOM}
                     </TableCell>
@@ -138,10 +142,7 @@ export class TabularListing extends StripesTheme {
             tableCells.push(
                 <tr key="lazy_loading_line"
                     style={showMoreStyle}
-                    data-event-click="LOAD_MORE"
-                    data-event-desc={"Loading " + this.props.showMoreLoading + " Records"}
-                    data-event-active={this.props.showMoreLoading}
-                    data-automation-id="Load More Records"
+                    {...this.getDataSet(this.props, ' Load More Records')}
                     onClick={this.props.triggerLazyLoad} className={"lazy_loading_empty " + (this.props.showLazyLoading ? 'loading' : null)}>
                     <td colSpan={this.state.smallView ? null : this.props.data.structure.length + (this.props.columnSelector ? 1 : 0)}>
                         {this.props.listSummaryText ? this.props.listSummaryText : null}
@@ -182,6 +183,7 @@ export class TabularListing extends StripesTheme {
                     wrap={c.wrap ? true: false}
                     sortdirection={sortdirection}
                     field={c.field[0]}
+                    {...this.getDataSet(this.props, ' TableHeader ' + name)}
                 >
                     {labelDOM}
                 </TableHeaderCell>
@@ -189,7 +191,7 @@ export class TabularListing extends StripesTheme {
         });
         if(this.props.columnSelector) {
             tableHeaders.push(
-                <TableHeaderCell key="ColumnSelector" width="30px" className="ColumnSelector"/>
+                <TableHeaderCell key="ColumnSelector" width="30px" className="ColumnSelector" />
             );
         }
 
@@ -199,22 +201,23 @@ export class TabularListing extends StripesTheme {
         return (
             <Table className="TabularListing" ref="TabularListing"  style={this.props.style} {...this.getDataSet(this.props)}>
                 <div style={headerWrap}>
-                    <TableHeader key="TableHeader" ref="TableHeader" {...this.getDataSet(this.props, '-TableHeader')}>
+                    <TableHeader key="TableHeader" ref="TableHeader">
                         <TableHeaderRow>
                             {tableHeaders}
                         </TableHeaderRow>
                     </TableHeader>
                     {this.props.columnSelector ?
                         <ColumnSelector
-                            {...this.getDataSet(this.props, '-ColumnSelector')}
+                            {...this.getDataSet(this.props, ' ColumnSelector')}
                             key="ColumnSelector"
                             ref="ColumnSelector"
                             hasData={(this.props.data.rows && this.props.data.rows.length) ? true: false}
                             structure={this.props.data.structure}
+                            onColumnSelect={this.props.onColumnSelect}
                         /> : null
                     }
                 </div>
-                <TableBody key="TableBody" {...this.getDataSet(this.props, '-TableBody')} height={this.state.bodyHeight} zebraStripes={this.props.zebraStripes}>
+                <TableBody key="TableBody" height={this.state.bodyHeight} zebraStripes={this.props.zebraStripes}>
                     {tableCells}
                 </TableBody>
             </Table>

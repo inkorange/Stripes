@@ -76,7 +76,7 @@ export class Card extends StripesTheme {
         }
 
         if(this.props.forceBottomAlign) {
-            styleObj.footer.position= 'fixed';
+            styleObj.footer.position= 'absolute';
             styleObj.footer.bottom= 0;
             styleObj.footer.right= 0;
             styleObj.footer.left= 0;

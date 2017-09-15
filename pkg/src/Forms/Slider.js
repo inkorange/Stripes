@@ -249,7 +249,7 @@ export class Slider extends StripesTheme {
                 <div style={this.state.style.bar}></div>
                 {this.props.showHandleValue ? <div style={this.state.style.value_box}>{this.getValue()}</div> : null }
                 <div
-                    {...this.getDataSet(this.props, '-handle')}
+                    {...this.getDataSet(this.props, ' handle')}
                     onClick={this.activateHandle}
                     style={this.state.style.handle}
                 ></div>

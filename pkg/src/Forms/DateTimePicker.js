@@ -95,7 +95,7 @@ export class DateTimePicker extends StripesTheme {
                 <TwoColumnLayout
                     columnOne={
                         <DatePicker
-                            {...this.getDataSet(this.props, '-DatePicker')}
+                            {...this.getDataSet(this.props, ' DatePicker')}
                             ref="datePicker"
                             baseDateTime={this.props.baseDateTime}
                             placeholder={this.props.placeholder[0]}
@@ -107,7 +107,7 @@ export class DateTimePicker extends StripesTheme {
                         />}
                     columnTwo={
                         <TimePicker
-                            {...this.getDataSet(this.props, '-TimePicker')}
+                            {...this.getDataSet(this.props, ' TimePicker')}
                             ref="timePicker"
                             baseDateTime={this.props.baseDateTime}
                             placeholder={this.props.placeholder[1]}

@@ -18,6 +18,7 @@ export class TabularDetail extends StripesTheme {
         onRowClick: () => { return false;},
         onValueClick: () => { return false;},
         onHeaderClick: () => { return false;},
+        onColumnSelect: () => { return false;},
         bodyHeight: 0,
         zebraStripes: true,
         columnSelector: false,
@@ -218,7 +219,6 @@ export class TabularDetail extends StripesTheme {
                 var label = c.name.replace(/(<([^>]+)>)/ig, "/");
                 label = label === "" ? c.field[0] : label;
                 label = label.substring(label.length - 1) === "/" ? label.substring(0, label.length - 1) : label;
-
                 fieldOptions.push(
                     <Item
                         data-automation-id={"Field Sorter - " + c.field[0]}
@@ -250,12 +250,13 @@ export class TabularDetail extends StripesTheme {
                 </div>
                 {this.props.columnSelector ?
                     <ColumnSelector
-                        {...this.getDataSet(this.props, '-ColumnSelector')}
+                        {...this.getDataSet(this.props, ' ColumnSelector')}
                         key="ColumnSelector"
                         ref="ColumnSelector"
                         style={{marginTop: '-3px'}}
                         hasData={(this.props.data.rows && this.props.data.rows.length) ? true: false}
                         structure={this.props.data.structure}
+                        onColumnSelect={this.props.onColumnSelect}
                     /> : null
                 }
             </article>

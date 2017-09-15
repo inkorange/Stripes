@@ -150,7 +150,7 @@ export class IconMenu extends StripesTheme {
                 {...this.getDataSet(this.props)}
             >
                 <Icon
-                    {...this.getDataSet(this.props, '-Icon')}
+                    {...this.getDataSet(this.props, ' Icon')}
                     iconid={this.props.iconid}
                     color={this.state.open ? this.props.iconColor[1] : this.props.iconColor[0]}
                     size={this.props.iconSize}

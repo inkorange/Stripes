@@ -180,7 +180,7 @@ class TextBox extends StripesTheme {
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
                 {this.props.showSuggestions ?
                     <SelectPanel
-                        {...this.getDataSet(this.props, '-SuggestionsPanel')}
+                        {...this.getDataSet(this.props, 'SuggestionsPanel')}
                         ref="selectPanel"
                         data={this.state.suggestionItems}
                         onSelect={this.applyValue}

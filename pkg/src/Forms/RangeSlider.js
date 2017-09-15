@@ -185,7 +185,7 @@ export class RangeSlider extends StripesTheme {
                  onClick={this.clickSlider}
             >
                 <Slider
-                    {...this.getDataSet(this.props, '-minSlider')}
+                    {...this.getDataSet(this.props, ' minSlider')}
                     style={{position: 'absolute'}}
                     disabled={this.props.disabled}
                     value={this.props.value[0] ? this.props.value[0]*1 : this.props.range[0]}
@@ -197,7 +197,7 @@ export class RangeSlider extends StripesTheme {
                     onChange={this.updateMin}
                     ref="minSlider" />
                 <Slider
-                    {...this.getDataSet(this.props, '-maxSlider')}
+                    {...this.getDataSet(this.props, ' maxSlider')}
                     style={{position: 'absolute'}}
                     disabled={this.state.isUnlimited || this.props.disabled}
                     value={this.props.value[1] === Infinity ? this.props.range[1] : this.props.value[1] ? this.props.value[1]*1 : this.props.range[1]}

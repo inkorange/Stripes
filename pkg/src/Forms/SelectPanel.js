@@ -42,8 +42,6 @@ export class SelectPanel extends StripesTheme {
             selected: null,
             isBeyond: null
         };
-
-
     }
 
     componentDidMount() {
@@ -54,7 +52,6 @@ export class SelectPanel extends StripesTheme {
 
     componentDidUpdate(props) {
         if(props !== this.props) {
-            console.log('updating...');
             this.setState({
                 style: this.getStyles()
             });

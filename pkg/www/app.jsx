@@ -48,7 +48,7 @@ class Sandbox extends React.Component {
                 {
                     width: '100px',
                     tooltip: 'Alerts',
-                    name: '',
+                    name: 'Alerts<em>& Notes</em>',
                     icon: 'alert',
                     field: ['alerts','alert_count', 'bookmarks'],
                     exports: [null, 'Alert Count', 'Bookmarks'],
@@ -152,7 +152,19 @@ class Sandbox extends React.Component {
     componentDidMount() {
         this.setState({
             NavBar: this.refs.top
-        })
+        });
+
+        for(var eventItem of ['click']) {
+            document.addEventListener(eventItem, function (e) {
+                for (var target = e.target; target && target != this; target = target.parentNode) {
+                    if (target.getAttribute && target.getAttribute('data-event-'+eventItem)) {
+                        var eventPart = "event" + eventItem.charAt(0).toUpperCase() + eventItem.slice(1).toLowerCase();
+                        console.log('type: ' + eventItem + ' | category: ' +  target.dataset[eventPart] + ' desc: ' + target.dataset.eventDesc);
+                        break;
+                    }
+                }
+            }, false);
+        }
     }
 
     componentWillUpdate(props) {
@@ -170,45 +182,25 @@ class Sandbox extends React.Component {
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Add Sandbox Creation BELOW %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */
     render() {
 
-        var style1 = {
-            background: 'rgba(200,200,0,.25)',
-            position: 'absolute',
-            top: '25%',
-            left: '25%',
-            width: '50vw',
-            height: '400px',
-            overflow: 'auto'
-        };
-        var style2 = {
-            background: 'rgba(0,200,0,.25)',
-            position: 'fixed',
-            top: '25%',
-            right: '25%',
-            width: '50vw',
-            height: '25vh',
-            zIndex: 2,
-            padding: '20px'
-        };
-        var style3 = {
-            background: 'rgba(200,0,0,.25)',
-            position: 'fixed',
-            top: '50%',
-            right: '50%',
-            width: '50vw',
-            height: '50vh'
-        };
-        var style4 = {
-            background: 'rgba(100,100,200,.25)',
-            position: 'absolute',
-            width: '50vw',
-            height: '50vh'
-        };
-        var dater = new Date();
-console.log(dater.getTime(), dater.getTime() - 1200000, new Date(dater.getTime() - 1200000));
         return (
             <div ref="top" style={{padding: '50px'}}>
 
-                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
+                <TabularListing
+                    data={this.state.data}
+                    onHeaderClick={() => { return true; }}
+                    onRowClick={() => { return true; }}
+                    onValueClick={() => { return true; }}
+                    onColumnSelect={(a,b) => { console.log('slected :::: ', a,b); }}
+                    data-event-click="TABLE"
+                    data-event-desc={"Trailer Load Table Interaction"}
+                    columnSelector={true}
+                />
+
+
+                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}
+                      data-event-click="BUTTON"
+                      data-event-desc={"toggle dialog"}
+                >Launch Dialog</RaisedButton>
                 <Dialog ref="Dialog"
                         modal={true}
                         title="This is the Card Title"
