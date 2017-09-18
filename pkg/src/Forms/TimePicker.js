@@ -98,7 +98,6 @@ export class TimePicker extends StripesTheme {
         this.cancel = this.cancel.bind(this);
         this.setTime = this.setTime.bind(this);
         this.setManualTime = this.setManualTime.bind(this);
-        this.pressManualTime = this.pressManualTime.bind(this);
         this.getValue = this.getValue.bind(this);
         this.resolveClickPoint = this.resolveClickPoint.bind(this);
         this.inputBlur = this.inputBlur.bind(this);
@@ -398,15 +397,7 @@ export class TimePicker extends StripesTheme {
         }
     }
 
-    pressManualTime(e) {
-        if(e.keyCode === 13) {
-            this.refs.textbox.blur();
-            //this.setManualTime();
-        }
-    }
-
     setManualTime() {
-
         var isValid = () => {
             var tempDateTime = m();
             var timeObj = this.refs.textbox.getValue() ? this.refs.textbox.getValue().toUpperCase() : '';
@@ -418,7 +409,6 @@ export class TimePicker extends StripesTheme {
             if(timeObj.indexOf(':') >= 0) {
                 var hour = timeObj.split(':')[0] * 1;
                 var minute = timeObj.split(':')[1] * 1;
-                // lets test it out *******************
                 if (isNaN(hour) || isNaN(minute)) {
                     return false;
                 }
@@ -431,18 +421,23 @@ export class TimePicker extends StripesTheme {
             }
             return tempDateTime.isValid()
         };
+
         var timeVal = this.refs.textbox.getValue();
         var timesMatch = timeVal == m(this.state.time).format(this.props.format);
         if(timesMatch) {
             return false;
         }
         var isValid = isValid();
+
         if(isValid && timeVal) {
             var val = timeVal.toUpperCase();
             var ampm = val.indexOf('AM') >= 0 ? 'AM' : val.indexOf('PM') >= 0 ? 'PM' : false;
             val = val.replace(/\s|PM|AM/g, '');
             if (val.indexOf(':') < 0) {
-                if(val.length > 0 && !isNaN(val*1)) {
+                if(val.length === 4 && !isNaN(val*1)) {
+                    this.hardSetTime(val.substring(0, 2) * 1, val.substring(2, 4) * 1, ampm);
+                }
+                else if(val.length > 0 && !isNaN(val*1)) {
                     this.hardSetTime(val*1, 0, ampm);
                 } else {
                     this.setState({
@@ -605,13 +600,10 @@ export class TimePicker extends StripesTheme {
 
     render() {
         var displayTime = this.state.time ? m(this.state.time).format(this.props.format) : "";
-
         var color = this.getColors()[this.props.type];
-
         var cleanTime = this.renderCleanTime();
         var hourNodes = this.getHourNodes();
         var minNodes = this.getMinuteNodes();
-
         var handNode = [
             <div key="minhand" style={this.getMinuteHandStyle()}></div>,
             <div key="hourhand" style={this.getHourHandStyle()}></div>,
@@ -623,11 +615,11 @@ export class TimePicker extends StripesTheme {
                 {handNode}
             </div>
         );
-
         var actionsNode = [
             <FlatButton key="action1" onClick={this.cancel}>Cancel</FlatButton>,
             <RaisedButton key="action2" onClick={this.setTime} type="primary">OK</RaisedButton>
         ];
+
         return (
             <div style={this.state.style.container} {...this.getDataSet(this.props)}>
                 <TextBox
@@ -638,7 +630,6 @@ export class TimePicker extends StripesTheme {
                     onClick={this.props.manual ? null : this.toggleDialog}
                     readOnly={this.props.manual ? null : true}
                     placeholder={this.props.placeholder}
-                    onKeyUp={this.props.manual ? this.pressManualTime : null}
                     onBlur={this.props.manual ? this.setManualTime : null}
                     error={this.state.inputError}
                 />

@@ -185,16 +185,43 @@ class Sandbox extends React.Component {
         return (
             <div ref="top" style={{padding: '50px'}}>
 
-                <TabularListing
-                    data={this.state.data}
-                    onHeaderClick={() => { return true; }}
-                    onRowClick={() => { return true; }}
-                    onValueClick={() => { return true; }}
-                    onColumnSelect={(a,b) => { console.log('slected :::: ', a,b); }}
-                    data-event-click="TABLE"
-                    data-event-desc={"Trailer Load Table Interaction"}
-                    columnSelector={true}
+                <TextBox
+                    width="100%"
+                    showSuggestions={true}
+                    suggestionData={["Alabama","Alaska","Arkansas","California","Colorado","New York","Connecticut"]}
+                    placeholder="Type a state that begins with A or C"
+                    dropOffset={100}
+
                 />
+
+                <IconMenu
+                    closeOnBlur={true}
+                    backgroundColor={["transparent","white"]}
+                    iconColor={["green","blue"]}
+                    iconid="filter"
+                    direction="right"
+                    ref="IconMenu"
+                    iconStyle={{padding: '5px 5px 0 5px'}}
+                >
+                    <div style={{width:'400px', padding: '20px 0'}}>
+                        <DateTimePicker
+                            manual={true}
+                            clockFormat="24hr"
+                            timeFormat="HH:mm"
+                            timeErrorMsg="Invalid (HH:mm)"
+                        />
+                    </div>
+                    <div style={{width:'400px', padding: '20px 0'}}>
+                        <DateTimePicker
+                            manual={true}
+                            clockFormat="24hr"
+                            timeFormat="HH:mm"
+                            timeErrorMsg="Invalid (HH:mm)"
+                        />
+                    </div>
+                </IconMenu>
+
+
 
 
                 <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}
@@ -237,6 +264,16 @@ class Sandbox extends React.Component {
                             <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>LAST</Item>
                         </DropDown>
                     </Fieldset>
+
+                    <TextBox
+                        width="100%"
+                        showSuggestions={true}
+                        suggestionData={["Alabama","Alaska","Arkansas","California","Colorado","New York","Connecticut"]}
+                        placeholder="Type a state that begins with A or C"
+                        dropOffset={100}
+
+                    />
+
 
                     <p>this is just filler</p>
                     <p>this is just filler</p>

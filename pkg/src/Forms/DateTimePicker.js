@@ -28,18 +28,18 @@ export class DateTimePicker extends StripesTheme {
         placeholder: ['Date','Time'],
         clockFormat: '12hr',
         value: null,
-        manual: false
+        manual: false,
+        dateErrorMsg: null,
+        timeErrorMsg: null
     }
 
     constructor(props) {
         super(props);
-
         this.state = {
             active: false,
             value: this.props.value ? new Date(this.props.value) : null,
             style: this.getStyles()
         }
-
         this.fireCallback = this.fireCallback.bind(this);
         this.setDate = this.setDate.bind(this);
         this.setTime = this.setTime.bind(this);
@@ -63,7 +63,6 @@ export class DateTimePicker extends StripesTheme {
     }
 
     setTime(time) {
-        console.log(time);
         this.setState({
             value: addTimeToDate(this.state.value, time, this.props.baseDateTime)
         }, this.fireCallback);
@@ -104,6 +103,7 @@ export class DateTimePicker extends StripesTheme {
                             date={m(new Date(this.state.value)).isSame('1900-01-01', 'year') ? null : this.state.value}
                             manual={this.props.manual}
                             format={this.props.format}
+                            errorMessage={this.props.dateErrorMsg}
                         />}
                     columnTwo={
                         <TimePicker
@@ -118,7 +118,7 @@ export class DateTimePicker extends StripesTheme {
                             clockFormat={this.props.clockFormat}
                             format={this.props.timeFormat}
                             hourFormat={this.props.clockFormat === '12hr' ? 'h' : 'HH'}
-                            errorMessage={this.props.clockFormat === '12hr' ? 'Invalid Time Format (hh:mm)' : 'Invalid Time Format (HH:mm)'}
+                            errorMessage={this.props.timeErrorMsg ? this.props.timeErrorMsg : (this.props.clockFormat === '12hr' ? 'Invalid Time Format (hh:mm)' : 'Invalid Time Format (HH:mm)')}
                         />}
                     gutter="5"
                     columnOneWidth={this.props.datewidth}

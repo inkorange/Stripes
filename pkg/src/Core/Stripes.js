@@ -49,7 +49,8 @@ export class StripesTheme extends React.Component {
                     position: 'relative',
                     borderBottom: spacing.underlineHeight + 'px solid ' + (this.props.error ? color.inactiveUnderErrorlineColor : color.inactiveUndlerlineColor),
                     paddingBottom: (spacing.margin * 2) + 'px',
-                    transition: 'all 0.3s ease-in-out 0s'
+                    transition: 'all 0.3s ease-in-out 0s',
+                    outline: 'none'
                 },
                 input: {
                     fontSize: spacing.fontSize,
@@ -116,6 +117,10 @@ export class StripesTheme extends React.Component {
                 }
             }
         }
+    }
+
+    isIE() {
+        return (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("rv:11.0") >= 0);
     }
 
     getTheme() {

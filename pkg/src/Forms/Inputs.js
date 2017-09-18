@@ -15,6 +15,7 @@ class TextBox extends StripesTheme {
         type: 'inputs',
         value: '',
         placeholder: null,
+        dropOffset: 35,
         error: null,
         width: null,
         showSuggestions: false,
@@ -106,7 +107,7 @@ class TextBox extends StripesTheme {
             if(!stopFocus) {
                 this.refs.input.focus();
             } else {
-                this.refs.input.blur();
+                this.refs.input.parentElement.focus();
             }
         }
     }
@@ -127,7 +128,7 @@ class TextBox extends StripesTheme {
     }
 
     blur() {
-        this.refs.input.blur();
+        this.refs.input.parentElement.focus();
         this.setState({
             active: false
         });
@@ -135,7 +136,10 @@ class TextBox extends StripesTheme {
 
     inputKeyPress(e) {
         if(e.charCode === 13) {
-            this.blur();
+            if(this.props.onBlur) {
+                this.refs.input.parentElement.focus();
+                this.props.onBlur();
+            }
         }
         this.props.onKeyPress();
     }
@@ -150,6 +154,7 @@ class TextBox extends StripesTheme {
     }
 
     render() {
+
         if(this.props.suggestions) {
             this.state.style.container.display = "inline-block";
             this.state.style.container.width = this.props.width;
@@ -161,7 +166,7 @@ class TextBox extends StripesTheme {
         }
 
         return (
-            <div style={this.state.style.container}>
+            <div ref="input_container" style={this.state.style.container} tabIndex="1000">
                 <input
                     {...this.getDataSet(this.props)}
                     ref="input"
@@ -185,7 +190,7 @@ class TextBox extends StripesTheme {
                         data={this.state.suggestionItems}
                         onSelect={this.applyValue}
                         onClose={this.onInputBlur}
-                        dropOffset={35}
+                        dropOffset={this.props.dropOffset}
                     />
                     : null}
                 <span style={this.state.style.error}>{this.props.error}</span>

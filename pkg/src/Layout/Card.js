@@ -10,6 +10,7 @@ export class Card extends StripesTheme {
         style: {},
         headerStyle: {},
         footerStyle: {},
+        bodyStyle: {},
         type: 'default',
         title: null,
         actions: null,
@@ -85,6 +86,7 @@ export class Card extends StripesTheme {
         styleObj.header = Object.assign(styleObj.header, this.props.headerStyle);
         styleObj.footer = Object.assign(styleObj.footer, this.props.footerStyle);
         styleObj.base = Object.assign(styleObj.base, this.props.style);
+        styleObj.body = Object.assign(styleObj.body, this.props.bodyStyle);
 
         return styleObj;
     }

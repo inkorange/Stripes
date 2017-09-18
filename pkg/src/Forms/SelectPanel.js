@@ -86,18 +86,19 @@ export class SelectPanel extends StripesTheme {
         var isFixedDom = this.withinFixed(this.refs.panelcontainer.parentElement);
 
         var top = parentHeight + spacing.dropDownOffset;
-        if(isFixedDom.fixed) {
+        if(isFixedDom.fixed && !this.isIE()) {
             top = parent.offsetTop + spacing.dropDownOffset + parentClient.height - isFixedDom.scrollTop;
         } else {
             top = top + resultHeight > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;
         }
+        console.log(this.isIE());
         var styleObj = {
             results: {
                 position: 'fixed',
                 top: top + 'px',
                 maxWidth: this.props.width,
                 width: this.props.width ? this.props.width : parentClient.width + 'px',
-                left: isFixedDom.fixed ? parent.offsetLeft + 'px' : parentLeft + 'px',
+                left: isFixedDom.fixed && !this.isIE() ? parent.offsetLeft + 'px' : parentLeft + 'px',
                 transition: 'opacity .3s, max-height .3s',
                 maxHeight: this.state.show ? '500px' : '0px',
                 overflow: 'hidden',
