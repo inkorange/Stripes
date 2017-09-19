@@ -91,7 +91,6 @@ export class SelectPanel extends StripesTheme {
         } else {
             top = top + resultHeight > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;
         }
-        console.log(this.isIE());
         var styleObj = {
             results: {
                 position: 'fixed',
