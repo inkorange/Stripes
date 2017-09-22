@@ -184,41 +184,38 @@ class Sandbox extends React.Component {
 
         return (
             <div ref="top" style={{padding: '50px'}}>
-
-                <DateTimePicker
-                    manual={true}
-                />
-
-
-
-                <IconMenu
-                    closeOnBlur={true}
-                    backgroundColor={["transparent","white"]}
-                    iconColor={["green","blue"]}
-                    iconid="filter"
-                    direction="right"
-                    ref="IconMenu"
-                    iconStyle={{padding: '5px 5px 0 5px'}}
-                >
-                    <div style={{width:'400px', padding: '20px 0'}}>
-                        <DateTimePicker
-                            manual={true}
-                            clockFormat="24hr"
-                            timeFormat="HH:mm"
-                            timeErrorMsg="Invalid (HH:mm)"
-                        />
-                    </div>
-                    <div style={{width:'400px', padding: '20px 0'}}>
-                        <DateTimePicker
-                            manual={true}
-                            clockFormat="24hr"
-                            timeFormat="HH:mm"
-                            timeErrorMsg="Invalid (HH:mm)"
-                        />
-                    </div>
-                </IconMenu>
-
-
+                <div style={{position: 'fixed'}}>
+                <LeftNav modal={true}>
+                    <DropDown
+                        onChange    ={this._updatePerPage}
+                        width="250px"
+                        value={this.state.perpage}
+                    >
+                        <Item data-automation-id="2 Per Page" value={2} key="itemfor2" defaultChecked={this.state.perpage === 2}>2</Item>
+                        <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
+                        <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
+                        <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>8</Item>
+                        <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
+                        <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
+                        <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>8</Item>
+                        <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
+                        <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
+                        <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>LAST</Item>
+                    </DropDown>
+                </LeftNav>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
 
 
                 <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}
@@ -233,15 +230,7 @@ class Sandbox extends React.Component {
                         cardStyle={{height: '300px', overflow: 'auto'}}
                         actions={[
             <FlatButton key="action1a" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
-            <RaisedButton key="action2b" onClick={() => { this.toggleDialog(false); }}type="primary">Cancel</RaisedButton>
-        ]}
-                >
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
+            <RaisedButton key="action2b" onClick={() => { this.toggleDialog(false); }}type="primary">Cancel</RaisedButton>]}>
 
                     <Fieldset title="Images per Page:" ref="imagesperpage" key="imagesperpage" labelstyle={{float:'left'}} style={{marginTop: '20px'}}>
                         <DropDown
@@ -271,20 +260,6 @@ class Sandbox extends React.Component {
 
                     />
 
-
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-                    <p>this is just filler</p>
-
                 </Dialog>
 
                 <p>this is just filler</p>
@@ -307,6 +282,46 @@ class Sandbox extends React.Component {
                 <p>this is just filler</p>
                 <p>this is just filler</p>
                 <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
+        <p>this is just filler</p>
                 <p>this is just filler</p>
                 <DropDown
                     onChange    ={this._updatePerPage}

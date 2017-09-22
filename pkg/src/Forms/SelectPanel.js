@@ -69,6 +69,7 @@ export class SelectPanel extends StripesTheme {
                 top = el.offsetTop;
                 if (window.getComputedStyle(el).getPropertyValue('position').toLowerCase() === 'fixed') {
                     isFixed = true;
+                    break;
                 }
             }
         } while (el);
@@ -91,6 +92,7 @@ export class SelectPanel extends StripesTheme {
         } else {
             top = top + resultHeight > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;
         }
+
         var styleObj = {
             results: {
                 position: 'fixed',
