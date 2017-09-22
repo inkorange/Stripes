@@ -27,7 +27,7 @@ export class Icon extends StripesTheme {
     }
 
     componentWillUpdate(props) {
-        if(this.props.color !== props.color) {
+        if(this.props.color !== props.color || this.props.iconid !== props.iconid) {
             this.state = {
                 style: this.getStyles()
             }
@@ -83,7 +83,6 @@ export class Icon extends StripesTheme {
         var styles = this.getStyles();
         var SVGstyle = Object.assign(styles.svg, this.props.style);
         var Iconstyle = Object.assign(styles.Icon, this.props.basestyle);
-        var svg = <svg data-id={this.props["data-id"]} style={SVGstyle} viewBox="0 0 100 100" dangerouslySetInnerHTML={{__html: useTag }} />;
         return (
             <div className={"Icon " + this.props.className}
                  title={this.props.title}
@@ -91,7 +90,7 @@ export class Icon extends StripesTheme {
                  {...this.getDataSet(this.props)}
                  data-name={this.props.iconid}
             >
-                {svg}
+                <svg data-id={this.props["data-id"]} style={SVGstyle} viewBox="0 0 100 100"  dangerouslySetInnerHTML={{__html: useTag }} />
                 { this.props.onClick ? <div style={{position: 'absolute', cursor: 'pointer', top: 0, bottom: 0, right: 0, left: 0, backgroundColor:'rgba(0,0,0,.001)'}} className="icon-click-target" onClick={this.clickAction} {...this.getDataSet(this.props, ' clickTarget')}></div> : null }
                 {this.props.children}
             </div>

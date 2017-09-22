@@ -185,14 +185,11 @@ class Sandbox extends React.Component {
         return (
             <div ref="top" style={{padding: '50px'}}>
 
-                <TextBox
-                    width="100%"
-                    showSuggestions={true}
-                    suggestionData={["Alabama","Alaska","Arkansas","California","Colorado","New York","Connecticut"]}
-                    placeholder="Type a state that begins with A or C"
-                    dropOffset={100}
-
+                <DateTimePicker
+                    manual={true}
                 />
+
+
 
                 <IconMenu
                     closeOnBlur={true}

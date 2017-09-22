@@ -78,7 +78,7 @@ export class TabMenu extends StripesTheme {
                 flexWrap: 'nowrap'
             },
             item: Object.assign({opacity:.5}, itemBase),
-            selecteditem: Object.assign(
+            selecteditem: this.hardExtend(
                 {opacity: 1, backgroundColor: color.selectedBackground},
                 itemBase),
             indicator: {
@@ -90,15 +90,10 @@ export class TabMenu extends StripesTheme {
                 width: 100 / itemCount + "%",
                 backgroundColor: color.indicator
             },
-            content: {
-
-            }
+            content: {}
         };
-        //styleObj.selecteditem = styleObj.item;
-        //styleObj.selecteditem.opacity = 1;
         styleObj.base = Object.assign(styleObj.base, this.props.style);
         styleObj.content = Object.assign(styleObj.content, this.props.contentStyle);
-
         return styleObj;
     }
 
@@ -120,7 +115,6 @@ export class TabMenu extends StripesTheme {
         var content = [];
         this.props.children.map((item, pos) => {
             var style = pos == this.state.selected ? this.state.style.selecteditem : this.state.style.item;
-            style = this.hardExtend(style, item.props.style);
             items.push(
                 <div onClick={this.clickItem} data-value={item.props.value} data-itemid={pos} key={"item" + pos} style={style}>
                     {item.props.label ? item.props.label : item.props.children}
