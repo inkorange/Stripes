@@ -17,7 +17,9 @@ export class Ribbon extends StripesTheme {
         position: 'top',
         type: 'notification',
         show: true,
-        height: '50px'
+        height: '50px',
+        style: {},
+        contentStyle: {}
     }
 
     constructor(props) {
@@ -73,6 +75,8 @@ export class Ribbon extends StripesTheme {
                 fill: color.altTextColor
             }
         };
+        styleObj.base = Object.assign(styleObj.base, this.props.style);
+        styleObj.content = Object.assign(styleObj.content, this.props.contentStyle);
         return styleObj;
     }
 
