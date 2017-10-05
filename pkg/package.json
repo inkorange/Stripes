@@ -55,7 +55,6 @@
     "material design",
     "material-ui"
   ],
-  "main": "./lib",
   "maintainers": [
     {
       "name": "chriswest",
