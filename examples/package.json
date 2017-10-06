@@ -11,8 +11,8 @@
     "browserify": "*",
     "del": "^2.2.1",
     "enzyme": "^2.0.0-rc1",
-    "git-rev": "^0.2.1",
     "es6-object-assign": "*",
+    "git-rev": "^0.2.1",
     "gulp": "^3.9.1",
     "gulp-babel": "*",
     "gulp-concat": "^2.6.0",
@@ -31,14 +31,14 @@
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.1",
     "jsdom": "^8.0.1",
+    "jsx-to-string": "*",
     "path": "^0.12.7",
     "pretty-hrtime": "^0.2.2",
+    "react-prism": "^4.0.0",
     "require-dir": "*",
     "vinyl-source-stream": "*",
     "watchify": "^2.2.1",
-    "jsx-to-string": "*",
-    "react-prism": "^4.0.0",
-    "zebra-stripes": "../pkg/zebra-stripes-0.1.5.tgz"
+    "zebra-stripes": "file:../pkg/zebra-stripes-0.1.5.tgz"
   },
   "dependencies": {
     "babel-preset-es2016": "^6.23.0",
@@ -56,4 +56,3 @@
     "react-router-dom": "^4.1.1"
   }
 }
-
