@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { render } from 'react-dom'
-import jsxToString from 'jsx-to-string'
+import { jsxToString } from 'jsx-to-string'
 import {PrismCode} from 'react-prism'
 
 import {H1, H2, H3, Title} from 'zebra-stripes/Typography'

@@ -10,6 +10,7 @@ import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow
 import {TabularListing} from '../src/Elements/TabularListing'
 import {TabularDetail} from '../src/Elements/TabularDetail'
 import {Ribbon, Alert, Tooltip} from '../src/Notifications'
+import {Debug} from '../src/Notifications/Debug'
 import { A, Title, H1, H2, H3 } from '../src/Typography'
 import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider, RangeSlider } from '../src/Forms'
 import { Dialog, Card, LeftNav, MenuItem, TwoColumnLayout } from '../src/Layouts'
@@ -44,6 +45,9 @@ class Sandbox extends React.Component {
         super(props);
         this.toggleDialog = this.toggleDialog.bind(this);
         var dataObj = {
+            rowTransform: () => {
+
+            },
             structure: [
                 {
                     width: '100px',
@@ -183,169 +187,24 @@ class Sandbox extends React.Component {
     render() {
 
         return (
-            <div ref="top" style={{padding: '50px'}}>
-                <div style={{position: 'fixed'}}>
-                <LeftNav modal={true}>
-                    <DropDown
-                        onChange    ={this._updatePerPage}
-                        width="250px"
-                        value={this.state.perpage}
-                    >
-                        <Item data-automation-id="2 Per Page" value={2} key="itemfor2" defaultChecked={this.state.perpage === 2}>2</Item>
-                        <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
-                        <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
-                        <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>8</Item>
-                        <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
-                        <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
-                        <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>8</Item>
-                        <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
-                        <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
-                        <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>LAST</Item>
-                    </DropDown>
-                </LeftNav>
-                </div>
+            <div ref="top" style={{padding: '50px', width: '75%'}}>
+                <RangeSlider
+                    width="100%"
+                    draggable={false}
+                    constraint={[0,75]} />
                 <br/>
+                <RangeSlider
+                    width="100%"
+                    constraint={[0,75]} />
                 <br/>
+                <Slider />
                 <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-
-
-                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}
-                      data-event-click="BUTTON"
-                      data-event-desc={"toggle dialog"}
-                >Launch Dialog</RaisedButton>
-                <Dialog ref="Dialog"
-                        modal={true}
-                        title="This is the Card Title"
-                        width="50%"
-                        key="dialog1"
-                        cardStyle={{height: '300px', overflow: 'auto'}}
-                        actions={[
-            <FlatButton key="action1a" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
-            <RaisedButton key="action2b" onClick={() => { this.toggleDialog(false); }}type="primary">Cancel</RaisedButton>]}>
-
-                    <Fieldset title="Images per Page:" ref="imagesperpage" key="imagesperpage" labelstyle={{float:'left'}} style={{marginTop: '20px'}}>
-                        <DropDown
-                            onChange    ={this._updatePerPage}
-                            width="250px"
-                            value={this.state.perpage}
-                        >
-                            <Item data-automation-id="2 Per Page" value={2} key="itemfor2" defaultChecked={this.state.perpage === 2}>2</Item>
-                            <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
-                            <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
-                            <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>8</Item>
-                            <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
-                            <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
-                            <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>8</Item>
-                            <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
-                            <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
-                            <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>LAST</Item>
-                        </DropDown>
-                    </Fieldset>
-
-                    <TextBox
-                        width="100%"
-                        showSuggestions={true}
-                        suggestionData={["Alabama","Alaska","Arkansas","California","Colorado","New York","Connecticut"]}
-                        placeholder="Type a state that begins with A or C"
-                        dropOffset={100}
-
-                    />
-
-                </Dialog>
-
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-                <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-        <p>this is just filler</p>
-                <p>this is just filler</p>
-                <DropDown
-                    onChange    ={this._updatePerPage}
-                    width="250px"
-                    value={this.state.perpage}
-                >
-                    <Item data-automation-id="2 Per Page" value={2} key="itemfor2" defaultChecked={this.state.perpage === 2}>2</Item>
-                    <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
-                    <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
-                    <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>8</Item>
-                    <Item data-automation-id="2 Per Page" value={2} key="itemfor2" defaultChecked={this.state.perpage === 2}>2</Item>
-                    <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
-                    <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
-                    <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>8</Item>
-                    <Item data-automation-id="2 Per Page" value={2} key="itemfor2" defaultChecked={this.state.perpage === 2}>2</Item>
-                    <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
-                    <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
-                    <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>8</Item>
-                    <Item data-automation-id="2 Per Page" value={2} key="itemfor2" defaultChecked={this.state.perpage === 2}>2</Item>
-                    <Item data-automation-id="4 Per Page" value={4} key="itemfor4" defaultChecked={this.state.perpage === 4}>4</Item>
-                    <Item data-automation-id="6 Per Page" value={6} key="itemfor6" defaultChecked={this.state.perpage === 6}>6</Item>
-                    <Item data-automation-id="8 Per Page" value={8} key="itemfor8" defaultChecked={this.state.perpage === 8}>LAST</Item>
-                </DropDown>
-          </div>
+                <DatePicker
+                    manual={true}
+                    dateConstraint={['2013-1-01','2020-1-01']}
+                />
+                <Debug />
+            </div>
         )
     }
 /* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Add Sandbox Creation ABOVE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% */

@@ -26,7 +26,7 @@ class Title extends Stripes.StripesTheme {
             padding: '0px',
             margin: spacing.margin * 2 + 'px ' + '0px'
         }
-        return Object.assign(styleObj, this.props.style);
+        return this.hardExtend(styleObj, this.props.style);
     }
 
     render() {
@@ -74,8 +74,8 @@ class A extends Stripes.StripesTheme {
                 fontWeight: 200
             }
         }
-        styleObj.base = Object.assign(styleObj.base, this.props.style);
-        styleObj.hover = Object.assign(styleObj.hover, this.props.style);
+        styleObj.base = this.hardExtend(styleObj.base, this.props.style);
+        styleObj.hover = this.hardExtend(styleObj.hover, this.props.style);
         return styleObj;
     }
 
@@ -133,7 +133,7 @@ class H1 extends Stripes.StripesTheme{
             margin: spacing.margin * 1.5 + 'px ' + '0px'
         }
 
-        return Object.assign(styleObj, this.props.style);
+        return this.hardExtend(styleObj, this.props.style);
     }
 
     render() {
@@ -170,7 +170,7 @@ class H2 extends Stripes.StripesTheme {
             padding: '0px',
             margin: spacing.margin * 1.25 + 'px ' + '0px'
         }
-        return Object.assign(styleObj, this.props.style);
+        return this.hardExtend(styleObj, this.props.style);
     }
 
     render() {
@@ -207,7 +207,7 @@ class H3 extends Stripes.StripesTheme {
             padding: '0px',
             margin: spacing.padding + 'px ' + '0px'
         }
-        return Object.assign(styleObj, this.props.style);
+        return this.hardExtend(styleObj, this.props.style);
     }
 
     render() {

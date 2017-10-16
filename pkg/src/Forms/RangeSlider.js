@@ -15,6 +15,7 @@ export class RangeSlider extends StripesTheme {
         width: '100%',
         type: 'default',
         disabled: false,
+        draggable: true,
         value: [0,100],
         range: [0,100],
         constraint: [0,100],
@@ -37,6 +38,8 @@ export class RangeSlider extends StripesTheme {
         this.toggleUnlimited = this.toggleUnlimited.bind(this);
         this.clickSlider = this.clickSlider.bind(this);
         this.reset = this.reset.bind(this);
+        this.deactivateMin = this.deactivateMin.bind(this);
+        this.deactivateMax = this.deactivateMax.bind(this);
 
         this.state = {
             minValue: props.value[0] ? props.value[0]*1 : props.range[0],
@@ -137,9 +140,9 @@ export class RangeSlider extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = {
+        let color = this.getColors()[this.props.type];
+        let spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             container: {
                 position: 'relative',
                 width: this.props.width,
@@ -167,8 +170,16 @@ export class RangeSlider extends StripesTheme {
         return styleObj;
     }
 
+    deactivateMin() {
+        this.refs.minSlider.deactivateHandle();
+    }
+
+    deactivateMax() {
+        this.refs.maxSlider.deactivateHandle();
+    }
+
     render() {
-        var unlimitedDOM = null;
+        let unlimitedDOM = null;
         if(this.props.showUnlimited) {
             unlimitedDOM = (
                 <div style={this.state.style.unlimited}>
@@ -188,6 +199,7 @@ export class RangeSlider extends StripesTheme {
                     {...this.getDataSet(this.props, ' minSlider')}
                     style={{position: 'absolute'}}
                     disabled={this.props.disabled}
+                    draggable={this.props.draggable}
                     value={this.props.value[0] ? this.props.value[0]*1 : this.props.range[0]}
                     range={this.props.range}
                     constraint={[this.props.range[0],this.state.maxValue - this.props.snap]}
@@ -195,11 +207,14 @@ export class RangeSlider extends StripesTheme {
                     handlesize={this.props.handlesize}
                     showHandleValue={this.props.showHandleValue}
                     onChange={this.updateMin}
+                    onActivate={this.deactivateMax}
+                    onlyUseHandle={true}
                     ref="minSlider" />
                 <Slider
                     {...this.getDataSet(this.props, ' maxSlider')}
                     style={{position: 'absolute'}}
                     disabled={this.state.isUnlimited || this.props.disabled}
+                    draggable={this.props.draggable}
                     value={this.props.value[1] === Infinity ? this.props.range[1] : this.props.value[1] ? this.props.value[1]*1 : this.props.range[1]}
                     range={this.props.range}
                     constraint={[this.state.minValue + this.props.snap, this.props.range[1]]}
@@ -207,6 +222,8 @@ export class RangeSlider extends StripesTheme {
                     handlesize={this.props.handlesize}
                     showHandleValue={this.props.showHandleValue}
                     onChange={this.updateMax}
+                    onActivate={this.deactivateMin}
+                    onlyUseHandle={true}
                     ref="maxSlider" />
                 <div style={this.state.style.highlight} />
                 {unlimitedDOM}

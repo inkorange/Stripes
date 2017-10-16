@@ -103,6 +103,7 @@ export class DateTimePicker extends StripesTheme {
                             date={m(new Date(this.state.value)).isSame('1900-01-01', 'year') ? null : this.state.value}
                             manual={this.props.manual}
                             format={this.props.format}
+                            dateConstraint={this.props.dateConstraint}
                             errorMessage={this.props.dateErrorMsg}
                         />}
                     columnTwo={

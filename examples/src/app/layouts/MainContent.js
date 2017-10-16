@@ -1,20 +1,14 @@
 import React from "react";
 const style = require('../themes/GlobalStyles').MainContent;
 
-var MainContent = React.createClass({
+export class MainContent extends React.Component {
 
-	getInitialState: function() {
-		return { isloading: true }
-	},
-
-	_toggleLoader: function(loading) {
-		this.setState({
-			isloading: loading
-		});
-	},
-
-	componentDidMount: function() {
-	},
+	constructor(props) {
+		super(props);
+		this.state = {
+			isloading: true
+		}
+	}
 
 	render() {
 		return <section style={style} className={"MainContent " + (this.state.isloading ? "loading" : "")}>
@@ -22,6 +16,4 @@ var MainContent = React.createClass({
 		</section>;
 	}
 
-});
-
-module.exports = MainContent;
+}

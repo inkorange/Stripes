@@ -98,7 +98,7 @@ export class StripesTheme extends React.Component {
                     position: 'absolute',
                     top: 'calc(100% + 5px)',
                     right: 0,
-                    maxWidth: '100%',
+                    width: '100%',
                     lineHeight: '1.2rem',
                     textAlign: 'right',
                     color: color.underErrorlineColor
@@ -226,79 +226,74 @@ export class StripesTheme extends React.Component {
         return Object.assign(into ? JSON.parse(JSON.stringify(into)) : {}, extend ? JSON.parse(JSON.stringify(extend)) : {});
     }
 
+    hardClone(obj) {
+        return JSON.parse(JSON.stringify(obj));
+    }
+
     animateBackground(e) {
-        var target = e.target;
-
-
-        var inkNode = target.querySelector('.ink');
+        let target = e.target;
+        let inkNode = target.querySelector('.ink');
         if(!inkNode) {
             return false;
         }
-        var aniTiming = {
+        let aniTiming = {
             duration: 400,
             iterations: 1
         };
-        var aniExplode = [
+        let aniExplode = [
             { opacity: 1, transform: 'scale(0)'},
             { opacity: 0, transform: 'scale(2.5)'}
         ];
-        var d = Math.max(target.offsetWidth, target.offsetHeight);
-        //var x = e.pageX - target.offsetLeft - inkNode.clientWidth/2;
-        //console.log(e.pageY, target.offsetTop, target.getBoundingClientRect());
-        var x = e.pageX - target.getBoundingClientRect().left - inkNode.clientWidth/2;
-        var y = e.pageY - target.offsetTop - inkNode.clientHeight/2 - target.getBoundingClientRect().height;
+        let d = Math.max(target.offsetWidth, target.offsetHeight);
+        let x = e.pageX - target.getBoundingClientRect().left - inkNode.clientWidth/2;
+        let y = e.pageY - target.offsetTop - inkNode.clientHeight/2 - target.getBoundingClientRect().height;
         inkNode.style.height=d + "px";
         inkNode.style.width=d + "px";
         inkNode.style.top=y + "px";
         inkNode.style.left=x + "px";
-
-        inkNode.animate(
-            aniExplode,
-            aniTiming
-        );
+        if(inkNode.animate) {
+            inkNode.animate(aniExplode, aniTiming);
+        }
     }
 
     animateShow(node, direction) {
-        var aniTiming = {
+        let aniTiming = {
             duration: 500,
             iterations: 1,
             fill: 'both'
         };
-        var aniExplode = direction ? [
+        let aniExplode = direction ? [
             { opacity: 0},
             { opacity: 1}
         ] : [
             { opacity: 1},
             { opacity: 0}
         ];
-        var animation = node.animate(
-            aniExplode,
-            aniTiming
-        );
-        //animation.pause(); // must pause out of the gate or it will just run.
-        animation.play();
+        if(node.animate) {
+            let animation = node.animate(aniExplode, aniTiming);
+            animation.play();
+        }
     }
 
     animateSlide(node, direction) {
-        var aniTiming = {
+        let aniTiming = {
             duration: 500,
             iterations: 1,
             fill: 'both'
         };
-        var aniExplode = [
+        let aniExplode = [
             { overflow: 'hidden', maxHeight: 0},
             { overflow: 'hidden', maxHeight: '100vh'}
         ];
-        var animation = node.animate(
-            aniExplode,
-            aniTiming
-        );
-        animation.pause(); // must pause out of the gate or it will just run.
+        if(node.animate) {
+            let animation = node.animate(aniExplode, aniTiming);
+            animation.pause(); // must pause out of the gate or it will just run.
 
-        if(direction) {
-            animation.play();
-        } else {
-            animation.reverse();
+            if (direction) {
+                animation.play();
+            } else {
+                animation.reverse();
+            }
         }
 
     }
@@ -310,7 +305,6 @@ export class StripesTheme extends React.Component {
         });
         return childrenNodes;
     }
-
 }
 
 Array.prototype.equals = function (array, strict) {

@@ -69,16 +69,12 @@ module.exports = function(assetVersion) {
         return bundlerObj;
     };
 
-    //bundler.transform("babelify", {presets: ["es2015", "react"]});
-
     bundler.transform(babelify.configure(
         {
-          //presets: ["es2016", "es2015", "react", "stage-2"],
-          plugins: ["transform-react-jsx"],
           extensions: ['.js','.jsx']
         }
     ));
-
+    
 
     if (global.isWatching) {
       // Wrap with watchify and rebundle on changes

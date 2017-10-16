@@ -30,7 +30,8 @@ export class DatePicker extends StripesTheme {
         placeholder: null,
         date: null,
         manual: false,
-        errorMessage: 'Invalid Date Format (M/D/YYYY)'
+        errorMessage: 'Invalid Date Format (M/D/YYYY)',
+        errorTimeout: 2000
     }
 
     constructor(props) {
@@ -47,7 +48,7 @@ export class DatePicker extends StripesTheme {
         this.setManualDate = this.setManualDate.bind(this);
         this.inputBlur = this.inputBlur.bind(this);
 
-        var initialDate = props.date ? props.date : null;
+        let initialDate = props.date ? props.date : null;
 
         this.state = {
             active: false,
@@ -74,7 +75,7 @@ export class DatePicker extends StripesTheme {
     }
 
     toggleDialog(open) {
-        var show = open !== undefined ? open : !this.state.active;
+        let show = open !== undefined ? open : !this.state.active;
         this.setState({
             active: show
         }, () => {
@@ -111,9 +112,9 @@ export class DatePicker extends StripesTheme {
     }
 
     renderCleanDate() {
-        var dateval = this.state.date ? this.state.date : this.props.baseDateTime;
-        var year = <div key="yeartitle" onClick={this.showYearPanel} style={this.state.style.year}>{m(dateval).format(this.props.yearFormat)}</div>;
-        var date = <div key="datetitle" onClick={this.showCalendar}  style={this.state.style.date}>{m(dateval).format(this.props.dateFormat)}</div>;
+        let dateval = this.state.date ? this.state.date : this.props.baseDateTime;
+        let year = <div key="yeartitle" onClick={this.showYearPanel} style={this.state.style.year}>{m(dateval).format(this.props.yearFormat)}</div>;
+        let date = <div key="datetitle" onClick={this.showCalendar}  style={this.state.style.date}>{m(dateval).format(this.props.dateFormat)}</div>;
         return [year,date];
     }
 
@@ -136,7 +137,7 @@ export class DatePicker extends StripesTheme {
     }
 
     setYear(year) {
-        var mDate = m(this.state.date ? this.state.date : this.props.baseDateTime);
+        let mDate = m(this.state.date ? this.state.date : this.props.baseDateTime);
         mDate.year(year);
         this.setState({
             date: new Date(mDate.toString()),
@@ -152,24 +153,25 @@ export class DatePicker extends StripesTheme {
     }
 
     setManualDate(e) {
-        var dateValue = isNaN(this.refs.textbox.getValue()*1) ? this.refs.textbox.getValue() : this.refs.textbox.getValue()*1;
-        var slashCount = dateValue.toString().indexOf("/") > 0 ? (dateValue.match(/\//g) || []).length : 0;
+        let dateValue = isNaN(this.refs.textbox.getValue()*1) ? this.refs.textbox.getValue() : this.refs.textbox.getValue()*1;
+        let slashCount = dateValue.toString().indexOf("/") > 0 ? (dateValue.match(/\//g) || []).length : 0;
         dateValue = slashCount === 1 ? dateValue + '/' + (new Date().getFullYear()): dateValue;
-        var datesMatch = m(new Date(dateValue)).format(this.props.format) === m(this.state.date).format(this.props.format);
-        var isValid = m(new Date(dateValue)).isValid();
-        var strippedSlashes = !isNaN(dateValue) ? dateValue :
+        let datesMatch = m(new Date(dateValue)).format(this.props.format) === m(this.state.date).format(this.props.format);
+        let isValid = m(new Date(dateValue)).isValid();
+        let strippedSlashes = !isNaN(dateValue) ? dateValue :
                               dateValue && isNaN(dateValue) ? dateValue.replace(/\//g, '') : "";
-        var throwTimedError = () => {
+        let throwTimedError = (message) => {
             this.setState({
-                inputError: this.props.errorMessage
+                inputError: message ? message : this.props.errorMessage
             });
             setTimeout(() => {
                 this.refs.textbox.applyValue(this.state.date ? m(this.state.date).format(this.props.format) : '', true);
                 this.setState({
                     inputError: null
                 });
-            }, 1500);
+            }, this.props.errorTimeout);
         };
+
         if (datesMatch) {
             if(!isValid || (dateValue && (strippedSlashes.length === 0 || isNaN(strippedSlashes)))) {
                 throwTimedError();
@@ -178,7 +180,7 @@ export class DatePicker extends StripesTheme {
         }
 
         if(dateValue) {
-            var val = this.refs.textbox.getValue();
+            let val = this.refs.textbox.getValue();
             val = val.replace(/\s/g, '');
             // this allows the user to enter a millisecond date
             if (isValid && !isNaN(dateValue) && (dateValue.toString().length >= 12 && dateValue.toString().length < 14)) { // this is a valid milisecond time
@@ -191,13 +193,15 @@ export class DatePicker extends StripesTheme {
             // otherwise if it has no slashes or it's invalid we throw an error
             } else if (val.indexOf('/') < 0 || !isValid) {
                 throwTimedError();
-
-            // finally, its a standard 1/1/1 input, so we create the date the old fashioned way
-            } else {
+            } else if(isValid && this.props.dateConstraint[0] && m(new Date(dateValue)).isBefore(m(this.props.dateConstraint[0]))) {
+                throwTimedError("Date must be after " + this.props.dateConstraint[0]);
+            } else if(isValid && this.props.dateConstraint[1] && m(new Date(dateValue)).isAfter(m(this.props.dateConstraint[1]))) {
+                throwTimedError("Date must be before " + this.props.dateConstraint[1]);
+            } else { // finally, its a standard 1/1/1 input, so we create the date the old fashioned way
                 val = slashCount === 1 ? val + '/' + (new Date().getFullYear()): val;
-                var m_date = m(new Date(val));
-                var matches = (val.match(/\//g) || []);
-                var validParts = val.split('/').length && (val.split('/')[0] && val.split('/')[1] && val.split('/')[2]) ? true : false;
+                let m_date = m(new Date(val));
+                let matches = (val.match(/\//g) || []);
+                let validParts = val.split('/').length && (val.split('/')[0] && val.split('/')[1] && val.split('/')[2]) ? true : false;
                 if(matches.length === 1 || val.substring(val.length-1) === '/' || val.substring(0,1) === '/' || !validParts) {
                     m_date.year(m().year());
                 }
@@ -226,9 +230,9 @@ export class DatePicker extends StripesTheme {
 
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = {
+        let color = this.getColors()[this.props.type];
+        let spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             container: {
                 display: 'inline-block',
                 margin: spacing.margin*2 + 'px 0',
@@ -276,9 +280,8 @@ export class DatePicker extends StripesTheme {
     }
 
     render() {
-        //console.log(this.state.date);
-        var color = this.getColors()[this.props.type];
-        var cleanDate = this.renderCleanDate();
+        let color = this.getColors()[this.props.type];
+        let cleanDate = this.renderCleanDate();
         return (
             <div style={this.state.style.container} {...this.getDataSet(this.props)}>
                 <TextBox

@@ -45,14 +45,14 @@ export class TwoColumnLayout extends StripesTheme {
                 textAlign: 'left'
             }
         }
-        styleObj.left = Object.assign(styleObj.left, this.props.columnOneStyle);
-        styleObj.right = Object.assign(styleObj.right, this.props.columnTwoStyle);
+        styleObj.left = this.hardExtend(styleObj.left, this.props.columnOneStyle);
+        styleObj.right = this.hardExtend(styleObj.right, this.props.columnTwoStyle);
         return styleObj;
     }
 
     render() {
 
-        var baseStyle = Object.assign(this.state.style.base, this.props.style);
+        var baseStyle = this.hardExtend(this.state.style.base, this.props.style);
 
         return (
             <section {...this.getDataSet(this.props)} className={"TwoColumnLayout " + this.props.className} style={baseStyle}>

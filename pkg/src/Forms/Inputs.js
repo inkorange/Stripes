@@ -35,8 +35,7 @@ class TextBox extends StripesTheme {
         this.state = {
             style: this.getStyles(),
             active: false,
-            suggestionItems: [],
-            bbb: ''
+            suggestionItems: []
         };
         this.onChange = this.onChange.bind(this);
         this.getValue = this.getValue.bind(this);
@@ -107,7 +106,7 @@ class TextBox extends StripesTheme {
             if(!stopFocus) {
                 this.refs.input.focus();
             } else {
-                this.refs.input.parentElement.focus();
+                this.refs.input.parentNode.focus();
             }
         }
     }
@@ -128,16 +127,23 @@ class TextBox extends StripesTheme {
     }
 
     blur() {
-        this.refs.input.parentElement.focus();
+        this.refs.input.parentNode.focus();
         this.setState({
             active: false
+        });
+    }
+
+    focus() {
+        this.refs.input.focus();
+        this.setState({
+            active: true
         });
     }
 
     inputKeyPress(e) {
         if(e.charCode === 13) {
             if(this.props.onBlur) {
-                this.refs.input.parentElement.focus();
+                this.refs.input.parentNode.focus();
                 this.props.onBlur();
             }
         }
@@ -183,6 +189,7 @@ class TextBox extends StripesTheme {
                 />
                 {anchorNode}
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
+                <span style={this.state.style.error}>{this.props.error}</span>
                 {this.props.showSuggestions ?
                     <SelectPanel
                         {...this.getDataSet(this.props, 'SuggestionsPanel')}
@@ -193,7 +200,6 @@ class TextBox extends StripesTheme {
                         dropOffset={this.props.dropOffset}
                     />
                     : null}
-                <span style={this.state.style.error}>{this.props.error}</span>
             </div>
         )
     }

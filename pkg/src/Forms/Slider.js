@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 import React from 'react'
 import { render } from 'react-dom'
@@ -11,16 +11,19 @@ export class Slider extends StripesTheme {
         width: '100%',
         type: 'default',
         disabled: false,
+        draggable: true,
         value: 0,
         range: [0,100],
         constraint: [0,100],
         snap: 1,
         handlesize: 20,
+        onlyUseHandle: false,
         showHandleValue: true,
         removeActivateTimeout: 2000,
         onChange: () => { return false; },
-        format: (n) => { return parseInt(n, 10); }
-    }
+        format: (n) => { return parseInt(n, 10); },
+        onActivate: () => { return false; }
+    };
 
     constructor(props) {
         super(props);
@@ -43,7 +46,10 @@ export class Slider extends StripesTheme {
             dragging: false,
             handleX: this.getPercByValue(this.props.value),
             removeActivation: null
-        }
+        };
+
+        this.activateTime = new Date().getTime();
+        this.pressingTime = new Date().getTime();
     }
 
     componentWillMount() {
@@ -84,21 +90,31 @@ export class Slider extends StripesTheme {
     }
 
     pressing(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        //document.getElementById("DebugContainer").innerHTML = "START: pressing in " + ((new Date().getTime()) - this.pressingTime);
         this.setState({
-            pressing: true
-            //isActivated: false
+            pressing: true,
+            isActivated: true
         }, () => {
+            this.props.onActivate();
             this.bindDragEvents();
             this.updateStyles();
+            this.pressingTime = (new Date().getTime());
         });
     }
 
-    lifting() {
+    lifting(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        //document.getElementById("DebugContainer").innerHTML += " | lifting in " + ((new Date().getTime()) - this.pressingTime);
         this.setState({
-            pressing: false
+            pressing: false,
+            isActivated: false
         }, () => {
             this.removeDragEvents();
             this.updateStyles();
+            //this.pressingTime = (new Date().getTime());
         });
     }
 
@@ -113,17 +129,16 @@ export class Slider extends StripesTheme {
     }
 
     dragging(e) {
-        if(this.props.disabled) {
+        if(this.props.disabled || !this.props.draggable) {
             return false;
         }
         e.stopPropagation();
-        var resolvedObj = [null,null];
+        let resolvedObj = [null,null];
         if(this.state.pressing) {
             resolvedObj = this.resolveXThroughEvent(e)
         }
         this.setState({
             dragging: this.state.pressing,
-            //isActivated: false,
             handleX: this.state.pressing ? resolvedObj[0] : this.state.handleX,
             value: resolvedObj[1]
         }, () => {
@@ -133,10 +148,10 @@ export class Slider extends StripesTheme {
     }
 
     resolveXThroughEvent(e) {
-        var node = this.refs.slider;
-        var x_on_bar = e.pageX - node.getBoundingClientRect().left;
-        var handleX = x_on_bar * 100 / (node.offsetWidth);
-        var value = Math.floor(   ((this.props.range[1]-this.props.range[0]) * (handleX/100)) + this.props.range[0]     );
+        let node = this.refs.slider;
+        let x_on_bar = e.pageX - node.getBoundingClientRect().left;
+        let handleX = x_on_bar * 100 / (node.offsetWidth);
+        let value = Math.floor(   ((this.props.range[1]-this.props.range[0]) * (handleX/100)) + this.props.range[0]     );
         if(value <= this.props.constraint[0]) {
             handleX = this.getPercByValue(this.props.constraint[0]);
         } else if(value >= this.props.constraint[1]) {
@@ -149,9 +164,9 @@ export class Slider extends StripesTheme {
     }
 
     activateHandle(e) {
-        if(!this.props.disabled) {
+        if(!this.props.disabled && ((new Date().getTime()) - this.pressingTime) < 200) {
+            //document.getElementById("DebugContainer").innerHTML += " | activating";
             clearTimeout(this.state.removeActivation);
-            //alert(!this.state.pressing + " | " + !this.state.isActivated);
             this.setState(
                 {
                     isActivated: (!this.state.pressing && !this.state.isActivated),
@@ -159,16 +174,26 @@ export class Slider extends StripesTheme {
                 },
                 this.updateStyles
             );
+            this.pressingTime = new Date().getTime();
+            if(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
         }
     }
 
     deactivateHandle() {
-        this.setState({isActivated: false},this.updateStyles);
+        if(this.state.isActivated && ((new Date().getTime()) - this.pressingTime) > 500) {
+            //document.getElementById("DebugContainer").innerHTML += " | deactivating in " + ((new Date().getTime()) - this.pressingTime);
+            this.setState({isActivated: false}, this.updateStyles);
+        }
     }
 
     selectPoint(e) {
-        if(!this.state.pressing && this.state.isActivated) {
-            var resolvedObj = this.resolveXThroughEvent(e);
+        //document.getElementById("DebugContainer").innerHTML += " | Attempting SelectPoint : " + !this.state.pressing + " | " + this.state.isActivated;
+        if(!this.state.pressing && this.state.isActivated && ((new Date().getTime()) - this.pressingTime) > 200) {
+            //document.getElementById("DebugContainer").innerHTML += " | SELECTING POINT in " + ((new Date().getTime()) - this.pressingTime);
+            let resolvedObj = this.resolveXThroughEvent(e);
             this.setState({
                 isActivated: false,
                 handleX:resolvedObj[0],
@@ -181,9 +206,9 @@ export class Slider extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = {
+        let color = this.getColors()[this.props.type];
+        let spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             container: {
                 display: 'inline-block',
                 margin: spacing.margin*2 + 'px',
@@ -232,7 +257,7 @@ export class Slider extends StripesTheme {
                 fontSize: spacing.baseFontSize*.75 + 'rem'
             }
         };
-        styleObj.container = Object.assign(styleObj.container, this.props.style);
+        styleObj.container = this.hardExtend(styleObj.container, this.props.style);
         return styleObj;
     }
 
@@ -242,8 +267,6 @@ export class Slider extends StripesTheme {
                 className={this.props.className}
                 {...this.getDataSet(this.props)}
                 style={this.state.style.container}
-                onMouseDown={this.pressing}
-                onMouseUp={this.release}
                 onClick={this.selectPoint}
             >
                 <div style={this.state.style.bar}></div>
@@ -251,6 +274,8 @@ export class Slider extends StripesTheme {
                 <div
                     {...this.getDataSet(this.props, ' handle')}
                     onClick={this.activateHandle}
+                    onMouseDown={this.pressing}
+                    onMouseUp={this.release}
                     style={this.state.style.handle}
                 ></div>
             </div>

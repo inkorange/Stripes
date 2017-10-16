@@ -80,12 +80,12 @@ export class IconMenuElement extends React.Component {
                                 '\n' +
                                 '<IconMenu style={{float: \'right\'}} iconid="filter"\n' +
                                 '          direction="right" contentStyle={{width:"400px"}}\n' +
-                                '          backgroundColor={["transparent","blue"]} iconColor={["blue",null]}\n' +
+                                '          backgroundColor={["transparent","blue"]} iconColor={["blue","white"]}\n' +
                                 '>\n' +
                                 '     <p>IconMenu Content...</p>\n' +
                                 '</IconMenu>',
                             example: (
-                                 <IconMenu contentStyle={{width:'400px'}} direction="right" backgroundColor={["transparent","blue"]} iconColor={["blue",null]} iconid="filter">
+                                 <IconMenu contentStyle={{width:'400px'}} direction="right" backgroundColor={["transparent","blue"]} iconColor={["blue","white"]} iconid="filter">
                                      <p>IconMenu Content...</p>
                                  </IconMenu>
                             )

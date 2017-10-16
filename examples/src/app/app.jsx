@@ -6,7 +6,7 @@ import { Stripes } from 'zebra-stripes/Core/Stripes'
 require('es6-object-assign').polyfill();
 
 // layouts
-const MainLayout = require('./layouts/MainLayout');
+import {MainLayout} from './layouts/MainLayout';
 
 // theme
 const theme = require('./themes/Theme');

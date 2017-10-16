@@ -56,7 +56,7 @@ export class TabularListing extends StripesTheme {
 
     resolveHeight() {
         if(this.props.height) {
-            var parentHeight = this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularListing).parentElement.clientHeight;
+            var parentHeight = this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularListing).parentNode.clientHeight;
             var tableHeaderHeight = ReactDOM.findDOMNode(this.refs.TableHeader).clientHeight;
             var bodyHeight = parentHeight - tableHeaderHeight;
             this.setState({
@@ -94,11 +94,11 @@ export class TabularListing extends StripesTheme {
                     var value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
                     if(index === 0 && value) {
                         itemDOM.push(
-                            <span key={"prim" + key + "" + index} onClick={header.filterable ? this.clickValue : false} data-filterable={header.filterable} data-value={dimObj}>{value}</span>
+                            <span key={"prim" + key + "" + index} onClick={header.filterable ? this.clickValue : null} data-filterable={header.filterable} data-value={dimObj}>{value}</span>
                         );
                     } else if(value) {
                         itemDOM.push(
-                            <em key={"sec" + key + "" + index} onClick={header.filterable ? this.clickValue : false} data-filterable={header.filterable} data-value={dimObj} >{value}</em>
+                            <em key={"sec" + key + "" + index} onClick={header.filterable ? this.clickValue : null} data-filterable={header.filterable} data-value={dimObj} >{value}</em>
                         );
                     }
                     fieldStr += field + " ";

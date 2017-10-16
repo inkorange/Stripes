@@ -1,6 +1,6 @@
 var dest = './build',
     src = './src',
-    minify = false;
+    minify = true;
 
 module.exports = {
 

@@ -7,7 +7,7 @@ const Intro = require('../controllers/Intro');
 import { Stripes } from 'zebra-stripes/Core/Stripes'
 import {H1, H2, H3, Title, A} from 'zebra-stripes/Typography'
 // elements
-const MainContent =     require('./MainContent');
+import {MainContent} from './MainContent'
 
 var hstyle = {
     topHeader: {
@@ -61,18 +61,19 @@ var hstyle = {
     }
 };
 
-const MainLayout = React.createClass({
+export class MainLayout extends React.Component {
 
-    getInitialState: function() {
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             condensed: false
         }
-    },
+        this._checkChillTime = new Date().getTime();
+        this._chillTimeout = null;
+        this._handleTopNav = this._handleTopNav.bind(this);
+    }
 
-    _checkChillTime: new Date().getTime(),
-    _chillTimeout: null,
-
-    chill: function(timer, callback) {
+    chill(timer, callback) {
         if (new Date().getTime() > (this._checkChillTime + timer)) {
             clearTimeout(this._chillTimeout);
             this._chillTimeout = setTimeout(() => {
@@ -82,19 +83,19 @@ const MainLayout = React.createClass({
             clearTimeout(this._chillTimeout);
             this._checkChillTime = new Date().getTime();
         }
-    },
+    }
 
     componentDidMount() {
         window.addEventListener('scroll', () => {
             this.chill(200, this._handleTopNav);
         });
-    },
+    }
 
     _handleTopNav() {
         this.setState({
             condensed: (window.scrollY > 60)
         });
-    },
+    }
 
     render() {
         return (
@@ -118,6 +119,4 @@ const MainLayout = React.createClass({
         )
     }
  
-});
-
-module.exports = MainLayout;
+}

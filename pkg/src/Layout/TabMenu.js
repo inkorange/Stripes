@@ -92,8 +92,8 @@ export class TabMenu extends StripesTheme {
             },
             content: {}
         };
-        styleObj.base = Object.assign(styleObj.base, this.props.style);
-        styleObj.content = Object.assign(styleObj.content, this.props.contentStyle);
+        styleObj.base = this.hardExtend(styleObj.base, this.props.style);
+        styleObj.content = this.hardExtend(styleObj.content, this.props.contentStyle);
         return styleObj;
     }
 

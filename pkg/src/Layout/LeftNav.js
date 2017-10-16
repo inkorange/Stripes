@@ -68,7 +68,7 @@ export class LeftNav extends StripesTheme {
         if(this.props.closeOnBlur) {
             setTimeout(() => {
                 var target = document.activeElement;
-                var isNested = this.refs.LeftNav.contains(target);
+                var isNested = this.refs.LeftNav ? this.refs.LeftNav.contains(target) : null;
                 if (!isNested) {
                     this.toggleMenu(null, false);
                     this.props.onBlur();
@@ -98,10 +98,8 @@ export class LeftNav extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-
-        var styleObj = {
+        let spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             modal: {
                 position: 'fixed',
                 //display: this.state.open ? 'block' : 'none',

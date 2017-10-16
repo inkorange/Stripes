@@ -273,7 +273,7 @@ export class TimePicker extends StripesTheme {
                 padding: spacing.padding + 'px'
             }
         };
-        styleObj.container = Object.assign(styleObj.container, this.props.style);
+        styleObj.container = this.hardExtend(styleObj.container, this.props.style);
         return styleObj;
     }
 
@@ -488,7 +488,7 @@ export class TimePicker extends StripesTheme {
     }
 
     getHourHandStyle() {
-        var hourhandstyle = this.state.style.hourhand;
+        var hourhandstyle = this.hardClone(this.state.style.hourhand);
         var hourList = this.props[this.props.clockFormat === '12hr' ? 'hours12' : 'hours24'];
         var itemAngle = 360/hourList.length;
         var selectedAngle = 0;
@@ -505,7 +505,7 @@ export class TimePicker extends StripesTheme {
     }
 
     getMinuteHandStyle() {
-        var minutehandstyle = this.state.style.minutehand;
+        var minutehandstyle = this.hardClone(this.state.style.minutehand);
         var itemAngle = 360/60;
         var selectedAngle = (this.state.minute)*itemAngle;
         Object.assign(minutehandstyle, {
@@ -594,8 +594,9 @@ export class TimePicker extends StripesTheme {
         if(x < 0 && y < 0) {
             angle = 360+angle;
         }
-        return true;
         //console.log(angle, [width,height], [xpos,ypos], [x,y]);
+        return true;
+
     }
 
     render() {
@@ -610,7 +611,7 @@ export class TimePicker extends StripesTheme {
             <div key="basehand" style={this.state.style.handcircle}></div>
         ];
         var hourContainer = (
-            <div style={this.state.style.hourContainer} onClick={this.resolveClickPoint} className="handContainer" >
+            <div style={this.state.style.hourContainer} className="handContainer" >
                 {this.state.mode === 'hour' ? hourNodes : minNodes}
                 {handNode}
             </div>

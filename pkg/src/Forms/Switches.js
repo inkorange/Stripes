@@ -161,7 +161,7 @@ class RadioButtonGroup extends StripesTheme {
         var itemNodes = [];
         this.state.items.map((item, i) => {
             itemNodes.push(
-                <label data-itemid={i} checked={item.checked ? 'checked' : null} key={"label" + i} style={Object.assign(item.style, this.state.style.label)}>
+                <label data-itemid={i} checked={item.checked ? 'checked' : null} key={"label" + i} style={this.hardExtend(item.style, this.state.style.label)}>
                     <div style={item.checked ? this.state.style.radio.active : this.state.style.radio.inactive}></div>
                     <input
                         {...item.dataset}
@@ -433,7 +433,7 @@ class CheckBoxGroup extends StripesTheme {
         this.state.items.map((item, i) => {
 
             itemNodes.push(
-                <label key={"label" + i} style={Object.assign(item.style, item.disabled ? this.state.style.labelDisabled : this.state.style.label)} {...this.mouseEventProps(this.props)}>
+                <label key={"label" + i} style={this.hardExtend(item.style, item.disabled ? this.state.style.labelDisabled : this.state.style.label)} {...this.mouseEventProps(this.props)}>
                     <div style={item.checked ? this.state.style.checkbox.active : this.state.style.checkbox.inactive}></div>
                     <input
                         {...item.dataset}

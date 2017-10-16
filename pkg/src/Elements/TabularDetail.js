@@ -60,9 +60,9 @@ export class TabularDetail extends StripesTheme {
 
     resolveHeight() {
         if(this.props.height) {
-            var parentHeight = this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularDetail).parentElement.clientHeight;
-            var tableHeaderHeight = ReactDOM.findDOMNode(this.refs.FieldSelector).clientHeight;
-            var bodyHeight = parentHeight - tableHeaderHeight;
+            let parentHeight = this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularDetail).parentNode.clientHeight;
+            let tableHeaderHeight = ReactDOM.findDOMNode(this.refs.FieldSelector).clientHeight;
+            let bodyHeight = parentHeight - tableHeaderHeight;
             this.setState({
                 bodyHeight: bodyHeight
             });
@@ -74,17 +74,17 @@ export class TabularDetail extends StripesTheme {
         if(this.props.onValueClick) {
             e.preventDefault();
             e.stopPropagation();
-            var filterValue = e.currentTarget.getAttribute('data-value');
+            let filterValue = e.currentTarget.getAttribute('data-value');
             this.props.onValueClick(filterValue);
             return false;
         }
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var rowColor = this.getColors().table.row;
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = {
+        let color = this.getColors()[this.props.type];
+        let rowColor = this.getColors().table.row;
+        let spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             base: {
 
             },
@@ -138,46 +138,39 @@ export class TabularDetail extends StripesTheme {
     }
 
     render() {
-        var sort_by = this.props.data.sort_by;
-        var color = this.getColors().table.row;
-
-        var tableRows = [];
+        let sort_by = this.props.data.sort_by;
+        let color = this.getColors().table.row;
+        let tableRows = [];
 
         this.props.data.rows.map((r, i) => {
-            var cells = [];
+            let cells = [];
             this.props.data.structure.map((header, key) => {
-                var itemDOM = [];
-                var labelDOM = null;
-                var label = header.name; //.replace(/(<([^>]+)>)/ig, " ");
+                let itemDOM = [];
+                let label = header.name; //.replace(/(<([^>]+)>)/ig, " ");
                 label = label === "" ? header.field[0] : label;
-                //label = label.substring(label.length - 1) === "/" ? label.substring(0, label.length - 1) : label;
-
-                // constructing the headers *****************************************
-                labelDOM = ( <label key="label" dangerouslySetInnerHTML={{__html: label}}/> );
-
-                // constructing the values *****************************************
+                let labelDOM = ( <label key="label" dangerouslySetInnerHTML={{__html: label}}/> );
                 header.field.map((field, index) => {
-                    var dimObj = this.dimensionalObjectResolution(r, field);
-                    var value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
-                    var clickStyle = header.filterable ? this.state.style.clickLink : {};
+                    let dimObj = this.dimensionalObjectResolution(r, field);
+                    let value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
+                    let clickStyle = header.filterable ? this.state.style.clickLink : {};
                     if (index === 0 && value) {
                         itemDOM.push(
                             <span key={"prim" + key + "" + index}
                                   className={header.filterable ? 'filterable' : ''}
-                                  onClick={header.filterable ? this.clickValue : false}
+                                  onClick={header.filterable ? this.clickValue : () => { return false; }}
                                   style={clickStyle}
                                   data-filterable={header.filterable} data-value={dimObj}>{value}</span>
                         );
                     } else if(value){
                         itemDOM.push(
-                            <em key={"sec" + key + "" + index} onClick={header.filterable ? this.clickValue : false}
+                            <em key={"sec" + key + "" + index} onClick={header.filterable ? this.clickValue : () => { return false; }}
                                 className={header.filterable ? 'filterable' : ''}
                                 style={clickStyle}
                                 data-filterable={header.filterable} data-value={dimObj}>{value}</em>
                         );
                     }
                 });
-                var name = header.name !== "" ? header.name.replace(/(<([^>]+)>)|( )/ig, "") : header.field[0];
+                let name = header.name !== "" ? header.name.replace(/(<([^>]+)>)|( )/ig, "") : header.field[0];
                 cells.push(<div
                     style={Object.assign({width: header.width}, this.state.style.contentCell)}
                     className={header.className}
@@ -204,7 +197,7 @@ export class TabularDetail extends StripesTheme {
                     data-event-desc={"Loading " + this.props.showMoreLoading + " Records"}
                     data-event-active={this.props.showMoreLoading}
                     data-automation-id="Load More Records"
-                    onClick={this.props.triggerLazyLoad} className={"lazy_loading_empty " + (this.props.showLazyLoading ? 'loading' : null)}>
+                    onClick={this.props.triggerLazyLoad} className={"lazy_loading_empty " + (this.props.showLazyLoading ? 'loading' : () => { return false; })}>
                         {this.props.listSummaryText ? this.props.listSummaryText : null}
                         {this.props.showLazyLoading ?
                             null : this.props.showMoreLoading ?
@@ -213,10 +206,10 @@ export class TabularDetail extends StripesTheme {
                 </div>);
         }
 
-        var fieldOptions = [];
+        let fieldOptions = [];
         this.props.data.structure.map((c, i) => {
             if(c.sortable) {
-                var label = c.name.replace(/(<([^>]+)>)/ig, "/");
+                let label = c.name.replace(/(<([^>]+)>)/ig, "/");
                 label = label === "" ? c.field[0] : label;
                 label = label.substring(label.length - 1) === "/" ? label.substring(0, label.length - 1) : label;
                 fieldOptions.push(

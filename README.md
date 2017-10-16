@@ -9,8 +9,6 @@ This library is an extension of the ReactJS library, and written with minimal li
 
 This project contains both the source files to build out an NPM package for re-usability across other applications, as well as a live style guide based on the package built from source.
 
-Requirements: npm v6.0.0, gulp 3.9.0
-
 # Structure of the Project
 
 The project has 2 main folders, /examples and /pkg. The /examples folder houses a ReactJS app that demonstrates code samples, implementation examples, and property definitions of the current Stripes release. This build is not connected to the source file, and is only configured to render the Zebra Stripes library through an NPM installation, which is configured in the package.json file.
@@ -19,7 +17,7 @@ package.json:
 ```
 "devDependencies": {
    ...
-    "zebra-stripes": "zebra-stripes-0.1.5.tgz"
+    "zebra-stripes": "file:zebra-stripes-0.2.0.tgz"
   },
 ```
 
@@ -52,25 +50,9 @@ then
 gulp buildandrun
 ```
 
-# Building the NPM Package (npm v6.0.0)
+# Building the NPM Package
 
-npm v6.0.0:
-Step 1: Compile Module
 Once a new component is tested and linted, we need to package the project into a tarball file. We do this by going to the /pkg root directory and executing:
 ```
 gulp buildpack
 ```
-
-This will transpile the ES6/ES7 codebase to be used in web projects, and builds them to the /lib folder.
- 
-Step 2: Bundling the module
-To build the tarball file, run the following command from the /pkg/lib folder you just built to:
-```
-npm pack lib
-```
-
-
-
-# Contribution Etiquette
-
-coming soon....

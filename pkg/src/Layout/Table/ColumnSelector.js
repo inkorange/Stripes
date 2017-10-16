@@ -140,7 +140,6 @@ export class ColumnSelector extends StripesTheme {
                 label = label === "" ? c.field[0] : label;
                 label = label.substring(label.length - 1) === "/" ? label.substring(0, label.length - 1) : label;
 
-            console.log();
             ColumnItems.push(
                 <Item style={this.state.style.item}
                       defaultChecked={this.state.savedColumnVisibility ? this.state.savedColumnVisibility.indexOf(name) >= 0 : true}

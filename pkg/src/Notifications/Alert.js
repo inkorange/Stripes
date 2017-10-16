@@ -31,34 +31,33 @@ export class Alert extends StripesTheme {
         this.setState({
             style: this.getStyles()
         });
+        /*
         alertNODE.addEventListener("transitionend", () => {
-            this.state.style.display = this.props.show ? 'inline-block' : 'none';
-            if(alertNODE.style.opacity == 0) {
-                alertNODE.style.display = 'none';
-            }
+            this.setState({
+                style: this.getStyles()
+            });
         }, false);
+        */
     }
 
     componentDidUpdate(props) {
         if(this.props.show!=props.show) {
             this.setState({
                 style: this.getStyles()
-            }, () => {
-                //console.log(props.show);
-                //this.animateShow(this.refs.Alert, props.show);
             });
-
         }
     }
 
     getStyles() {
         var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
-
         var alertNODE = this.refs.Alert;
         var parentNODE = alertNODE.parentNode;
         var styleObj = {
-            transition: '1s opacity',
+            opacity: this.props.show ? 1 : 0,
+            visibility: this.props.show ? 'visible' : 'hidden',
+            transition: 'visibility 0s linear 0.25s,opacity 0.25s linear',
+            transitionDelay: '0s',
             height: (this.props.height + spacing.padding*2) + 'px',
             lineHeight: (this.props.height) + 'px',
             position: 'absolute',
@@ -67,7 +66,6 @@ export class Alert extends StripesTheme {
             padding: spacing.padding + 'px ' + spacing.padding*2 + 'px',
             whiteSpace: 'nowrap',
             borderRadius: '4px',
-            opacity: this.props.show ? 1 : 0,
             display: 'inline-block',
             right: this.props.position === 'left' ? (parentNODE.offsetWidth + 10) + 'px' : null,
             left: this.props.position === 'right' ? (parentNODE.offsetWidth + 10) + 'px' : null,

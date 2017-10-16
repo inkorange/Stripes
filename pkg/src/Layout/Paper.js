@@ -32,9 +32,7 @@ export class Paper extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
         var spacing = this.getSpacing()[this.props.type];
-
         var styleObj = {
             outline: 'none',
             background: 'white',
@@ -44,7 +42,7 @@ export class Paper extends StripesTheme {
             transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
             boxShadow: "0 " + ((this.props.depth * 3.5) - 1) + "px " + this.props.depth * 10 + "px rgba(0,0,0,0." + this.props.depth + "), 0 " + this.props.depth * 3 + "px 10px rgba(0,0,0,0.1)"
         }
-        return Object.assign(styleObj, this.props.style);
+        return this.hardExtend(styleObj, this.props.style);
     }
 
     render() {
