@@ -57,7 +57,7 @@ export class ColumnSelector extends StripesTheme {
         return endPoint === "" ? "/" : endPoint;
     }
 
-    toggleShowHide(e, columnValues) {
+    toggleShowHide(e, columnValues, force) {
         if(e) {
             this.props.onColumnSelect(e.currentTarget.value, columnValues.indexOf(e.currentTarget.value) >= 0);
         }
@@ -72,6 +72,10 @@ export class ColumnSelector extends StripesTheme {
             this.props.structure.map((c, i) => {
                 var name = c.name.replace(/(<([^>]+)>)|( )/ig, "");
                 name = name === "" ? c.field[0] : name;
+                if(force !== true && !e && c.visibility !== undefined && c.visibility === false && columnValues.indexOf(name) >= 0) {
+                    console.log('slicing...');
+                    columnValues.splice(columnValues.indexOf(name), 1);
+                }
                 var showing = columnValues.indexOf(name) >= 0;
                 var Els = document.querySelectorAll("[data-name='"+name+"']");
                 for (var y=0; y < Els.length; y++)
@@ -80,7 +84,6 @@ export class ColumnSelector extends StripesTheme {
                 }
             });
             window.localStorage["tableShowing" + this.getEndPointKey()] = JSON.stringify(columnValues);
-
         });
 
     }
@@ -98,7 +101,7 @@ export class ColumnSelector extends StripesTheme {
                 name = name === "" ? c.field[0] : name;
             columnValues.push(name);
         });
-        this.toggleShowHide(null, columnValues);
+        this.toggleShowHide(null, columnValues, true);
     }
 
     getStyles() {

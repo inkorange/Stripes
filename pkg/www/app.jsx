@@ -75,7 +75,8 @@ class Sandbox extends React.Component {
                     name: 'Door',
                     field: ['code'],
                     sortable: true,
-                    filterable: true
+                    filterable: true,
+                    visibility: false
                 },
                 {
                     tooltip: 'Trailer destination',
@@ -188,22 +189,10 @@ class Sandbox extends React.Component {
 
         return (
             <div ref="top" style={{padding: '50px', width: '75%'}}>
-                <RangeSlider
-                    width="100%"
-                    draggable={false}
-                    constraint={[0,75]} />
-                <br/>
-                <RangeSlider
-                    width="100%"
-                    constraint={[0,75]} />
-                <br/>
-                <Slider />
-                <br/>
-                <DatePicker
-                    manual={true}
-                    dateConstraint={['2013-1-01','2020-1-01']}
+                <TabularListing
+                    columnSelector={true}
+                    data={this.state.data}
                 />
-                <Debug />
             </div>
         )
     }
