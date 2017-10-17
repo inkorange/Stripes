@@ -45,8 +45,8 @@ class Sandbox extends React.Component {
         super(props);
         this.toggleDialog = this.toggleDialog.bind(this);
         var dataObj = {
-            rowTransform: () => {
-
+            rowClassFormatter: (data) => {
+                return data.code + 'row';
             },
             structure: [
                 {

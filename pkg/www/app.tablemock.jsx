@@ -228,6 +228,7 @@ class Sandbox extends React.Component {
     updateTable() {
         this.setState({
             data: {
+
                 structure: [
                     {
                         width: '100px',

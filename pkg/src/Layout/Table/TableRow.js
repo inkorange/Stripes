@@ -11,7 +11,8 @@ export class TableRow extends StripesTheme {
         type: 'table',
         onClick: null,
         hoverHighlight: true,
-        columnMap: null
+        columnMap: null,
+        className: ''
     }
 
     constructor(props) {
@@ -35,9 +36,9 @@ export class TableRow extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type].row;
-        var spacing = this.getSpacing()[this.props.type].row;
-        var styleObj = {
+        let color = this.getColors()[this.props.type].row;
+        let spacing = this.getSpacing()[this.props.type].row;
+        let styleObj = {
             base: {
                 borderBottom: '1px solid ' + color.border,
                 cursor: this.props.onClick ? 'pointer' : 'default',
@@ -58,6 +59,7 @@ export class TableRow extends StripesTheme {
                 onMouseOut={this.mouseOut}
                 onClick={this.onClick}
                 style={this.state.hover ? this.state.style.hover : this.state.style.base}
+                className={this.props.className}
             >
                 {this.props.columnMap ? this.extendChildren(this.props.children, { columnMap: this.props.columnMap }) : this.props.children}
             </tr>

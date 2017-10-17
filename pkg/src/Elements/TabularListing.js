@@ -56,9 +56,9 @@ export class TabularListing extends StripesTheme {
 
     resolveHeight() {
         if(this.props.height) {
-            var parentHeight = this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularListing).parentNode.clientHeight;
-            var tableHeaderHeight = ReactDOM.findDOMNode(this.refs.TableHeader).clientHeight;
-            var bodyHeight = parentHeight - tableHeaderHeight;
+            let parentHeight = this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularListing).parentNode.clientHeight;
+            let tableHeaderHeight = ReactDOM.findDOMNode(this.refs.TableHeader).clientHeight;
+            let bodyHeight = parentHeight - tableHeaderHeight;
             this.setState({
                 bodyHeight: bodyHeight
             });
@@ -69,7 +69,7 @@ export class TabularListing extends StripesTheme {
         if(this.props.onValueClick) {
             e.preventDefault();
             e.stopPropagation();
-            var filterValue = e.currentTarget.getAttribute('data-value');
+            let filterValue = e.currentTarget.getAttribute('data-value');
             this.props.onValueClick(filterValue);
             return false;
         }
@@ -82,16 +82,16 @@ export class TabularListing extends StripesTheme {
     }
 
     render() {
-        var sort_by = this.props.data.sort_by;
-        var tableCells = [];
+        let sort_by = this.props.data.sort_by;
+        let tableCells = [];
         this.props.data.rows.map((r, i) => {
-            var cells = [];
+            let cells = [];
             this.props.data.structure.map((header, key) => {
-                var itemDOM = [];
-                var fieldStr = "";
+                let itemDOM = [];
+                let fieldStr = "";
                 header.field.map((field, index) => {
-                    var dimObj = this.dimensionalObjectResolution(r, field);
-                    var value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
+                    let dimObj = this.dimensionalObjectResolution(r, field);
+                    let value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
                     if(index === 0 && value) {
                         itemDOM.push(
                             <span key={"prim" + key + "" + index} onClick={header.filterable ? this.clickValue : null} data-filterable={header.filterable} data-value={dimObj}>{value}</span>
@@ -103,7 +103,7 @@ export class TabularListing extends StripesTheme {
                     }
                     fieldStr += field + " ";
                 });
-                var name = header.name !== "" ? header.name.replace(/(<([^>]+)>)|( )/ig, "") : header.field[0];
+                let name = header.name !== "" ? header.name.replace(/(<([^>]+)>)|( )/ig, "") : header.field[0];
                 cells.push(
                     <TableCell
                         className={header.className}
@@ -125,14 +125,15 @@ export class TabularListing extends StripesTheme {
                     />
                 );
             }
+            let rowclass = this.props.data.rowClassFormatter ? this.props.data.rowClassFormatter(r) : "";
             tableCells.push(
-                <TableRow onClick={(e) => { this.props.onRowClick(e, r); }} key={"row"+i}>
+                <TableRow className={rowclass} onClick={(e) => { this.props.onRowClick(e, r); }} key={"row"+i}>
                     {cells}
                 </TableRow>
             );
         });
 
-        var showMoreStyle = {
+        let showMoreStyle = {
             textAlign: 'center',
             backgroundColor: this.state.colors.inactiveIcon,
             boxShadow: '0 2px 0 rgb(150,150,150) inset'
