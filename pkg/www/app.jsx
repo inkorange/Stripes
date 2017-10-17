@@ -159,6 +159,13 @@ class Sandbox extends React.Component {
             NavBar: this.refs.top
         });
 
+        setInterval(() => {
+            this.setState({
+                data: Object.assign({}, this.state.data)
+            });
+            console.log('updating');
+        }, 10000);
+
         for(var eventItem of ['click']) {
             document.addEventListener(eventItem, function (e) {
                 for (var target = e.target; target && target != this; target = target.parentNode) {

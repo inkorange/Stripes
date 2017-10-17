@@ -16,13 +16,14 @@ export class ColumnSelector extends StripesTheme {
         structure: [],
         hasData: false,
         onColumnSelect: () => { return false; }
-    }
+    };
 
     constructor(props) {
         super(props);
         this.toggleShowHide = this.toggleShowHide.bind(this);
         this.selectAll = this.selectAll.bind(this);
         this.update = this.update.bind(this);
+        this.toggleVisibilityDefaults = this.toggleVisibilityDefaults.bind(this);
 
         this.state = {
             style: {},
@@ -31,12 +32,17 @@ export class ColumnSelector extends StripesTheme {
         }
     }
     componentWillMount() {
-        this.setState({
-            style: this.getStyles()
-        });
-        if (this.state.savedColumnVisibility && this.props.hasData) {
-            this.toggleShowHide(null, this.state.savedColumnVisibility);
+        if(!this.state.savedColumnVisibility) {
+            this.toggleVisibilityDefaults();
         }
+        this.setState({
+            style: this.getStyles(),
+            savedColumnVisibility: window.localStorage["tableShowing" + this.getEndPointKey()] ? JSON.parse(window.localStorage["tableShowing" + this.getEndPointKey()]) : null
+        }, () => {
+            if (this.state.savedColumnVisibility && this.props.hasData) {
+                this.toggleShowHide(null, this.state.savedColumnVisibility);
+            }
+        });
     }
 
     componentWillUpdate(props) {
@@ -52,38 +58,49 @@ export class ColumnSelector extends StripesTheme {
     }
 
     getEndPointKey() {
-        var endPoint = location.pathname.split('/');
-        var endPoint = endPoint[endPoint.length-1];
+        let endPoint = location.pathname.split('/');
+        endPoint = endPoint[endPoint.length-1];
         return endPoint === "" ? "/" : endPoint;
     }
 
-    toggleShowHide(e, columnValues, force) {
+    toggleVisibilityDefaults() {
+        let colvals = [];
+        this.props.structure.map((c, i) => {
+            let name = c.name.replace(/(<([^>]+)>)|( )/ig, "");
+            name = name === "" ? c.field[0] : name;
+            if (!(c.visibility !== undefined && c.visibility === false)) {
+                colvals.push(name);
+            }
+        });
+        window.localStorage["tableShowing" + this.getEndPointKey()] = JSON.stringify(colvals);
+    }
+
+    toggleShowHide(e, columnValues) {
         if(e) {
             this.props.onColumnSelect(e.currentTarget.value, columnValues.indexOf(e.currentTarget.value) >= 0);
         }
         this.setState({
             savedColumnVisibility: columnValues,
-            allChecked: this.props.structure.length === columnValues.length,
-            selectorDisabled: columnValues.length <= 1
+            allChecked: !columnValues || this.props.structure.length === columnValues.length,
+            selectorDisabled: !columnValues || columnValues.length <= 1
         },() => {
             this.setState({
                 style: this.getStyles()
             });
             this.props.structure.map((c, i) => {
-                var name = c.name.replace(/(<([^>]+)>)|( )/ig, "");
+                let name = c.name.replace(/(<([^>]+)>)|( )/ig, "");
                 name = name === "" ? c.field[0] : name;
-                if(force !== true && !e && c.visibility !== undefined && c.visibility === false && columnValues.indexOf(name) >= 0) {
-                    console.log('slicing...');
-                    columnValues.splice(columnValues.indexOf(name), 1);
-                }
-                var showing = columnValues.indexOf(name) >= 0;
-                var Els = document.querySelectorAll("[data-name='"+name+"']");
-                for (var y=0; y < Els.length; y++)
+                let showing = !columnValues || columnValues.indexOf(name) >= 0;
+                let Els = document.querySelectorAll("[data-name='"+name+"']");
+                for (let y=0; y < Els.length; y++)
                 {
                     Els[y].style.display = showing ? 'table-cell' : 'none';
                 }
             });
             window.localStorage["tableShowing" + this.getEndPointKey()] = JSON.stringify(columnValues);
+            this.setState({
+                initialLoad: true
+            });
         });
 
     }
@@ -95,13 +112,13 @@ export class ColumnSelector extends StripesTheme {
     }
 
     selectAll(e,a) {
-        var columnValues = [];
+        let columnValues = [];
         this.props.structure.map((c, i) => {
-            var name = c.name.replace(/(<([^>]+)>)|( )/ig, "");
+            let name = c.name.replace(/(<([^>]+)>)|( )/ig, "");
                 name = name === "" ? c.field[0] : name;
             columnValues.push(name);
         });
-        this.toggleShowHide(null, columnValues, true);
+        this.toggleShowHide(null, columnValues);
     }
 
     getStyles() {
@@ -135,24 +152,26 @@ export class ColumnSelector extends StripesTheme {
     }
 
     render() {
-        var ColumnItems = [];
+        let ColumnItems = [];
         this.props.structure.map((c, i) => {
-            var name = c.name.replace(/(<([^>]+)>)|( )/ig, "");
+            let name = c.name.replace(/(<([^>]+)>)|( )/ig, "");
                 name = name === "" ? c.field[0] : name;
-            var label = c.name.replace(/(<([^>]+)>)/ig, " ");
+            let label = c.name.replace(/(<([^>]+)>)/ig, " ");
                 label = label === "" ? c.field[0] : label;
                 label = label.substring(label.length - 1) === "/" ? label.substring(0, label.length - 1) : label;
-
+            let checked = this.state.savedColumnVisibility ?
+                this.state.savedColumnVisibility.indexOf(name) >= 0 :
+                    c.visibility !== undefined && c.visibility === false ? false : true
             ColumnItems.push(
                 <Item style={this.state.style.item}
-                      defaultChecked={this.state.savedColumnVisibility ? this.state.savedColumnVisibility.indexOf(name) >= 0 : true}
+                      defaultChecked={checked}
                       disabled={this.state.selectorDisabled && (this.state.savedColumnVisibility ? this.state.savedColumnVisibility.indexOf(name) >= 0 : true)}
                       value={name}
                       {...this.getDataSet(this.props, ' ' + label)}
                       key={"option"+i}>{label}</Item>
             );
         });
-        var someColsHidden = this.state.savedColumnVisibility && this.state.savedColumnVisibility.length !== this.props.structure.length;
+        let someColsHidden = this.state.savedColumnVisibility && this.state.savedColumnVisibility.length !== this.props.structure.length;
         return (
             <IconMenu
                 {...this.getDataSet(this.props)}
