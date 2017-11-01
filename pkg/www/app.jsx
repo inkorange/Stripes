@@ -117,7 +117,7 @@ class Sandbox extends React.Component {
                     field: ['metrics.rtcube', 'metrics.tms_cube'],
                     featured: true,
                     sortable: true,
-                    filterable: false
+                    filterable: [true,false]
                 },
                 {
                     tooltip: 'Trailer fullness TLA and TMS',
@@ -127,7 +127,7 @@ class Sandbox extends React.Component {
                     field: ['metrics.full', 'metrics.tms_full'],
                     featured: true,
                     sortable: true,
-                    filterable: false
+                    filterable: [true, false]
                 },
                 {
                     tooltip: 'Trailer weight',
@@ -195,11 +195,33 @@ class Sandbox extends React.Component {
     render() {
 
         return (
-            <div ref="top" style={{padding: '50px', width: '75%'}}>
-                <TabularListing
-                    columnSelector={true}
-                    data={this.state.data}
-                />
+            <div ref="top">
+
+                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
+
+                <Dialog ref="Dialog"
+                        modal={true}
+                        title="This is the Card Title"
+                        width="50%"
+                        key="dialog1"
+                        actions={[
+                            <FlatButton key="action1a" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
+                            <RaisedButton key="action2b" onClick={() => { this.toggleDialog(false); }}type="primary">Cancel</RaisedButton>
+                        ]}
+                >
+                    <TabMenu>
+                        <Item key="tab1" label="Apples">
+                            <Slider
+                                width="75%"
+                                constraint={[0,75]} />
+
+                        </Item>
+                        <Item key="tab2" selected={true} label="Bananas"/>
+                        <Item key="tab3" label="Oranges"/>
+                        <Item key="tab4" label="Lemons"/>
+                    </TabMenu>
+                </Dialog>
+
             </div>
         )
     }
