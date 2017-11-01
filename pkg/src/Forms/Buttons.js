@@ -12,7 +12,7 @@ class FlatButton extends StripesTheme {
         label: null,
         style: {},
         icon: null,
-        iconColor: 'white',
+        iconColor: null,
         onClick: () => { return false; }
     }
 
@@ -58,8 +58,9 @@ class FlatButton extends StripesTheme {
                 overflow: 'hidden',
                 basePadding: spacing.padding
             },
-            ink: this.getBaseStyling(spacing, color).animation.ink
-        }
+            ink: this.getBaseStyling(spacing, color).animation.ink,
+            iconColor: color.activeIcon
+        };
         styleObj.button = Object.assign(styleObj.button, this.props.style);
         return styleObj;
     }
@@ -72,7 +73,7 @@ class FlatButton extends StripesTheme {
                     iconid={this.props.icon}
                     size="small"
                     basestyle={{position: 'absolute', left: this.state.style.basePadding*2 + 'px', top: (this.state.style.basePadding*2 - 2) + 'px'}}
-                    color={this.props.iconColor}
+                    color={this.props.iconColor ? this.props.iconColor : this.state.style.iconColor}
                 />);
         }
         return (
@@ -102,7 +103,7 @@ class RaisedButton extends StripesTheme {
         label: null,
         style: {},
         icon: null,
-        iconColor: 'white',
+        iconColor: null,
         onClick: () => { return false; }
     }
 
@@ -149,8 +150,9 @@ class RaisedButton extends StripesTheme {
                 overflow: 'hidden',
                 basePadding: spacing.padding
             },
-            ink: this.getBaseStyling(spacing, color).animation.ink
-        }
+            ink: this.getBaseStyling(spacing, color).animation.ink,
+            iconColor: color.activeIcon
+        };
         styleObj.button = Object.assign(styleObj.button, this.props.style);
         return styleObj;
     }
@@ -163,7 +165,7 @@ class RaisedButton extends StripesTheme {
                     iconid={this.props.icon}
                     size="small"
                     basestyle={{position: 'absolute', left: this.state.style.basePadding*2 + 'px', top: (this.state.style.basePadding*2 - 2) + 'px'}}
-                    color={this.props.iconColor}
+                    color={this.props.iconColor ? this.props.iconColor : this.state.style.iconColor}
                 />);
         }
         return (
