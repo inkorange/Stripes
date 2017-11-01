@@ -65,7 +65,7 @@ export class FieldsetElement extends React.Component {
                             example: <Fieldset title="Firstname" style={{boxShadow: "0 0 10px rgba(0,0,0,.25)", padding: "5px 10px 20px 10px"}}><TextBox width="100%" placeholder="please enter a name..." /></Fieldset>
                         },
                         {
-                            desc: 'Disbaled Fieldset with Inputs',
+                            desc: 'Disabled Fieldset with Inputs',
                             code:
                                 'import {Fieldset, Textbox} from \'zebra-stripes/Forms\'\n' +
                                 '\n' +
