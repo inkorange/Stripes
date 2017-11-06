@@ -117,7 +117,7 @@ export class Slider extends StripesTheme {
         //document.getElementById("DebugContainer").innerHTML += " | lifting in " + ((new Date().getTime()) - this.pressingTime);
         this.setState({
             pressing: false,
-            //isActivated: false
+            isActivated: ((new Date().getTime()) - this.pressingTime) < 200
         }, () => {
             this.removeDragEvents();
             this.updateStyles();
