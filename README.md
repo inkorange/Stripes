@@ -9,6 +9,12 @@ This library is an extension of the ReactJS library, and written with minimal li
 
 This project contains both the source files to build out an NPM package for re-usability across other applications, as well as a live style guide based on the package built from source.
 
+# Dependencies
+
+Node v6.x and npm v.5.4.2 are required for this project.
+
+Be sure to install gulp globally before running build scripts.
+
 # Structure of the Project
 
 The project has 2 main folders, /examples and /pkg. The /examples folder houses a ReactJS app that demonstrates code samples, implementation examples, and property definitions of the current Stripes release. This build is not connected to the source file, and is only configured to render the Zebra Stripes library through an NPM installation, which is configured in the package.json file.

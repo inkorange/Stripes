@@ -1,6 +1,7 @@
 "use strict";
 
 import React from 'react'
+
 import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 
@@ -58,6 +59,10 @@ export class Slider extends StripesTheme {
         });
     }
 
+    componentDidMount() {
+        this.refs.handle.addEventListener('touchmove', this.dragging, false);
+    }
+
     componentDidUpdate(props) {
         if(props.disabled !== this.props.disabled) {
             this.updateStyles();
@@ -90,9 +95,8 @@ export class Slider extends StripesTheme {
     }
 
     pressing(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        //document.getElementById("DebugContainer").innerHTML = "START: pressing in " + ((new Date().getTime()) - this.pressingTime);
+        //e.preventDefault();
+        //e.stopPropagation();
         this.setState({
             pressing: true,
             isActivated: true
@@ -149,7 +153,8 @@ export class Slider extends StripesTheme {
 
     resolveXThroughEvent(e) {
         let node = this.refs.slider;
-        let x_on_bar = e.pageX - node.getBoundingClientRect().left;
+        let pageX = e.targetTouches ? e.targetTouches[0].pageX : e.pageX;
+        let x_on_bar = pageX - node.getBoundingClientRect().left;
         let handleX = x_on_bar * 100 / (node.offsetWidth);
         let value = Math.floor(   ((this.props.range[1]-this.props.range[0]) * (handleX/100)) + this.props.range[0]     );
         if(value <= this.props.constraint[0]) {
@@ -273,9 +278,11 @@ export class Slider extends StripesTheme {
                 {this.props.showHandleValue ? <div style={this.state.style.value_box}>{this.getValue()}</div> : null }
                 <div
                     {...this.getDataSet(this.props, ' handle')}
+                    ref="handle"
                     onClick={this.activateHandle}
                     onMouseDown={this.pressing}
-                    onMouseUp={this.release}
+                    onTouchStart={this.pressing}
+                    onTouchEnd={this.lifting}
                     style={this.state.style.handle}
                 ></div>
             </div>
