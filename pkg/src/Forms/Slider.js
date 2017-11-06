@@ -102,19 +102,18 @@ export class Slider extends StripesTheme {
         console.log('pressing.');
         this.setState({
             pressing: true,
-            //isActivated: true
+            isActivated: true
         }, () => {
             this.props.onActivate();
             this.bindDragEvents();
             this.updateStyles();
-
         });
     }
 
     lifting(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('lifting.');
+        console.log('lifting: ', (new Date().getTime()) - this.pressingTime);
         //document.getElementById("DebugContainer").innerHTML += " | lifting in " + ((new Date().getTime()) - this.pressingTime);
         this.setState({
             pressing: false,
