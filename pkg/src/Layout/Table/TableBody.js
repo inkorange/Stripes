@@ -9,7 +9,7 @@ export class TableBody extends StripesTheme {
     static defaultProps = {
         style: {},
         type: 'table',
-        height: null,
+        height: 'auto',
         zebraStripes: false,
         columnMap: null
     }
@@ -33,7 +33,9 @@ export class TableBody extends StripesTheme {
 
     componentDidUpdate(props) {
         if(this.props.zebraStripes) {
-            this.stripeRows();
+            setTimeout(() => {
+                this.stripeRows();
+            },250);
         }
         if(this.props.height !== props.height) {
             this.setState({
@@ -43,15 +45,15 @@ export class TableBody extends StripesTheme {
     }
 
     stripeRows() {
-        var color = this.getColors()[this.props.type].row;
-        var rows = this.refs.tableBody.getElementsByTagName("TR");
-        for (var i = 0; i < rows.length; i = i + 2) {
+        const color = this.getColors()[this.props.type].row;
+        const rows = this.refs.tableBody.getElementsByTagName("TR");
+        for (let i = 0; i < rows.length; i = i + 2) {
             rows[i].style.backgroundColor = color.zebraStripe;
         }
     }
 
     getStyles() {
-        var styleObj = {
+        let styleObj = {
             base: {
                 height: this.props.height,
                 overflow: 'auto',

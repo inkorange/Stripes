@@ -39,9 +39,7 @@ export class TabularListing extends StripesTheme {
         if(props.height !== this.props.height) {
             this.resolveHeight();
         }
-        if(props.data !== this.props.data) {
-            this.resolveHiddenFields();
-        }
+        this.resolveHiddenFields();
     }
 
     constructor(props) {
@@ -56,7 +54,7 @@ export class TabularListing extends StripesTheme {
 
     resolveHeight() {
         if(this.props.height) {
-            let parentHeight = this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularListing).parentNode.clientHeight;
+            let parentHeight = parseInt(this.props.height ? this.props.height : ReactDOM.findDOMNode(this.refs.TabularListing).parentNode.clientHeight);
             let tableHeaderHeight = ReactDOM.findDOMNode(this.refs.TableHeader).clientHeight;
             let bodyHeight = parentHeight - tableHeaderHeight;
             this.setState({
@@ -198,12 +196,9 @@ export class TabularListing extends StripesTheme {
             );
         }
 
-        var headerWrap = {
-            position: 'relative'
-        };
         return (
             <Table className="TabularListing" ref="TabularListing"  style={this.props.style} {...this.getDataSet(this.props)}>
-                <div style={headerWrap}>
+                <div style={{position: 'relative'}}>
                     <TableHeader key="TableHeader" ref="TableHeader">
                         <TableHeaderRow>
                             {tableHeaders}

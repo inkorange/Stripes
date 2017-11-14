@@ -95,6 +95,9 @@ export class Slider extends StripesTheme {
     }
 
     pressing(e) {
+        if(this.props.disabled) {
+            return false;
+        }
         //e.preventDefault();
         //e.stopPropagation();
         this.pressingTime = (new Date().getTime());
@@ -113,7 +116,7 @@ export class Slider extends StripesTheme {
     lifting(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('lifting: ', (new Date().getTime()) - this.pressingTime);
+        //console.log('lifting: ', (new Date().getTime()) - this.pressingTime);
         //document.getElementById("DebugContainer").innerHTML += " | lifting in " + ((new Date().getTime()) - this.pressingTime);
         this.setState({
             pressing: false,
@@ -172,10 +175,10 @@ export class Slider extends StripesTheme {
     }
 
     activateHandle(e) {
-        console.log('activateHandle: ', (new Date().getTime()) - this.pressingTime);
+        //console.log('activateHandle: ', (new Date().getTime()) - this.pressingTime);
         if(!this.props.disabled && ((new Date().getTime()) - this.pressingTime) < 200) {
             //document.getElementById("DebugContainer").innerHTML += " | activating";
-            console.log('activating ', this.state.pressing, this.state.isActivated, (!this.state.pressing && !this.state.isActivated));
+            //console.log('activating ', this.state.pressing, this.state.isActivated, (!this.state.pressing && !this.state.isActivated));
             clearTimeout(this.state.removeActivation);
             this.setState(
                 {
@@ -195,7 +198,6 @@ export class Slider extends StripesTheme {
     deactivateHandle() {
         if(this.state.isActivated && ((new Date().getTime()) - this.pressingTime) > 500) {
             //document.getElementById("DebugContainer").innerHTML += " | deactivating in " + ((new Date().getTime()) - this.pressingTime);
-            console.log('DEactivating');
             this.setState({isActivated: false}, this.updateStyles);
         }
     }
@@ -291,9 +293,6 @@ export class Slider extends StripesTheme {
                     onTouchEnd={this.lifting}
                     style={this.state.style.handle}
                 ></div>
-                <br/>
-                <br/>
-                <div>Activated: {this.state.isActivated ? 'TRUE' : 'FALSE'} | Pressing: {this.state.pressing ? 'TRUE' : 'FALSE'}</div>
             </div>
         )
     }
