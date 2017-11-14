@@ -45,6 +45,9 @@ export class TableBody extends StripesTheme {
     }
 
     stripeRows() {
+        if(!this.refs.tableBody) {
+            return false;
+        }
         const color = this.getColors()[this.props.type].row;
         const rows = this.refs.tableBody.getElementsByTagName("TR");
         for (let i = 0; i < rows.length; i = i + 2) {
