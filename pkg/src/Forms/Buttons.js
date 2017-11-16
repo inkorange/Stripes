@@ -12,14 +12,14 @@ class FlatButton extends StripesTheme {
         label: null,
         style: {},
         icon: null,
-        iconColor: null,
+        iconColor: 'white',
         onClick: () => { return false; }
-    }
+    };
 
     constructor(props) {
         super(props);
-        var color = this.getColors()[props.type];
-        var component = this.getStyles();
+        let color = this.getColors()[props.type];
+        let component = this.getStyles();
         this.state = {
             hover: false,
             disabled: props.disabled,
@@ -34,9 +34,9 @@ class FlatButton extends StripesTheme {
     }
 
     getStyles() {
-        var spacing = this.getSpacing()[this.props.type];
-        var color = this.getColors()[this.props.type];
-        var styleObj = {
+        let spacing = this.getSpacing()[this.props.type];
+        let color = this.getColors()[this.props.type];
+        let styleObj = {
             button: {
                 color: color.textColor,
                 borderRadius: spacing.borderRadius + 'px',
@@ -66,7 +66,7 @@ class FlatButton extends StripesTheme {
     }
 
     render() {
-        var iconNode = null;
+        let iconNode = null;
         if(this.props.icon) {
             iconNode = (
                 <Icon
@@ -103,14 +103,14 @@ class RaisedButton extends StripesTheme {
         label: null,
         style: {},
         icon: null,
-        iconColor: null,
+        iconColor: 'white',
         onClick: () => { return false; }
     }
 
     constructor(props) {
         super(props);
-        var color = this.getColors()[props.type];
-        var component = this.getStyles();
+        let color = this.getColors()[props.type];
+        let component = this.getStyles();
         this.state = {
             hover: false,
             disabled: props.disabled,

@@ -243,7 +243,7 @@ class TextArea extends StripesTheme {
     }
 
     onChange(e) {
-        var val = e.target.value !== '' ? e.target.value : null;
+        let val = e.target.value !== '' ? e.target.value : null;
         if(val !== this.state.value) {
             this.setState({
                 value: val
@@ -266,13 +266,11 @@ class TextArea extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = this.getBaseStyling(spacing, color).inputs;
-
+        let color = this.getColors()[this.props.type];
+        let spacing = this.getSpacing()[this.props.type];
+        let styleObj = this.getBaseStyling(spacing, color).inputs;
         styleObj.active.on = Object.assign(styleObj.active.on, styleObj.active.base);
         styleObj.active.off = Object.assign(styleObj.active.off, styleObj.active.base);
-
         return styleObj;
     }
 
@@ -320,7 +318,7 @@ class DropDown extends StripesTheme {
         this.toggleSelect = this.toggleSelect.bind(this);
         this.applyValue = this.applyValue.bind(this);
         this.getValue = this.getValue.bind(this);
-        var resolvedMap = this.resolveItemMap(this.props.children);
+        let resolvedMap = this.resolveItemMap(this.props.children);
         this.state = {
             style: this.getStyles(),
             items: resolvedMap.items,
@@ -331,11 +329,11 @@ class DropDown extends StripesTheme {
     }
 
     resolveItemMap(children) {
-        var items = [];
-        var currentCheckedValue = null;
-        var currentCheckedLabel = null;
+        let items = [];
+        let currentCheckedValue = null;
+        let currentCheckedLabel = null;
         children.map((obj) => {
-            var label = obj.props.label ? obj.props.label : obj.props.children;
+            let label = obj.props.label ? obj.props.label : obj.props.children;
             if(obj.props.defaultChecked) {
                 currentCheckedLabel = label;
                 currentCheckedValue = obj.props.value === undefined ? label : obj.props.value;
@@ -352,7 +350,7 @@ class DropDown extends StripesTheme {
 
     componentDidUpdate(props) {
         if(props !== this.props) {
-            var resolvedMap = this.resolveItemMap(this.props.children);
+            let resolvedMap = this.resolveItemMap(this.props.children);
             this.setState({
                 style: this.getStyles(),
                 items: resolvedMap.items,
@@ -388,24 +386,24 @@ class DropDown extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = this.getBaseStyling(spacing, color).inputs;
-        var container = {
+        let color = this.getColors()[this.props.type];
+        let spacing = this.getSpacing()[this.props.type];
+        let styleObj = this.getBaseStyling(spacing, color).inputs;
+        let container = {
             lineHeight: '25px'
         };
-        var input = {
+        let input = {
             cursor: 'pointer',
             backgroundColor: 'transparent'
         };
-        var baseicon = {
+        let baseicon = {
             position: 'absolute',
             right: '0',
             top: '-2px',
             height: '20px',
             opacity: this.props.disabled ? '.5' : '1.0'
         };
-        var icon = {
+        let icon = {
             fill: color.inactiveIcon
         };
 

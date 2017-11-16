@@ -69,8 +69,8 @@ export class FlatButtonElement extends React.Component {
                             code:
                                 'import {FlatButton} from \'zebra-stripes/Forms\'\n' +
                                 '\n' +
-                                '<FlatButton type="primary" icon="home">Home</FlatButton>\n',
-                            example: <FlatButton type="primary" icon="home">Home</FlatButton>
+                                '<FlatButton type="primary" icon="home" iconColor="white">Home</FlatButton>\n',
+                            example: <FlatButton type="primary" icon="home" iconColor="white">Home</FlatButton>
                         }
                     ]}
                 description={[
@@ -104,7 +104,7 @@ export class RaisedButtonElement extends React.Component {
                 colTwoWidth="70%"
                 samples={[
                         {
-                            desc: 'Default TimePicker Usage',
+                            desc: 'Standard RaisedButton Usage',
                             code:
                                 'import {RaisedButton} from \'zebra-stripes/Forms\'\n' +
                                 '\n' +
@@ -112,7 +112,7 @@ export class RaisedButtonElement extends React.Component {
                             example: <RaisedButton>RaisedButton</RaisedButton>
                         },
                         {
-                            desc: 'Manual TimePicker Control with a Set Value',
+                            desc: 'RaisedButton with Primary Type',
                             code:
                                 'import {RaisedButton} from \'zebra-stripes/Forms\'\n' +
                                 '\n' +

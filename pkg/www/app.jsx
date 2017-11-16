@@ -265,18 +265,20 @@ class Sandbox extends React.Component {
         return (
 
             <div>
-                <TabularListing
-                    height="750"
-                    data={this.state.data}
-                    columnSelector={true}
-                />
+
+                <TextArea placeholder="This is a placeholder" />
+
 
             </div>
 
         )
 
         /*
-
+<TabularListing
+                    height="750"
+                    data={this.state.data}
+                    columnSelector={true}
+                />
          {window.innerWidth > 600 ?
          <TabularListing
          height={this.state.height}
