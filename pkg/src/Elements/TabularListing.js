@@ -122,8 +122,10 @@ export class TabularListing extends StripesTheme {
                 header.field.map((field, index) => {
                     let dimObj = this.dimensionalObjectResolution(r, field);
                     let value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
-                    let filterA = header.filterable.length ? header.filterable[0] : header.filterable;
-                    let filterB = header.filterable.length ? header.filterable[1] : header.filterable;
+                    let filterA = header.filterable ?
+                        header.filterable.length ? header.filterable[0] : header.filterable : null;
+                    let filterB = header.filterable ?
+                        header.filterable.length ? header.filterable[1] : header.filterable : null;
                     if(index === 0 && value) {
                         itemDOM.push(
                             <span key={"prim" + key + "" + index} onClick={filterA ? this.clickValue : null} data-filterable={filterA} data-value={dimObj}>{value}</span>
