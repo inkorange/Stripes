@@ -122,13 +122,13 @@ export class ColumnSelector extends StripesTheme {
     }
 
     getStyles() {
-        var spacing = this.getSpacing()[this.props.type].cell;
-        var color = this.getColors()[this.props.type].header;
-        var styleObj = {
+        let spacing = this.getSpacing()[this.props.type].cell;
+        let color = this.getColors()[this.props.type].header;
+        let styleObj = {
             base: {
                 position: 'absolute',
                 top: '1px',
-                right: '0',
+                right: '2px',
                 zIndex: 1
             },
             content: {

@@ -59,8 +59,8 @@ export class TableBody extends StripesTheme {
         let styleObj = {
             base: {
                 height: this.props.height,
-                overflow: 'auto',
-                width: '100%'
+                width: '100%',
+                overflowX: 'auto'
             },
             table: {
                 width: '100%'
@@ -73,11 +73,11 @@ export class TableBody extends StripesTheme {
     render() {
         return (
             <div style={this.state.style.base}>
-            <table style={this.state.style.table} {...this.getDataSet(this.props)}>
-                <tbody ref="tableBody">
-                {this.props.columnMap ? this.extendChildren(this.props.children, { columnMap: this.props.columnMap }) : this.props.children}
-                </tbody>
-            </table>
+                <table style={this.state.style.table} {...this.getDataSet(this.props)}>
+                    <tbody ref="tableBody">
+                    {this.props.columnMap ? this.extendChildren(this.props.children, { columnMap: this.props.columnMap }) : this.props.children}
+                    </tbody>
+                </table>
             </div>
         )
     }

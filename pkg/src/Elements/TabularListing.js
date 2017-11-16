@@ -25,6 +25,21 @@ export class TabularListing extends StripesTheme {
         triggerLazyLoad: () => { return false; },
         showMoreLoading: false,
         showLazyLoading: false
+    };
+
+    constructor(props) {
+        super(props);
+        this.clickValue = this.clickValue.bind(this);
+        this.resolveHeight = this.resolveHeight.bind(this);
+        this.handleHeaderScroll = this.handleHeaderScroll.bind(this);
+        this.update = this.update.bind(this);
+        this.state = {
+            colors: this.getColors()[this.props.type],
+            bodyHeight: this.props.bodyHeight,
+            style: {},
+            header_left: null
+        };
+        this.ticking = false;
     }
 
     shouldComponentUpdate(props) {
@@ -32,24 +47,27 @@ export class TabularListing extends StripesTheme {
     }
 
     componentDidMount() {
+        ReactDOM.findDOMNode(this.refs.TableBody).addEventListener('scroll', this.handleHeaderScroll, false);
+        this.setState({
+            style: this.getStyles()
+        });
         this.resolveHeight();
     }
 
-    componentDidUpdate(props) {
+    componentDidUpdate(props, state) {
         if(props.height !== this.props.height) {
             this.resolveHeight();
         }
         this.resolveHiddenFields();
     }
 
-    constructor(props) {
-        super(props);
-        this.clickValue = this.clickValue.bind(this);
-        this.resolveHeight = this.resolveHeight.bind(this);
-        this.state = {
-            colors: this.getColors()[this.props.type],
-            bodyHeight: this.props.bodyHeight
-        }
+    update(e) {
+        this.ticking = false;
+        this.refs.TableHeaderContainer.scrollLeft = e.target.scrollLeft;
+    }
+
+    handleHeaderScroll(e) {
+        this.ticking = this.ticking || requestAnimationFrame(() => { this.update(e); });
     }
 
     resolveHeight() {
@@ -77,6 +95,20 @@ export class TabularListing extends StripesTheme {
         if(this.refs.ColumnSelector) {
             this.refs.ColumnSelector.update();
         }
+    }
+
+    getStyles() {
+        let styleObj = {
+            base: {
+                overflow: 'hidden'
+            },
+            header: {
+                width: '100%',
+                overflowX: 'auto'
+            }
+        };
+        styleObj.base = Object.assign(styleObj.base, this.props.style);
+        return styleObj;
     }
 
     render() {
@@ -155,7 +187,7 @@ export class TabularListing extends StripesTheme {
                 </tr>);
         }
 
-        var tableHeaders = [];
+        let tableHeaders = [];
         this.props.data.structure.map((c, i) => {
             var labelDOM = null;
             var sortdirection = null;
@@ -195,10 +227,10 @@ export class TabularListing extends StripesTheme {
                 <TableHeaderCell key="ColumnSelector" width="30px" className="ColumnSelector" />
             );
         }
-
+        //Object.assign({top: (this.state.header_top ? this.state.header_top + 'px' : null)
         return (
-            <Table className="TabularListing" ref="TabularListing"  style={this.props.style} {...this.getDataSet(this.props)}>
-                <div style={{position: 'relative'}}>
+            <Table className="TabularListing" ref="TabularListing"  style={this.state.style.base} {...this.getDataSet(this.props)}>
+                <div ref="TableHeaderContainer" className="TableHeaderContainer" style={this.state.style.header}>
                     <TableHeader key="TableHeader" ref="TableHeader">
                         <TableHeaderRow>
                             {tableHeaders}
@@ -215,7 +247,7 @@ export class TabularListing extends StripesTheme {
                         /> : null
                     }
                 </div>
-                <TableBody key="TableBody" height={this.state.bodyHeight} zebraStripes={this.props.zebraStripes}>
+                <TableBody ref="TableBody" key="TableBody" height={this.state.bodyHeight} zebraStripes={this.props.zebraStripes}>
                     {tableCells}
                 </TableBody>
             </Table>

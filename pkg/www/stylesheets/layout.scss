@@ -255,7 +255,13 @@ footer.zebra {
             }
         }
     }
-
+    .TableHeaderContainer {
+        overflow: hidden;
+        &::-webkit-scrollbar
+        {
+            display: none;
+        }
+    }
 }
 
 /*
