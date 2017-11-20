@@ -46,10 +46,10 @@ export class TableHeaderCell extends StripesTheme {
     }
 
     getStyles() {
-        var spacing = this.getSpacing()[this.props.type].cell;
-        var color = this.getColors()[this.props.type].header;
-        var highlightBorder = ', 0 -3px 0px ' + (this.props.sortdirection && this.props.isSortable ? color.highlight : color.border) + ' inset';
-        var styleObj = {
+        const spacing = this.getSpacing()[this.props.type].cell;
+        const color = this.getColors()[this.props.type].header;
+        let highlightBorder = ', 0 -3px 0px ' + (this.props.sortdirection && this.props.isSortable ? color.highlight : color.border) + ' inset';
+        let styleObj = {
             base: {
                 boxShadow: (!this.props.ignoreHover && this.state.hover ? '0 -15px 50px -20px rgba(0,0,0,.25) inset' : '0 -5px 10px 0px rgba(0,0,0,0) inset') + highlightBorder,
                 transition: '.5s box-shadow',

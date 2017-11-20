@@ -191,22 +191,20 @@ export class TabularListing extends StripesTheme {
 
         let tableHeaders = [];
         this.props.data.structure.map((c, i) => {
-            var labelDOM = null;
-            var sortdirection = null;
+            let labelDOM = null;
+            let sortdirection = null;
             if(c.icon) {
-                labelDOM = (
-                    <div>
-                        <Icon key="icon" iconid={c.icon} style={{float: 'left'}} color={this.state.colors.activeIcon} size="small" />
-                        <label key="label" style={c.sortable ? {cursor: 'pointer'} : null} dangerouslySetInnerHTML={{__html: c.name}} />
-                    </div>
-                );
+                labelDOM = [
+                    <Icon key="icon" iconid={c.icon} style={{float: 'left'}} color={this.state.colors.activeIcon} size="small" />,
+                    <label key="label" style={c.sortable ? {cursor: 'pointer'} : null} dangerouslySetInnerHTML={{__html: c.name}} />
+                ];
             } else {
                 labelDOM = ( <label key="label" style={c.sortable ? {cursor: 'pointer'} : null} dangerouslySetInnerHTML={{__html: c.name}} /> );
             }
             if(c.field[0] === sort_by && this.props.sortable) {
                 sortdirection = this.props.data.sort_direction
             }
-            var name = c.name !== "" ? c.name.replace(/(<([^>]+)>)|( )/ig, "") : c.field[0];
+            let name = c.name !== "" ? c.name.replace(/(<([^>]+)>)|( )/ig, "") : c.field[0];
             tableHeaders.push(
                 <TableHeaderCell
                     className={c.className}
@@ -229,7 +227,6 @@ export class TabularListing extends StripesTheme {
                 <TableHeaderCell key="ColumnSelector" width="30px" className="ColumnSelector" />
             );
         }
-        //Object.assign({top: (this.state.header_top ? this.state.header_top + 'px' : null)
         return (
             <Table className="TabularListing" ref="TabularListing"  style={this.state.style.base} {...this.getDataSet(this.props)}>
                 <div ref="TableHeaderContainer" className="TableHeaderContainer" style={this.state.style.header}>

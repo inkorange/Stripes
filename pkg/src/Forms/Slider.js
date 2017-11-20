@@ -98,11 +98,8 @@ export class Slider extends StripesTheme {
         if(this.props.disabled) {
             return false;
         }
-        //e.preventDefault();
-        //e.stopPropagation();
         this.pressingTime = (new Date().getTime());
         this.activateHandle(e);
-        console.log('pressing.');
         this.setState({
             pressing: true,
             isActivated: true

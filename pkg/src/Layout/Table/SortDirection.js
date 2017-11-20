@@ -39,12 +39,14 @@ export class SortDirection extends StripesTheme {
             },
             asc : {
                 position: 'absolute',
-                top: spacing.padding/2 + 'px'
+                top: spacing.padding/2 + 'px',
+                left: 0
             },
             desc: {
                 position: 'absolute',
                 transform: 'rotate(180deg)',
-                top: (spacing.padding/2 + (this.props.width*1.5)) + 'px'
+                top: (spacing.padding/2 + (this.props.width*1.5)) + 'px',
+                left: 0
             }
         }
         return styleObj;
