@@ -15,7 +15,7 @@ import { Dialog, Card, LeftNav, MenuItem, TwoColumnLayout } from '../src/Layouts
 import {Icon} from  '../src/Symbols/Icon'
 import {Tooltip} from  '../src/Notifications/Tooltip'
 import {Tag, ShowHide, TabMenu, IconMenu} from '../src/Layouts'
-import {Alert} from '../src/Notifications/Alert'
+import {Alert, Tour} from '../src/Notifications'
 import {ProgressSpinner} from '../src/Elements/ProgressSpinner'
 require('es6-object-assign').polyfill();
 
@@ -250,7 +250,11 @@ class Sandbox extends React.Component {
     componentDidMount() {
         this.setState({
             anchorTo: this.refs.navbar
-        })
+        });
+        setTimeout(() => {
+            this.refs.Tour.start();
+        }, 2000);
+
     }
 
     componentWillUpdate(props) {
@@ -260,18 +264,67 @@ class Sandbox extends React.Component {
         console.log('trigger');
     }
 
+
     render() {
+
+        let script = [
+            {
+                title: 'My First Tour Page',
+                summary: 'Some text that describes this',
+                location: ['left', 'top', '450px'],
+                target: '.Icon2 svg',
+                focus: ['75%','50%', '200px']
+            },
+            {
+                title: 'My Second Tour Page',
+                summary: 'Some text that describes this Some text that describes this Some text that describes this Some text that describes this',
+                location: [null, 'bottom', '450px'],
+                target: '.Icon1 svg',
+                focus: ['25%','75%', '200px']
+            },
+            {
+                title: 'My Third Tour Page',
+                summary: 'Some textme text that describes this Some text that describes this',
+                location: ['left', null, '350px'],
+                target: '.Icon3 svg',
+                focus: ['calc(100% - 550px)','calc(100% - 550px)', '500px']
+            },
+            {
+                title: 'My FOURTH Tour Page',
+                summary: 'Some text that describes this Some text that describes this Some text that describes this Some text that describes this Some text that describes this Some text that describes this Some text that describes this Some text that describes this',
+                location: ['55%', null, '450px'],
+                focus: ['50%','50%', '700px']
+            }
+
+        ];
 
         return (
 
-            <div>
+            <div style={{position: 'relative', width: '100vw', height: '95vh'}}>
 
-                <TabularListing
-                    height="750"
-                    data={this.state.data}
-                    columnSelector={true}
-                />
 
+                <Icon iconid="admin"
+                      className="Icon1"
+                      basestyle={{position: "absolute", top: '25%', left: '25%'}}
+                      size="large"/>
+
+                <Icon iconid="note"
+                      className="Icon2"
+                      basestyle={{position: "absolute", top: '75%', right: '25%'}}
+                      size="large"/>
+
+                <Icon iconid="cancel"
+                      className="Icon3"
+                      basestyle={{position: "absolute", top: '50%', right: '10%'}}
+                      size="large"/>
+
+                <Icon iconid="note"
+                      className="Icon4"
+                      style={{width: '100px', height: '100px'}}
+                      basestyle={{position: "absolute", top: '5%', right: '40%'}}
+                      />
+
+                <Tour ref="Tour" key="Tour" script={script} />
 
             </div>
 

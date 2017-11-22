@@ -1,10 +1,9 @@
 "use strict"
 
 import React from 'react'
-import { render } from 'react-dom'
 
 import {ComponentDocumentation} from '../controllers/ComponentDocumentation'
-import {Alert} from 'zebra-stripes/Notifications/Alert'
+import {Alert, Tour} from 'zebra-stripes/Notifications'
 import {RaisedButton} from 'zebra-stripes/Forms'
 import {Ribbon} from 'zebra-stripes/Notifications/Ribbon'
 import {Icon} from 'zebra-stripes/Symbols/Icon'
@@ -163,4 +162,140 @@ export class RibbonElement extends React.Component {
 module.exports = {
     AlertElement: AlertElement,
     RibbonElement: RibbonElement
+};
+
+export class TourElement extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            showribbon: false
+        };
+        this.startTour = this.startTour.bind(this);
+    }
+
+    startTour() {
+        this.refs.Tour.start();
+    }
+
+    render() {
+        let script = [
+            {
+                title: 'Note Iconography',
+                summary: 'This icon is typically used to call out added notes to the application.',
+                location: [null, 'top', '350px'],
+                target: '.Icon2',
+                focus: [null,null, '150px']
+            },
+            {
+                title: 'Admin Iconography',
+                summary: 'You would find this icon in the left nav, and it brings the user to the admin section of the application.',
+                location: ['right', 'top', '350px'],
+                target: '.Icon1',
+                focus: ['25%','75%', '150px']
+            }
+        ];
+        return (
+            <ComponentDocumentation
+                title="Tour"
+                location="import {Tour} from 'zebra-stripes/Notifications';"
+                propsMap={[
+                    {name: 'script',        type: 'Array',    desc: 'An array of objects that defines each step of the tour to be displayed.', default: '[]'},
+                    {name: 'showStepCount', type: 'boolean',  desc: 'An array of objects that defines each step of the tour to be displayed.', default: 'true'},
+                    {name: 'zIndex',        type: 'Integer',  desc: 'An array of objects that defines each step of the tour to be displayed.', default: '1'}
+
+                ]}
+                colOneWidth="30%"
+                colTwoWidth="70%"
+                samples={[
+                    {
+                        desc: 'Basic Tour Usage',
+                        code:
+                        'import {Icon} from \'zebra-stripes/Symbols/Icon\'\n' +
+                        'import {Tour} from \'zebra-stripes/Notifications\'\n' +
+                        'import {RaisedButton} from \'zebra-stripes/Forms\'\n' +
+                        '\n' +
+                        '// function to launch the tour once button is clicked\n' +
+                        'startTour() {\n' +
+                        '   this.refs.Tour.start();\n' +
+                        '}\n' +
+                        '\n' +
+                        '// script configuration declaration\n' +
+                        'let script = [\n' +
+                        '    {\n' +
+                        '        title: "Note Iconography",\n' +
+                        '        summary: "This icon is typically used to call out added notes to the application.",\n' +
+                        '        location: [null, "top", "350px"], //that first null will make the card centered on the target\n' +
+                        '        target: ".Icon2",\n' +
+                        '        focus: [null,null, "150px"]\n' +
+                        '    },\n' +
+                        '    {\n' +
+                        '        title: "Admin Iconography",\n' +
+                        '        summary: "You would find this icon in the left nav, and it brings the user to the admin section of the application.",\n' +
+                        '        location: ["right", "top", "350px"],\n' +
+                        '        target: ".Icon1",\n' +
+                        '        focus: ["25%","75%", "150px"] //since we have a target value, first 2 values here will be ignored.\n' +
+                        '    }\n' +
+                        '];\n' +
+                        '\n' +
+                        '// JSX Code for render section\n' +
+                        '<div style={{position: "relative", height: "300px"}}>\n' +
+                        '    <Icon iconid="admin"\n' +
+                        '          className="Icon1"\n' +
+                        '          basestyle={{position: "absolute", top: "25%", left: "10%"}} size="large"/>\n' +
+                        '    <Icon iconid="note"\n' +
+                        '          className="Icon2"\n' +
+                        '          basestyle={{position: "absolute", top: "100%", right: "10%"}}\n' +
+                        '          size="large"/>\n' +
+                        '    <RaisedButton onClick={this.startTour} type="primary">Start Tour</RaisedButton>\n' +
+                        '    <Tour key="Tour" ref="Tour" script={script} />\n' +
+                        '</div>',
+                        example: <div style={{position: "relative", height: '300px'}}>
+                            <Icon iconid="admin"
+                                  className="Icon1"
+                                  basestyle={{position: "absolute", top: '25%', left: '10%'}}
+                                  size="large"/>
+
+                            <Icon iconid="note"
+                                  className="Icon2"
+                                  basestyle={{position: "absolute", top: '100%', right: '10%'}}
+                                  size="large"/>
+                            <RaisedButton onClick={this.startTour} type="primary">Start Tour</RaisedButton>
+                            <Tour key="Tour" ref="Tour" script={script} />
+                        </div>
+                    }
+                ]}
+                description={[
+                    <p key="p1">This component can be droped into any page, and scripted to launch a step by step tour of a current feature on the site.</p>,
+                    <p key="p2">The tour is configured with a collection of object, structured like below:</p>,
+                    <div key="p3">
+                        <pre key="precode">
+                            <code className="language-js">
+                                {'{\n' +
+                                '    title: "Note Iconography",                     // text in the Card header\n' +
+                                '    summary: "This text on the body of the Card.", // text in the body of the Card\n' +
+                                '    location: [null, "top", "350px"],              // card position: [x,y,width]\n' +
+                                '    target: ".Icon2",                              // will focus on this particular element\n' +
+                                '    focus: ["right","top", "200px"]                // focus position [x,y,circle width]\n' +
+                                '}'}
+                            </code>
+                        </pre>
+                    </div>,
+                    <p key="p4"><em>title</em> (required): will be what's displayed for each panel on the Card.</p>,
+                    <p key="p5"><em>summary</em> (required): is the language that shows in the body of the displayed Card component.</p>,
+                    <p key="p6"><em>location</em> (required): An array of 3 values that defines where the Card component will display on the page.<br/>
+                        This could change from step to step, since the focus of the talking point might not be where the card currently is, or could be behind it. The tour will animate the movement to the next position when you advance to the next step.<br/>
+                        The first object in the array is the position from the left of the page, considering the entire viewable area. The second is the position from the top. If left as a null, the tour will attempt to position the Card in the center, vertically. Positioning keys are also accepted 'right' or 'left' for the first object, and 'top' or 'bottom' for the second.<br/>
+                        The last object is the size of the panel. We suggest you use a fixed pixel value, and not a %. Please include the px or % in each definition.</p>,
+                    <p key="p7"><em>target</em> (optional): will have the circle focal point positioned right in the middle of this selector. If multiple fields are found, it will always point to the first one in the collection.</p>,
+                    <p key="p8"><em>focus</em> (required): The will position the circular focal point to the values within this array of objects. The first object is the left position, the second is the top, and the third is the size of the circle. These values will be animated to the next step in the script. If target is populated, the first two values in this object will be ignored, and it will use the targetd object as the x and y positioning.</p>
+                ]}
+            />
+        )
+    }
+}
+module.exports = {
+    AlertElement: AlertElement,
+    RibbonElement: RibbonElement,
+    TourElement: TourElement
 };

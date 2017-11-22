@@ -22,7 +22,7 @@ class StripesDemo extends React.Component {
 
                 <Title style={mainheaderStyle}>Zebra Stripes Design System: An Easily Re-Usable Web Component Architecture Built on ReactJS.</Title>
 
-                <p>Welcome to the Stripes Design Library authored by the engineers of the TLA Application.</p>
+                <p>Welcome to the Stripes Design Library (v0.3.0) authored by the engineers of the TLA Application.</p>
 
                 <a href="https://facebook.github.io/react/" target="_blank"><img src="./images/react.jpg" style={{float: 'right', padding: '20px'}} /></a>
 

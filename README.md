@@ -23,7 +23,7 @@ package.json:
 ```
 "devDependencies": {
    ...
-    "zebra-stripes": "file:zebra-stripes-0.2.0.tgz"
+    "zebra-stripes": "file:zebra-stripes-0.3.0.tgz"
   },
 ```
 

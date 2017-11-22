@@ -1,7 +1,6 @@
 "use strict"
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 
 export class Alert extends StripesTheme {
@@ -16,7 +15,7 @@ export class Alert extends StripesTheme {
         type: 'notification',
         height: 26,
         show: true
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -27,17 +26,9 @@ export class Alert extends StripesTheme {
     }
 
     componentDidMount() {
-        var alertNODE = this.refs.Alert;
         this.setState({
             style: this.getStyles()
         });
-        /*
-        alertNODE.addEventListener("transitionend", () => {
-            this.setState({
-                style: this.getStyles()
-            });
-        }, false);
-        */
     }
 
     componentDidUpdate(props) {
@@ -49,11 +40,11 @@ export class Alert extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var alertNODE = this.refs.Alert;
-        var parentNODE = alertNODE.parentNode;
-        var styleObj = {
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let alertNODE = this.refs.Alert;
+        let parentNODE = alertNODE.parentNode;
+        let styleObj = {
             opacity: this.props.show ? 1 : 0,
             visibility: this.props.show ? 'visible' : 'hidden',
             transition: 'visibility 0s linear 0.25s,opacity 0.25s linear',

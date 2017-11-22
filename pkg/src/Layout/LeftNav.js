@@ -1,7 +1,6 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import {Icon} from  '../Symbols/Icon'
 
@@ -19,7 +18,7 @@ export class LeftNav extends StripesTheme {
         className: null,
         onBlur: () => { return false; },
         open: false
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -27,7 +26,7 @@ export class LeftNav extends StripesTheme {
             disabled: props.disabled,
             open: props.open,
             style: {}
-        }
+        };
         this.focus = this.focus.bind(this);
         this.isOpen = this.isOpen.bind(this);
         this.updateStyles = this.updateStyles.bind(this);
@@ -67,8 +66,8 @@ export class LeftNav extends StripesTheme {
         e.stopPropagation();
         if(this.props.closeOnBlur) {
             setTimeout(() => {
-                var target = document.activeElement;
-                var isNested = this.refs.LeftNav ? this.refs.LeftNav.contains(target) : null;
+                let target = document.activeElement;
+                let isNested = this.refs.LeftNav ? this.refs.LeftNav.contains(target) : null;
                 if (!isNested) {
                     this.toggleMenu(null, false);
                     this.props.onBlur();
@@ -141,12 +140,12 @@ export class LeftNav extends StripesTheme {
     }
 
     render() {
-        var navNODE = (
+        let navNODE = (
             <section {...this.getDataSet(this.props)} className={this.props.className} style={this.state.style.menu} tabIndex="1" ref="LeftNav" key="navmenu" onBlur={this.toggleOnBlur}>
                 {this.props.children}
             </section>
         );
-        var renderedNODE = this.props.modal ? [
+        let renderedNODE = this.props.modal ? [
             (<div key="modalcontainer" style={this.state.style.modal} onClick={this.toggleOnBlur}></div>),
             navNODE
         ] : navNODE;

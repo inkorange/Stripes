@@ -1,7 +1,6 @@
 "use strict"
 
 import React from 'react'
-import { render } from 'react-dom'
 
 import {Typography} from '../element_guides/Typography'
 import {CardElement} from '../element_guides/CardElement'
@@ -20,23 +19,14 @@ import {DatePickerElement, TimePickerElement, DateTimePickerElement} from '../el
 import {FlatButtonElement, RaisedButtonElement} from '../element_guides/ButtonElements'
 import {CheckBoxElement, CheckBoxGroupElement, RadioButtonGroupElement} from '../element_guides/SwitchElements'
 import {IconElement} from '../element_guides/IconElement'
-import {AlertElement, RibbonElement} from '../element_guides/AlertElement'
+import {AlertElement, RibbonElement, TourElement} from '../element_guides/AlertElement'
 import {TextBoxElement, TextAreaElement, DropDownElement} from '../element_guides/InputElements'
 
-import {FlatButton, RaisedButton} from 'zebra-stripes/Forms'
-
-import {Card, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBar, TabMenu} from 'zebra-stripes/Layouts'
-import {H1, H2, H3, Title, A} from 'zebra-stripes/Typography'
-
-import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell} from 'zebra-stripes/Table'
+import {H1, A} from 'zebra-stripes/Typography'
+import {TableRow, TableCell} from 'zebra-stripes/Table'
 import {TabularListing} from 'zebra-stripes/Elements/TabularListing'
-
-import {RadioButtonGroup, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider} from 'zebra-stripes/Forms'
-
 import {Alert} from  'zebra-stripes/Notifications/Alert'
 import {Icon} from  'zebra-stripes/Symbols/Icon'
-
-import { Stripes } from 'zebra-stripes/Core/Stripes'
 
 class StripesDemo extends React.Component {
 
@@ -92,8 +82,8 @@ class StripesDemo extends React.Component {
     }
 
     render() {
-        var tableCells = [];
-        for(var i =0; i < 10; i++) {
+        let tableCells = [];
+        for(let i =0; i < 10; i++) {
             tableCells.push(
                 <TableRow key={"row"+i}>
                     <TableCell>A{i}</TableCell>
@@ -102,7 +92,7 @@ class StripesDemo extends React.Component {
             );
         };
 
-        var StyleGuideConfig = {
+        const StyleGuideConfig = {
 
             // layouts
             "Typography": (<Typography />),
@@ -127,22 +117,22 @@ class StripesDemo extends React.Component {
 
             "Inputs": ([<H1 key="ii1">Inputs</H1>, <TextBoxElement key="ii2"/>, <TextAreaElement key="ii3"/>, <DropDownElement key="ii4"/>]),
 
-            "Alert": ([<H1 key="a1">Alert</H1>, <AlertElement key="a2"/>, <RibbonElement key="a3" />])
+            "Alerts": ([<H1 key="a1">Alerts</H1>, <AlertElement key="a2"/>, <RibbonElement key="a3" />, <TourElement key="a4" />])
         };
 
-        var navSideStyle = {
+        let navSideStyle = {
             marginTop: '-40px',
             width: '160px',
             position: 'fixed'
         };
 
-        var contentSideStyle = {
+        let contentSideStyle = {
             marginLeft: '200px',
             position: 'relative'
         };
 
-        var LayoutNavigator = [];
-        var LayoutSect = [];
+        let LayoutNavigator = [];
+        let LayoutSect = [];
 
         Object.keys(StyleGuideConfig).map((k,v) => {
             LayoutSect.push(<section id={k} key={"comp"+k}>{StyleGuideConfig[k]}</section>);

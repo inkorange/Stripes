@@ -1,7 +1,6 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import {Icon} from  '../Symbols/Icon'
 
@@ -20,7 +19,7 @@ export class Ribbon extends StripesTheme {
         height: '50px',
         style: {},
         contentStyle: {}
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -44,10 +43,9 @@ export class Ribbon extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-
-        var styleObj = {
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             base: {
                 transition: '1s all',
                 position: 'fixed',

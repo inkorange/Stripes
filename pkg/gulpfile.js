@@ -53,7 +53,7 @@ gulp.task('cleanlib', function(cb) {
 });
 
 gulp.task('packit', function(cb) {
-    exec('sleep 8; cd lib; npm pack; cd ..; mv lib/*.tgz .; ');
+    exec('sleep 10; cd lib; npm pack; cd ..; mv lib/*.tgz .; ');
 });
 
 gulp.task('buildaction', ['clean'], (cb) => {

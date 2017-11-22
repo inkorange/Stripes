@@ -1,7 +1,6 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 
 export class Card extends StripesTheme {
@@ -17,21 +16,28 @@ export class Card extends StripesTheme {
         fillContainer: false,
         forceBottomAlign: false,
         inactiveDepth: 0
-    }
+    };
 
     constructor(props) {
         super(props);
         this.state = {
             disabled: props.disabled,
             style: this.getStyles()
+        };
+    }
+
+    componentDidUpdate(props) {
+        if(props.style !== this.props.style) {
+            this.setState({
+                style: this.getStyles()
+            });
         }
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-
-        var styleObj = {
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             base: {
                 transition: "all .25s ease-in-out",
                 zIndex: "2",
@@ -82,21 +88,16 @@ export class Card extends StripesTheme {
             styleObj.footer.right= 0;
             styleObj.footer.left= 0;
         }
-
         styleObj.header = Object.assign(styleObj.header, this.props.headerStyle);
         styleObj.footer = Object.assign(styleObj.footer, this.props.footerStyle);
         styleObj.base = Object.assign(styleObj.base, this.props.style);
         styleObj.body = Object.assign(styleObj.body, this.props.bodyStyle);
-
         return styleObj;
     }
 
     render() {
-
-        var containerStyle = this.state.style.base;
-
         return (
-            <section {...this.getDataSet(this.props)} style={containerStyle} className={"Card " + this.props.className}>
+            <section {...this.getDataSet(this.props)} style={this.state.style.base} className={"Card " + this.props.className}>
                 {this.props.title ? (
                     <header key="card_header" ref="card_header" style={this.state.style.header}>{this.props.title}</header>
                 ) : null}

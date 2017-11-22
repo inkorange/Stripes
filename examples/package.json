@@ -1,6 +1,6 @@
 {
   "name": "Zebra-Stripes-Design-System",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Zebra Stripes Examples",
   "scripts": {
     "start": "gulp buildandrun"
@@ -38,7 +38,7 @@
     "require-dir": "*",
     "vinyl-source-stream": "*",
     "watchify": "^2.2.1",
-    "zebra-stripes": "file:../pkg/zebra-stripes-0.2.0.tgz"
+    "zebra-stripes": "file:../pkg/zebra-stripes-0.3.0.tgz"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
