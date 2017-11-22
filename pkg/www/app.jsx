@@ -273,14 +273,14 @@ class Sandbox extends React.Component {
                 summary: 'Some text that describes this',
                 location: ['left', 'top', '450px'],
                 target: '.Icon2 svg',
-                focus: ['75%','50%', '200px']
+                focus: ['75%','50%', '200px', '150px']
             },
             {
                 title: 'My Second Tour Page',
                 summary: 'Some text that describes this Some text that describes this Some text that describes this Some text that describes this',
                 location: [null, 'bottom', '450px'],
                 target: '.Icon1 svg',
-                focus: ['25%','75%', '200px']
+                focus: ['25%','75%', '200px', '100px']
             },
             {
                 title: 'My Third Tour Page',

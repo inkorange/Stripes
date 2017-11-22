@@ -185,14 +185,14 @@ export class TourElement extends React.Component {
                 summary: 'This icon is typically used to call out added notes to the application.',
                 location: [null, 'top', '350px'],
                 target: '.Icon2',
-                focus: [null,null, '150px']
+                focus: [null,null, '200px']
             },
             {
                 title: 'Admin Iconography',
                 summary: 'You would find this icon in the left nav, and it brings the user to the admin section of the application.',
                 location: ['right', 'top', '350px'],
                 target: '.Icon1',
-                focus: ['25%','75%', '150px']
+                focus: ['25%','75%', '150px', '100px']
             }
         ];
         return (
@@ -203,7 +203,6 @@ export class TourElement extends React.Component {
                     {name: 'script',        type: 'Array',    desc: 'An array of objects that defines each step of the tour to be displayed.', default: '[]'},
                     {name: 'showStepCount', type: 'boolean',  desc: 'An array of objects that defines each step of the tour to be displayed.', default: 'true'},
                     {name: 'zIndex',        type: 'Integer',  desc: 'An array of objects that defines each step of the tour to be displayed.', default: '1'}
-
                 ]}
                 colOneWidth="30%"
                 colTwoWidth="70%"
@@ -227,14 +226,14 @@ export class TourElement extends React.Component {
                         '        summary: "This icon is typically used to call out added notes to the application.",\n' +
                         '        location: [null, "top", "350px"], //that first null will make the card centered on the target\n' +
                         '        target: ".Icon2",\n' +
-                        '        focus: [null,null, "150px"]\n' +
+                        '        focus: [null,null, "200px"]\n' +
                         '    },\n' +
                         '    {\n' +
                         '        title: "Admin Iconography",\n' +
                         '        summary: "You would find this icon in the left nav, and it brings the user to the admin section of the application.",\n' +
                         '        location: ["right", "top", "350px"],\n' +
                         '        target: ".Icon1",\n' +
-                        '        focus: ["25%","75%", "150px"] //since we have a target value, first 2 values here will be ignored.\n' +
+                        '        focus: ["25%","75%", "150px", "100px"] //since we have a target value, first 2 values here will be ignored.\n' +
                         '    }\n' +
                         '];\n' +
                         '\n' +
@@ -261,7 +260,7 @@ export class TourElement extends React.Component {
                                   basestyle={{position: "absolute", top: '100%', right: '10%'}}
                                   size="large"/>
                             <RaisedButton onClick={this.startTour} type="primary">Start Tour</RaisedButton>
-                            <Tour key="Tour" ref="Tour" script={script} />
+                            <Tour key="Tour" zIndex="1000" ref="Tour" script={script} />
                         </div>
                     }
                 ]}
@@ -276,7 +275,7 @@ export class TourElement extends React.Component {
                                 '    summary: "This text on the body of the Card.", // text in the body of the Card\n' +
                                 '    location: [null, "top", "350px"],              // card position: [x,y,width]\n' +
                                 '    target: ".Icon2",                              // will focus on this particular element\n' +
-                                '    focus: ["right","top", "200px"]                // focus position [x,y,circle width]\n' +
+                                '    focus: ["right","top", "200px", "100px"]       // focus position [x,y,width,height]\n' +
                                 '}'}
                             </code>
                         </pre>
@@ -288,7 +287,7 @@ export class TourElement extends React.Component {
                         The first object in the array is the position from the left of the page, considering the entire viewable area. The second is the position from the top. If left as a null, the tour will attempt to position the Card in the center, vertically. Positioning keys are also accepted 'right' or 'left' for the first object, and 'top' or 'bottom' for the second.<br/>
                         The last object is the size of the panel. We suggest you use a fixed pixel value, and not a %. Please include the px or % in each definition.</p>,
                     <p key="p7"><em>target</em> (optional): will have the circle focal point positioned right in the middle of this selector. If multiple fields are found, it will always point to the first one in the collection.</p>,
-                    <p key="p8"><em>focus</em> (required): The will position the circular focal point to the values within this array of objects. The first object is the left position, the second is the top, and the third is the size of the circle. These values will be animated to the next step in the script. If target is populated, the first two values in this object will be ignored, and it will use the targetd object as the x and y positioning.</p>
+                    <p key="p8"><em>focus</em> (required): The will position the circular focal point to the values within this array of objects. The first object is the left position, the second is the top, and the third is the width of the circle, the last (optional) is the height. If you do not put a height value in, it will be a square based off the width value. These values will be animated to the next step in the script. If target is populated, the first two values in this object will be ignored, and it will use the targetd object as the x and y positioning.</p>
                 ]}
             />
         )

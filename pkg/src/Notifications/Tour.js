@@ -12,16 +12,18 @@ export class Tour extends StripesTheme {
         script: [],
         zIndex: 1,
         type: 'default',
-        showStepCount: true,
-        shadowSize: window.innerHeight*1.5 + 'px'
+        showStepCount: true
     };
 
     constructor(props) {
         super(props);
+        this.windowWidth = window.innerWidth;
+        this.windowHeight = window.innerHeight;
         this.state = {
             focus: null,
             style: this.getStyles(),
-            hide: true
+            hide: true,
+            shadowSize: Math.max(this.windowHeight,this.windowWidth)*1.5 + 'px'
         };
         this.step = 0;
         this.start = this.start.bind(this);
@@ -39,8 +41,9 @@ export class Tour extends StripesTheme {
             cardTitle: this.props.script[this.step].title,
             cardSummary: this.props.script[this.step].summary,
             cardLocation: this.props.script[this.step].location,
-            focus: ['50%','50%',window.innerWidth + 'px'],
+            focus: ['50%','50%',this.windowWidth + 'px'],
             target: this.props.script[this.step].target,
+            shadowSize: this.windowHeight*1.5 + 'px'
         }, this.setStyles);
         window.addEventListener('resize', this.replayStep, true);
     }
@@ -51,6 +54,8 @@ export class Tour extends StripesTheme {
 
     replayStep() {
         if(!this.state.hide) {
+            this.windowWidth = window.innerWidth;
+            this.windowHeight = window.innerHeight;
             this.nextStep(this.step);
         }
     }
@@ -85,7 +90,8 @@ export class Tour extends StripesTheme {
             cardLocation: this.props.script[this.step].location,
             focus: this.props.script[this.step].focus,
             target: this.props.script[this.step].target,
-            show: true
+            show: true,
+            shadowSize: Math.max(this.windowHeight,this.windowWidth)*1.5 + 'px'
         }, this.setStyles);
     }
 
@@ -101,22 +107,25 @@ export class Tour extends StripesTheme {
         let x = 0;
         let y = 0;
         let w = 0;
+        let h = 0;
         if(location) {
             w = location[2] ? parseInt(location[2]) : '300px';
+            h = location[3] ? parseInt(location[3]) : w;
             if(target) {
                 let el = document.querySelectorAll(target)[0];
                 let rect = el.getBoundingClientRect();
                 x = rect.left - (w - rect.width)/2;
-                y = rect.top - (w - rect.height)/2;
+                y = rect.top - (h - rect.height)/2;
             } else {
                 x = location[0] ? 'calc(' + location[0] + ' - ' + w/2 + 'px)' : '25%';
-                y = location[1] ? 'calc(' + location[1] + ' - ' + w/2 + 'px)' : '25%';
+                y = location[1] ? 'calc(' + location[1] + ' - ' + h/2 + 'px)' : '25%';
             }
         }
         return {
             x: x,
             y: y,
-            w: w + 'px'
+            w: w + 'px',
+            h: h + 'px'
         }
     }
 
@@ -128,11 +137,13 @@ export class Tour extends StripesTheme {
         let y = 0;
         let w = 0;
         let fw = 0;
+        let fh = 0;
         if(location) {
             x = location[0];
             y = location[1];
             w = location[2] ? parseInt(location[2]) : '300px';
             fw = focus[2] ? parseInt(focus[2]) : '300px';
+            fh = focus[3] ? parseInt(focus[3]) : fw;
             if(target) {
                 let el = document.querySelectorAll(target)[0];
                 let rect = el.getBoundingClientRect();
@@ -143,10 +154,10 @@ export class Tour extends StripesTheme {
                 let cardH = ReactDOM.findDOMNode(this.refs.tourCard).offsetHeight;
                 switch(x) {
                     case 'left':
-                        xOff = w + fw/2;
+                        xOff = w + fw/2 + this.windowWidth*.01;
                         break;
                     case 'right':
-                        xOff = fw/2*-1;
+                        xOff = fw/2*-1 - this.windowWidth*.01;
                         break;
                     case null:
                         xOff = w/2;
@@ -155,10 +166,10 @@ export class Tour extends StripesTheme {
 
                 switch(y) {
                     case 'top':
-                        yOff = fw/2 + cardH;
+                        yOff = fh/2 + cardH + this.windowHeight*.01;
                         break;
                     case 'bottom':
-                        yOff = fw/2*-1;
+                        yOff = fh/2*-1 - this.windowHeight*.01;
                         break;
                     case null:
                         yOff = cardH/2;
@@ -169,10 +180,10 @@ export class Tour extends StripesTheme {
 
                 x = xF - xOff;
                 y = yF - yOff;
-                x = x+w > window.innerWidth ? (window.innerWidth - w) - window.innerWidth*.01 : x;
-                x = x < 0 ? window.innerWidth*.01 : x;
-                y = y+cardH > window.innerHeight ? (window.innerHeight - cardH) - window.innerHeight*.01 : y;
-                y = y < 0 ? window.innerHeight*.01 : y;
+                x = x+w > this.windowWidth ? (this.windowWidth - w) - this.windowWidth*.01 : x;
+                x = x < 0 ? this.windowWidth*.01 : x;
+                y = y+cardH > this.windowHeight ? (this.windowHeight - cardH) - this.windowHeight*.01 : y;
+                y = y < 0 ? this.windowHeight*.01 : y;
 
             } else {
                 x = location[0] ? location[0] : '25%';
@@ -218,12 +229,12 @@ export class Tour extends StripesTheme {
                 top: screenDimensions.y,
                 left: screenDimensions.x,
                 width: screenDimensions.w,
-                height: screenDimensions.w,
+                height: screenDimensions.h,
                 margin: 0,
                 padding: 0,
                 borderRadius: '50%',
                 backgroundColor: 'transparent',
-                boxShadow: '0 0 ' + this.props.shadowSize + ' ' + this.props.shadowSize + ' rgba(0,0,0,.75), 0 0 20px 5px rgba(0,0,0,.25) inset',//, -10px -10px 10px rgba(0,0,0,.15) inset',
+                boxShadow: '0 0 ' + (this.state ? this.state.shadowSize : '2000px') + ' ' + (this.state ? this.state.shadowSize : '2000px') + ' rgba(0,0,0,.75), -3px -3px 15px rgba(0,0,0,.45) inset',
                 transition: 'all .75s cubic-bezier(0.86, 0, 0.07, 1)',
                 opacity: this.state ? this.state.show ? 1 : 0 : 0
             },
