@@ -200,9 +200,11 @@ export class TourElement extends React.Component {
                 title="Tour"
                 location="import {Tour} from 'zebra-stripes/Notifications';"
                 propsMap={[
-                    {name: 'script',        type: 'Array',    desc: 'An array of objects that defines each step of the tour to be displayed.', default: '[]'},
-                    {name: 'showStepCount', type: 'boolean',  desc: 'An array of objects that defines each step of the tour to be displayed.', default: 'true'},
-                    {name: 'zIndex',        type: 'Integer',  desc: 'An array of objects that defines each step of the tour to be displayed.', default: '1'}
+                    {name: 'onStart',       type: 'function', desc: 'Callback function fired when the Tour begins.',                            default: '() => { return false; }'},
+                    {name: 'onStop',        type: 'function', desc: 'Callback function that\'s fired when the Tour stops.',                     default: '() => { return false; }'},
+                    {name: 'script',        type: 'Array',    desc: 'An array of objects that defines each step of the tour to be displayed.',  default: '[]'},
+                    {name: 'showStepCount', type: 'boolean',  desc: 'Toggle to show the step number of each script section.',                   default: 'true'},
+                    {name: 'zIndex',        type: 'Integer',  desc: 'Forces the zIndexing value of the Tour, used to situate the Tour above other elements.',  default: '1'}
                 ]}
                 colOneWidth="30%"
                 colTwoWidth="70%"

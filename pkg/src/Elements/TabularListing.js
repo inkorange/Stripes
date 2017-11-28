@@ -24,7 +24,8 @@ export class TabularListing extends StripesTheme {
         sortable: true,
         triggerLazyLoad: () => { return false; },
         showMoreLoading: false,
-        showLazyLoading: false
+        showLazyLoading: false,
+        disabled: false
     };
 
     constructor(props) {
@@ -246,7 +247,7 @@ export class TabularListing extends StripesTheme {
                         /> : null
                     }
                 </div>
-                <TableBody ref="TableBody" key="TableBody" height={this.state.bodyHeight} zebraStripes={this.props.zebraStripes}>
+                <TableBody ref="TableBody" key="TableBody" height={this.state.bodyHeight} disabled={this.props.disabled} zebraStripes={this.props.zebraStripes}>
                     {tableCells}
                 </TableBody>
             </Table>

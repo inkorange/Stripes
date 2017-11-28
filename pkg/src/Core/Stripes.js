@@ -9,12 +9,12 @@ stripes_theme.icons;
 export function Stripes(config)
 {
     /* default constructor */
-    var _init = function() {
+    let _init = function() {
         stripes_theme.palette = config.palette;
         stripes_theme.spacing = config.spacing;
         stripes_theme.icons = config.icons;
         if(stripes_theme.icons) {
-            var iconNode = document.createElement("div");
+            let iconNode = document.createElement("div");
             iconNode.setAttribute("style", "height: 0; width: 0; position: absolute; display: none;");
             iconNode.innerHTML = stripes_theme.icons;
             document.body.appendChild(iconNode);
@@ -182,18 +182,14 @@ export class StripesTheme extends React.Component {
 
     resolveStyling(obj) {
         Object.keys(obj).map((k,v) => {
-            var val = obj[k];
+            let val = obj[k];
             console.log(val);
         });
         return obj;
     }
 
-    flattenDate(date) {
-        return date;
-    }
-
     getDataSet(props, embellish) {
-        var dataset = {};
+        let dataset = {};
         Object.keys(props).filter (value => {
             if (/data-\S+/gi.test(value)) {
                 dataset[value] = embellish ? props[value] + embellish : props[value];
@@ -203,8 +199,8 @@ export class StripesTheme extends React.Component {
     }
 
     mouseEventProps(props) {
-        var dataset = {};
-        var eventList = ['onMouseDown', 'onMouseUp', 'onMouseOver', 'onMouseOut', 'onMouseEnter', 'onMouseLeave'];
+        let dataset = {};
+        const eventList = ['onMouseDown', 'onMouseUp', 'onMouseOver', 'onMouseOut', 'onMouseEnter', 'onMouseLeave'];
         Object.keys(props).filter (value => {
             if(eventList.indexOf(value) >= 0) {
                 dataset[value] = props[value];
@@ -214,8 +210,8 @@ export class StripesTheme extends React.Component {
     }
 
     dimensionalObjectResolution(data, objkey) {
-        var keys = objkey.split('.');
-        var value = null;
+        let keys = objkey.split('.');
+        let value = null;
         keys.map((k) => {
             value = !value ? data[k] : value[k];
         });
@@ -299,7 +295,7 @@ export class StripesTheme extends React.Component {
     }
 
     extendChildren(children, propsObj) {
-        var childrenNodes = [];
+        let childrenNodes = [];
         React.Children.toArray(children).map((node, i) => {
             childrenNodes.push(React.cloneElement(node, Object.assign(propsObj, {key: 'nodeItem' + i, index: i})));
         });
@@ -317,7 +313,7 @@ Array.prototype.equals = function (array, strict) {
     if (this.length != array.length)
         return false;
 
-    for (var i = 0; i < this.length; i++) {
+    for (let i = 0; i < this.length; i++) {
         if (this[i] instanceof Array && array[i] instanceof Array) {
             if (!this[i].equals(array[i], strict))
                 return false;

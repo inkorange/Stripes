@@ -12,7 +12,9 @@ export class Tour extends StripesTheme {
         script: [],
         zIndex: 1,
         type: 'default',
-        showStepCount: true
+        showStepCount: true,
+        onStart: () => { return false; },
+        onStop: () => { return false; },
     };
 
     constructor(props) {
@@ -61,6 +63,7 @@ export class Tour extends StripesTheme {
     }
 
     start() {
+        this.props.onStart();
         this.setState({
             hide: false
         }, () => {
@@ -79,6 +82,7 @@ export class Tour extends StripesTheme {
             this.setState({
                 hide: true
             }, this.setStyles);
+            this.props.onStop();
         }, 500);
     }
 

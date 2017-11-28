@@ -11,7 +11,8 @@ export class TableBody extends StripesTheme {
         type: 'table',
         height: 'auto',
         zebraStripes: false,
-        columnMap: null
+        columnMap: null,
+        disabled: false
     }
 
     constructor(props) {
@@ -37,7 +38,7 @@ export class TableBody extends StripesTheme {
                 this.stripeRows();
             },250);
         }
-        if(this.props.height !== props.height) {
+        if(this.props.height !== props.height || this.props.disabled !== props.disabled) {
             this.setState({
                 style: this.getStyles()
             });
@@ -64,6 +65,15 @@ export class TableBody extends StripesTheme {
             },
             table: {
                 width: '100%'
+            },
+            disabled: {
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                left: 0,
+                bottom: 0,
+                background: 'rgba(255,255,255,.5)',
+                overflow: 'hidden'
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
@@ -76,6 +86,7 @@ export class TableBody extends StripesTheme {
                 <table style={this.state.style.table} {...this.getDataSet(this.props)}>
                     <tbody ref="tableBody">
                     {this.props.columnMap ? this.extendChildren(this.props.children, { columnMap: this.props.columnMap }) : this.props.children}
+                    {this.props.disabled ? <div style={this.state.style.disabled}></div> : null}
                     </tbody>
                 </table>
             </div>

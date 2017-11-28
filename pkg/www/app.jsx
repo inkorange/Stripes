@@ -245,6 +245,23 @@ class Sandbox extends React.Component {
             showTooltip: false,
             saveIconHover: false
         };
+
+        this.script = [
+            {
+                title: "Note Iconography",
+                summary: "This icon is typically used to call out added notes to the application.",
+                location: [null, "top", "350px"], //that first null will make the card centered on the target
+                target: ".Icon2",
+                focus: [null,null, "200px"]
+            },
+            {
+                title: "Admin Iconography",
+                summary: "You would find this icon in the left nav, and it brings the user to the admin section of the application.",
+                location: ["right", "top", "350px"],
+                target: ".Icon1",
+                focus: ["25%","75%", "150px", "100px"] //since we have a target value, first 2 values here will be ignored.
+            }
+        ];
     }
 
     componentDidMount() {
@@ -264,67 +281,32 @@ class Sandbox extends React.Component {
         console.log('trigger');
     }
 
+    // function to launch the tour once button is clicked
+    startTour() {
+        this.refs.Tour.start();
+    }
+
+
 
     render() {
-
-        let script = [
-            {
-                title: 'My First Tour Page',
-                summary: 'Some text that describes this',
-                location: ['left', 'top', '450px'],
-                target: '.Icon2 svg',
-                focus: ['75%','50%', '200px', '150px']
-            },
-            {
-                title: 'My Second Tour Page',
-                summary: 'Some text that describes this Some text that describes this Some text that describes this Some text that describes this',
-                location: [null, 'bottom', '450px'],
-                target: '.Icon1 svg',
-                focus: ['25%','75%', '200px', '100px']
-            },
-            {
-                title: 'My Third Tour Page',
-                summary: 'Some textme text that describes this Some text that describes this',
-                location: ['left', null, '350px'],
-                target: '.Icon3 svg',
-                focus: ['calc(100% - 550px)','calc(100% - 550px)', '500px']
-            },
-            {
-                title: 'My FOURTH Tour Page',
-                summary: 'Some text that describes this Some text that describes this Some text that describes this Some text that describes this Some text that describes this Some text that describes this Some text that describes this Some text that describes this',
-                location: ['55%', null, '450px'],
-                focus: ['50%','50%', '700px']
-            }
-
-        ];
 
         return (
 
             <div style={{position: 'relative', width: '100vw', height: '95vh'}}>
-
-
-                <Icon iconid="admin"
-                      className="Icon1"
-                      basestyle={{position: "absolute", top: '25%', left: '25%'}}
-                      size="large"/>
-
-                <Icon iconid="note"
-                      className="Icon2"
-                      basestyle={{position: "absolute", top: '75%', right: '25%'}}
-                      size="large"/>
-
-                <Icon iconid="cancel"
-                      className="Icon3"
-                      basestyle={{position: "absolute", top: '50%', right: '10%'}}
-                      size="large"/>
-
-                <Icon iconid="note"
-                      className="Icon4"
-                      style={{width: '100px', height: '100px'}}
-                      basestyle={{position: "absolute", top: '5%', right: '40%'}}
-                      />
-
-                <Tour ref="Tour" key="Tour" script={script} />
+                <Tour />
+                <TabularListing
+                    height="300"
+                    data={this.state.data}
+                    columnSelector={true}
+                    disabled={true}
+                />
+                <TabularListing
+                    height="300"
+                    data={this.state.data}
+                    columnSelector={true}
+                    disabled={false}
+                />
+                <Tour key="Tour" ref="Tour" script={this.script} />
 
             </div>
 
