@@ -14,12 +14,12 @@ export class SelectPanel extends StripesTheme {
         width: null,
         dropOffset: null,
         onClose: () => {}
-    }
+    };
 
     constructor(props) {
         super(props);
 
-        var initialSelected = 0;
+        let initialSelected = 0;
         props.data.map((v, i) => {
             if(v.checked) {
                 initialSelected = i;
@@ -58,47 +58,60 @@ export class SelectPanel extends StripesTheme {
     }
 
     withinFixed(el) {
-        var isFixed = false;
-        var scrollTop = 0;
-        var top = 0;
+        let isFixed = false;
+        let scrollTop = 0;
+        let top = 0;
+        let scrollLeft = 0;
+        let left = 0;
         do  {
             el = el.parentElement;
             if(el) {
                 scrollTop += el.scrollTop;
                 top = el.offsetTop;
+                scrollLeft += el.scrollLeft;
+                left = el.offsetLeft;
                 if (window.getComputedStyle(el).getPropertyValue('position').toLowerCase() === 'fixed') {
                     isFixed = true;
                     break;
                 }
             }
         } while (el);
-        return {fixed: isFixed, top: top, scrollTop: scrollTop};
+
+        //console.log({fixed: isFixed, top: top, scrollTop: scrollTop, left: left, scrollLeft: scrollLeft});
+        return {fixed: isFixed, top: top, scrollTop: scrollTop, left: left, scrollLeft: scrollLeft};
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var parent = this.refs.panelcontainer.parentElement;
-        var parentClient = parent.getBoundingClientRect();
-        var parentHeight = parentClient.top + (this.props.dropOffset ? this.props.dropOffset : spacing.dropDownOffset);
-        var parentLeft = parentClient.left;
-        var resultHeight = this.refs.resultList.offsetHeight + 20;
-        var isFixedDom = this.withinFixed(this.refs.panelcontainer.parentElement);
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let parent = this.refs.panelcontainer.parentElement;
+        let parentClient = parent.getBoundingClientRect();
+        let parentHeight = parentClient.top + (this.props.dropOffset ? this.props.dropOffset : spacing.dropDownOffset);
+        let parentLeft = parentClient.left;
+        let resultHeight = this.refs.resultList.offsetHeight + 20;
+        let isFixedDom = this.withinFixed(this.refs.panelcontainer.parentElement);
 
-        var top = parentHeight + spacing.dropDownOffset;
+        let top = parentHeight + spacing.dropDownOffset;
+        let left = parentLeft;
         if(isFixedDom.fixed && !this.isIE()) {
-            top = parent.offsetTop + spacing.dropDownOffset + parentClient.height - isFixedDom.scrollTop;
+            //console.log("parent.offsetLeft: " + parent.offsetLeft);
+            //console.log("parent.offsetTop: +" + parent.offsetTop);
+            //console.log("parentClient.height: +" + parentClient.height);
+            //console.log("parentClient: ",parentClient);
+            top = spacing.dropDownOffset + parentClient.height + parentClient.y;
+            //top = parent.offsetTop + spacing.dropDownOffset + parentClient.height - isFixedDom.scrollTop + isFixedDom.top;
+            left = isFixedDom.scrollLeft + parentClient.x;
         } else {
             top = top + resultHeight > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;
         }
 
-        var styleObj = {
+        let styleObj = {
             results: {
                 position: 'fixed',
                 top: top + 'px',
                 maxWidth: this.props.width,
                 width: this.props.width ? this.props.width : parentClient.width + 'px',
-                left: isFixedDom.fixed && !this.isIE() ? parent.offsetLeft + 'px' : parentLeft + 'px',
+                left: left + 'px',
                 transition: 'opacity .3s, max-height .3s',
                 maxHeight: this.state.show ? '500px' : '0px',
                 overflow: 'hidden',
@@ -156,7 +169,7 @@ export class SelectPanel extends StripesTheme {
     moveHighlight(mod, e) {
         if(this.props.data.length) { // only if there are results
             this.refs.panelcontainer.focus();
-            var newSelect = this.state.selected !== null ? this.state.selected + mod : 0;
+            let newSelect = this.state.selected !== null ? this.state.selected + mod : 0;
             newSelect = newSelect < 0  ? this.props.data.length - 1 : newSelect;
             newSelect = newSelect >= this.props.data.length ? 0 : newSelect;
             this.setState({
@@ -172,7 +185,7 @@ export class SelectPanel extends StripesTheme {
     applyValue(selectedid, e) {
         if(this.props.data.length) {
             selectedid = selectedid !== null ? selectedid : this.state.selected;
-            if(selectedid == null) {
+            if(selectedid === null) {
                 return false;
             }
             this.props.onSelect(this.props.data[selectedid]);
@@ -208,11 +221,14 @@ export class SelectPanel extends StripesTheme {
     }
 
     open(willFocus) {
+        if(this.state.show) {
+            return false;
+        }
         this.setState({
             show: true,
             selected: null
         }, () => {
-            var El = ReactDOM.findDOMNode(this.refs.panelcontainer).getBoundingClientRect();
+            let El = ReactDOM.findDOMNode(this.refs.panelcontainer).getBoundingClientRect();
             this.setState({
                 isBeyond: (El.left + El.width > window.innerWidth) ? (El.left + El.width) - window.innerWidth : null
             }, () => {
@@ -231,6 +247,9 @@ export class SelectPanel extends StripesTheme {
     }
 
     close() {
+        if(!this.state.show) {
+            return false;
+        }
         this.setState({
             show: false
         }, () => {
@@ -243,9 +262,9 @@ export class SelectPanel extends StripesTheme {
     }
 
     render() {
-        var resultsDOM = [];
+        let resultsDOM = [];
         this.props.data.map((v, i) => {
-            var resultslistyle = this.state.style.resultsli;
+            let resultslistyle = this.state.style.resultsli;
             if(v.checked) {
                 resultslistyle = this.state.style.resultsliSelected;
             }
@@ -263,7 +282,7 @@ export class SelectPanel extends StripesTheme {
             </li>);
         });
 
-        var summaryNode = this.props.showSummary ? (<p key="summary" style={this.state.style.resultsp}>There are {this.props.data ? this.props.data.length : 'NO'} results</p>) : null;
+        let summaryNode = this.props.showSummary ? (<p key="summary" style={this.state.style.resultsp}>There are {this.props.data ? this.props.data.length : 'NO'} results</p>) : null;
         return (
             <section {...this.getDataSet(this.props)} style={this.state.style.results} className="SelectPanel" tabIndex="1" ref="panelcontainer" onBlur={this.close}>
                 <ul ref="resultList" style={this.state.style.resultsul}>
@@ -275,3 +294,41 @@ export class SelectPanel extends StripesTheme {
     }
 
 }
+
+"wall_stats": [
+    "trailer": {                        // Shared trailer information
+        "length": 28,                       // trailer length (ft)
+        "good_fullness": 80.0,              // good wall fullness threshold (%)
+        "good_depth": 1.75,                 // good wall depth threshold (ft)
+        "avg_depth": 1.72                   // average wall depth (ft)
+    },
+    "walls": [                          // Individual wall statistics
+        {
+            "number": 1,                     // wall number (int)
+            "back_depth":20.5,               // back wall depth from front of trailer (ft)
+            "front_depth":19.01,             // front wall depth from front of trailer (ft)
+
+            // fullness readings for each section of the wall (%)
+            "fullness":{ "total": 90.01, "top": 66.46, "middle": 92.43, "lower": 97.88 },
+
+            "im_id": 45345224,               // corresponding IM to display for this wall
+            "timestamp": 1380135601000       // time of wall completion
+        },
+        {
+            "number": 2,
+            "back_depth":19.01,
+            "front_depth":18.0,
+            "fullness":{ "total": 95.11, "top": 86.46, "middle": 90.05, "lower": 96.10 }
+            "im_id": 45345224,
+            "timestamp": 1380135702000
+        },
+        {
+            "number": 3,
+            "back_depth":20.5,
+            "front_depth":19.01,
+            "fullness":{ "total": 89.95, "top": 86.46, "middle": 88.85, "lower": 90.10 }
+            "im_id": 45345224,
+            "timestamp": 1380135903000
+        },...
+    ]
+]

@@ -243,7 +243,8 @@ class Sandbox extends React.Component {
         this.state = {
             data: dataObj,
             showTooltip: false,
-            saveIconHover: false
+            saveIconHover: false,
+            isloading: false
         };
 
         this.script = [
@@ -265,51 +266,77 @@ class Sandbox extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            anchorTo: this.refs.navbar
-        });
-        setTimeout(() => {
-            this.refs.Tour.start();
-        }, 2000);
-
     }
 
     componentWillUpdate(props) {
     }
 
-    trigger() {
-        console.log('trigger');
-    }
-
-    // function to launch the tour once button is clicked
-    startTour() {
-        this.refs.Tour.start();
-    }
-
-
-
     render() {
 
         return (
+            <div>
+                <div style={{position: 'fixed', right: '0', left: '0px', top: 0, bottom: 0}}>
+                    <NavBar>
+                        <div style={{display: 'flex'}}>
+                        <IconMenu
+                            backgroundColor={["transparent","white"]}
+                            iconid="filter"
+                            direction="left"
+                            ref="IconMenu"
+                            constrainHeight={true}
+                            iconStyle={{padding: '5px 5px 0 5px'}}
+                            contentStyle={{ overflow: 'visible', height: '400px', overflowY: 'auto', width: 'calc(100vw - 50px)'}}
+                        >
 
-            <div style={{position: 'relative', width: '100vw', height: '95vh'}}>
-                <Tour />
-                <TabularListing
-                    height="300"
-                    data={this.state.data}
-                    columnSelector={true}
-                    disabled={true}
-                />
-                <TabularListing
-                    height="300"
-                    data={this.state.data}
-                    columnSelector={true}
-                    disabled={false}
-                />
-                <Tour key="Tour" ref="Tour" script={this.script} />
+                                <div style={{position: 'static', right: 0, transition: 'all 0.5s', maxHeight: '564px', overflowX: 'visible', overflowY: 'auto', outline: 'none', userSelect: 'none', }}>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/><br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                <Fieldset title="Probably works">
+                                    <DropDown
+                                    placeholder="Please select an option..."
+                                    showEmpty={true}
+                                    width="100px">
+                                    <Item value={null} key="option0">--- select one ---</Item>
+                                    <Item value="1" key="option1">Select Option 1</Item>
+                                    <Item value="2" key="option2">Select Option 2</Item>
+                                    <Item value="3" key="option3">Select Option 3</Item>
+                                    <Item value="13" key="option13">Super long input for this select Option 4</Item>
+                                </DropDown>
+                                </Fieldset>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/><br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </div>
 
+                        </IconMenu>
+                        </div>
+                    </NavBar>
+                </div>
             </div>
-
         )
 
         /*

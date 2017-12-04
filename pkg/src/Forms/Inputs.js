@@ -434,6 +434,7 @@ class DropDown extends StripesTheme {
                     iconid="down"
                     size="15px"
                     type="primary"
+                    onClick={this.toggleOn}
                     style={this.state.style.icon}
                 />
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
