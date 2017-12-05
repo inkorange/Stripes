@@ -239,7 +239,7 @@ class Sandbox extends React.Component {
             sort_direction:"desc"
         };
         //this.updateTable = this.updateTable.bind(this);
-
+this.toggleDialog = this.toggleDialog.bind(this);
         this.state = {
             data: dataObj,
             showTooltip: false,
@@ -271,71 +271,48 @@ class Sandbox extends React.Component {
     componentWillUpdate(props) {
     }
 
+    toggleDialog(open) {
+        if(open) {
+            this.refs.Dialog.open();
+        } else {
+            this.refs.Dialog.close();
+        }
+    }
+
     render() {
 
         return (
             <div>
-                <div style={{position: 'fixed', right: '0', left: '0px', top: 0, bottom: 0}}>
-                    <NavBar>
-                        <div style={{display: 'flex'}}>
-                        <IconMenu
-                            backgroundColor={["transparent","white"]}
-                            iconid="filter"
-                            direction="left"
-                            ref="IconMenu"
-                            constrainHeight={true}
-                            iconStyle={{padding: '5px 5px 0 5px'}}
-                            contentStyle={{ overflow: 'visible', height: '400px', overflowY: 'auto', width: 'calc(100vw - 50px)'}}
-                        >
+                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
 
-                                <div style={{position: 'static', right: 0, transition: 'all 0.5s', maxHeight: '564px', overflowX: 'visible', overflowY: 'auto', outline: 'none', userSelect: 'none', }}>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/><br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                <Fieldset title="Probably works">
-                                    <DropDown
-                                    placeholder="Please select an option..."
-                                    showEmpty={true}
-                                    width="100px">
-                                    <Item value={null} key="option0">--- select one ---</Item>
-                                    <Item value="1" key="option1">Select Option 1</Item>
-                                    <Item value="2" key="option2">Select Option 2</Item>
-                                    <Item value="3" key="option3">Select Option 3</Item>
-                                    <Item value="13" key="option13">Super long input for this select Option 4</Item>
-                                </DropDown>
-                                </Fieldset>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/><br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                </div>
+                <Card
+                    style={{width: '400px', margin: '20px auto'}}
+                    title="This is the Card Title"
+                    actions={[
+                        <FlatButton key="action1">Yes</FlatButton>,
+                        <FlatButton key="action2">No</FlatButton>
+                    ]}
+                >
+                    This is the card body.
+                </Card>
 
-                        </IconMenu>
-                        </div>
-                    </NavBar>
-                </div>
+                <Dialog ref="Dialog"
+                        modal={true}
+                        title="This is the Card Title"
+                        width="50%"
+                        key="dialog1"
+                        showClose={true}
+                        actions={[
+                            <FlatButton key="action1a" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
+                            <RaisedButton key="action2b" onClick={() => { this.toggleDialog(false); }}type="primary">Cancel</RaisedButton>
+                        ]}
+                >
+                    <p>This is the content area of the dialog.This is the content area of the dialog.This is the content
+                        area of the dialog.This is the content area of the dialog.This is the content area of the
+                        dialog.This is the content area of the dialog.This is the content area of the dialog.This is the
+                        content area of the dialog.</p>
+                </Dialog>
+
             </div>
         )
 

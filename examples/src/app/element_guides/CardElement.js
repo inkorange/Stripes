@@ -20,7 +20,7 @@ export class CardElement extends React.Component {
                 title="This is the Card Title"
                 actions={[
                     <FlatButton key="action1">Yes</FlatButton>,
-                    <RaisedButton key="action2" type="primary">No</RaisedButton>
+                    <FlatButton key="action2">No</FlatButton>
                 ]}
             >
                 This is the card body.
@@ -59,13 +59,12 @@ export class CardElement extends React.Component {
                             desc: 'Standard Use with Actions',
                             code:
                                 'import {Card} from \'zebra-stripes/Layouts\'\n' +
-                                'import {FlatButton, RaisedButton} from \'zebra-stripes/Forms\'\n' +
                                 '\n' +
                                 '<Card\n' +
                                 '    title="This is the Card Title"\n' +
                                 '    actions={[\n' +
                                 '        <FlatButton key="action1">Yes</FlatButton>,\n' +
-                                '        <RaisedButton key="action2" type="primary">No</RaisedButton>\n' +
+                                '        <FlatButton key="action2">No</FlatButton>\n' +
                                 '    ]}\n' +
                                 '>\n' +
                                 '    This is the card body.\n' +

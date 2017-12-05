@@ -93,9 +93,10 @@ export class Dialog extends StripesTheme {
     }
 
     getStyles() {
-        var spacing = this.getSpacing()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        const color = this.getColors()[this.props.type];
 
-        var styleObj = {
+        let styleObj = {
             container: {
                 position: 'fixed',
                 top: 0,
@@ -117,16 +118,17 @@ export class Dialog extends StripesTheme {
                 transform: 'translate(-50%, ' + (this.state.open ? '-' + (this.props.anchorTo ? 0 : this.state.top) : '-80%') + ')',
                 transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
             },
+            icon: {
+                iconcolor: color.inactiveIcon
+            },
             card: {
                 base: {
                     borderRadius: spacing.borderRadius + 'px'
                 },
                 header: {
-                    padding: spacing.padding*7 + "px " + spacing.padding*4 + "px",
                     borderRadius: spacing.borderRadius + "px " + spacing.borderRadius + "px 0 0"
                 },
                 footer: {
-                    padding: spacing.padding*3 + "px " + spacing.padding*4 + "px",
                     borderRadius: "0 0 " + spacing.borderRadius + "px " + spacing.borderRadius + "px"
                 },
                 closebutton: {
@@ -134,7 +136,7 @@ export class Dialog extends StripesTheme {
                     cursor: 'pointer',
                     position: 'absolute',
                     top: "calc(50% - 10px)",
-                    right: spacing.padding*4 + "px "
+                    right: spacing.padding*2 + "px"
                 }
             }
         };
@@ -145,13 +147,12 @@ export class Dialog extends StripesTheme {
     }
 
     render() {
-        var titleNode = null;
-
+        let titleNode = null;
         if(this.props.title || this.props.showClose) {
             titleNode = (
                 <div>
                     {this.props.title}
-                    {this.props.showClose ? (<Icon key="titleclose" onClick={this.close} iconid="close" color="white" size="xsmall" basestyle={this.state.style.card.closebutton}/>) : null}
+                    {this.props.showClose ? (<Icon key="titleclose" onClick={this.close} iconid="close" color={this.state.style.iconcolor} size="xsmall" basestyle={this.state.style.card.closebutton}/>) : null}
                 </div>
             );
         }

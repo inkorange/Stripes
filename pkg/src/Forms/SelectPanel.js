@@ -292,43 +292,4 @@ export class SelectPanel extends StripesTheme {
             </section>
         )
     }
-
 }
-
-"wall_stats": [
-    "trailer": {                        // Shared trailer information
-        "length": 28,                       // trailer length (ft)
-        "good_fullness": 80.0,              // good wall fullness threshold (%)
-        "good_depth": 1.75,                 // good wall depth threshold (ft)
-        "avg_depth": 1.72                   // average wall depth (ft)
-    },
-    "walls": [                          // Individual wall statistics
-        {
-            "number": 1,                     // wall number (int)
-            "back_depth":20.5,               // back wall depth from front of trailer (ft)
-            "front_depth":19.01,             // front wall depth from front of trailer (ft)
-
-            // fullness readings for each section of the wall (%)
-            "fullness":{ "total": 90.01, "top": 66.46, "middle": 92.43, "lower": 97.88 },
-
-            "im_id": 45345224,               // corresponding IM to display for this wall
-            "timestamp": 1380135601000       // time of wall completion
-        },
-        {
-            "number": 2,
-            "back_depth":19.01,
-            "front_depth":18.0,
-            "fullness":{ "total": 95.11, "top": 86.46, "middle": 90.05, "lower": 96.10 }
-            "im_id": 45345224,
-            "timestamp": 1380135702000
-        },
-        {
-            "number": 3,
-            "back_depth":20.5,
-            "front_depth":19.01,
-            "fullness":{ "total": 89.95, "top": 86.46, "middle": 88.85, "lower": 90.10 }
-            "im_id": 45345224,
-            "timestamp": 1380135903000
-        },...
-    ]
-]

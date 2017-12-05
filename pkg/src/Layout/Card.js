@@ -35,30 +35,29 @@ export class Card extends StripesTheme {
     }
 
     getStyles() {
-        const color = this.getColors()[this.props.type];
         const spacing = this.getSpacing()[this.props.type];
         let styleObj = {
             base: {
                 transition: "all .25s ease-in-out",
                 zIndex: "2",
                 background: 'white',
+                padding: spacing.padding + "px 0",
                 boxShadow: '0 5px 15px rgba(0,0,0,.5)'
             },
             header: {
-                backgroundColor: color.headerBackgroundColor,
-                padding: spacing.padding * 6 + "px " + spacing.padding * 5 + "px",
+                margin: spacing.padding*5 + "px",
                 fontSize: '2rem',
-                color: 'white',
+                fontWeight: '400',
+                color: 'black',
                 zIndex: 1,
                 position: 'relative'
             },
             body: {
-                padding: spacing.padding * 5 + 'px'
+                margin: spacing.padding*5 + "px"
             },
             footer: {
-                borderTop: 'solid 1px #ccc',
-                padding: spacing.padding*3 + 'px ',
-                textAlign: 'right',
+                padding: '0 ' + spacing.padding + 'px ' + spacing.padding*2 + 'px '  + spacing.padding + 'px',
+                textAlign: 'left',
                 background: 'white',
                 zIndex: 1
             },
