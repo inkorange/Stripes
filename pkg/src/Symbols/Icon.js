@@ -1,7 +1,6 @@
 "use strict"
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 
 export class Icon extends StripesTheme {
@@ -15,14 +14,14 @@ export class Icon extends StripesTheme {
         size: 'small',
         color: null,
         className: ''
-    }
+    };
 
     constructor(props) {
         super(props);
         this.state = {
             disabled: props.disabled,
             style: this.getStyles()
-        }
+        };
         this.clickAction = this.clickAction.bind(this);
     }
 
@@ -41,8 +40,8 @@ export class Icon extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var iconSize = '2rem';
+        const color = this.getColors()[this.props.type];
+        let iconSize = '2rem';
         switch(this.props.size) {
             case 'xsmall':
                 iconSize = '1.75rem';
@@ -60,11 +59,12 @@ export class Icon extends StripesTheme {
                 iconSize = this.props.size;
         }
 
-        var styleObj = {
+        return {
             Icon: {
                 display: 'inline-block',
                 position: 'relative',
-                cursor: this.props.onClick ? 'pointer' : 'default'
+                cursor: this.props.onClick ? 'pointer' : 'default',
+                opacity: this.props.inactive ? .5 : 1
             },
             svg: {
                 fill: this.props.color ? this.props.color : color.iconColor,
@@ -72,17 +72,15 @@ export class Icon extends StripesTheme {
                 height: iconSize,
                 transition: '.5s fill'
             }
-        }
-
-        return styleObj;
+        };
     }
 
 
     render() {
-        var useTag = '<use xlink:href="#' + this.props.iconid + '" />';
-        var styles = this.getStyles();
-        var SVGstyle = Object.assign(styles.svg, this.props.style);
-        var Iconstyle = Object.assign(styles.Icon, this.props.basestyle);
+        let useTag = '<use xlink:href="#' + this.props.iconid + '" />';
+        let styles = this.getStyles();
+        const SVGstyle = Object.assign(styles.svg, this.props.style);
+        const Iconstyle = Object.assign(styles.Icon, this.props.basestyle);
         return (
             <div className={"Icon " + this.props.className}
                  title={this.props.title}
@@ -91,7 +89,7 @@ export class Icon extends StripesTheme {
                  data-name={this.props.iconid}
             >
                 <svg data-id={this.props["data-id"]} style={SVGstyle} viewBox="0 0 100 100"  dangerouslySetInnerHTML={{__html: useTag }} />
-                { this.props.onClick ? <div style={{position: 'absolute', cursor: 'pointer', top: 0, bottom: 0, right: 0, left: 0, backgroundColor:'rgba(0,0,0,.001)'}} className="icon-click-target" onClick={this.clickAction} {...this.getDataSet(this.props, ' clickTarget')}></div> : null }
+                { this.props.onClick && !this.props.inactive ? <div style={{position: 'absolute', cursor: 'pointer', top: 0, bottom: 0, right: 0, left: 0, backgroundColor:'rgba(0,0,0,.001)'}} className="icon-click-target" onClick={this.clickAction} {...this.getDataSet(this.props, ' clickTarget')}></div> : null }
                 {this.props.children}
             </div>
         )

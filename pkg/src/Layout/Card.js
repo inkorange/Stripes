@@ -15,7 +15,8 @@ export class Card extends StripesTheme {
         actions: null,
         fillContainer: false,
         forceBottomAlign: false,
-        inactiveDepth: 0
+        inactiveDepth: 0,
+        className: ""
     };
 
     constructor(props) {
@@ -56,8 +57,8 @@ export class Card extends StripesTheme {
                 margin: spacing.padding*5 + "px"
             },
             footer: {
-                padding: '0 ' + spacing.padding + 'px ' + spacing.padding*2 + 'px '  + spacing.padding + 'px',
-                textAlign: 'left',
+                padding: '0 ' + spacing.padding*2 + 'px ' + spacing.padding*2 + 'px '  + spacing.padding + 'px',
+                textAlign: 'right',
                 background: 'white',
                 zIndex: 1
             },
