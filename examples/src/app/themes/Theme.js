@@ -1,6 +1,6 @@
 let Colors = require('./Colors');
-let basePadding = 5;
-let baseMargin = 5;
+let basePadding = 8;
+let baseMargin = 8;
 let baseRadius= 2;
 
 var Theme = {

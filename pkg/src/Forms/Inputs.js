@@ -1,9 +1,9 @@
 "use strict"
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import {SelectPanel} from './SelectPanel.js'
+import {Placeholder} from './Placeholder.js'
 import {Icon} from  '../Symbols/Icon'
 
 /* *********************************************************************************************************************
@@ -35,7 +35,8 @@ class TextBox extends StripesTheme {
         this.state = {
             style: this.getStyles(),
             active: false,
-            suggestionItems: []
+            suggestionItems: [],
+            value: null
         };
         this.onChange = this.onChange.bind(this);
         this.getValue = this.getValue.bind(this);
@@ -63,9 +64,10 @@ class TextBox extends StripesTheme {
     }
 
     onChange(e) {
-        var val = e.target.value !== '' ? e.target.value : null;
+        let val = e.target.value !== '' ? e.target.value : null;
         this.setState({
-            suggestionItems: this.getSuggestions(val)
+            suggestionItems: this.getSuggestions(val),
+            value: val
         }, () => {
             if(this.props.showSuggestions && this.state.suggestionItems.length) {
                 this.refs.selectPanel.open(false);
@@ -83,7 +85,7 @@ class TextBox extends StripesTheme {
             return [];
         }
         term = term.toUpperCase();
-        var results = [];
+        let results = [];
         this.props.suggestionData.map((v) => {
             if(v.toUpperCase().indexOf(term) >= 0) {
                 results.push({
@@ -113,7 +115,7 @@ class TextBox extends StripesTheme {
 
     onCompleteInputBlur(e) {
         setTimeout(() => {
-            var target = document.activeElement;
+            let target = document.activeElement;
             if(target.className !== "SelectPanel" && this.props.showSuggestions) {
                 this.refs.selectPanel.close();
                 this.onInputBlur(e);
@@ -151,9 +153,16 @@ class TextBox extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = this.getBaseStyling(spacing, color).inputs;
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let styleObj = this.getBaseStyling(spacing, color).inputs;
+        let input = {
+            cursor: 'pointer',
+            backgroundColor: 'transparent',
+            position: 'relative',
+            lineHeight: spacing.baseFontSize + 'rem',
+        };
+        styleObj.input = Object.assign(styleObj.input, input);
         styleObj.active.on = Object.assign(styleObj.active.on, styleObj.active.base);
         styleObj.active.off = Object.assign(styleObj.active.off, styleObj.active.base);
         return styleObj;
@@ -166,19 +175,19 @@ class TextBox extends StripesTheme {
             this.state.style.container.width = this.props.width;
             this.state.style.input.width = "100%";
         }
-        var anchorNode = null;
+        let anchorNode = null;
         if(this.props.anchor) {
             anchorNode = <div onClick={this.onInputClick} style={this.state.style.anchor}>{this.props.anchor}</div>
         }
 
         return (
             <div ref="input_container" style={this.state.style.container} tabIndex="1000">
+                <Placeholder active={this.state.active} hasValue={this.state.value !== null && this.state.value !== ""} name={this.props.placeholder} />
                 <input
                     {...this.getDataSet(this.props)}
                     ref="input"
                     disabled={this.props.disabled ? 'disabled' : null}
                     readOnly={this.props.readOnly ? 'readonly' : null}
-                    placeholder={this.props.placeholder}
                     onClick={this.onInputClick}
                     onKeyUp={this.props.onKeyUp}
                     onKeyPress={this.inputKeyPress}
@@ -269,6 +278,10 @@ class TextArea extends StripesTheme {
         let color = this.getColors()[this.props.type];
         let spacing = this.getSpacing()[this.props.type];
         let styleObj = this.getBaseStyling(spacing, color).inputs;
+        let input = {
+            overflow: 'auto'
+        };
+        styleObj.input = Object.assign(styleObj.input, input);
         styleObj.active.on = Object.assign(styleObj.active.on, styleObj.active.base);
         styleObj.active.off = Object.assign(styleObj.active.off, styleObj.active.base);
         return styleObj;
@@ -278,9 +291,9 @@ class TextArea extends StripesTheme {
     render() {
         return (
             <div style={this.state.style.container}>
+                <Placeholder active={this.state.active} hasValue={this.state.value !== null && this.state.value !== ""} name={this.props.placeholder} />
                 <textarea
                     {...this.getDataSet(this.props)}
-                    placeholder={this.props.placeholder}
                     onClick={this.onInputClick}
                     onBlur={this.onInputBlur}
                     onChange={this.onChange}
@@ -297,8 +310,8 @@ class TextArea extends StripesTheme {
 }
 
 /* *********************************************************************************************************************
- Component DropDown
- ********************************************************************************************************************* */
+Component DropDown
+********************************************************************************************************************* */
 class DropDown extends StripesTheme {
     static defaultProps = {
         style:  {},
@@ -315,7 +328,8 @@ class DropDown extends StripesTheme {
 
     constructor(props) {
         super(props);
-        this.toggleSelect = this.toggleSelect.bind(this);
+        this.openSelect = this.openSelect.bind(this);
+        this.closeSelect = this.closeSelect.bind(this);
         this.applyValue = this.applyValue.bind(this);
         this.getValue = this.getValue.bind(this);
         let resolvedMap = this.resolveItemMap(this.props.children);
@@ -366,7 +380,8 @@ class DropDown extends StripesTheme {
         if(val !== undefined) {
             this.setState({
                 value: val.value,
-                label: val.value ? val.label : null
+                label: val.value ? val.label : null,
+                active: false
             }, () => {
                 this.refs.input.value = this.state.value ? this.state.label : null;
             });
@@ -378,10 +393,21 @@ class DropDown extends StripesTheme {
         return this.state.value;
     }
 
-    toggleSelect() {
+    openSelect(e) {
         if(!this.props.disabled) {
             this.onInputClick();
             this.refs.selectPanel.open();
+        }
+    }
+
+    closeSelect(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('closeSelect');
+        if(!this.props.disabled) {
+            this.setState({
+                active: true
+            }, this.refs.selectPanel.close);
         }
     }
 
@@ -389,27 +415,18 @@ class DropDown extends StripesTheme {
         let color = this.getColors()[this.props.type];
         let spacing = this.getSpacing()[this.props.type];
         let styleObj = this.getBaseStyling(spacing, color).inputs;
-        let container = {
-            lineHeight: '25px'
-        };
-        let input = {
-            cursor: 'pointer',
-            backgroundColor: 'transparent'
-        };
         let baseicon = {
             position: 'absolute',
             right: '0',
-            top: '-2px',
+            top: spacing.padding + 'px',
             height: '20px',
             opacity: this.props.disabled ? '.5' : '1.0'
         };
         let icon = {
-            fill: color.inactiveIcon
+            fill: color.placeholderColor
         };
 
-        styleObj.container = Object.assign(styleObj.container, container);
         styleObj.container = Object.assign(styleObj.container, this.props.style);
-        styleObj.input = Object.assign(styleObj.input, input);
         styleObj.baseicon = baseicon;
         styleObj.icon = Object.assign(icon, this.props.iconStyle);
         styleObj.active.on = this.props.showFocus ? Object.assign(styleObj.active.on, styleObj.active.base) : {display: 'none'};
@@ -421,20 +438,19 @@ class DropDown extends StripesTheme {
     render() {
         return (
             <div ref="DropDown" style={this.state.style.container} {...this.getDataSet(this.props)}>
+                <Placeholder active={this.state.active} hasValue={this.state.value !== null && this.state.value !== ""} name={this.props.placeholder} />
                 <input
                     ref="input"
-                    placeholder={this.props.placeholder}
-                    onClick={this.toggleSelect}
+                    onClick={this.openSelect}
                     style={this.state.style.input}
                     readOnly="readonly"
                     value={this.state.label ? this.state.label : ""}
                 />
                 <Icon
                     basestyle={this.state.style.baseicon}
-                    iconid="down"
+                    iconid={!this.state.active ? "dropdown":"dropup"}
                     size="15px"
                     type="primary"
-                    onClick={this.toggleOn}
                     style={this.state.style.icon}
                 />
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>

@@ -89,7 +89,8 @@ module.exports = {
         highlightColor: '#eeeeee',
         highlightBorderColor: primaryColor,
         inactiveIcon: inactiveColor,
-        inputBackground: inputBackground
+        inputBackground: inputBackground,
+        placeholderColor: '#777777'
     },
     navbar: {
         background: menuColor,

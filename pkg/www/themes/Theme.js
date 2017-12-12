@@ -1,6 +1,6 @@
 let Colors = require('./Colors');
-let basePadding = 5;
-let baseMargin = 5;
+let basePadding = 8;
+let baseMargin = 8;
 let baseRadius= 2;
 
 var Theme = {
@@ -47,7 +47,7 @@ var Theme = {
         inputs: {
             padding: basePadding,
             margin: baseMargin,
-            fontSize: '1.8rem',
+            fontSize: '1.6rem',
             errorFontSize: '1.2rem',
             borderRadius: baseRadius,
             underlineHeight: 2,

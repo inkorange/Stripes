@@ -45,16 +45,18 @@ export class StripesTheme extends React.Component {
         return {
             inputs: { // input shared styling ****************************************************
                 container: {
-                    display: 'inline',
+                    display: 'inline-block',
                     position: 'relative',
                     borderBottom: spacing.underlineHeight + 'px solid ' + (this.props.error ? color.inactiveUnderErrorlineColor : color.inactiveUndlerlineColor),
-                    paddingBottom: (spacing.margin * 2) + 'px',
+                    padding: spacing.padding + 'px 0',
+                    margin: spacing.padding*2 + 'px ' + spacing.padding + 'px',
                     transition: 'all 0.3s ease-in-out 0s',
                     outline: 'none'
                 },
                 input: {
                     fontSize: spacing.fontSize,
-                    padding: (spacing.margin * 1.5) + 'px ' + spacing.margin * +'px',
+                    margin: 0,
+                    position: 'relative',
                     color: color.textColor,
                     border: 'none',
                     outline: 'none',
@@ -62,8 +64,9 @@ export class StripesTheme extends React.Component {
                     resize: 'vertical',
                     textOverflow: 'ellipsis',
                     overflow: 'hidden',
+                    lineHeight: spacing.fontSize,
                     cursor: this.props.onClick ? 'pointer' : 'text',
-                    backgroundColor: color.inputBackground
+                    backgroundColor: 'transparent'
                 },
                 anchor: {
                     position: 'absolute',
@@ -81,7 +84,6 @@ export class StripesTheme extends React.Component {
                         left: 0,
                         backgroundColor: this.props.error ? color.underErrorlineColor : color.underlineColor,
                         transition: 'all 0.3s ease-in-out 0s'
-
                     },
                     on: {
                         visibility: 'visible',

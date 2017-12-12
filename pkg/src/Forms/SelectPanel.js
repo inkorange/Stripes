@@ -27,6 +27,7 @@ export class SelectPanel extends StripesTheme {
         });
 
         this.getStyles = this.getStyles.bind(this);
+        this.applyStyles = this.applyStyles.bind(this);
         this.moveHighlight = this.moveHighlight.bind(this);
         this.applyValue = this.applyValue.bind(this);
         this.updateSelected = this.updateSelected.bind(this);
@@ -39,11 +40,23 @@ export class SelectPanel extends StripesTheme {
             value: null,
             show: props.show,
             selected: null,
-            isBeyond: null
+            isBeyond: null,
+            mounted: false
         };
     }
 
     componentDidMount() {
+
+        this.applyStyles();
+
+        setTimeout(() => {
+            this.setState({
+                mounted: true,
+            }, this.applyStyles);
+        },500);
+    }
+
+    applyStyles() {
         this.setState({
             style: this.getStyles()
         });
@@ -117,12 +130,12 @@ export class SelectPanel extends StripesTheme {
                 overflow: 'hidden',
                 opacity: this.state.show ? '1.0' : '0.25',
                 background: 'white',
-                padding: this.state.show ? '10px' : '0 10px',
                 fontSize: '1.6rem',
                 zIndex: spacing.menuZIndex,
                 borderRadius: '0 0 2px 2px',
                 boxShadow: '0 2px 10px rgba(0,0,0,.5)',
-                outline: 'none'
+                outline: 'none',
+                display: this.state.mounted ? 'block' : 'none'
             },
             resultsul: {
                 listStyle: 'none',
@@ -136,7 +149,7 @@ export class SelectPanel extends StripesTheme {
                 margin: '0',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
-                lineHeight: spacing.padding*4 + 'px',
+                lineHeight: spacing.padding*3 + 'px',
                 textAlign: 'left',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis'
@@ -153,8 +166,7 @@ export class SelectPanel extends StripesTheme {
             }
         };
         styleObj.activeli = Object.assign({
-            background: color.highlightColor,
-            boxShadow: "2px 0 0 " + color.highlightBorderColor + " inset"
+            background: color.highlightColor
         }, styleObj.resultsli);
         styleObj.resultsliSelected = Object.assign({
             fontWeight: '600',
@@ -262,6 +274,7 @@ export class SelectPanel extends StripesTheme {
     }
 
     render() {
+        console.log(this.state.selected);
         let resultsDOM = [];
         this.props.data.map((v, i) => {
             let resultslistyle = this.state.style.resultsli;

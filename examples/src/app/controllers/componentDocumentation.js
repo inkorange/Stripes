@@ -16,7 +16,7 @@ export class ComponentDocumentation extends React.Component {
     }
 
     render() {
-        var dataObj = {
+        const dataObj = {
             structure: [
                 {
                     width: '150px',
@@ -42,16 +42,16 @@ export class ComponentDocumentation extends React.Component {
             rows: this.props.propsMap
         };
 
-        var paramNodes = this.props.propsMap ?
+        const paramNodes = this.props.propsMap ?
             <TabularListing key="tablisting"
                 zebraStripes={true}
                 data={dataObj}
             /> : <p>There are no parameters.</p>;
 
 
-        var codeExamples = [];
+        let codeExamples = [];
         this.props.samples.map((obj, i) => {
-            var codeNodes = (
+            let codeNodes = (
                 <pre key={"precode" + i} style={style.codesnippet}>
                     <code className="language-js">
                         {obj.code ? obj.code : jsxToString(obj.example)}
@@ -128,7 +128,10 @@ var style = {
         backgroundImage: 'url(./images/headline_background.jpg)',
         backgroundSize: 'cover',
         fontSize: '24px',
-        fontWeight: '200'
+        fontWeight: '200',
+        margin: 0,
+        padding: '40px',
+        color: 'white'
     },
     details: {
         marginTop: '-20px'

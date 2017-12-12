@@ -85,6 +85,7 @@ class FlatButton extends StripesTheme {
                 onMouseDown={this.animateBackground}
                 onClick={this.handleClick}
                 label={this.props.label}
+                tabIndex="0"
             >
                 {iconNode}
                 {this.props.children}

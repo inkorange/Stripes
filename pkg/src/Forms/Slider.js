@@ -224,15 +224,15 @@ export class Slider extends StripesTheme {
                 margin: spacing.margin*2 + 'px',
                 width: 'calc(' + this.props.width + ' - ' + spacing.margin*2 + 'px)',
                 position: 'relative',
-                padding: spacing.padding + 'px',
-                height: this.props.handlesize + 'px'
+                padding: spacing.padding + 'px'
+                //height: this.props.handlesize + 'px'
             },
             bar: {
                 zIndex: 0,
                 height: '6px',
                 backgroundColor: color.inactiveIcon,
                 width: '100%',
-                margin: '3px 0px',
+                margin: '0',
                 borderRadius: spacing.borderRadius + 'px',
                 boxShadow: '0 1px 3px rgba(0,0,0,.25) inset'
             },
@@ -253,7 +253,7 @@ export class Slider extends StripesTheme {
             value_box: {
                 opacity: this.state.pressing ? '1.0' : '0',
                 position: 'absolute',
-                top: '-28px',
+                top: (spacing.padding*-4 - spacing.baseFontSize)  + 'px',
                 minWidth: '50px',
                 textAlign: 'center',
                 left: this.state.handleX + '%',

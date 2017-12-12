@@ -282,36 +282,38 @@ this.toggleDialog = this.toggleDialog.bind(this);
     render() {
 
         return (
-            <div>
-                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
-
-                <Card
-                    style={{width: '400px', margin: '20px auto'}}
-                    title="This is the Card Title"
-                    actions={[
-                        <FlatButton key="action1">Yes</FlatButton>,
-                        <FlatButton key="action2">No</FlatButton>
-                    ]}
+            <div style={{padding:'30px'}}>
+                <DropDown
+                    placeholder="Please select an option..."
+                    showEmpty={true}
+                    width="250px"
                 >
-                    This is the card body.
-                </Card>
+                    <Item value={null} key="option0">--- select one ---</Item>
+                    <Item value="1" key="option1">Select Option 1</Item>
+                    <Item value="2" key="option2">Select Option 2</Item>
+                    <Item value="3" key="option3">Select Option 3</Item>
+                    <Item value="13" key="option13">Super long input for this select Option 4</Item>
+                </DropDown>
+                <TextBox
+                    placeholder="First Name"
+                    width="200px"
+                />
+                <TextBox
+                    placeholder="Last Name"
+                    width="200px"
+                    error="Absolutely horrible."
+                />
 
-                <Dialog ref="Dialog"
-                        modal={true}
-                        title="This is the Card Title"
-                        width="50%"
-                        key="dialog1"
-                        showClose={true}
-                        actions={[
-                            <FlatButton key="action1a" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
-                            <RaisedButton key="action2b" onClick={() => { this.toggleDialog(false); }}type="primary">Cancel</RaisedButton>
-                        ]}
-                >
-                    <p>This is the content area of the dialog.This is the content area of the dialog.This is the content
-                        area of the dialog.This is the content area of the dialog.This is the content area of the
-                        dialog.This is the content area of the dialog.This is the content area of the dialog.This is the
-                        content area of the dialog.</p>
-                </Dialog>
+                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton><br/>
+                <TextArea
+                    placeholder="Send a Note"
+                    width="600px"
+                />
+                <br/>
+                <br/>
+                <Slider/>
+                <br/>
+                <RangeSlider/>
 
             </div>
         )
