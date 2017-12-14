@@ -17,7 +17,7 @@ export class TimeNode extends StripesTheme {
         style: {},
         type: 'default',
         selected: false
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -26,15 +26,15 @@ export class TimeNode extends StripesTheme {
         }
     }
     render() {
-        var color = this.getColors()[this.props.type];
-        var hourHoverStyle = {
+        const color = this.getColors()[this.props.type];
+        let hourHoverStyle = {
             background: color.backgroundHover
         };
-        var hourSelectedStyle = {
+        let hourSelectedStyle = {
             background: color.activeIcon,
             cursor: 'default'
         };
-        var hourStyle = {
+        let hourStyle = {
             textAlign: 'center',
             width: '35px',
             height: '35px',
@@ -101,7 +101,7 @@ export class TimePicker extends StripesTheme {
         this.getValue = this.getValue.bind(this);
         this.resolveClickPoint = this.resolveClickPoint.bind(this);
         this.inputBlur = this.inputBlur.bind(this);
-        var initialTime = props.time ? props.time : null;
+        let initialTime = props.time ? props.time : null;
         this.state = {
             opentime: initialTime,
             active: false,
@@ -124,9 +124,9 @@ export class TimePicker extends StripesTheme {
 
     componentWillUpdate(props) {
         if(props.time !== this.props.time) {
-            var updatedTime = null;
+            let updatedTime = null;
             if(props.time) {
-                var m_propTime = m(props.time);
+                let m_propTime = m(props.time);
                 if(m_propTime.hours() === 0 && m_propTime.minutes() === 0 && m_propTime.seconds() === 0) {
                     updatedTime = null;
                 } else {
@@ -134,7 +134,7 @@ export class TimePicker extends StripesTheme {
                 }
             }
             this.setState({
-                time: updatedTime
+                time: props.time !== this.state.time ? props.time : this.state.time
             });
             this.refs.textbox.applyValue(props.time ? m(props.time).format(this.props.format) : "", true);
             this.updateStyles();
@@ -142,7 +142,7 @@ export class TimePicker extends StripesTheme {
     }
 
     toggleDialog(open) {
-        var show = open !== undefined ? open : !this.state.active;
+        let show = open !== undefined ? open : !this.state.active;
         this.setState({
             active: show,
             hour: m(this.state.time ? this.state.time : this.props.baseDateTime).format(this.props.hourFormat)*1,
@@ -165,7 +165,7 @@ export class TimePicker extends StripesTheme {
     }
 
     renderCleanTime() {
-        var timeValue = this.state.time ? this.state.time : this.props.baseDateTime;
+        let timeValue = this.state.time ? this.state.time : this.props.baseDateTime;
         return (
             <div key="timetitle" style={this.state.style.time}>
                 <span style={this.state.hourhover || this.state.mode === 'hour' ? this.state.style.timeparthover : this.state.style.timepart} onMouseOver={()=> {this.setState({hourhover: true})}} onMouseOut={()=> {this.setState({hourhover: false})}} onClick={()=> {this.changeMode('hour')}}>{m(timeValue).format(this.props.hourFormat)}</span>
@@ -185,29 +185,20 @@ export class TimePicker extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var hourHandWidth = 10;
-        var hourHandHeight = 80;
-        var minuteHandWidth = 10;
-        var minuteHandHeight = 110;
-        var hourHandSVG = btoa('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 '+hourHandWidth+' 200" xml:space="preserve"><polygon fill="'+ (this.state.mode === 'hour' ? color.activeIcon : color.inactiveIcon) +'" points="0,'+hourHandHeight+' '+hourHandWidth/2+',0 '+hourHandWidth+','+hourHandHeight+' "/></svg>');
-        var minuteHandSVG = btoa('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 '+minuteHandWidth+' 200" xml:space="preserve"><polygon fill="'+ (this.state.mode === 'minute' ? color.activeIcon : color.inactiveIcon) +'" points="0,'+minuteHandHeight+' '+minuteHandWidth/2+',0 '+minuteHandWidth+','+minuteHandHeight+' "/></svg>');
-        var styleObj = {
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let hourHandWidth = 10;
+        let hourHandHeight = 80;
+        let minuteHandWidth = 10;
+        let minuteHandHeight = 110;
+        let hourHandSVG = btoa('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 '+hourHandWidth+' 200" xml:space="preserve"><polygon fill="'+ (this.state.mode === 'hour' ? color.activeIcon : color.inactiveIcon) +'" points="0,'+hourHandHeight+' '+hourHandWidth/2+',0 '+hourHandWidth+','+hourHandHeight+' "/></svg>');
+        let minuteHandSVG = btoa('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 '+minuteHandWidth+' 200" xml:space="preserve"><polygon fill="'+ (this.state.mode === 'minute' ? color.activeIcon : color.inactiveIcon) +'" points="0,'+minuteHandHeight+' '+minuteHandWidth/2+',0 '+minuteHandWidth+','+minuteHandHeight+' "/></svg>');
+        let styleObj = {
             container: {
                 display: 'inline-block',
-                margin: spacing.margin*2 + 'px 0',
                 width: this.props.width,
                 lineHeight: '1em',
                 userSelect: 'none'
-            },
-            base: {
-                border: 'none',
-                margin: spacing.padding*2 + 'px' + ' 0',
-                padding: 0,
-                position: 'relative',
-                display: this.props.visible ? 'block' : 'none',
-                opacity: this.props.disabled ? '.25' : '1.0'
             },
             time: {
                 fontSize: spacing.baseFontSize * 2 + 'rem',
@@ -278,8 +269,8 @@ export class TimePicker extends StripesTheme {
     }
 
     setHour(e) {
-        var hour = e.target.getAttribute('data-value')*1;
-        var newTime = this.state.time ? m(this.state.time) : m(this.props.baseDateTime);
+        let hour = e.target.getAttribute('data-value')*1;
+        let newTime = this.state.time ? m(this.state.time) : m(this.props.baseDateTime);
         if(this.props.clockFormat === "12hr") {
             if(hour < 12 && newTime.hour() >= 12) {
                 hour += 12;
@@ -398,6 +389,7 @@ export class TimePicker extends StripesTheme {
     }
 
     setManualTime() {
+        console.log('set manual time....');
         var isValid = () => {
             var tempDateTime = m();
             var timeObj = this.refs.textbox.getValue() ? this.refs.textbox.getValue().toUpperCase() : '';
@@ -579,15 +571,14 @@ export class TimePicker extends StripesTheme {
     }
 
     resolveClickPoint(e) {
-        var containerNode = document.getElementsByClassName('handContainer')[0];
-        var width = containerNode.clientWidth;
-        var height = containerNode.clientHeight;
-        var ypos = e.clientY;// - offsets.top;
-        var xpos = e.clientY;// - offsets.left;
-        var x = (xpos - width/2)/(width/2);
-        var y = ((height/2) - ypos)/(height/2);
-        var angle = (Math.atan2(x,y) * 180 / Math.PI);
-
+        let containerNode = document.getElementsByClassName('handContainer')[0];
+        let width = containerNode.clientWidth;
+        let height = containerNode.clientHeight;
+        let ypos = e.clientY;// - offsets.top;
+        let xpos = e.clientY;// - offsets.left;
+        let x = (xpos - width/2)/(width/2);
+        let y = ((height/2) - ypos)/(height/2);
+        let angle = (Math.atan2(x,y) * 180 / Math.PI);
         if(x < 0 && y > 0) {
             angle = 360+angle;
         }
@@ -600,32 +591,30 @@ export class TimePicker extends StripesTheme {
     }
 
     render() {
-        var displayTime = this.state.time ? m(this.state.time).format(this.props.format) : "";
-        var color = this.getColors()[this.props.type];
-        var cleanTime = this.renderCleanTime();
-        var hourNodes = this.getHourNodes();
-        var minNodes = this.getMinuteNodes();
-        var handNode = [
-            <div key="minhand" style={this.getMinuteHandStyle()}></div>,
-            <div key="hourhand" style={this.getHourHandStyle()}></div>,
-            <div key="basehand" style={this.state.style.handcircle}></div>
+        let color = this.getColors()[this.props.type];
+        let cleanTime = this.renderCleanTime();
+        let hourNodes = this.getHourNodes();
+        let minNodes = this.getMinuteNodes();
+        let handNode = [
+            <div key="minhand" style={this.getMinuteHandStyle()}/>,
+            <div key="hourhand" style={this.getHourHandStyle()}/>,
+            <div key="basehand" style={this.state.style.handcircle}/>
         ];
-        var hourContainer = (
+        let hourContainer = (
             <div style={this.state.style.hourContainer} className="handContainer" >
                 {this.state.mode === 'hour' ? hourNodes : minNodes}
                 {handNode}
             </div>
         );
-        var actionsNode = [
+        let actionsNode = [
             <FlatButton key="action1" onClick={this.cancel}>Cancel</FlatButton>,
             <RaisedButton key="action2" onClick={this.setTime} type="primary">OK</RaisedButton>
         ];
-
         return (
             <div style={this.state.style.container} {...this.getDataSet(this.props)}>
                 <TextBox
                     ref="textbox"
-                    value={displayTime}
+                    value={this.state.time ? m(this.state.time).format(this.props.format) : ""}
                     width="100%"
                     anchor={<Icon iconid="clock" onClick={this.props.manual ? this.toggleDialog : null} basestyle={{marginTop:'-5px'}} color={this.state.time ? color.activeIcon : color.inactiveIcon} size="small" />}
                     onClick={this.props.manual ? null : this.toggleDialog}

@@ -49,7 +49,7 @@ export class StripesTheme extends React.Component {
                     position: 'relative',
                     borderBottom: spacing.underlineHeight + 'px solid ' + (this.props.error ? color.inactiveUnderErrorlineColor : color.inactiveUndlerlineColor),
                     padding: spacing.padding + 'px 0',
-                    margin: spacing.padding*2 + 'px ' + spacing.padding + 'px',
+                    margin: spacing.padding*2 + 'px ' + spacing.padding*2 + 'px ' + spacing.padding*2 + 'px 0',
                     transition: 'all 0.3s ease-in-out 0s',
                     outline: 'none',
                     width: this.props.width ? 'calc(' + this.props.width + ' - ' + spacing.padding*2 + 'px)': 'auto'
@@ -61,14 +61,14 @@ export class StripesTheme extends React.Component {
                     color: color.textColor,
                     border: 'none',
                     outline: 'none',
-                    width: this.props.width,
                     resize: 'vertical',
                     textOverflow: 'ellipsis',
                     overflow: 'hidden',
                     lineHeight: spacing.fontSize,
                     cursor: this.props.onClick ? 'pointer' : 'text',
                     backgroundColor: 'transparent',
-                    padding: 0
+                    padding: 0,
+                    width: '100%'
                 },
                 anchor: {
                     position: 'absolute',

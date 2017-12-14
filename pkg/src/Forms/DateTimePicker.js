@@ -31,15 +31,14 @@ export class DateTimePicker extends StripesTheme {
         manual: false,
         dateErrorMsg: null,
         timeErrorMsg: null
-    }
+    };
 
     constructor(props) {
         super(props);
         this.state = {
             active: false,
             value: this.props.value ? new Date(this.props.value) : null,
-            style: this.getStyles()
-        }
+        };
         this.fireCallback = this.fireCallback.bind(this);
         this.setDate = this.setDate.bind(this);
         this.setTime = this.setTime.bind(this);
@@ -76,21 +75,9 @@ export class DateTimePicker extends StripesTheme {
         }
     }
 
-    getStyles() {
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = {
-            container: {
-                display: 'block',
-                margin: spacing.margin*2 + 'px'
-            }
-        }
-        styleObj.container = Object.assign(styleObj.container, this.props.style);
-        return styleObj;
-    }
-
     render() {
         return (
-            <div style={this.state.style.container} {...this.getDataSet(this.props)} className={this.props.className}>
+            <div style={this.props.style} {...this.getDataSet(this.props)} className={this.props.className}>
                 <TwoColumnLayout
                     columnOne={
                         <DatePicker

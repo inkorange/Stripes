@@ -221,7 +221,7 @@ export class Slider extends StripesTheme {
         let styleObj = {
             container: {
                 display: 'inline-block',
-                margin: spacing.margin*2 + 'px',
+                margin: spacing.margin + 'px ' + spacing.margin*2 + 'px',
                 width: 'calc(' + this.props.width + ' - ' + spacing.margin*2 + 'px)',
                 position: 'relative',
                 padding: spacing.padding + 'px'

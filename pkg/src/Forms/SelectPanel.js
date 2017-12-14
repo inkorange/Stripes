@@ -274,7 +274,6 @@ export class SelectPanel extends StripesTheme {
     }
 
     render() {
-        console.log(this.state.selected);
         let resultsDOM = [];
         this.props.data.map((v, i) => {
             let resultslistyle = this.state.style.resultsli;

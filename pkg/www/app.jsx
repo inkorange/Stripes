@@ -283,21 +283,33 @@ this.toggleDialog = this.toggleDialog.bind(this);
 
         return (
             <div style={{padding:'30px'}}>
-                <div>
-                    <TextBox ref="filterName" data-automation-id="Search Name" onChange={this.testLength} error={this.state.filterNameError} placeholder="Filter Name" width="100%"/>
-                    <TextBox
-                        width="100%"
-                        showSuggestions={true}
-                        suggestionData={["Alabama","Alaska","Arkansas","California","Colorado","New York","Connecticut"]}
-                        placeholder="Type a state that begins with A or C" />
-                </div>
+                <Fieldset title="Pick Some Dates">
+                    <DateTimePicker/>
+                    <DateTimePicker value={new Date()} manual={true}/>
+                </Fieldset>
+
+                <TextBox
+                    placeholder="First Name"
+                    width="50%"
+                    value={"Hello There."}
+                />
+
                 <div>
                     <Tag value="TAG 1">Tag 1</Tag><Tag value="TAG 2">Tag 2</Tag><Tag value="TAG 3">Tag 3</Tag>
                 </div>
+
+
+            </div>
+        )
+
+        /*
+
+
+        <Fieldset title="Containing Two Items">
                 <DropDown
-                    placeholder="Please select an option..."
+                    placeholder="Please select an option here"
                     showEmpty={true}
-                    width="250px"
+                    width="50%"
                 >
                     <Item value={null} key="option0">--- select one ---</Item>
                     <Item value="1" key="option1">Select Option 1</Item>
@@ -307,8 +319,9 @@ this.toggleDialog = this.toggleDialog.bind(this);
                 </DropDown>
                 <TextBox
                     placeholder="First Name"
-                    width="200px"
+                    width="50%"
                 />
+                </Fieldset>
                 <TextBox
                     placeholder="Last Name"
                     width="200px"
@@ -320,16 +333,13 @@ this.toggleDialog = this.toggleDialog.bind(this);
                     placeholder="Send a Note"
                     width="600px"
                 />
-                <br/>
-                <br/>
-                <Slider/>
-                <br/>
-                <RangeSlider/>
+                <Fieldset title="This is a slider" style={{position: 'relative'}}>
+                    <Slider/>
+                </Fieldset>
+                <Fieldset title="This is a RangeSlider" style={{position: 'relative'}}>
+                    <RangeSlider/>
+                </Fieldset>
 
-            </div>
-        )
-
-        /*
 <TabularListing
                     height="750"
                     data={this.state.data}

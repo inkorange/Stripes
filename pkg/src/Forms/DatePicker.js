@@ -152,7 +152,7 @@ export class DatePicker extends StripesTheme {
         }
     }
 
-    setManualDate(e) {
+    setManualDate() {
         let dateValue = isNaN(this.refs.textbox.getValue()*1) ? this.refs.textbox.getValue() : this.refs.textbox.getValue()*1;
         let slashCount = dateValue.toString().indexOf("/") > 0 ? (dateValue.match(/\//g) || []).length : 0;
         dateValue = slashCount === 1 ? dateValue + '/' + (new Date().getFullYear()): dateValue;
@@ -235,10 +235,11 @@ export class DatePicker extends StripesTheme {
         let styleObj = {
             container: {
                 display: 'inline-block',
-                margin: spacing.margin*2 + 'px 0',
+                //margin: spacing.margin*2 + 'px 0',
                 width: this.props.width,
                 lineHeight: '1em'
             },
+            /*
             base: {
                 border: 'none',
                 margin: spacing.padding*2 + 'px' + ' 0',
@@ -246,7 +247,7 @@ export class DatePicker extends StripesTheme {
                 position: 'relative',
                 display: this.props.visible ? 'block' : 'none',
                 opacity: this.props.disabled ? '.25' : '1.0'
-            },
+            },*/
             year: {
                 fontSize: spacing.baseFontSize * 1.5 + 'rem',
                 marginBottom: spacing.margin*4 + 'px',

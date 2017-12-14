@@ -32,12 +32,15 @@ export class Placeholder extends StripesTheme {
     getStyles() {
         let color = this.getColors()[this.props.type];
         let spacing = this.getSpacing()[this.props.type];
-        console.log('getting styles: ', this.props.active);
         let styleObj = {
             base: {
                 position: 'absolute',
                 top: this.props.hasValue ? spacing.padding*-2 + 'px' : spacing.padding + 'px',
+                right: 0,
                 left: 0,
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
                 color: this.props.hasValue ? this.props.active ? color.activeIcon : color.placeholderColor : color.placeholderColor,
                 cursor: this.props.hasValue ? "pointer" : "default",
                 opacity: this.props.active && this.props.hasValue  ? 1 : .5,

@@ -14,7 +14,7 @@ export class Fieldset extends StripesTheme {
         title: null,
         disabled: false,
         visible: true
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -32,20 +32,20 @@ export class Fieldset extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = {
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             base: {
                 border: 'none',
-                margin: spacing.padding*2 + 'px' + ' 0',
+                margin: '0 0 ' + spacing.margin*2 + 'px 0',
                 padding: 0,
                 display: this.props.visible ? 'block' : 'none',
                 opacity: this.props.disabled ? '.25' : '1.0'
             },
             label: {
                 fontSize: '1.8rem',
-                margin: spacing.padding*2 + 'px' + ' 0',
-                lineHeight: spacing.padding*4 + 'px',
+                marginBottom: spacing.margin + 'px',
+                lineHeight: spacing.padding*2 + 'px',
                 display: 'block',
                 color: color.textColor
             }

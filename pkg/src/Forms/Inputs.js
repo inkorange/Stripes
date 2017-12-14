@@ -28,7 +28,7 @@ class TextBox extends StripesTheme {
         onChange: null,
         disabled: false,
         readOnly: false
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -36,7 +36,7 @@ class TextBox extends StripesTheme {
             style: this.getStyles(),
             active: false,
             suggestionItems: [],
-            value: null
+            value: props.value
         };
         this.onChange = this.onChange.bind(this);
         this.getValue = this.getValue.bind(this);
@@ -50,6 +50,14 @@ class TextBox extends StripesTheme {
         if(props !== this.props) {
             this.setState({
                 style: this.getStyles()
+            });
+        }
+    }
+
+    componentWillUpdate(props) {
+        if(props.value !== this.props.value) {
+            this.setState({
+                value: props.value
             });
         }
     }
@@ -104,12 +112,17 @@ class TextBox extends StripesTheme {
 
     applyValue(val, stopFocus) {
         if(val !== undefined) {
-            this.refs.input.value = val.value ? val.value : val ? val : '';
-            if(!stopFocus) {
-                this.refs.input.focus();
-            } else {
-                this.refs.input.parentNode.focus();
-            }
+            let resval = val.value ? val.value : val ? val : '';
+            this.refs.input.value = resval;
+            this.setState({
+                value: resval
+            }, ()=> {
+                if(!stopFocus) {
+                    this.refs.input.focus();
+                } else {
+                    this.refs.input.parentNode.focus();
+                }
+            });
         }
     }
 
@@ -170,7 +183,6 @@ class TextBox extends StripesTheme {
     }
 
     render() {
-
         if(this.props.suggestions) {
             this.state.style.container.display = "inline-block";
             this.state.style.input.width = "100%";
@@ -179,7 +191,6 @@ class TextBox extends StripesTheme {
         if(this.props.anchor) {
             anchorNode = <div onClick={this.onInputClick} style={this.state.style.anchor}>{this.props.anchor}</div>
         }
-
         return (
             <div ref="input_container" style={this.state.style.container} tabIndex="1000">
                 <Placeholder active={this.state.active} hasValue={this.state.value !== null && this.state.value !== ""} name={this.props.placeholder} />
@@ -325,7 +336,7 @@ class DropDown extends StripesTheme {
         value: null,
         disabled: false,
         onChange: () => { return false; }
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -339,7 +350,8 @@ class DropDown extends StripesTheme {
             items: resolvedMap.items,
             active: false,
             label: resolvedMap.currentCheckedLabel,
-            value: resolvedMap.currentCheckedValue
+            value: resolvedMap.currentCheckedValue,
+            inputWidth: this.props.width
         }
     }
 
@@ -396,8 +408,12 @@ class DropDown extends StripesTheme {
 
     openSelect(e) {
         if(!this.props.disabled) {
-            this.onInputClick();
-            this.refs.selectPanel.open();
+            this.setState({
+                inputWidth: this.refs.DropDown.offsetWidth + 'px'
+            }, () => {
+                this.onInputClick();
+                this.refs.selectPanel.open();
+            });
         }
     }
 
@@ -460,7 +476,7 @@ class DropDown extends StripesTheme {
                     {...this.getDataSet(this.props, '-SelectPanel')}
                     onSelect={this.applyValue}
                     onClose={this.onInputBlur}
-                    width={this.props.width}
+                    width={this.state.inputWidth}
                     dropOffset={35}
                 />
                 <span style={this.state.style.error}>{this.props.error}</span>
