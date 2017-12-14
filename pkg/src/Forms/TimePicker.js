@@ -340,7 +340,7 @@ export class TimePicker extends StripesTheme {
             this.refs.textbox.applyValue(m(this.state.time).format(this.props.format), true);
             this.props.onSet(this.state.time);
         } else {
-            var now = this.props.baseDateTime ? this.props.baseDateTime : new Date();
+            let now = this.props.baseDateTime ? this.props.baseDateTime : new Date();
             this.setState({
                 time: now,
                 inputError: null
@@ -354,7 +354,7 @@ export class TimePicker extends StripesTheme {
     }
 
     hardSetTime(hour, minute, AMPM) {
-        var newTime = this.state.time ? m(this.state.time) : m(this.props.baseDateTime);
+        let newTime = this.state.time ? m(this.state.time) : m(this.props.baseDateTime);
         newTime.hour(hour);
         newTime.minute(minute);
         newTime.second(0);
@@ -389,10 +389,9 @@ export class TimePicker extends StripesTheme {
     }
 
     setManualTime() {
-        console.log('set manual time....');
-        var isValid = () => {
-            var tempDateTime = m();
-            var timeObj = this.refs.textbox.getValue() ? this.refs.textbox.getValue().toUpperCase() : '';
+        let isValid = () => {
+            let tempDateTime = m();
+            let timeObj = this.refs.textbox.getValue() ? this.refs.textbox.getValue().toUpperCase() : '';
             // lets test it out *******************
             if( !this.refs.textbox.getValue()) {
                 return false;
@@ -419,9 +418,9 @@ export class TimePicker extends StripesTheme {
         if(timesMatch) {
             return false;
         }
-        var isValid = isValid();
+        var isTimeValid = isValid();
 
-        if(isValid && timeVal) {
+        if(isTimeValid && timeVal) {
             var val = timeVal.toUpperCase();
             var ampm = val.indexOf('AM') >= 0 ? 'AM' : val.indexOf('PM') >= 0 ? 'PM' : false;
             val = val.replace(/\s|PM|AM/g, '');
@@ -448,7 +447,7 @@ export class TimePicker extends StripesTheme {
                 this.hardSetTime(hr, min, ampm);
             }
         } else {
-            if(!isValid && timeVal) {
+            if(!isTimeValid && timeVal) {
                 this.setState({
                     inputError: this.props.errorMessage
                 });

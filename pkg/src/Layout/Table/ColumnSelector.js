@@ -75,9 +75,9 @@ export class ColumnSelector extends StripesTheme {
         window.localStorage["tableShowing" + this.getEndPointKey()] = JSON.stringify(colvals);
     }
 
-    toggleShowHide(e, columnValues) {
-        if(e) {
-            this.props.onColumnSelect(e.currentTarget.value, columnValues.indexOf(e.currentTarget.value) >= 0);
+    toggleShowHide(checked, columnValues, props) {
+        if(props) {
+            this.props.onColumnSelect(props.value, columnValues.indexOf(props.value) >= 0);
         }
         this.setState({
             savedColumnVisibility: columnValues,

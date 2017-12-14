@@ -10,7 +10,7 @@ import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow
 import {TabularListing} from '../src/Elements/TabularListing'
 import {TabularDetail} from '../src/Elements/TabularDetail'
 import { A, Title, H1, H2, H3 } from '../src/Typography'
-import { FlatButton, RaisedButton, RadioButtonGroup, CheckBoxGroup, CheckBox, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider, RangeSlider } from '../src/Forms'
+import { FlatButton, RaisedButton, RadioButtonGroup, CheckBox, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider, RangeSlider } from '../src/Forms'
 import { Dialog, Card, LeftNav, MenuItem, TwoColumnLayout } from '../src/Layouts'
 import {Icon} from  '../src/Symbols/Icon'
 import {Tooltip} from  '../src/Notifications/Tooltip'
@@ -161,38 +161,6 @@ class Sandbox extends React.Component {
                     formatFn: formatBydateTimeStacked
                 },
                 {
-                    tooltip: 'Door number',
-                    name: 'Door',
-                    field: ['code'],
-                    sortable: true,
-                    filterable: true
-                },
-                {
-                    tooltip: 'Trailer destination',
-                    name: 'Dest',
-                    field: ['destination'],
-                    sortable: true,
-                    filterable: true
-                },
-                {
-                    tooltip: 'Trailer opened date/time',
-                    name: 'Opened',
-                    field: ['opened_at'],
-                    sortable: true,
-                    filterable: false,
-                    className: 'column-opened',
-                    formatFn: formatBydateTimeStacked
-                },
-                {
-                    tooltip: 'Trailer closed date/time',
-                    name: 'Closed',
-                    field: ['closed_at'],
-                    sortable: true,
-                    filterable: false,
-                    className: 'column-closed',
-                    formatFn: formatBydateTimeStacked
-                },
-                {
                     tooltip: 'Total package count',
                     name: 'Pkgs',
                     field: ['metrics.total_packages'],
@@ -239,7 +207,8 @@ class Sandbox extends React.Component {
             sort_direction:"desc"
         };
         //this.updateTable = this.updateTable.bind(this);
-this.toggleDialog = this.toggleDialog.bind(this);
+        this.toggleDialog = this.toggleDialog.bind(this);
+        this.getValues = this.getValues.bind(this);
         this.state = {
             data: dataObj,
             showTooltip: false,
@@ -279,24 +248,37 @@ this.toggleDialog = this.toggleDialog.bind(this);
         }
     }
 
+    getValues() {
+        console.log(this.refs.checkboxgroup.getValues());
+    }
+
     render() {
 
         return (
             <div style={{padding:'30px'}}>
-                <Fieldset title="Pick Some Dates">
-                    <DateTimePicker/>
-                    <DateTimePicker value={new Date()} manual={true}/>
-                </Fieldset>
 
-                <TextBox
-                    placeholder="First Name"
-                    width="50%"
-                    value={"Hello There."}
+                <TabularListing
+                    data={this.state.data}
+                    columnSelector={true}
                 />
 
-                <div>
-                    <Tag value="TAG 1">Tag 1</Tag><Tag value="TAG 2">Tag 2</Tag><Tag value="TAG 3">Tag 3</Tag>
-                </div>
+                <CheckBoxGroup ref="checkboxgroup">
+                    <Item defaultChecked={true} key="option1">Checkbox Option 1</Item>
+                    <Item key="option2">Checkbox Option 2</Item>
+                    <Item key="option3">Checkbox Option 3</Item>
+                </CheckBoxGroup>
+                <FlatButton onClick={this.getValues} />
+                <Fieldset title="Show Trailers with...">
+                    <CheckBox
+                        label="Option 1"
+                    />
+                    <CheckBox
+                        label="Option 2"
+                    />
+                    <CheckBox
+                        label="Option 3"
+                    />
+                </Fieldset>
 
 
             </div>

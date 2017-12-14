@@ -203,13 +203,10 @@ class CheckBox extends StripesTheme {
 
     constructor(props) {
         super(props);
-        var items = [];
-
         this.state = {
             style: this.getStyles(),
             checked: this.props.checked
-        }
-
+        };
         this.updateValue = this.updateValue.bind(this);
         this.isChecked = this.isChecked.bind(this);
     }
@@ -237,14 +234,14 @@ class CheckBox extends StripesTheme {
         this.setState({
             checked: !this.state.checked
         }, () => {
-                this.props.onChange(this.state.checked, this.props.value);
+                this.props.onChange(this.state.checked, this.props.value, this.props);
         });
     }
 
     getStyles() {
-        var spacing = this.getSpacing()[this.props.type];
-        var color = this.getColors()[this.props.type];
-        var baseCheckbox = {
+        const spacing = this.getSpacing()[this.props.type];
+        const color = this.getColors()[this.props.type];
+        let baseCheckbox = {
             float: this.props.align,
             width: spacing.width + 'px', height: spacing.height + 'px',
             border: 'solid 2px ' + (this.props.invertColors ? color.fillColorSecondary : color.fillColor),
@@ -254,8 +251,8 @@ class CheckBox extends StripesTheme {
             backgroundColor: (this.props.invertColors ? color.fillColorSecondary : color.fillColor),
             backgroundImage: color.checkImage(this.props.invertColors ? color.fillCheckColorSecondary : color.fillCheckColor),
             backgroundSize: 'cover'
-        }
-        var styleObj = {
+        };
+        return {
             label: {
                 opacity: this.props.disabled ? '.5' : '1',
                 //color: color.textColor,
@@ -277,8 +274,6 @@ class CheckBox extends StripesTheme {
                 },baseCheckbox)
             }
         };
-
-        return styleObj;
     }
 
     render() {
@@ -311,9 +306,8 @@ class CheckBoxGroup extends StripesTheme {
         invertColors: false,
         type: 'switches',
         disabled: false,
-        onChange: () => { return false; },
-        onClick:  () => { return false; }
-    }
+        onChange: () => { return false; }
+    };
 
     constructor(props) {
         super(props);
@@ -321,7 +315,7 @@ class CheckBoxGroup extends StripesTheme {
         this.state = {
             style: this.getStyles(),
             items: this.resolveChildren()
-        }
+        };
 
         this.updateValue = this.updateValue.bind(this);
         this.setChecked = this.setChecked.bind(this);
@@ -330,7 +324,7 @@ class CheckBoxGroup extends StripesTheme {
     }
 
     resolveChildren() {
-        var items = [];
+        let items = [];
         this.props.children.map((obj) => {
             items.push({
                 dataset: this.getDataSet(obj.props),
@@ -345,7 +339,7 @@ class CheckBoxGroup extends StripesTheme {
     }
 
     getValues() {
-        var values = [];
+        let values = [];
         this.state.items.map((item, i) => {
             if(item.checked) {
                 values.push(item.value);
@@ -354,18 +348,19 @@ class CheckBoxGroup extends StripesTheme {
         return values;
     }
 
-    updateValue(e) {
+    updateValue(checked, value, props) {
         if(this.props.disabled) {
             return false;
         }
-        var pos = e.target.getAttribute("data-itemid");
+        let pos = props["data-itemid"];
         this.state.items[pos].checked = !this.state.items[pos].checked;
         this.forceUpdate();
+        this.props.onChange(checked, this.getValues(), props);
     }
 
     setChecked(val, checked) {
         this.state.items.map((item, i) => {
-            if(item.value == val) {
+            if(item.value === val) {
                 this.state.items[i].checked = checked;
             }
         });
@@ -373,9 +368,9 @@ class CheckBoxGroup extends StripesTheme {
     }
 
     getStyles() {
-        var spacing = this.getSpacing()[this.props.type];
-        var color = this.getColors()[this.props.type];
-        var baseCheckbox = {
+        const spacing = this.getSpacing()[this.props.type];
+        const color = this.getColors()[this.props.type];
+        let baseCheckbox = {
             float: this.props.align,
             width: spacing.width + 'px', height: spacing.height + 'px',
             border: 'solid 2px ' + (this.props.invertColors ? color.fillColorSecondary : color.fillColor),
@@ -385,8 +380,8 @@ class CheckBoxGroup extends StripesTheme {
             backgroundColor: (this.props.invertColors ? color.fillColorSecondary : color.fillColor),
             backgroundImage: color.checkImage(this.props.invertColors ? color.fillCheckColorSecondary : color.fillCheckColor),
             backgroundSize: 'cover'
-        }
-        var styleObj = {
+        };
+        return {
             group: {
                 opacity: this.props.disabled ? '.5' : '1',
                 transition: '.5s opacity'
@@ -415,8 +410,6 @@ class CheckBoxGroup extends StripesTheme {
                 },baseCheckbox)
             }
         };
-
-        return styleObj;
     }
 
     componentDidUpdate(props) {
@@ -429,25 +422,20 @@ class CheckBoxGroup extends StripesTheme {
     }
 
     render() {
-        var itemNodes = [];
+        let itemNodes = [];
         this.state.items.map((item, i) => {
-
             itemNodes.push(
-                <label key={"label" + i} style={this.hardExtend(item.style, item.disabled ? this.state.style.labelDisabled : this.state.style.label)} {...this.mouseEventProps(this.props)}>
-                    <div style={item.checked ? this.state.style.checkbox.active : this.state.style.checkbox.inactive}></div>
-                    <input
-                        {...item.dataset}
-                        data-itemid={i}
-                        disabled={item.disabled}
-                        onChange={this.handleSwitchOnChange}
-                        onClick={this.updateValue}
-                        style={this.state.style.input}
-                        checked={item.checked ? 'checked' : null}
-                        type="checkbox"
-                        value={item.value ? item.value : ''}
-                    />
-                    {item.children}
-                </label>);
+                <CheckBox
+                    key={"label" + i}
+                    checked={item.checked ? 'checked' : null}
+                    {...item.dataset}
+                    data-itemid={i}
+                    disabled={item.disabled}
+                    onChange={this.updateValue}
+                    value={item.value ? item.value : ''}
+                    label={item.children}
+                />
+            );
         });
         return (
             <div {...this.getDataSet(this.props)} style={this.hardExtend(this.props.style, this.state.style.group)}>
@@ -463,4 +451,4 @@ module.exports = {
     CheckBoxGroup: CheckBoxGroup,
     CheckBox: CheckBox,
     Item: Item
-}
+};
