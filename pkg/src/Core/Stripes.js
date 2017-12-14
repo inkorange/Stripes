@@ -51,7 +51,8 @@ export class StripesTheme extends React.Component {
                     padding: spacing.padding + 'px 0',
                     margin: spacing.padding*2 + 'px ' + spacing.padding + 'px',
                     transition: 'all 0.3s ease-in-out 0s',
-                    outline: 'none'
+                    outline: 'none',
+                    width: this.props.width ? 'calc(' + this.props.width + ' - ' + spacing.padding*2 + 'px)': 'auto'
                 },
                 input: {
                     fontSize: spacing.fontSize,
@@ -66,7 +67,8 @@ export class StripesTheme extends React.Component {
                     overflow: 'hidden',
                     lineHeight: spacing.fontSize,
                     cursor: this.props.onClick ? 'pointer' : 'text',
-                    backgroundColor: 'transparent'
+                    backgroundColor: 'transparent',
+                    padding: 0
                 },
                 anchor: {
                     position: 'absolute',

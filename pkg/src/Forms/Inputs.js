@@ -162,6 +162,7 @@ class TextBox extends StripesTheme {
             position: 'relative',
             lineHeight: spacing.baseFontSize + 'rem',
         };
+        styleObj.container = Object.assign(styleObj.container, this.props.style);
         styleObj.input = Object.assign(styleObj.input, input);
         styleObj.active.on = Object.assign(styleObj.active.on, styleObj.active.base);
         styleObj.active.off = Object.assign(styleObj.active.off, styleObj.active.base);
@@ -172,7 +173,6 @@ class TextBox extends StripesTheme {
 
         if(this.props.suggestions) {
             this.state.style.container.display = "inline-block";
-            this.state.style.container.width = this.props.width;
             this.state.style.input.width = "100%";
         }
         let anchorNode = null;
@@ -281,6 +281,7 @@ class TextArea extends StripesTheme {
         let input = {
             overflow: 'auto'
         };
+        styleObj.container = Object.assign(styleObj.container, this.props.style);
         styleObj.input = Object.assign(styleObj.input, input);
         styleObj.active.on = Object.assign(styleObj.active.on, styleObj.active.base);
         styleObj.active.off = Object.assign(styleObj.active.off, styleObj.active.base);
@@ -403,7 +404,6 @@ class DropDown extends StripesTheme {
     closeSelect(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('closeSelect');
         if(!this.props.disabled) {
             this.setState({
                 active: true

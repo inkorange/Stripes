@@ -55,16 +55,14 @@ export class Tag extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-
-        var styleObj = {
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             container: {
                 outline: 'none',
                 background: color.inactiveIcon,
                 borderRadius: spacing.borderRadius + 'px',
                 display: 'inline-block',
-                float: 'left',
                 padding: '0 ' + spacing.padding * 2 + 'px',
                 margin: '0 ' + spacing.padding + 'px ' + spacing.padding + 'px 0',
                 height: spacing.padding*6 + 'px',

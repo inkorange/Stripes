@@ -46,7 +46,7 @@ export class Card extends StripesTheme {
                 boxShadow: '0 5px 15px rgba(0,0,0,.5)'
             },
             header: {
-                margin: spacing.padding*5 + "px",
+                margin: spacing.padding*4 + "px",
                 fontSize: '2rem',
                 fontWeight: '400',
                 color: 'black',
@@ -54,7 +54,7 @@ export class Card extends StripesTheme {
                 position: 'relative'
             },
             body: {
-                margin: spacing.padding*5 + "px"
+                margin: spacing.padding*4 + "px"
             },
             footer: {
                 padding: '0 ' + spacing.padding*2 + 'px ' + spacing.padding*2 + 'px '  + spacing.padding + 'px',

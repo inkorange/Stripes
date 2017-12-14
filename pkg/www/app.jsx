@@ -283,6 +283,17 @@ this.toggleDialog = this.toggleDialog.bind(this);
 
         return (
             <div style={{padding:'30px'}}>
+                <div>
+                    <TextBox ref="filterName" data-automation-id="Search Name" onChange={this.testLength} error={this.state.filterNameError} placeholder="Filter Name" width="100%"/>
+                    <TextBox
+                        width="100%"
+                        showSuggestions={true}
+                        suggestionData={["Alabama","Alaska","Arkansas","California","Colorado","New York","Connecticut"]}
+                        placeholder="Type a state that begins with A or C" />
+                </div>
+                <div>
+                    <Tag value="TAG 1">Tag 1</Tag><Tag value="TAG 2">Tag 2</Tag><Tag value="TAG 3">Tag 3</Tag>
+                </div>
                 <DropDown
                     placeholder="Please select an option..."
                     showEmpty={true}

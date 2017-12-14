@@ -39,6 +39,7 @@ export class Placeholder extends StripesTheme {
                 top: this.props.hasValue ? spacing.padding*-2 + 'px' : spacing.padding + 'px',
                 left: 0,
                 color: this.props.hasValue ? this.props.active ? color.activeIcon : color.placeholderColor : color.placeholderColor,
+                cursor: this.props.hasValue ? "pointer" : "default",
                 opacity: this.props.active && this.props.hasValue  ? 1 : .5,
                 fontSize: this.props.hasValue ? '1.2rem' : spacing.baseFontSize + 'rem',
                 transition: 'all .5s'
