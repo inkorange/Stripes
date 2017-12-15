@@ -29,8 +29,8 @@ export class DateTimePicker extends StripesTheme {
         clockFormat: '12hr',
         value: null,
         manual: false,
-        dateErrorMsg: null,
-        timeErrorMsg: null
+        dateErrorMsg: 'Invalid Date Format (M/D/YYYY)',
+        timeErrorMsg: 'Invalid Time Format (h:mm A)'
     };
 
     constructor(props) {

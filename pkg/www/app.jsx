@@ -253,16 +253,17 @@ class Sandbox extends React.Component {
     }
 
     render() {
-
+        let earliestDate = m().subtract(1, "years");
+        let latestDate = m().add(30, "days");
+        let contraints = [earliestDate.format('YYYY-MM-DD'), latestDate.format('YYYY-MM-DD')];
         return (
             <div style={{margin:'30px', padding: '30px'}}>
 
-                <Fieldset title="This is a slider" style={{position: 'relative'}}>
-                    <Slider/>
-                </Fieldset>
-                <Fieldset title="This is a RangeSlider" style={{position: 'relative'}}>
-                    <RangeSlider/>
-                </Fieldset>
+              <DateTimePicker manual={true}
+                              clockFormat="24hr"
+                              timeFormat="HH:mm"
+                              dateConstraint={contraints}
+              />
 
                 <div style={{padding: '30px', background: 'rgb(230,230,230)'}}>
                     <FlatButton icon="cancel" iconColor="Blue">Clear</FlatButton>

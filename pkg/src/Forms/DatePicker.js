@@ -157,7 +157,7 @@ export class DatePicker extends StripesTheme {
         let dateValue = isNaN(this.refs.textbox.getValue()*1) ? this.refs.textbox.getValue() : this.refs.textbox.getValue()*1;
         let slashCount = dateValue.toString().indexOf("/") > 0 ? (dateValue.match(/\//g) || []).length : 0;
         dateValue = slashCount === 1 ? dateValue + '/' + (new Date().getFullYear()): dateValue;
-        let datesMatch = m(new Date(dateValue)).format(this.props.format) === m(this.state.date).format(this.props.format);
+        let datesMatch = dateValue === this.state.date; // && m(new Date(dateValue)).format(this.props.format) === m(this.state.date).format(this.props.format);
         let isValid = m(new Date(dateValue)).isValid();
         let strippedSlashes = !isNaN(dateValue) ? dateValue :
                               dateValue && isNaN(dateValue) ? dateValue.replace(/\//g, '') : "";
@@ -179,7 +179,6 @@ export class DatePicker extends StripesTheme {
             }
             return false;
         }
-
         if(dateValue) {
             let val = this.refs.textbox.getValue();
             val = val.replace(/\s/g, '');

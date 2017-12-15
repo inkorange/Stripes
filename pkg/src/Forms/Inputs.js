@@ -182,6 +182,8 @@ class TextBox extends StripesTheme {
         return styleObj;
     }
 
+
+
     render() {
         if(this.props.suggestions) {
             this.state.style.container.display = "inline-block";
