@@ -113,15 +113,12 @@ export class Slider extends StripesTheme {
     lifting(e) {
         e.preventDefault();
         e.stopPropagation();
-        //console.log('lifting: ', (new Date().getTime()) - this.pressingTime);
-        //document.getElementById("DebugContainer").innerHTML += " | lifting in " + ((new Date().getTime()) - this.pressingTime);
         this.setState({
             pressing: false,
             isActivated: ((new Date().getTime()) - this.pressingTime) < 200
         }, () => {
             this.removeDragEvents();
             this.updateStyles();
-            //this.pressingTime = (new Date().getTime());
         });
     }
 
@@ -158,7 +155,7 @@ export class Slider extends StripesTheme {
         let node = this.refs.slider;
         let pageX = e.targetTouches ? e.targetTouches[0].pageX : e.pageX;
         let x_on_bar = pageX - node.getBoundingClientRect().left;
-        let handleX = x_on_bar * 100 / (node.offsetWidth);
+        let handleX = x_on_bar * 100 / node.offsetWidth;
         let value = Math.floor(   ((this.props.range[1]-this.props.range[0]) * (handleX/100)) + this.props.range[0]     );
         if(value <= this.props.constraint[0]) {
             handleX = this.getPercByValue(this.props.constraint[0]);
@@ -172,10 +169,7 @@ export class Slider extends StripesTheme {
     }
 
     activateHandle(e) {
-        //console.log('activateHandle: ', (new Date().getTime()) - this.pressingTime);
         if(!this.props.disabled && ((new Date().getTime()) - this.pressingTime) < 200) {
-            //document.getElementById("DebugContainer").innerHTML += " | activating";
-            //console.log('activating ', this.state.pressing, this.state.isActivated, (!this.state.pressing && !this.state.isActivated));
             clearTimeout(this.state.removeActivation);
             this.setState(
                 {
@@ -194,15 +188,12 @@ export class Slider extends StripesTheme {
 
     deactivateHandle() {
         if(this.state.isActivated && ((new Date().getTime()) - this.pressingTime) > 500) {
-            //document.getElementById("DebugContainer").innerHTML += " | deactivating in " + ((new Date().getTime()) - this.pressingTime);
             this.setState({isActivated: false}, this.updateStyles);
         }
     }
 
     selectPoint(e) {
-        //document.getElementById("DebugContainer").innerHTML += " | Attempting SelectPoint : " + !this.state.pressing + " | " + this.state.isActivated;
         if(!this.state.pressing && this.state.isActivated && ((new Date().getTime()) - this.pressingTime) > 200) {
-            //document.getElementById("DebugContainer").innerHTML += " | SELECTING POINT in " + ((new Date().getTime()) - this.pressingTime);
             let resolvedObj = this.resolveXThroughEvent(e);
             this.setState({
                 isActivated: false,
@@ -221,17 +212,16 @@ export class Slider extends StripesTheme {
         let styleObj = {
             container: {
                 display: 'inline-block',
-                margin: spacing.margin + 'px ' + spacing.margin*2 + 'px',
-                width: 'calc(' + this.props.width + ' - ' + spacing.margin*2 + 'px)',
+                margin: spacing.margin + 'px 0 ',
+                width: 'calc(' + this.props.width + ' - '+spacing.margin*2+'px)',
                 position: 'relative',
-                padding: spacing.padding + 'px'
-                //height: this.props.handlesize + 'px'
+                padding: spacing.padding + 'px 0'
             },
             bar: {
                 zIndex: 0,
                 height: '6px',
                 backgroundColor: color.inactiveIcon,
-                width: '100%',
+                width: 'calc(100% + ' + spacing.margin*2 + 'px)',
                 margin: '0',
                 borderRadius: spacing.borderRadius + 'px',
                 boxShadow: '0 1px 3px rgba(0,0,0,.25) inset'
@@ -243,8 +233,8 @@ export class Slider extends StripesTheme {
                 position: 'absolute',
                 transition: 'box-shadow .5s, background-color .5s',
                 transform: 'translateX(-'+this.props.handlesize/2+'px)',
-                left: this.state.handleX + '%',
-                top: this.state.pressing ? '2px' : '1px',
+                left: 'calc(' + this.state.handleX + '% + ' + this.props.handlesize/2 +'px)',
+                top: 'calc(50% - '+ this.props.handlesize/2 +'px)',
                 width: this.props.handlesize + 'px',
                 height: this.props.handlesize + 'px',
                 boxShadow: this.state.pressing ? '0 3px 6px rgba(0,0,0,.5), 0 2px 2px rgba(255,255,255,.25) inset' : '0 2px 5px rgba(0,0,0,.25)' + (this.state.isActivated ? ', 0 0 0 10px rgba(0,0,0,.15)' : ''),
@@ -257,7 +247,7 @@ export class Slider extends StripesTheme {
                 minWidth: '50px',
                 textAlign: 'center',
                 left: this.state.handleX + '%',
-                transform: 'translateX(-50%)',
+                transform: 'translateX(calc(-50% + ' + this.props.handlesize/2 + 'px))',
                 transition: 'opacity .25s ease-in-out .75s',
                 color: 'white',
                 backgroundColor: color.activeIcon,

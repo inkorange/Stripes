@@ -48,15 +48,18 @@ class FlatButton extends StripesTheme {
                 textTransform: 'uppercase',
                 outline: 'none',
                 padding: this.props.icon
-                    ? spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px ' + spacing.padding * 2 + 'px ' + spacing.padding * 8 + 'px'
-                    : spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px',
+                    ? '0px ' + spacing.padding*2 + 'px 0px ' + spacing.padding*5 + 'px'
+                    : '0px ' + spacing.padding*2 + 'px',
                 margin: spacing.padding + 'px ',
                 transition: '.5s background-color',
                 opacity: this.props.disabled ? .5 : 1.0,
                 cursor: this.props.disabled ? 'default' : 'pointer',
                 position: 'relative',
                 overflow: 'hidden',
+                lineHeight: spacing.padding * 4 + 'px',
+                minWidth: spacing.padding * 11 + 'px',
                 basePadding: spacing.padding
+
             },
             ink: this.getBaseStyling(spacing, color).animation.ink,
             iconColor: color.activeIcon
@@ -72,7 +75,7 @@ class FlatButton extends StripesTheme {
                 <Icon
                     iconid={this.props.icon}
                     size="small"
-                    basestyle={{position: 'absolute', left: this.state.style.basePadding*2 + 'px', top: (this.state.style.basePadding*2 - 2) + 'px'}}
+                    basestyle={{position: 'absolute', left: this.state.style.basePadding*2 + 'px', top: (this.state.style.basePadding/2) + 'px'}}
                     color={this.props.iconColor ? this.props.iconColor : this.state.style.iconColor}
                 />);
         }
@@ -126,9 +129,9 @@ class RaisedButton extends StripesTheme {
     }
 
     getStyles() {
-        var spacing = this.getSpacing()[this.props.type];
-        var color = this.getColors()[this.props.type];
-        var styleObj = {
+        let spacing = this.getSpacing()[this.props.type];
+        let color = this.getColors()[this.props.type];
+        let styleObj = {
             button: {
                 color: color.textColor,
                 borderRadius: spacing.borderRadius + 'px',
@@ -140,8 +143,8 @@ class RaisedButton extends StripesTheme {
                 textTransform: 'uppercase',
                 outline: 'none',
                 padding: this.props.icon
-                    ? spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px ' + spacing.padding * 2 + 'px ' + spacing.padding * 8 + 'px'
-                    : spacing.padding * 2 + 'px ' + spacing.padding * 4 + 'px',
+                    ? '0px ' + spacing.padding*2 + 'px 0px ' + spacing.padding*5 + 'px'
+                    : '0px ' + spacing.padding*2 + 'px',
                 margin: spacing.padding + 'px ',
                 transition: '.5s background-color',
                 opacity: this.props.disabled ? .5 : 1.0,
@@ -149,6 +152,8 @@ class RaisedButton extends StripesTheme {
                 boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px',
                 position: 'relative',
                 overflow: 'hidden',
+                lineHeight: spacing.padding * 4 + 'px',
+                minWidth: spacing.padding * 11 + 'px',
                 basePadding: spacing.padding
             },
             ink: this.getBaseStyling(spacing, color).animation.ink,
@@ -165,7 +170,7 @@ class RaisedButton extends StripesTheme {
                 <Icon
                     iconid={this.props.icon}
                     size="small"
-                    basestyle={{position: 'absolute', left: this.state.style.basePadding*2 + 'px', top: (this.state.style.basePadding*2 - 2) + 'px'}}
+                    basestyle={{position: 'absolute', left: this.state.style.basePadding*2 + 'px', top: (this.state.style.basePadding/2) + 'px'}}
                     color={this.props.iconColor ? this.props.iconColor : this.state.style.iconColor}
                 />);
         }

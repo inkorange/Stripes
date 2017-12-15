@@ -40,7 +40,7 @@ class RadioButtonGroup extends StripesTheme {
         name: null,
         onChange: () => { return false; },
         onClick:  () => { return false; }
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -64,7 +64,7 @@ class RadioButtonGroup extends StripesTheme {
     }
 
     _setChildrenMap(childItems) {
-        var items = [];
+        let items = [];
         childItems.map((obj) => {
             items.push({
                 dataset: this.getDataSet(obj.props),
@@ -81,7 +81,7 @@ class RadioButtonGroup extends StripesTheme {
     }
 
     getValues() {
-        var values = [];
+        let values = [];
         this.state.items.map((item, i) => {
             if(item.checked) {
                 values.push(item.value);
@@ -94,7 +94,7 @@ class RadioButtonGroup extends StripesTheme {
         if(this.props.disabled) {
             return false;
         }
-        var isChanged = true;
+        let isChanged = true;
         var pos = e.target.getAttribute("data-itemid")*1;
         this.state.items.map((item, i) => {
             if(this.state.items[i].checked && i === pos) {
@@ -116,18 +116,18 @@ class RadioButtonGroup extends StripesTheme {
         this.forceUpdate();
     }
     getStyles() {
-        var spacing = this.getSpacing()[this.props.type];
-        var color = this.getColors()[this.props.type];
-        var baseCheckbox = {
+        let spacing = this.getSpacing()[this.props.type];
+        let color = this.getColors()[this.props.type];
+        let baseCheckbox = {
             float: 'left',
             width: spacing.width + 'px', height: spacing.height + 'px',
-            border: 'solid 2px ' + color.borderColor,
+            border: 'solid 2px ' + color.fillColor,
             transition: '.5s all',
             borderRadius: '50%',
             marginLeft: spacing.margin + 'px',
             backgroundColor: color.fillColor
-        }
-        var styleObj = {
+        };
+        return {
             group: {
                 opacity: this.props.disabled ? '.5' : '1',
                 transition: '.5s opacity',
@@ -135,7 +135,7 @@ class RadioButtonGroup extends StripesTheme {
             label: {
                 display: 'block',
                 cursor:  this.props.disabled ? 'default' : 'pointer',
-                padding: spacing.padding*2 + 'px ' + spacing.padding + 'px',
+                padding: spacing.padding + 'px 0',
                 lineHeight: spacing.height + 'px',
                 color: color.textColor,
                 fontSize: spacing.fontSize
@@ -153,8 +153,6 @@ class RadioButtonGroup extends StripesTheme {
                 },baseCheckbox)
             }
         };
-
-        return styleObj;
     }
 
     render() {
@@ -247,7 +245,6 @@ class CheckBox extends StripesTheme {
             border: 'solid 2px ' + (this.props.invertColors ? color.fillColorSecondary : color.fillColor),
             transition: '.5s all',
             borderRadius: spacing.borderRadius + 'px',
-            marginLeft: spacing.margin + 'px',
             backgroundColor: (this.props.invertColors ? color.fillColorSecondary : color.fillColor),
             backgroundImage: color.checkImage(this.props.invertColors ? color.fillCheckColorSecondary : color.fillCheckColor),
             backgroundSize: 'cover'
@@ -259,7 +256,7 @@ class CheckBox extends StripesTheme {
                 transition: '.5s opacity',
                 display: 'block',
                 cursor:  this.props.disabled ? 'default' : 'pointer',
-                padding: this.props.label ? spacing.padding*2 + 'px ' + spacing.padding + 'px' : '0px'
+                padding: this.props.label ? spacing.padding + 'px ' + spacing.padding + 'px ' + spacing.padding + 'px 0' : 0
             },
             input : {
                 marginRight: spacing.padding + 'px',

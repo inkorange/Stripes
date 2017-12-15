@@ -15,6 +15,7 @@ export class DatePicker extends StripesTheme {
 
     static defaultProps = {
         style: {},
+        textboxStyle: {},
         width: '100%',
         depth: 1,
         className: '',
@@ -239,15 +240,6 @@ export class DatePicker extends StripesTheme {
                 width: this.props.width,
                 lineHeight: '1em'
             },
-            /*
-            base: {
-                border: 'none',
-                margin: spacing.padding*2 + 'px' + ' 0',
-                padding: 0,
-                position: 'relative',
-                display: this.props.visible ? 'block' : 'none',
-                opacity: this.props.disabled ? '.25' : '1.0'
-            },*/
             year: {
                 fontSize: spacing.baseFontSize * 1.5 + 'rem',
                 marginBottom: spacing.margin*4 + 'px',
@@ -286,6 +278,7 @@ export class DatePicker extends StripesTheme {
         return (
             <div style={this.state.style.container} {...this.getDataSet(this.props)}>
                 <TextBox
+                    style={this.props.textboxStyle}
                     ref="textbox"
                     value={this.state.date ? m(this.state.date).format(this.props.format) : ""}
                     width="100%"

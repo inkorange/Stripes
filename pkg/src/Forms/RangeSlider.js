@@ -155,7 +155,7 @@ export class RangeSlider extends StripesTheme {
                 height: '5px',
                 marginTop: spacing.margin*-1 - 2.5 + 'px',
                 left: "calc(" + this.getPercByValue(this.state.minValue) + '% + ' + this.props.handlesize/2 + 'px)',
-                width: (this.getPercByValue(this.state.maxValue) - this.getPercByValue(this.state.minValue)) + '%',
+                width: "calc(" + (this.getPercByValue(this.state.maxValue) - this.getPercByValue(this.state.minValue)) + '% - ' + spacing.margin + 'px)',
                 //width: 'calc(' + (this.getPercByValue(this.state.maxValue) - this.getPercByValue(this.state.minValue)) + '% + ' + this.props.handlesize/3 + 'px)',
                 backgroundColor: color.activeIcon,
                 opacity: this.props.disabled ? '.05' : '.65',

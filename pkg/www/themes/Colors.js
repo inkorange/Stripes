@@ -72,7 +72,7 @@ module.exports = {
     },
     switches: {
         textColor: baseTextColor,
-        borderColor: primaryBackground,
+        borderColor: 'rgba(0,0,0,.54)',
         fillColor: primaryBackground,
         fillColorSecondary: 'white',
         fillCheckColor: 'white',

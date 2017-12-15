@@ -76,6 +76,7 @@ export class DateTimePicker extends StripesTheme {
     }
 
     render() {
+        let spacing = this.getSpacing()[this.props.type];
         return (
             <div style={this.props.style} {...this.getDataSet(this.props)} className={this.props.className}>
                 <TwoColumnLayout
@@ -92,6 +93,8 @@ export class DateTimePicker extends StripesTheme {
                             format={this.props.format}
                             dateConstraint={this.props.dateConstraint}
                             errorMessage={this.props.dateErrorMsg}
+                            style={{marginRight: 0}}
+                            textboxStyle={{marginRight: 0, width: '100%'}}
                         />}
                     columnTwo={
                         <TimePicker
@@ -107,8 +110,9 @@ export class DateTimePicker extends StripesTheme {
                             format={this.props.timeFormat}
                             hourFormat={this.props.clockFormat === '12hr' ? 'h' : 'HH'}
                             errorMessage={this.props.timeErrorMsg ? this.props.timeErrorMsg : (this.props.clockFormat === '12hr' ? 'Invalid Time Format (hh:mm)' : 'Invalid Time Format (HH:mm)')}
+                            textboxStyle={{marginRight: 0, width: '100%'}}
                         />}
-                    gutter="5"
+                    gutter={spacing.margin}
                     columnOneWidth={this.props.datewidth}
                     columnTwoWidth={this.props.timewidth}
                     />

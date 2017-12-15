@@ -255,19 +255,24 @@ class Sandbox extends React.Component {
     render() {
 
         return (
-            <div style={{padding:'30px'}}>
+            <div style={{margin:'30px', padding: '30px'}}>
 
-                <TabularListing
-                    data={this.state.data}
-                    columnSelector={true}
-                />
+                <Fieldset title="This is a slider" style={{position: 'relative'}}>
+                    <Slider/>
+                </Fieldset>
+                <Fieldset title="This is a RangeSlider" style={{position: 'relative'}}>
+                    <RangeSlider/>
+                </Fieldset>
 
-                <CheckBoxGroup ref="checkboxgroup">
-                    <Item defaultChecked={true} key="option1">Checkbox Option 1</Item>
-                    <Item key="option2">Checkbox Option 2</Item>
-                    <Item key="option3">Checkbox Option 3</Item>
-                </CheckBoxGroup>
-                <FlatButton onClick={this.getValues} />
+                <div style={{padding: '30px', background: 'rgb(230,230,230)'}}>
+                    <FlatButton icon="cancel" iconColor="Blue">Clear</FlatButton>
+                    <FlatButton>Button Text</FlatButton>
+                    <RaisedButton>Button Text</RaisedButton>
+                    <RaisedButton type="primary">Button Text</RaisedButton>
+                </div>
+
+                <Tag onRemove={() => {return false; }} closeIconID='cancel'>Tag 1</Tag><Tag>Tag 2</Tag><Tag>lajhfddkjshkj</Tag>
+
                 <Fieldset title="Show Trailers with...">
                     <CheckBox
                         label="Option 1"

@@ -67,6 +67,7 @@ export class TimePicker extends StripesTheme {
 
     static defaultProps = {
         style: {},
+        textboxStyle: {},
         width: '100%',
         type: 'default',
         format: 'h:mm A',
@@ -621,6 +622,7 @@ export class TimePicker extends StripesTheme {
                     placeholder={this.props.placeholder}
                     onBlur={this.props.manual ? this.setManualTime : null}
                     error={this.state.inputError}
+                    style={this.props.textboxStyle}
                 />
                 <Dialog ref="Dialog"
                         modal={true}
