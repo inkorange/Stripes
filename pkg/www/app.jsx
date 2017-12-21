@@ -260,10 +260,19 @@ class Sandbox extends React.Component {
             <div style={{margin:'30px', padding: '30px'}}>
 
               <DateTimePicker manual={true}
-                              clockFormat="24hr"
                               timeFormat="HH:mm"
-
               />
+                <DateTimePicker manual={true}
+                                clockFormat="24hr"
+                                timeFormat="HH:mm"
+                />
+                <DateTimePicker manual={true}
+                                timeFormat="h:mm a"
+                />
+                <DateTimePicker manual={true}
+                                clockFormat="24hr"
+                                timeFormat="h:mm a"
+                />
             </div>
         )
 
