@@ -25,7 +25,7 @@ export class DatePicker extends StripesTheme {
         visible: true,
         dateConstraint: [null,null], //['2013-11-05','2016-12-25'],
         yearFormat: 'YYYY',
-        dateFormat: 'ddd, MMMM D',
+        dateFormat: 'ddd, MMM D',
         format: 'M/D/YYYY',
         baseDateTime: new Date(),
         placeholder: null,
@@ -85,6 +85,7 @@ export class DatePicker extends StripesTheme {
                 this.refs.Dialog.open();
             } else {
                 this.refs.Dialog.close();
+                this.inputBlur();
             }
         });
     }
@@ -240,8 +241,8 @@ export class DatePicker extends StripesTheme {
                 lineHeight: '1em'
             },
             year: {
-                fontSize: spacing.baseFontSize * 1.5 + 'rem',
-                marginBottom: spacing.margin*4 + 'px',
+                fontSize: spacing.baseFontSize + 'rem',
+                marginBottom: spacing.margin*2 + 'px',
                 opacity: this.state.showYear ? '1.0' : '.5',
                 cursor: 'pointer'
             },
@@ -262,9 +263,19 @@ export class DatePicker extends StripesTheme {
                 minWidth: '300px'
             },
             dialogcard: {
-                minHeight: '470px'
+                height: '550px',
+                padding: 0
+            },
+            cardHeader: {
+                background: color.headerBackgroundColor,
+                color: 'white',
+                margin: 0,
+                padding: spacing.padding*4 + 'px'
+            },
+            cardBody: {
+                margin: spacing.margin*1.5 + 'px'
             }
-        }
+        };
 
         styleObj.container = Object.assign(styleObj.container, this.props.style);
 
@@ -293,10 +304,12 @@ export class DatePicker extends StripesTheme {
                     {...this.getDataSet(this.props, '-dialog')}
                     modal={true}
                     title={cleanDate}
-                    showClose={true}
-                    onClose={this.inputBlur}
                     dialogStyle={this.state.style.dialog}
                     cardStyle={this.state.style.dialogcard}
+                    cardHeaderStyle={this.state.style.cardHeader}
+                    cardBodyStyle={this.state.style.cardBody}
+                    forceBottomAlign={true}
+                    actions={<FlatButton onClick={this.toggleDialog}>Cancel</FlatButton>}
                 >
                     {this.state.showYear ? <YearSelector
                         ref="YearSelector"

@@ -22,6 +22,7 @@ export class YearSelector extends StripesTheme {
         super(props);
         this.selectYear = this.selectYear.bind(this);
         this.positionSelection = this.positionSelection.bind(this);
+        this.getYear = this.getYear.bind(this);
         this.state = {
             style: this.getStyles(),
             hover: false
@@ -46,23 +47,27 @@ export class YearSelector extends StripesTheme {
         if(!this.state.date) {
             return false;
         }
-        var selected = this.refs.yearHolder.querySelectorAll('[data-year="'+m(this.state.date).format("YYYY")+'"]')[0];
-        var fromtop = selected.offsetTop;
-        var height = this.refs.yearHolder.clientHeight;
+        let selected = this.refs.yearHolder.querySelectorAll('[data-year="'+m(this.state.date).format("YYYY")+'"]')[0];
+        let fromtop = selected.offsetTop;
+        let height = this.refs.yearHolder.clientHeight;
         this.refs.yearHolder.scrollTop = (fromtop - height/2 + selected.clientHeight/2);
     }
 
     selectYear(e) {
-        var year = e.target.getAttribute('data-year')*1;
+        let year = e.target.getAttribute('data-year')*1;
         if(year) {
             this.props.onClick(year);
         }
     }
 
+    getYear() {
+        return this.state.year;
+    }
+
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = {
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             yearcontainer: {
                 margin: 0,
                 padding: 0,
@@ -83,7 +88,7 @@ export class YearSelector extends StripesTheme {
                 cursor: 'pointer',
                 color: color.idleColor
             }
-        }
+        };
 
         styleObj.yearitemhover = Object.assign({
             color: 'blue'
@@ -99,13 +104,13 @@ export class YearSelector extends StripesTheme {
     }
 
     render() {
-        var year = m(this.state.date).format("YYYY");
-        var firstConstraint = this.props.dateConstraint[0] ? m(this.props.dateConstraint[0]) : m('2000-01-01');
-        var secondConstraint = this.props.dateConstraint[1] ? m(this.props.dateConstraint[1]) : m('2100-01-01');
-        var yearNode = [];
-        var startYear = m().format("YYYY")*1 - 50;
-        var endYear = year*1 + 50;
-        for(var yr = startYear; yr <= endYear; yr++) {
+        let year = m(this.state.date).format("YYYY");
+        let firstConstraint = this.props.dateConstraint[0] ? m(this.props.dateConstraint[0]) : m('2000-01-01');
+        let secondConstraint = this.props.dateConstraint[1] ? m(this.props.dateConstraint[1]) : m('2100-01-01');
+        let yearNode = [];
+        let startYear = m().format("YYYY")*1 - 50;
+        let endYear = year*1 + 50;
+        for(let yr = startYear; yr <= endYear; yr++) {
             if(yr >= firstConstraint.format("YYYY")*1 && yr <= secondConstraint.format("YYYY")*1) {
                 yearNode.push(<li
                     key={"year" + yr}

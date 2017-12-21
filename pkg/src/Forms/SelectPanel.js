@@ -107,12 +107,7 @@ export class SelectPanel extends StripesTheme {
         let top = parentHeight + spacing.dropDownOffset;
         let left = parentLeft;
         if(isFixedDom.fixed && !this.isIE()) {
-            //console.log("parent.offsetLeft: " + parent.offsetLeft);
-            //console.log("parent.offsetTop: +" + parent.offsetTop);
-            //console.log("parentClient.height: +" + parentClient.height);
-            //console.log("parentClient: ",parentClient);
             top = spacing.dropDownOffset + parentClient.height + parentClient.y;
-            //top = parent.offsetTop + spacing.dropDownOffset + parentClient.height - isFixedDom.scrollTop + isFixedDom.top;
             left = isFixedDom.scrollLeft + parentClient.x;
         } else {
             top = top + resultHeight > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;

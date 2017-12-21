@@ -343,7 +343,6 @@ class DropDown extends StripesTheme {
     constructor(props) {
         super(props);
         this.openSelect = this.openSelect.bind(this);
-        this.closeSelect = this.closeSelect.bind(this);
         this.applyValue = this.applyValue.bind(this);
         this.getValue = this.getValue.bind(this);
         let resolvedMap = this.resolveItemMap(this.props.children);
@@ -419,16 +418,6 @@ class DropDown extends StripesTheme {
         }
     }
 
-    closeSelect(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if(!this.props.disabled) {
-            this.setState({
-                active: true
-            }, this.refs.selectPanel.close);
-        }
-    }
-
     getStyles() {
         let color = this.getColors()[this.props.type];
         let spacing = this.getSpacing()[this.props.type];
@@ -443,13 +432,12 @@ class DropDown extends StripesTheme {
         let icon = {
             fill: color.placeholderColor
         };
-
         styleObj.container = Object.assign(styleObj.container, this.props.style);
         styleObj.baseicon = baseicon;
         styleObj.icon = Object.assign(icon, this.props.iconStyle);
         styleObj.active.on = this.props.showFocus ? Object.assign(styleObj.active.on, styleObj.active.base) : {display: 'none'};
         styleObj.active.off = this.props.showFocus ? Object.assign(styleObj.active.off, styleObj.active.base) : {display: 'none'};
-
+        styleObj.dropOffset = spacing.padding*4.5 + 2;
         return styleObj;
     }
 
@@ -466,6 +454,7 @@ class DropDown extends StripesTheme {
                 />
                 <Icon
                     basestyle={this.state.style.baseicon}
+                    onClick={this.openSelect}
                     iconid={!this.state.active ? "dropdown":"dropup"}
                     size="15px"
                     type="primary"
@@ -479,7 +468,7 @@ class DropDown extends StripesTheme {
                     onSelect={this.applyValue}
                     onClose={this.onInputBlur}
                     width={this.state.inputWidth}
-                    dropOffset={35}
+                    dropOffset={this.state.style.dropOffset}
                 />
                 <span style={this.state.style.error}>{this.props.error}</span>
             </div>

@@ -262,31 +262,8 @@ class Sandbox extends React.Component {
               <DateTimePicker manual={true}
                               clockFormat="24hr"
                               timeFormat="HH:mm"
-                              dateConstraint={contraints}
+
               />
-
-                <div style={{padding: '30px', background: 'rgb(230,230,230)'}}>
-                    <FlatButton icon="cancel" iconColor="Blue">Clear</FlatButton>
-                    <FlatButton>Button Text</FlatButton>
-                    <RaisedButton>Button Text</RaisedButton>
-                    <RaisedButton type="primary">Button Text</RaisedButton>
-                </div>
-
-                <Tag onRemove={() => {return false; }} closeIconID='cancel'>Tag 1</Tag><Tag>Tag 2</Tag><Tag>lajhfddkjshkj</Tag>
-
-                <Fieldset title="Show Trailers with...">
-                    <CheckBox
-                        label="Option 1"
-                    />
-                    <CheckBox
-                        label="Option 2"
-                    />
-                    <CheckBox
-                        label="Option 3"
-                    />
-                </Fieldset>
-
-
             </div>
         )
 

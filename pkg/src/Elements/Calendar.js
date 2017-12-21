@@ -1,7 +1,6 @@
 "use strict"
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Icon } from  '../Symbols/Icon'
 import { A } from  '../Layout/Typography'
@@ -15,13 +14,14 @@ export class Calendar extends StripesTheme {
         type: 'default',
         onClick: null,
         dateConstraint: [null,null]
-    }
+    };
 
     constructor(props) {
         super(props);
         this.modifyDate = this.modifyDate.bind(this);
         this.selectDate = this.selectDate.bind(this);
         this.switchToDate = this.switchToDate.bind(this);
+        this.getDate = this.getDate.bind(this);
         this.state = {
             style: this.getStyles(),
             hover: false
@@ -45,7 +45,7 @@ export class Calendar extends StripesTheme {
 
     selectDate(e) {
         e.preventDefault();
-        var date = new Date(e.target.getAttribute('data-date'));
+        let date = new Date(e.target.getAttribute('data-date'));
         if(date) {
             this.props.onClick(date);
         }
@@ -58,10 +58,14 @@ export class Calendar extends StripesTheme {
         });
     }
 
+    getDate() {
+        return this.state.date;
+    }
+
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var styleObj = {
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             base: {
                 borderRadius: spacing.borderRadius + 'px',
                 userSelect: 'none'
@@ -80,19 +84,19 @@ export class Calendar extends StripesTheme {
                 display: 'inline-block',
                 cursor: 'pointer',
                 flexGrow: 1,
-                width: '10%',
+                width: '30px',
                 textAlign: 'center',
-                padding: spacing.padding*2 + 'px'
+                padding: spacing.padding + 'px',
             },
             montharrow: {
-                width: spacing.padding*4 + 'px'
+                width: spacing.padding + 'px'
             },
             monthtitle: {
-                //color: 'white',
-                fontSize: spacing.baseFontSize*1.25 + 'rem',
+                fontSize: spacing.baseFontSize-.2 + 'rem',
+                fontWeight: 600,
                 width: '80%',
                 textAlign: 'center',
-                lineHeight: spacing.padding*8 + 'px',
+                lineHeight: spacing.padding*4+2 + 'px',
                 color: color.idleColor
             },
             days: {
@@ -105,12 +109,15 @@ export class Calendar extends StripesTheme {
                 alignContent: 'stretch',
                 textAlign: 'center',
                 width: 100/7 + '%',
-                height: '100%',
+                //height: '100%',
+                fontSize: spacing.baseFontSize-.2 + 'rem',
                 padding: spacing.padding * 2 + 'px ' + spacing.padding * 1.5 + 'px',
                 cursor: 'pointer',
                 color: 'black'
             }
-        }
+
+        };
+        styleObj.dayHeader = Object.assign({opacity: '.5'}, styleObj.dayitem);
         styleObj.dayitemhover = Object.assign({
             backgroundColor: color.backgroundHover
         }, styleObj.dayitem);
@@ -126,33 +133,33 @@ export class Calendar extends StripesTheme {
     }
 
     render() {
-        var month = m(this.state.date).format("MMMM YYYY");
-        var calOnFirstDay = m(this.state.date).date(1);
-        var calOnLastDay = m(this.state.date).date(m(calOnFirstDay).daysInMonth());
-        var firstday = m(calOnFirstDay).isoWeekday() - 1;
+        let month = m(this.state.date).format("MMMM YYYY");
+        let calOnFirstDay = m(this.state.date).date(1);
+        let calOnLastDay = m(this.state.date).date(m(calOnFirstDay).daysInMonth());
+        let firstday = m(calOnFirstDay).isoWeekday() - 1;
         //console.log('first day: ', m(calOnFirstDay).isoWeekday());
 
-        var daysOfWeek = [];
-        var days = [];
+        let daysOfWeek = [];
+        let days = [];
         daysOfWeek.push([
-            <span key="day1" style={this.state.style.dayitem}>Sun</span>,
-            <span key="day2" style={this.state.style.dayitem}>Mon</span>,
-            <span key="day3" style={this.state.style.dayitem}>Tue</span>,
-            <span key="day4" style={this.state.style.dayitem}>Wed</span>,
-            <span key="day5" style={this.state.style.dayitem}>Thu</span>,
-            <span key="day6" style={this.state.style.dayitem}>Fri</span>,
-            <span key="day7" style={this.state.style.dayitem}>Sat</span>
+            <span key="day1" style={this.state.style.dayHeader}>S</span>,
+            <span key="day2" style={this.state.style.dayHeader}>M</span>,
+            <span key="day3" style={this.state.style.dayHeader}>T</span>,
+            <span key="day4" style={this.state.style.dayHeader}>W</span>,
+            <span key="day5" style={this.state.style.dayHeader}>T</span>,
+            <span key="day6" style={this.state.style.dayHeader}>F</span>,
+            <span key="day7" style={this.state.style.dayHeader}>S</span>
         ]);
         if(firstday == 6) {
             firstday = -1;
         }
-        var firstConstraint = this.props.dateConstraint[0] ? m(this.props.dateConstraint[0]) : m('2000-01-01');
-        var secondConstraint = this.props.dateConstraint[1] ? m(this.props.dateConstraint[1]) : m('2100-01-01');
-        for (var i = firstday*-1; i <= m(calOnFirstDay).daysInMonth(); i++) {
-            var day = i > 0 ? i : '';
-            var thisDate = m(calOnFirstDay).date(i);
-            var isSelectedDate = thisDate.format("L") === m(this.props.date).format("L");
-            var isAvailable = thisDate.isBetween(firstConstraint, secondConstraint, 'day');
+        let firstConstraint = this.props.dateConstraint[0] ? m(this.props.dateConstraint[0]) : m('2000-01-01');
+        let secondConstraint = this.props.dateConstraint[1] ? m(this.props.dateConstraint[1]) : m('2100-01-01');
+        for (let i = firstday*-1; i <= m(calOnFirstDay).daysInMonth(); i++) {
+            let day = i > 0 ? i : '';
+            let thisDate = m(calOnFirstDay).date(i);
+            let isSelectedDate = thisDate.format("L") === m(this.props.date).format("L");
+            let isAvailable = thisDate.isBetween(firstConstraint, secondConstraint, 'day');
             days.push(
                 <A
                     key={"date" + i}
@@ -167,8 +174,8 @@ export class Calendar extends StripesTheme {
           );
         }
 
-        var hasPreviousMonth = calOnFirstDay.isAfter(firstConstraint);
-        var hasNextMonth = calOnLastDay.isBefore(secondConstraint);
+        let hasPreviousMonth = calOnFirstDay.isAfter(firstConstraint);
+        let hasNextMonth = calOnLastDay.isBefore(secondConstraint);
 
         return (
             <section
@@ -177,18 +184,22 @@ export class Calendar extends StripesTheme {
             >
                 <div style={this.state.style.months}>
                     {hasPreviousMonth ? <Icon
+                        key="ileft"
                         iconid="left"
                         style={this.state.style.montharrow}
                         basestyle={this.state.style.montharrowbase}
+                        color="black"
                         onClick={() => { this.modifyDate(-1, 'months'); }}
-                    /> : <div style={this.state.style.montharrowbase}></div> }
+                    /> : <div key="month" style={this.state.style.montharrowbase}/> }
                     <div style={this.state.style.monthtitle}>{month}</div>
                     {hasNextMonth ? <Icon
+                        key="iright"
                         iconid="right"
+                        color="black"
                         style={this.state.style.montharrow}
                         basestyle={this.state.style.montharrowbase}
                         onClick={() => { this.modifyDate(1, 'months'); }}
-                    /> : <div style={this.state.style.montharrowbase}></div> }
+                    /> : <div style={this.state.style.montharrowbase}/> }
                 </div>
                 <div style={this.state.style.days}>
                     {daysOfWeek}

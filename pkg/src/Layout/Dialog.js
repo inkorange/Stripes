@@ -13,6 +13,8 @@ export class Dialog extends StripesTheme {
         style: {},
         dialogStyle: {},
         cardStyle: {},
+        cardHeaderStyle: {},
+        cardBodyStyle: {},
         type: 'default',
         showClose: false,
         title: null,
@@ -21,6 +23,7 @@ export class Dialog extends StripesTheme {
         className: "",
         modal: true,
         anchorTo: null,
+        forceBottomAlign: false,
         onClose: () => { return false; }
     }
 
@@ -143,6 +146,7 @@ export class Dialog extends StripesTheme {
         styleObj.container = Object.assign(styleObj.container, this.props.style);
         styleObj.dialog = Object.assign(styleObj.dialog, this.props.dialogStyle);
         styleObj.card.base = Object.assign(styleObj.card.base, this.props.cardStyle);
+        styleObj.card.header = Object.assign(styleObj.card.header, this.props.cardHeaderStyle);
         return styleObj;
     }
 
@@ -165,6 +169,8 @@ export class Dialog extends StripesTheme {
                         style={this.state.style.card.base}
                         headerStyle={this.state.style.card.header}
                         footerStyle={this.state.style.card.footer}
+                        bodyStyle={this.props.cardBodyStyle}
+                        forceBottomAlign={this.props.forceBottomAlign}
                     >
                         {this.props.children}
                     </Card>
