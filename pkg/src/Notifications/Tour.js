@@ -228,6 +228,9 @@ export class Tour extends StripesTheme {
                 opacity: this.state ? this.state.show ? 1 : 0 : 0,
                 margin: 0
             },
+            cardFooter: {
+                padding: 0
+            },
             screen: {
                 position: 'absolute',
                 top: screenDimensions.y,
@@ -243,10 +246,12 @@ export class Tour extends StripesTheme {
                 opacity: this.state ? this.state.show ? 1 : 0 : 0
             },
             count: {
-                float: 'left',
+                position: 'absolute',
+                top: 0,
+                right: 0,
                 fontSize: '90%',
                 opacity: .85,
-                padding: spacing.padding * 3 + 'px'
+                padding: spacing.padding*5+2 + 'px ' + spacing.padding*4 + 'px 0 0'
             }
         };
     }
@@ -262,11 +267,12 @@ export class Tour extends StripesTheme {
                     key="card"
                     ref="tourCard"
                     style={this.state.style.card}
+                    footerStyle={this.state.style.cardFooter}
                     title={this.state.cardTitle}
                     actions={[
                         this.props.showStepCount ? <span key="sc" style={this.state.style.count}>{this.step + 1} of {this.props.script.length}</span> : null,
-                        this.step < this.props.script.length-1 ? <FlatButton key="action1" type="secondary" onClick={this.stop}>DONE</FlatButton> : null,
-                        this.step === this.props.script.length-1 ? <FlatButton key="action2" onClick={this.stop} type="secondary">DONE</FlatButton> : <FlatButton key="action2" onClick={this.nextStep} type="primary">NEXT</FlatButton>
+                        this.step < this.props.script.length-1 ? <FlatButton key="action1" onClick={this.stop}>DONE</FlatButton> : null,
+                        this.step === this.props.script.length-1 ? <FlatButton key="action2" onClick={this.stop}>DONE</FlatButton> : <FlatButton key="action2" onClick={this.nextStep}>NEXT</FlatButton>
                     ]}
                 >
                     {this.state.cardSummary}

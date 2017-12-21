@@ -13,9 +13,8 @@ import { A, Title, H1, H2, H3 } from '../src/Typography'
 import { FlatButton, RaisedButton, RadioButtonGroup, CheckBox, CheckBoxGroup, Item, Fieldset, TextBox, TextArea, DropDown, DatePicker, TimePicker, DateTimePicker, Slider, RangeSlider } from '../src/Forms'
 import { Dialog, Card, LeftNav, MenuItem, TwoColumnLayout } from '../src/Layouts'
 import {Icon} from  '../src/Symbols/Icon'
-import {Tooltip} from  '../src/Notifications/Tooltip'
+import {Tooltip, Alert, Tour} from  '../src/Notifications'
 import {Tag, ShowHide, TabMenu, IconMenu} from '../src/Layouts'
-import {Alert, Tour} from '../src/Notifications'
 import {ProgressSpinner} from '../src/Elements/ProgressSpinner'
 require('es6-object-assign').polyfill();
 
@@ -209,6 +208,7 @@ class Sandbox extends React.Component {
         //this.updateTable = this.updateTable.bind(this);
         this.toggleDialog = this.toggleDialog.bind(this);
         this.getValues = this.getValues.bind(this);
+        this.startTour = this.startTour.bind(this);
         this.state = {
             data: dataObj,
             showTooltip: false,
@@ -252,28 +252,42 @@ class Sandbox extends React.Component {
         console.log(this.refs.checkboxgroup.getValues());
     }
 
-    render() {
-        let earliestDate = m().subtract(1, "years");
-        let latestDate = m().add(30, "days");
-        let contraints = [earliestDate.format('YYYY-MM-DD'), latestDate.format('YYYY-MM-DD')];
-        return (
-            <div style={{margin:'30px', padding: '30px'}}>
+    startTour() {
+        this.refs.Tour.start();
+    }
 
-              <DateTimePicker manual={true}
-                              timeFormat="HH:mm"
-              />
-                <DateTimePicker manual={true}
-                                clockFormat="24hr"
-                                timeFormat="HH:mm"
-                />
-                <DateTimePicker manual={true}
-                                timeFormat="h:mm a"
-                />
-                <DateTimePicker manual={true}
-                                clockFormat="24hr"
-                                timeFormat="h:mm a"
-                />
+    render() {
+
+        let script = [
+            {
+                title: "Note Iconography",
+                summary: "This icon is typically used to call out added notes to the application.",
+                location: [null, "top", "350px"], //that first null will make the card centered on the target
+                target: ".Icon2",
+                focus: [null,null, "200px"]
+            },
+            {
+                title: "Admin Iconography",
+                summary: "You would find this icon in the left nav, and it brings the user to the admin section of the application.",
+                location: ["right", "top", "350px"],
+                target: ".Icon1",
+                focus: ["25%","75%", "150px", "100px"] //since we have a target value, first 2 values here will be ignored.
+            }
+        ];
+
+        return (
+            <div style={{margin:'30px', position: 'relative', padding: '30px'}}>
+                <Icon iconid="admin"
+                      className="Icon1"
+                      basestyle={{position: "absolute", top: "25%", left: "10%"}} size="large"/>
+                <Icon iconid="note"
+                      className="Icon2"
+                      basestyle={{position: "absolute", top: "100%", right: "10%"}}
+                      size="large"/>
+                <RaisedButton onClick={this.startTour} type="primary">Start Tour</RaisedButton>
+                <Tour key="Tour" ref="Tour" script={script} />
             </div>
+
         )
 
         /*
