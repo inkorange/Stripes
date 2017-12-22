@@ -21,8 +21,9 @@ class StripesDemo extends React.Component {
             <article className="main_content_child" style={{padding: '110px 5% 0px 5%'}}>
 
                 <Title style={mainheaderStyle}>Zebra Stripes Design System: An Easily Re-Usable Web Component Architecture Built on ReactJS.</Title>
+                <h3 style={taglineStyle}>Introducing the first official release, v2018.1, with extended support for Material and Zebra design patterns.</h3>
 
-                <p>Welcome to the Stripes Design Library (v0.3.0) authored by the engineers of the TLA Application.</p>
+                <p>Welcome to the Stripes Design Library (v2018.1) authored by the engineers of the TLA Application.</p>
 
                 <a href="https://facebook.github.io/react/" target="_blank"><img src="./images/react.jpg" style={{float: 'right', padding: '20px'}} /></a>
 
@@ -72,6 +73,17 @@ const mainheaderStyle = {
     fontWeight: '250',
     lineHeight: '1.4',
     textShadow: '0 1px 0 rgba(0,0,0,.75)'
+};
+
+const taglineStyle = {
+    background: '#005983',
+    color: 'white',
+    fontSize: '20px',
+    fontWeight: '200',
+    marginTop: '-40px',
+    marginBottom: '40px',
+    padding: '16px',
+    boxShadow: '0 5px 15px -5px rgba(0,0,0,.5) inset'
 };
 
 module.exports = StripesDemo;

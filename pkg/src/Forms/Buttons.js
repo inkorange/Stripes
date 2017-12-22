@@ -40,7 +40,7 @@ class FlatButton extends StripesTheme {
             button: {
                 color: color.textColor,
                 borderRadius: spacing.borderRadius + 'px',
-                fontWeight: 500,
+                fontWeight: 400,
                 fontSize: '1.4rem',
                 border: 'none',
                 verticalAlign: 'middle',
@@ -48,8 +48,8 @@ class FlatButton extends StripesTheme {
                 textTransform: 'uppercase',
                 outline: 'none',
                 padding: this.props.icon
-                    ? '0px ' + spacing.padding*2 + 'px 0px ' + spacing.padding*5 + 'px'
-                    : '0px ' + spacing.padding*2 + 'px',
+                    ? '0px ' + spacing.padding + 'px 0px ' + spacing.padding*4 + 'px'
+                    : '0px ' + spacing.padding + 'px',
                 margin: spacing.padding + 'px ',
                 transition: '.5s background-color',
                 opacity: this.props.disabled ? .5 : 1.0,
@@ -57,7 +57,7 @@ class FlatButton extends StripesTheme {
                 position: 'relative',
                 overflow: 'hidden',
                 lineHeight: spacing.padding * 4 + 'px',
-                minWidth: spacing.padding * 11 + 'px',
+                minWidth: spacing.padding * 8 + 'px',
                 basePadding: spacing.padding
 
             },
@@ -75,7 +75,7 @@ class FlatButton extends StripesTheme {
                 <Icon
                     iconid={this.props.icon}
                     size="small"
-                    basestyle={{position: 'absolute', left: this.state.style.basePadding*2 + 'px', top: (this.state.style.basePadding/2) + 'px'}}
+                    basestyle={{position: 'absolute', left: this.state.style.basePadding + 'px', top: (this.state.style.basePadding/2) + 'px'}}
                     color={this.props.iconColor ? this.props.iconColor : this.state.style.iconColor}
                 />);
         }
@@ -135,7 +135,7 @@ class RaisedButton extends StripesTheme {
             button: {
                 color: color.textColor,
                 borderRadius: spacing.borderRadius + 'px',
-                fontWeight: 500,
+                fontWeight: 400,
                 fontSize: '1.4rem',
                 border: 'none',
                 verticalAlign: 'middle',
@@ -143,8 +143,8 @@ class RaisedButton extends StripesTheme {
                 textTransform: 'uppercase',
                 outline: 'none',
                 padding: this.props.icon
-                    ? '0px ' + spacing.padding*2 + 'px 0px ' + spacing.padding*5 + 'px'
-                    : '0px ' + spacing.padding*2 + 'px',
+                    ? '0px ' + spacing.padding + 'px 0px ' + spacing.padding*4 + 'px'
+                    : '0px ' + spacing.padding + 'px',
                 margin: spacing.padding + 'px ',
                 transition: '.5s background-color',
                 opacity: this.props.disabled ? .5 : 1.0,
@@ -153,7 +153,7 @@ class RaisedButton extends StripesTheme {
                 position: 'relative',
                 overflow: 'hidden',
                 lineHeight: spacing.padding * 4 + 'px',
-                minWidth: spacing.padding * 11 + 'px',
+                minWidth: spacing.padding * 8 + 'px',
                 basePadding: spacing.padding
             },
             ink: this.getBaseStyling(spacing, color).animation.ink,
@@ -170,7 +170,7 @@ class RaisedButton extends StripesTheme {
                 <Icon
                     iconid={this.props.icon}
                     size="small"
-                    basestyle={{position: 'absolute', left: this.state.style.basePadding*2 + 'px', top: (this.state.style.basePadding/2) + 'px'}}
+                    basestyle={{position: 'absolute', left: this.state.style.basePadding + 'px', top: (this.state.style.basePadding/2) + 'px'}}
                     color={this.props.iconColor ? this.props.iconColor : this.state.style.iconColor}
                 />);
         }

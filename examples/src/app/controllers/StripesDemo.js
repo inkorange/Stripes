@@ -72,11 +72,10 @@ class StripesDemo extends React.Component {
 
     _scrollToFromMenu(e) {
         e.preventDefault();
-        var target = e.target.getAttribute("data-anchor").substring(1);
-        var deviation = 0;
-        var ypos = document.getElementById(target).offsetTop - deviation;
+        let target = e.target.getAttribute("data-anchor").substring(1);
+        let deviation = 0;
+        let ypos = document.getElementById(target).offsetTop - deviation;
         window.location.hash = '#'+target;
-        //console.log(document.getElementById(target).offsetTop, ypos);
         window.scrollTo(0, ypos);
         return false;
     }
@@ -121,7 +120,7 @@ class StripesDemo extends React.Component {
         };
 
         let navSideStyle = {
-            marginTop: '-40px',
+            marginTop: '-20px',
             width: '160px',
             position: 'fixed'
         };

@@ -276,16 +276,26 @@ class Sandbox extends React.Component {
         ];
 
         return (
-            <div style={{margin:'30px', position: 'relative', padding: '30px'}}>
-                <Icon iconid="admin"
-                      className="Icon1"
-                      basestyle={{position: "absolute", top: "25%", left: "10%"}} size="large"/>
-                <Icon iconid="note"
-                      className="Icon2"
-                      basestyle={{position: "absolute", top: "100%", right: "10%"}}
-                      size="large"/>
-                <RaisedButton onClick={this.startTour} type="primary">Start Tour</RaisedButton>
-                <Tour key="Tour" ref="Tour" script={script} />
+            <div style={{margin:'30px', position: 'relative', padding: '30px', background: 'black'}}>
+                <FlatButton>MYBUTTON</FlatButton><FlatButton type="primary">MYBUTTON</FlatButton><RaisedButton onClick={this.startTour} type="primary">Start Tour</RaisedButton>
+                <FlatButton type="primary" icon="home" iconColor="white">Home</FlatButton>
+                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
+                <Dialog ref="Dialog"
+                        modal={true}
+                        title="This is the Card Title"
+                        width="50%"
+                        key="dialog1"
+                        actions={[
+                            <FlatButton key="action1a" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
+                            <FlatButton key="action2b" onClick={() => { this.toggleDialog(false); }}>Cancel</FlatButton>
+                        ]}
+                >
+                    <p>This is the content area of the dialog.This is the content area of the dialog.This is the content
+                        area of the dialog.This is the content area of the dialog.This is the content area of the
+                        dialog.This is the content area of the dialog.This is the content area of the dialog.This is the
+                        content area of the dialog.</p>
+                </Dialog>
+
             </div>
 
         )

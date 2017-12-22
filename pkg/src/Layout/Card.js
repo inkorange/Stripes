@@ -42,7 +42,7 @@ export class Card extends StripesTheme {
                 transition: "all .25s ease-in-out",
                 zIndex: "2",
                 background: 'white',
-                padding: spacing.padding + "px 0",
+                padding: spacing.padding + "px 0 0 0",
                 boxShadow: '0 5px 15px rgba(0,0,0,.5)'
             },
             header: {
@@ -57,7 +57,7 @@ export class Card extends StripesTheme {
                 margin: spacing.padding*4 + "px"
             },
             footer: {
-                padding: '0 ' + spacing.padding*2 + 'px ' + spacing.padding*2 + 'px '  + spacing.padding + 'px',
+                padding: '0 ' + spacing.padding + 'px ' + spacing.padding + 'px 0',
                 textAlign: 'right',
                 background: 'white',
                 zIndex: 1

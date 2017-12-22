@@ -22,11 +22,12 @@ Stripes({
 });
 
 render((
-    <BrowserRouter history={ browserHistory }>
-        <div>
-            <Route exact path="/" render={() => <Redirect to={"home"} />} />
-            <Route exact path="/home" component={MainLayout} />
-            <Route exact path="/components" component={MainLayout} />
-        </div>
-    </BrowserRouter>
+    <div>
+        <BrowserRouter history={ browserHistory }>
+            <div>
+                <Route exact path="/" render={() => <Redirect to={"home"} />} />
+                <Route path="*" component={MainLayout}/>
+            </div>
+        </BrowserRouter>
+    </div>
 ),  document.getElementById('app'));
