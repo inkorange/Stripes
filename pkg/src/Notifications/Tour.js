@@ -251,7 +251,7 @@ export class Tour extends StripesTheme {
                 right: 0,
                 fontSize: '90%',
                 opacity: .85,
-                padding: spacing.padding*5+2 + 'px ' + spacing.padding*4 + 'px 0 0'
+                padding: spacing.padding*4 + 'px'
             }
         };
     }

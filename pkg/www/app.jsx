@@ -213,7 +213,8 @@ class Sandbox extends React.Component {
             data: dataObj,
             showTooltip: false,
             saveIconHover: false,
-            isloading: false
+            isloading: false,
+            perpage: null
         };
 
         this.script = [
@@ -276,26 +277,27 @@ class Sandbox extends React.Component {
         ];
 
         return (
-            <div style={{margin:'30px', position: 'relative', padding: '30px', background: 'black'}}>
-                <FlatButton>MYBUTTON</FlatButton><FlatButton type="primary">MYBUTTON</FlatButton><RaisedButton onClick={this.startTour} type="primary">Start Tour</RaisedButton>
-                <FlatButton type="primary" icon="home" iconColor="white">Home</FlatButton>
-                <RaisedButton key="action1" onClick={() => { this.toggleDialog(true); }}>Launch Dialog</RaisedButton>
-                <Dialog ref="Dialog"
-                        modal={true}
-                        title="This is the Card Title"
-                        width="50%"
-                        key="dialog1"
-                        actions={[
-                            <FlatButton key="action1a" onClick={() => { this.toggleDialog(false); }}>Submit</FlatButton>,
-                            <FlatButton key="action2b" onClick={() => { this.toggleDialog(false); }}>Cancel</FlatButton>
-                        ]}
+            <div style={{margin:'30px', position: 'relative', padding: '30px'}}>
+                <Card
+                    key="card2"
+                    style={{height: "300px"}}
+                    headerStyle={{backgroundColor: 'red'}}
+                    title="Button Actions and Styling"
+                    borders={true}
+                    actions={[
+                        <FlatButton onClick={() => {alert('YES!');}} key="action1b">Yes</FlatButton>,
+                        <RaisedButton onClick={() => {alert('NO!');}} key="action2b" type="primary">No</RaisedButton>
+                    ]}
                 >
-                    <p>This is the content area of the dialog.This is the content area of the dialog.This is the content
-                        area of the dialog.This is the content area of the dialog.This is the content area of the
-                        dialog.This is the content area of the dialog.This is the content area of the dialog.This is the
-                        content area of the dialog.</p>
-                </Dialog>
+                    This is the card body.
+                </Card>
 
+                <TabularDetail
+                    style={{paddingLeft: '50px'}}
+                    height={this.state.height}
+                    data={this.state.data}
+                    columnSelector={true}
+                />
             </div>
 
         )

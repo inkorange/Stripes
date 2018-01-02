@@ -10,6 +10,7 @@ export class Card extends StripesTheme {
         headerStyle: {},
         footerStyle: {},
         bodyStyle: {},
+        borders: false,
         type: 'default',
         title: null,
         actions: null,
@@ -37,30 +38,33 @@ export class Card extends StripesTheme {
 
     getStyles() {
         const spacing = this.getSpacing()[this.props.type];
+        const colors = this.getColors()[this.props.type];
         let styleObj = {
             base: {
                 transition: "all .25s ease-in-out",
                 zIndex: "2",
                 background: 'white',
-                padding: spacing.padding + "px 0 0 0",
+                padding: 0,
                 boxShadow: '0 5px 15px rgba(0,0,0,.5)'
             },
             header: {
-                margin: spacing.padding*4 + "px",
+                padding: spacing.padding*4 + "px",
                 fontSize: '2rem',
                 fontWeight: '400',
                 color: 'black',
                 zIndex: 1,
-                position: 'relative'
+                position: 'relative',
+                borderBottom: this.props.borders ? 'solid 1px ' + colors.border : null
             },
             body: {
-                margin: spacing.padding*4 + "px"
+                padding: '0 ' + spacing.padding*4 + "px " + spacing.padding*4 + "px " + spacing.padding*4 + "px"
             },
             footer: {
                 padding: '0 ' + spacing.padding + 'px ' + spacing.padding + 'px 0',
                 textAlign: 'right',
                 background: 'white',
-                zIndex: 1
+                zIndex: 1,
+                borderTop: this.props.borders ? 'solid 1px ' + colors.border : null
             },
             inactiveScreen: {
                 position: 'absolute',

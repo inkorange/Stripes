@@ -230,9 +230,9 @@ export class TabularDetail extends StripesTheme {
                     <div style={{position: 'relative', display: 'inline-block', paddingRight: this.props.columnSelector ? '40px' : 0}}>
                         <label>Sort By: </label>
                         <DropDown
-                            placeholder="All trailer types"
                             showEmpty={true}
                             onChange={this.headerClick}
+                            style={{marginTop: 0, marginBottom: 0}}
                         >
                             {fieldOptions}
                         </DropDown>

@@ -134,7 +134,7 @@ var style = {
         color: 'white'
     },
     details: {
-        marginTop: '-20px'
+        //marginTop: '-20px'
     },
     properties: {
         backgroundColor: '#f3f3f3',

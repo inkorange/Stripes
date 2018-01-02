@@ -330,7 +330,7 @@ class DropDown extends StripesTheme {
     static defaultProps = {
         style:  {},
         type: 'inputs',
-        placeholder: 'Select...',
+        placeholder: null,
         error: null,
         width: null,
         iconStyle: {},
@@ -444,7 +444,9 @@ class DropDown extends StripesTheme {
     render() {
         return (
             <div ref="DropDown" style={this.state.style.container} {...this.getDataSet(this.props)}>
+                {this.props.placeholder ?
                 <Placeholder active={this.state.active} hasValue={this.state.value !== null && this.state.value !== ""} name={this.props.placeholder} />
+                : null}
                 <input
                     ref="input"
                     onClick={this.openSelect}

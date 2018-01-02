@@ -48,6 +48,7 @@ export class CardElement extends React.Component {
                         {name: 'style', type: 'object', desc: 'Extends the base styling of the Card element.', default: '{}'},
                         {name: 'headerStyle', type: 'object', desc: 'Extends the styling within the header section of the Card.', default: '{}'},
                         {name: 'footerStyle', type: 'object', desc: 'Extends the styling in the footer section of the Card.', default: '{}'},
+                        {name: 'borders', type: 'boolean', desc: 'Will render a border under the header and above the footer.', default: 'false'},
                         {name: 'title', type: 'string', desc: 'Text to display in the header of the Card element.', default: 'null'},
                         {name: 'actions', type: '[ReactComponent(s)]', desc: 'A collection of React component objects to be included in the footer. Bindings are expected to already be attached to the elements, as the Card element will not initial event handlers on children elements.', default: 'null'},
                         {name: 'fillContainer', type: 'boolean', desc: 'This toggle forces the Card container to fill up the last relatively styled parent container.', default: 'false'},
