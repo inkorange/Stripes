@@ -394,7 +394,7 @@ class DropDown extends StripesTheme {
         if(val !== undefined) {
             this.setState({
                 value: val.value,
-                label: val.value ? val.label : null,
+                label: val.label,
                 active: false
             }, () => {
                 this.refs.input.value = this.state.value ? this.state.label : null;

@@ -202,7 +202,7 @@ export class TimePicker extends StripesTheme {
                 color: color.textColor
             },
             dialog: {
-                width: '325px'
+                width: '350px'
             },
             dialogcard: {
                 minHeight: '470px',

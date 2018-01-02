@@ -15,6 +15,7 @@ export class YearSelector extends StripesTheme {
         date: new Date(),
         type: 'default',
         onClick: null,
+        height: 400,
         dateConstraint: [null,null]
     }
 
@@ -72,11 +73,12 @@ export class YearSelector extends StripesTheme {
                 margin: 0,
                 padding: 0,
                 overflow: 'auto',
-                position: 'absolute',
-                top: '130px',
-                right: 0,
-                left: 0,
-                bottom: 0,
+                //position: 'absolute',
+                //top: '130px',
+                //right: 0,
+                //left: 0,
+                //bottom: 0,
+                height: this.props.height + 'px',
                 lineHeight: '1em'
             },
             yearitem: {

@@ -1,7 +1,7 @@
 "use strict"
 
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Dialog, Paper } from '../Layouts'
 import {TextBox} from  './Inputs'
@@ -103,7 +103,8 @@ export class DatePicker extends StripesTheme {
     showYearPanel() {
         this.setState({
             showCalendar: false,
-            showYear: true
+            showYear: true,
+            panelHeight: ReactDOM.findDOMNode(this.refs.Dialog).querySelector('.Card > div').offsetHeight
         }, this.updateStyles);
     }
 
@@ -263,7 +264,7 @@ export class DatePicker extends StripesTheme {
                 minWidth: '300px'
             },
             dialogcard: {
-                height: '550px',
+                //height: '550px',
                 padding: 0
             },
             cardHeader: {
@@ -273,7 +274,8 @@ export class DatePicker extends StripesTheme {
                 padding: spacing.padding*4 + 'px'
             },
             cardBody: {
-                margin: spacing.margin*1.5 + 'px'
+                margin: 0,
+                padding: '0 ' +  spacing.margin + 'px'
             }
         };
 
@@ -308,12 +310,13 @@ export class DatePicker extends StripesTheme {
                     cardStyle={this.state.style.dialogcard}
                     cardHeaderStyle={this.state.style.cardHeader}
                     cardBodyStyle={this.state.style.cardBody}
-                    forceBottomAlign={true}
+
                     actions={<FlatButton onClick={this.toggleDialog}>Cancel</FlatButton>}
                 >
                     {this.state.showYear ? <YearSelector
                         ref="YearSelector"
                         onClick={this.setYear}
+                        height={this.state.panelHeight}
                         date={this.state.date ? this.state.date : this.props.baseDateTime}
                         dateConstraint={this.props.dateConstraint}
                     /> : null }

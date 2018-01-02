@@ -278,19 +278,19 @@ class Sandbox extends React.Component {
 
         return (
             <div style={{margin:'30px', position: 'relative', padding: '30px'}}>
-                <Card
-                    key="card2"
-                    style={{height: "300px"}}
-                    headerStyle={{backgroundColor: 'red'}}
-                    title="Button Actions and Styling"
-                    borders={true}
-                    actions={[
-                        <FlatButton onClick={() => {alert('YES!');}} key="action1b">Yes</FlatButton>,
-                        <RaisedButton onClick={() => {alert('NO!');}} key="action2b" type="primary">No</RaisedButton>
-                    ]}
+                <DateTimePicker/>
+                <FlatButton onClick={()=> { alert('hi'); }} icon="cancel" iconColor="blue">Clear</FlatButton>
+
+                <DropDown
+                    showEmpty={true}
+                    width="250px"
                 >
-                    This is the card body.
-                </Card>
+                    <Item value={null} defaultChecked={true} key="option0">--- select one ---</Item>
+                    <Item value="1" key="option1">Select Option 1</Item>
+                    <Item value="2" key="option2">Select Option 2</Item>
+                    <Item value="3" key="option3">Select Option 3</Item>
+                    <Item value="13" key="option13">Super long input for this select Option 4</Item>
+                </DropDown>
 
                 <TabularDetail
                     style={{paddingLeft: '50px'}}
