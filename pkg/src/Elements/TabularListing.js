@@ -6,12 +6,13 @@ import ReactDOM from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Icon } from  '../Symbols/Icon'
 import { FlatButton } from  '../Forms/Buttons'
+import { ProgressSpinner } from  '../Elements/ProgressSpinner'
 import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell, ColumnSelector} from '../Table'
 
 export class TabularListing extends StripesTheme {
 
     static defaultProps = {
-        type: 'default',
+        type: 'table',
         columnSelector: false,
         data: null,
         height: null,
@@ -99,6 +100,7 @@ export class TabularListing extends StripesTheme {
     }
 
     getStyles() {
+        const spacing = this.getSpacing()[this.props.type];
         let styleObj = {
             base: {
                 overflow: 'hidden'
@@ -106,6 +108,19 @@ export class TabularListing extends StripesTheme {
             header: {
                 width: '100%',
                 overflowX: 'auto'
+            },
+            listSummary: {
+                position: 'relative',
+                top: '1px',
+                lineHeight: spacing.padding*6 + 'px',
+                display: 'inline-block'
+            },
+            showMoreStyle: {
+                textAlign: 'right',
+                fontSize: spacing.fontSize,
+                paddingTop: spacing.cell.padding,
+                backgroundColor: 'white',
+                boxShadow: '0 2px 0 rgb(150,150,150) inset'
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
@@ -168,22 +183,16 @@ export class TabularListing extends StripesTheme {
             );
         });
 
-        let showMoreStyle = {
-            textAlign: 'center',
-            backgroundColor: this.state.colors.inactiveIcon,
-            boxShadow: '0 2px 0 rgb(150,150,150) inset'
-        };
-
         if(tableCells && (this.props.showMoreLoading || this.props.listSummaryText)) {
             tableCells.push(
                 <tr key="lazy_loading_line"
-                    style={showMoreStyle}
+                    style={this.state.style.showMoreStyle}
                     {...this.getDataSet(this.props, ' Load More Records')}
                     onClick={this.props.triggerLazyLoad} className={"lazy_loading_empty " + (this.props.showLazyLoading ? 'loading' : null)}>
-                    <td colSpan={this.state.smallView ? null : this.props.data.structure.length + (this.props.columnSelector ? 1 : 0)}>
-                        {this.props.listSummaryText ? this.props.listSummaryText : null}
+                    <td style={{padding: 0, margin: 0}} colSpan={this.state.smallView ? null : this.props.data.structure.length + (this.props.columnSelector ? 1 : 0)}>
+                        {this.props.listSummaryText ? <span style={this.state.style.listSummary}>{this.props.listSummaryText}</span> : null}
                         {this.props.showLazyLoading ?
-                            null : this.props.showMoreLoading ?
+                            <ProgressSpinner style={{position: 'static', margin: '10px 10px 0 10px', float: 'right'}} size={30} /> : this.props.showMoreLoading ?
                             (<FlatButton style={{marginLeft: '10px'}}>{'Load ' + this.props.showMoreLoading + ' records'}</FlatButton>) : null
                         }
                     </td>
@@ -196,7 +205,7 @@ export class TabularListing extends StripesTheme {
             let sortdirection = null;
             if(c.icon) {
                 labelDOM = [
-                    <Icon key="icon" iconid={c.icon} style={{float: 'left'}} color={this.state.colors.activeIcon} size="small" />,
+                    <Icon key="icon" iconid={c.icon} style={{float: 'left'}} color={this.state.colors.textColor} size="16px" />,
                     <label key="label" style={c.sortable ? {cursor: 'pointer'} : null} dangerouslySetInnerHTML={{__html: c.name}} />
                 ];
             } else {
@@ -225,7 +234,7 @@ export class TabularListing extends StripesTheme {
         });
         if(this.props.columnSelector) {
             tableHeaders.push(
-                <TableHeaderCell key="ColumnSelector" width="30px" className="ColumnSelector" />
+                <TableHeaderCell key="ColumnSelector" width="32px" className="ColumnSelector" />
             );
         }
         return (

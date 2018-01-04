@@ -13,21 +13,22 @@ export class ProgressSpinner extends StripesTheme {
         type: 'default',
         strokeDasharray: [50,50],
         show: true
-    }
+    };
 
     constructor(props) {
         super(props);
         this.state = {
             style: this.getStyles(),
-            strokeOffset: 500,
-            strokeDasharray: [50,50]
+            strokeOffset: this.props.size*3,
+            strokeDasharray: [this.props.size/2,this.props.size/2],
+            strokeWidth: this.props.size*.10
         }
     }
 
     componentDidMount() {
         animator = setInterval(() => {
                 this.setState({
-                        strokeOffset: this.state.strokeOffset + 25
+                        strokeOffset: this.state.strokeOffset + (this.props.size/8)
                     }, this.setState({
                         style: this.getStyles()
                     })
@@ -64,7 +65,7 @@ export class ProgressSpinner extends StripesTheme {
                 fill: 'none',
                 opacity: '.25',
                 stroke: color.iconColor,
-                strokeWidth: '5',
+                strokeWidth: this.state ? this.state.strokeWidth*.4 : 7,
                 strokeDashoffset: this.state ? this.state.strokeOffset : 0,
                 strokeDasharray: this.props.strokeDasharray,
                 strokeLinecap: "round"
@@ -74,7 +75,7 @@ export class ProgressSpinner extends StripesTheme {
                 fill: 'none',
                 stroke: color.iconColor,
                 opacity: '.25',
-                strokeWidth: '12',
+                strokeWidth: this.state ? this.state.strokeWidth*.75 : 12,
                 strokeDashoffset: this.state ? this.state.strokeOffset *.9 : 0,
                 strokeDasharray: this.props.strokeDasharray,
                 strokeLinecap: "round"
@@ -84,7 +85,7 @@ export class ProgressSpinner extends StripesTheme {
                 fill: 'none',
                 stroke: color.iconColor,
                 opacity: '.25',
-                strokeWidth: '20',
+                strokeWidth: this.state ? this.state.strokeWidth : 20,
                 strokeDashoffset: this.state ? this.state.strokeOffset * 1.2 : 0,
                 strokeDasharray: this.props.strokeDasharray,
                 strokeLinecap: "round"
@@ -96,9 +97,9 @@ export class ProgressSpinner extends StripesTheme {
 
     render() {
         var Spinners = [
-            <circle key="spin1" style={this.state.style.spinner1} cx={this.props.size/2} cy={this.props.size/2} r={this.props.size/2 - 15}/>,
-            <circle key="spin2" style={this.state.style.spinner2} cx={this.props.size/2} cy={this.props.size/2} r={this.props.size/2 - 15}/>,
-            <circle key="spin3" style={this.state.style.spinner3} cx={this.props.size/2} cy={this.props.size/2} r={this.props.size/2 - 15}/>
+            <circle key="spin1" style={this.state.style.spinner1} cx={this.props.size/2} cy={this.props.size/2} r={this.props.size/3}/>,
+            <circle key="spin2" style={this.state.style.spinner2} cx={this.props.size/2} cy={this.props.size/2} r={this.props.size/3}/>,
+            <circle key="spin3" style={this.state.style.spinner3} cx={this.props.size/2} cy={this.props.size/2} r={this.props.size/3}/>
         ]
         return (
             <div style={this.state.style.base}>

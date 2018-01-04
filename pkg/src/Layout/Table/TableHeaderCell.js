@@ -48,12 +48,13 @@ export class TableHeaderCell extends StripesTheme {
     getStyles() {
         const spacing = this.getSpacing()[this.props.type].cell;
         const color = this.getColors()[this.props.type].header;
-        let highlightBorder = ', 0 -3px 0px ' + (this.props.sortdirection && this.props.isSortable ? color.highlight : color.border) + ' inset';
+        let highlightBorder = ', 0 -1px 0px ' + (this.props.sortdirection && this.props.isSortable ? color.highlight : color.border) + ' inset';
         let styleObj = {
             base: {
-                boxShadow: (!this.props.ignoreHover && this.state.hover ? '0 -15px 50px -20px rgba(0,0,0,.25) inset' : '0 -5px 10px 0px rgba(0,0,0,0) inset') + highlightBorder,
-                transition: '.5s box-shadow',
-                padding: spacing.padding + 'px',
+                boxShadow: (!this.props.ignoreHover && this.state.hover ? '0 -10px 40px -20px rgba(0,0,0,.25) inset' : '0 -1px 0px 0px rgba(0,0,0,0) inset') + highlightBorder,
+                transition: 'all .5s',
+                opacity: (!this.props.ignoreHover && this.state.hover) || (this.props.sortdirection && this.props.isSortable) ? '1' : '.75',
+                padding: spacing.padding + 'px ' + spacing.padding*2 + 'px ' + spacing.padding + 'px ' + spacing.padding*3 + 'px',
                 cursor: this.props.onClick || this.props.isSortable ? 'pointer' : 'default',
                 position: 'relative',
                 whiteSpace: !this.props.wrap ? 'nowrap' : null,
@@ -69,6 +70,7 @@ export class TableHeaderCell extends StripesTheme {
                 lineHeight: spacing.lineHeight,
                 color: color.textColor,
                 userSelect: 'none',
+                verticalAlign: 'top',
                 backgroundColor: color.backgroundColor
             },
             container: {
@@ -76,9 +78,8 @@ export class TableHeaderCell extends StripesTheme {
             },
             sort: {
                 style: {
-                    float: 'right'
-                },
-                width: spacing.sortWidth
+                    float: 'left'
+                }
             }
         };
         styleObj.base = Object.assign(styleObj.base, this.props.style);
@@ -86,11 +87,10 @@ export class TableHeaderCell extends StripesTheme {
     }
 
     render() {
-        var sortNODE = this.props.sortdirection && this.props.isSortable ? (
+        let sortNODE = this.props.sortdirection && this.props.isSortable ? (
             <SortDirection
                 key="sort_direction"
                 style={this.state.style.sort.style}
-                width={this.state.style.sort.width}
                 sortdirection={this.props.sortdirection}
             />
         ) : null;

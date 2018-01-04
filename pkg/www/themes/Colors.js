@@ -20,7 +20,7 @@ let inputBackground = "white";
 
 module.exports = {
     default: {
-        textColor: primaryColor,
+        textColor: baseTextColor,
         idleColor: idleColor,
         hoverText: '',
         border: '#e0e0e0',
@@ -103,16 +103,17 @@ module.exports = {
         indicator: '#FFFF8C'
     },
     table: {
+        textColor: baseTextColor,
         header: {
             backgroundColor: 'white',
             border: '#e0e0e0',
             highlight: primaryColor,
-            textColor: primaryColor
+            textColor: baseTextColor
         },
         row: {
             border: '#e0e0e0',
-            hoverColor: '#f5f5f5',
-            zebraStripe: '#f5f5f5',
+            hoverColor: '#f6f6f6',
+            zebraStripe: '#f6f6f6',
             backgroundColor: 'white'
         }
     }

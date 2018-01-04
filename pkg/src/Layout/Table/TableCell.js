@@ -12,7 +12,7 @@ export class TableCell extends StripesTheme {
         width: null,
         type: 'table',
         className: null
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -32,10 +32,11 @@ export class TableCell extends StripesTheme {
     }
 
     getStyles() {
-        var spacing = this.getSpacing()[this.props.type].cell;
-        var styleObj = {
+        const spacing = this.getSpacing()[this.props.type].cell;
+        let styleObj = {
             base: {
-                padding: spacing.padding + 'px',
+                padding: spacing.padding + 'px ' + spacing.padding*2 + 'px ' + spacing.padding + 'px ' + spacing.padding*3 + 'px',
+                verticalAlign: 'top',
                 cursor: this.props.onClick ? 'pointer' : 'default',
                 position: 'relative',
                 maxWidth: 0,
