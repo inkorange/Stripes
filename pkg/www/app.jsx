@@ -282,19 +282,38 @@ class Sandbox extends React.Component {
             }
         ];
 
+        let navItems = [
+            <MenuItem key="menu1" title="Doors Dashboard"
+                      onClick={this.navigateToDoorsPage}
+                      icon="view_by_2"
+            />,
+            <MenuItem key="menu2" title="Active Doors"
+                      onClick={this.navigateToActiveDoorsPage}
+                      icon="loading"
+            />,
+            <MenuItem key="menu3" title="Load History"
+                      icon="list"
+            />,
+            <MenuItem key="menu4" title="Notes"
+                      onClick={this.navigateToNotesPage}
+                      icon="note"
+            />,
+            <MenuItem key="menu5" title="Help"
+                      onClick={this.navigateToHelpPage}
+                      icon="help"
+            />,
+            <MenuItem key="menu6" title="Admin"
+
+                      onClick={this.navigateToAdminPage}
+                      icon="admin"
+            />
+        ];
+
         return (
             <div style={{margin:'30px', position: 'relative', padding: '30px'}}>
-                <Icon iconid="admin"
-                      className="Icon1"
-                      basestyle={{position: "absolute", top: '25%', left: '10%'}}
-                      size="large"/>
-
-                <Icon iconid="note"
-                      className="Icon2"
-                      basestyle={{position: "absolute", top: '100%', right: '10%'}}
-                      size="large"/>
-                <RaisedButton onClick={this.startTour} type="primary">Start Tour</RaisedButton>
-                <Tour key="Tour" zIndex="1000" ref="Tour" script={script} />
+                <div style={{width: '200px'}}>
+                    {navItems}
+                </div>
 
                 <TabularListing
                     height={400}

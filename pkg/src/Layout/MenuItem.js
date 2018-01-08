@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 import React from 'react'
 import { render } from 'react-dom'
@@ -14,11 +14,11 @@ export class MenuItem extends StripesTheme {
         title: '',
         icon: null,
         onClick: () => { return false; }
-    }
+    };
 
     constructor(props) {
         super(props);
-        var component = this.getStyles();
+        let component = this.getStyles();
         this.state = {
             style: {},
             inkStyle: Object.assign(component.ink, {background: '#dbdbdb'})
@@ -32,9 +32,9 @@ export class MenuItem extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var base = {
+        const color = this.getColors()[this.props.type];
+        const spacing = this.getSpacing()[this.props.type];
+        let base = {
             margin: spacing.margin + "px " + spacing.margin*2 + "px",
             height: '48px',
             lineHeight: '48px',
@@ -45,7 +45,7 @@ export class MenuItem extends StripesTheme {
             overflow: 'hidden',
             userSelect: 'none'
         };
-        var styleObj = {
+        let styleObj = {
             base: {
                 color: color.idleColor
             },
@@ -57,7 +57,7 @@ export class MenuItem extends StripesTheme {
                 cursor: 'pointer',
                 padding: spacing.padding + "px",
                 marginRight: spacing.margin*2 + "px",
-                marginTop: '2px'
+                marginTop: '-1px'
             },
             iconIdleColor:  color.idleColor,
             iconHoverColor: color.activeIcon,
