@@ -234,7 +234,7 @@ export class TabularListing extends StripesTheme {
         });
         if(this.props.columnSelector) {
             tableHeaders.push(
-                <TableHeaderCell key="ColumnSelector" width="32px" className="ColumnSelector" />
+                <TableHeaderCell key="ColumnSelector" width="30px" className="ColumnSelector" />
             );
         }
         return (

@@ -284,16 +284,17 @@ class Sandbox extends React.Component {
 
         return (
             <div style={{margin:'30px', position: 'relative', padding: '30px'}}>
-                <DropDown
-                    showEmpty={true}
-                    width="250px"
-                >
-                    <Item value={null} defaultChecked={true} key="option0">--- select one ---</Item>
-                    <Item value="1" key="option1">Select Option 1</Item>
-                    <Item value="2" key="option2">Select Option 2</Item>
-                    <Item value="3" key="option3">Select Option 3</Item>
-                    <Item value="13" key="option13">Super long input for this select Option 4</Item>
-                </DropDown>
+                <Icon iconid="admin"
+                      className="Icon1"
+                      basestyle={{position: "absolute", top: '25%', left: '10%'}}
+                      size="large"/>
+
+                <Icon iconid="note"
+                      className="Icon2"
+                      basestyle={{position: "absolute", top: '100%', right: '10%'}}
+                      size="large"/>
+                <RaisedButton onClick={this.startTour} type="primary">Start Tour</RaisedButton>
+                <Tour key="Tour" zIndex="1000" ref="Tour" script={script} />
 
                 <TabularListing
                     height={400}
@@ -301,6 +302,7 @@ class Sandbox extends React.Component {
                     showMoreLoading="Show More Loading"
                     showLazyLoading={this.state.showLazyLoading}
                     listSummaryText="You have just some records."
+                    columnSelector={true}
                 />
             </div>
 

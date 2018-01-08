@@ -117,9 +117,11 @@ export class Tour extends StripesTheme {
             h = location[3] ? parseInt(location[3]) : w;
             if(target) {
                 let el = document.querySelectorAll(target)[0];
-                let rect = el.getBoundingClientRect();
-                x = rect.left - (w - rect.width)/2;
-                y = rect.top - (h - rect.height)/2;
+                if(el) {
+                    let rect = el.getBoundingClientRect();
+                    x = rect.left - (w - rect.width) / 2;
+                    y = rect.top - (h - rect.height) / 2;
+                }
             } else {
                 x = location[0] ? 'calc(' + location[0] + ' - ' + w/2 + 'px)' : '25%';
                 y = location[1] ? 'calc(' + location[1] + ' - ' + h/2 + 'px)' : '25%';
@@ -150,11 +152,16 @@ export class Tour extends StripesTheme {
             fh = focus[3] ? parseInt(focus[3]) : fw;
             if(target) {
                 let el = document.querySelectorAll(target)[0];
-                let rect = el.getBoundingClientRect();
                 let xOff = 0;
                 let yOff = 0;
-                let xF = rect.left + rect.width/2;
-                let yF = rect.top + rect.height/2;
+                let xF = 0;
+                let yF = 0;
+                let rect = null;
+                if(el) {
+                    rect = el.getBoundingClientRect();
+                    xF = rect.left + rect.width / 2;
+                    yF = rect.top + rect.height / 2;
+                }
                 let cardH = ReactDOM.findDOMNode(this.refs.tourCard).offsetHeight;
                 switch(x) {
                     case 'left':
