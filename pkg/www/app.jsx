@@ -310,13 +310,10 @@ class Sandbox extends React.Component {
         ];
 
         return (
-            <div style={{margin:'30px', position: 'relative', padding: '30px'}}>
-                <div style={{width: '200px'}}>
-                    {navItems}
-                </div>
+            <div>
 
-                <TabularListing
-                    height={400}
+                <TabularDetail
+                    height={800}
                     data={this.state.data}
                     showMoreLoading="Show More Loading"
                     showLazyLoading={this.state.showLazyLoading}

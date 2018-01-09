@@ -15,6 +15,7 @@ export class ColumnSelector extends StripesTheme {
         className: null,
         structure: [],
         hasData: false,
+        displayValue: 'table-cell',
         onColumnSelect: () => { return false; }
     };
 
@@ -94,7 +95,7 @@ export class ColumnSelector extends StripesTheme {
                 let Els = document.querySelectorAll("[data-name='"+name+"']");
                 for (let y=0; y < Els.length; y++)
                 {
-                    Els[y].style.display = showing ? 'table-cell' : 'none';
+                    Els[y].style.display = showing ? this.props.displayValue : 'none';
                 }
             });
             window.localStorage["tableShowing" + this.getEndPointKey()] = JSON.stringify(columnValues);

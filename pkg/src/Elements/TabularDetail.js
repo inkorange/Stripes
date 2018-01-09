@@ -100,28 +100,31 @@ export class TabularDetail extends StripesTheme {
                 boxShadow: '0 2px 0 rgb(150,150,150) inset'
             },
             row: {
-                display: 'flex',
-                flexFlow: 'row nowrap',
                 borderBottom: '1px solid ' + color.border,
-                padding: '0 ' + spacing.padding*2 + 'px',
-                position: 'relative'
-            },
-            detailContent: {
-                display: 'flex',
-                flexFlow: 'row wrap',
-                alignContent: 'stretch',
-                zIndex: '1'
+                position: 'relative',
+                padding: spacing.padding + 'px 0'
+
             },
             contentCell: {
                 color: 'black',
-                width: '80px',
-                margin: spacing.padding*2 + 'px'
+                display: 'block',
+                overflow: 'hidden',
+                margin: '0 ' + spacing.padding + 'px',
+                padding: spacing.padding + 'px 0',
+                borderBottom: '1px solid rgba(0,0,0,.1)'
             },
             rowLabel: {
+                float: 'left',
                 fontSize: '1.5rem',
                 display: 'block',
                 color: 'gray',
-                textTransform: 'uppercase'
+                textTransform: 'uppercase',
+                paddingLeft: spacing.padding + 'px'
+            },
+            contentValue: {
+                float: 'right',
+                textAlign: 'right',
+                paddingRight: spacing.padding + 'px'
             },
             clickLink: {
                 cursor: 'pointer',
@@ -148,7 +151,7 @@ export class TabularDetail extends StripesTheme {
                 let itemDOM = [];
                 let label = header.name; //.replace(/(<([^>]+)>)/ig, " ");
                 label = label === "" ? header.field[0] : label;
-                let labelDOM = ( <label key="label" dangerouslySetInnerHTML={{__html: label}}/> );
+                let labelDOM = ( <span key="label" dangerouslySetInnerHTML={{__html: label}}/> );
                 header.field.map((field, index) => {
                     let dimObj = this.dimensionalObjectResolution(r, field);
                     let value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
@@ -172,19 +175,19 @@ export class TabularDetail extends StripesTheme {
                 });
                 let name = header.name !== "" ? header.name.replace(/(<([^>]+)>)|( )/ig, "") : header.field[0];
                 cells.push(<div
-                    style={Object.assign({width: header.width}, this.state.style.contentCell)}
+                    style={this.state.style.contentCell}
                     className={header.className}
                     data-name={name}
                     key={"headcell"+key}
                     data-filterable={header.filterable}
                     wrap={header.wrap ? true: false}>
                     <label style={this.state.style.rowLabel}>{labelDOM}</label>
-                    {itemDOM}
+                    <div style={this.state.style.contentValue}>{itemDOM}</div>
                 </div>);
             });
             tableRows.push(
-                <div style={Object.assign({background: i%2 ? color.zebraStripe : 'white'}, this.state.style.row)} onClick={(e) => { this.props.onRowClick(e, r); }} key={"row"+i}>
-                    <div style={this.state.style.detailContent}>{cells}</div>
+                <div className="detail_row" style={Object.assign({background: i%2 ? color.zebraStripe : 'white'}, this.state.style.row)} onClick={(e) => { this.props.onRowClick(e, r); }} key={"row"+i}>
+                    {cells}
                 </div>
             );
         });
@@ -247,6 +250,7 @@ export class TabularDetail extends StripesTheme {
                         key="ColumnSelector"
                         ref="ColumnSelector"
                         style={{marginTop: '-3px'}}
+                        displayValue="block"
                         hasData={(this.props.data.rows && this.props.data.rows.length) ? true: false}
                         structure={this.props.data.structure}
                         onColumnSelect={this.props.onColumnSelect}

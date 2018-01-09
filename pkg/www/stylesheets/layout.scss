@@ -264,6 +264,61 @@ footer.zebra {
     }
 }
 
+.TabularDetail {
+    > div {
+        &:first-of-type > div {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+        > div {
+            > div {
+                label {
+                    + div {
+                        .Icon {
+                            padding-left: 5px;
+                        }
+                        span {
+                            + em {
+                                display: block;
+                                font-style: normal;
+                                .Icon {
+                                    display: none!important;
+                                }
+                            }
+                        }
+                    }
+                    > span {
+                        + em {
+                            display: block;
+                            clear: both;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .detail_row {
+
+    }
+
+
+    .column-notes,
+    .column-active-notes {
+        position: relative;
+        .AlertAnnotation {
+            position: static!important;
+            @media #{$xsmall} {
+                width: 80px;
+                height: 50px;
+            }
+        }
+        > span + em {
+            //display: none;
+        }
+    }
+
+}
+
 /*
 fieldset:first-of-type {
     > label:first-of-type {
