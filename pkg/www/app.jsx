@@ -263,6 +263,11 @@ class Sandbox extends React.Component {
         this.refs.Tour.start();
     }
 
+    clearDebug() {
+        console.log('should clear.');
+        document.getElementById("output").innerHTML = "";
+    }
+
     render() {
 
         let script = [
@@ -310,16 +315,13 @@ class Sandbox extends React.Component {
         ];
 
         return (
-            <div>
-
-                <TabularDetail
-                    height={800}
-                    data={this.state.data}
-                    showMoreLoading="Show More Loading"
-                    showLazyLoading={this.state.showLazyLoading}
-                    listSummaryText="You have just some records."
-                    columnSelector={true}
-                />
+            <div style={{padding: '25px'}}>
+                <div style={{width: '50%'}}>
+                    <RangeSlider width="100%"/>
+                    <RangeSlider width="50%"/>
+                </div>
+                <div id="output" style={{fontSize: '8px', position: 'absolute', top: 0, right: 0, bottom: 0, left: '55%' }} />
+                <FlatButton style={{position: 'absolute', top: 0, right: 0}} onClick={this.clearDebug}>CLEAR</FlatButton>
             </div>
 
         )

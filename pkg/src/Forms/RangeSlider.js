@@ -119,7 +119,7 @@ export class RangeSlider extends StripesTheme {
     }
 
     clickSlider(e) {
-        e.stopImmediatePropogation;
+        e.stopPropagation();
         this.refs.minSlider.selectPoint(e);
         this.refs.maxSlider.selectPoint(e);
     }

@@ -49,6 +49,8 @@ export class Slider extends StripesTheme {
             removeActivation: null
         };
 
+        this.timer = this.isIE ? 500 : 200;
+
         this.activateTime = new Date().getTime();
         this.pressingTime = new Date().getTime();
     }
@@ -115,7 +117,7 @@ export class Slider extends StripesTheme {
         e.stopPropagation();
         this.setState({
             pressing: false,
-            isActivated: ((new Date().getTime()) - this.pressingTime) < 200
+            isActivated: ((new Date().getTime()) - this.pressingTime) < this.timer
         }, () => {
             this.removeDragEvents();
             this.updateStyles();
@@ -169,7 +171,8 @@ export class Slider extends StripesTheme {
     }
 
     activateHandle(e) {
-        if(!this.props.disabled && ((new Date().getTime()) - this.pressingTime) < 200) {
+        if(!this.props.disabled && ((new Date().getTime()) - this.pressingTime) < this.timer) {
+            //document.getElementById('output').innerHTML += "<p>Activate.</p>";
             clearTimeout(this.state.removeActivation);
             this.setState(
                 {
@@ -187,13 +190,15 @@ export class Slider extends StripesTheme {
     }
 
     deactivateHandle() {
-        if(this.state.isActivated && ((new Date().getTime()) - this.pressingTime) > 500) {
+        if(this.state.isActivated && ((new Date().getTime()) - this.pressingTime) > this.timer*2) {
+            //document.getElementById('output').innerHTML += "<p>Deactivate. ("+((new Date().getTime()) - this.pressingTime)+")</p>";
             this.setState({isActivated: false}, this.updateStyles);
         }
     }
 
     selectPoint(e) {
-        if(!this.state.pressing && this.state.isActivated && ((new Date().getTime()) - this.pressingTime) > 200) {
+        if(!this.state.pressing && this.state.isActivated && ((new Date().getTime()) - this.pressingTime) > this.timer) {
+            //document.getElementById('output').innerHTML += "<p>selecting point. ("+((new Date().getTime()) - this.pressingTime)+")</p>";
             let resolvedObj = this.resolveXThroughEvent(e);
             this.setState({
                 isActivated: false,
