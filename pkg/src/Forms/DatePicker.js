@@ -32,8 +32,8 @@ export class DatePicker extends StripesTheme {
         date: null,
         manual: false,
         errorMessage: 'Invalid Date Format (M/D/YYYY)',
-        errorTimeout: 3000
-    }
+        errorTimeout: 2500
+    };
 
     constructor(props) {
         super(props);
@@ -158,7 +158,7 @@ export class DatePicker extends StripesTheme {
     setManualDate() {
         let dateValue = isNaN(this.refs.textbox.getValue()*1) ? this.refs.textbox.getValue() : this.refs.textbox.getValue()*1;
         let slashCount = dateValue.toString().indexOf("/") > 0 ? (dateValue.match(/\//g) || []).length : 0;
-        dateValue = slashCount === 1 ? dateValue + '/' + (new Date().getFullYear()): dateValue;
+            dateValue = slashCount === 1 ? dateValue + '/' + (new Date().getFullYear()): dateValue;
         let datesMatch = dateValue === this.state.date; // && m(new Date(dateValue)).format(this.props.format) === m(this.state.date).format(this.props.format);
         let isValid = m(new Date(dateValue)).isValid();
         let strippedSlashes = !isNaN(dateValue) ? dateValue :

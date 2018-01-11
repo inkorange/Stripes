@@ -83,7 +83,8 @@ export class TimePicker extends StripesTheme {
         baseDateTime: new Date(),
         placeholder: "Time",
         active: false,
-        manual: false
+        manual: false,
+        errorTimeout: 2500
     };
 
     constructor(props) {
@@ -418,6 +419,17 @@ export class TimePicker extends StripesTheme {
             }
             return tempDateTime.isValid()
         };
+        let throwTimedError = (message) => {
+            this.setState({
+                inputError: message ? message : this.props.errorMessage
+            });
+            setTimeout(() => {
+                this.refs.textbox.applyValue(this.state.time ? m(this.state.time).format(this.props.format) : '', true);
+                this.setState({
+                    inputError: null
+                });
+            }, this.props.errorTimeout);
+        };
 
         let timeVal = this.refs.textbox.getValue();
         let timesMatch = timeVal === m(this.state.time).format(this.props.format);
@@ -437,15 +449,7 @@ export class TimePicker extends StripesTheme {
                 else if(val.length > 0 && !isNaN(val*1)) {
                     this.hardSetTime(val*1, 0, ampm);
                 } else {
-                    this.setState({
-                        inputError: this.props.errorMessage
-                    });
-                    setTimeout(() => {
-                        this.refs.textbox.applyValue({value: m(this.state.time).format(this.props.format)}, true);
-                        this.setState({
-                            inputError: null
-                        });
-                    }, 2500);
+                    throwTimedError();
                 }
             } else { // conditional to actually traverse the string and set the time....
                 let hr = val.split(':')[0] * 1;
@@ -454,15 +458,7 @@ export class TimePicker extends StripesTheme {
             }
         } else {
             if(!isTimeValid && timeVal) {
-                this.setState({
-                    inputError: this.props.errorMessage
-                });
-                setTimeout(() => {
-                    this.setState({
-                        inputError: null
-                    });
-                    this.refs.textbox.applyValue(this.state.time ? m(this.state.time).format(this.props.format) : '', true);
-                }, 2500);
+                throwTimedError();
             } else if(!timeVal) {
                 this.setState({
                     hour: m().hour,

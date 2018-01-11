@@ -329,6 +329,17 @@ class Sandbox extends React.Component {
                     timeErrorMsg="Invalid (HH:mm)"
                     style={{margin: '10px 0'}}
                 />
+                <DropDown
+                    placeholder="Please select an option..."
+                    showEmpty={true}
+                    width="250px"
+                >
+                    <Item value={null} key="option0">--- select one ---</Item>
+                    <Item value="1" key="option1">Select Option 1</Item>
+                    <Item value="2" key="option2">Select Option 2</Item>
+                    <Item value="3" key="option3">Select Option 3</Item>
+                    <Item value="13" key="option13">Super long input for this select Option 4</Item>
+                </DropDown>
             </div>
 
         )
