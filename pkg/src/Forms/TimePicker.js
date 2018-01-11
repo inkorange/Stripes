@@ -445,7 +445,7 @@ export class TimePicker extends StripesTheme {
                         this.setState({
                             inputError: null
                         });
-                    }, 1500);
+                    }, 2500);
                 }
             } else { // conditional to actually traverse the string and set the time....
                 let hr = val.split(':')[0] * 1;
@@ -462,7 +462,7 @@ export class TimePicker extends StripesTheme {
                         inputError: null
                     });
                     this.refs.textbox.applyValue(this.state.time ? m(this.state.time).format(this.props.format) : '', true);
-                }, 1500);
+                }, 2500);
             } else if(!timeVal) {
                 this.setState({
                     hour: m().hour,

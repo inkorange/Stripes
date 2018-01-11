@@ -313,15 +313,22 @@ class Sandbox extends React.Component {
                       icon="admin"
             />
         ];
-
+        let earliestDate = m().subtract(1, "years");
+        let latestDate = m().add(30, "days");
+        let contraints = [earliestDate.format('YYYY-MM-DD'), latestDate.format('YYYY-MM-DD')];
         return (
             <div style={{padding: '25px'}}>
-                <div style={{width: '50%'}}>
-                    <RangeSlider width="100%"/>
-                    <RangeSlider width="50%"/>
-                </div>
-                <div id="output" style={{fontSize: '8px', position: 'absolute', top: 0, right: 0, bottom: 0, left: '55%' }} />
-                <FlatButton style={{position: 'absolute', top: 0, right: 0}} onClick={this.clearDebug}>CLEAR</FlatButton>
+                <DateTimePicker
+                    id="open_after_date"
+                    ref="open_after_date"
+                    placeholder={["After Date", "Time"]}
+                    manual={true}
+                    dateConstraint={contraints}
+                    clockFormat="24hr"
+                    timeFormat="HH:mm"
+                    timeErrorMsg="Invalid (HH:mm)"
+                    style={{margin: '10px 0'}}
+                />
             </div>
 
         )

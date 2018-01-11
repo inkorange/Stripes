@@ -32,7 +32,7 @@ export class DatePicker extends StripesTheme {
         date: null,
         manual: false,
         errorMessage: 'Invalid Date Format (M/D/YYYY)',
-        errorTimeout: 2000
+        errorTimeout: 3000
     }
 
     constructor(props) {
@@ -196,9 +196,9 @@ export class DatePicker extends StripesTheme {
             } else if (val.indexOf('/') < 0 || !isValid) {
                 throwTimedError();
             } else if(isValid && this.props.dateConstraint[0] && m(new Date(dateValue)).isBefore(m(this.props.dateConstraint[0]))) {
-                throwTimedError("Date must be after " + this.props.dateConstraint[0]);
+                throwTimedError("Date must be after " + m(this.props.dateConstraint[0]).format(this.props.format)   );
             } else if(isValid && this.props.dateConstraint[1] && m(new Date(dateValue)).isAfter(m(this.props.dateConstraint[1]))) {
-                throwTimedError("Date must be before " + this.props.dateConstraint[1]);
+                throwTimedError("Date must be before " + m(this.props.dateConstraint[1]).format(this.props.format)  );
             } else { // finally, its a standard 1/1/1 input, so we create the date the old fashioned way
                 val = slashCount === 1 ? val + '/' + (new Date().getFullYear()): val;
                 let m_date = m(new Date(val));
