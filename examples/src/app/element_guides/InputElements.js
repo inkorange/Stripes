@@ -32,6 +32,8 @@ export class TextBoxElement extends React.Component {
                 propsMap={[
                         {name: 'disabled',          type: 'boolean',    desc: 'Toggle to enable and disable the TextBox input.', default: 'false'},
                         {name: 'error',             type: 'string',     desc: 'An error string that when not null, will put the input into an error state, and display this error message below the input.', default: 'null'},
+                        {name: 'inputType',         type: 'string',     desc: 'Will populate the type attribute on the input. This is used to designate password or number fields on the input.', default: 'text'},
+                        {name: 'name',              type: 'string',     desc: 'Will populate the name attribute on the input. Doing this helps with form auto-complete functions of the browser.', default: 'null'},
                         {name: 'onBlur',            type: 'function',   desc: 'Callback function fired when the input is blurred.', default: 'null'},
                         {name: 'onClick',           type: 'function',   desc: 'Callback function fired when the input is clicked.', default: 'null'},
                         {name: 'onChange',          type: 'function',   desc: 'Callback function when the input\'s value is changed, either by user input or programatically.', default: 'null'},
@@ -55,6 +57,14 @@ export class TextBoxElement extends React.Component {
                                 '\n' +
                                 '<TextBox placeholder="This is a placeholder" />\n',
                             example: <TextBox placeholder="This is a placeholder" />
+                        },
+                        {
+                            desc: 'TextBox with type password',
+                            code:
+                            'import {TextBox} from \'zebra-stripes/Forms\'\n' +
+                            '\n' +
+                            '<TextBox inputType="password" placeholder="Password" />\n',
+                            example: <TextBox inputType="password" placeholder="Password" />
                         },
                         {
                             desc: 'TextBox with Size Setting',
