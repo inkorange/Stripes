@@ -137,7 +137,7 @@ export class TabularListing extends StripesTheme {
                 let fieldStr = "";
                 header.field.map((field, index) => {
                     let dimObj = this.dimensionalObjectResolution(r, field);
-                    let value = header.formatFn ? header.formatFn(dimObj, field) : dimObj;
+                    let value = header.formatFn ? header.formatFn(dimObj, field, r) : dimObj;
                     let filterA = header.filterable ?
                         header.filterable.length ? header.filterable[0] : header.filterable : null;
                     let filterB = header.filterable ?

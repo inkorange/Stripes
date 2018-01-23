@@ -6,6 +6,7 @@ import {SelectPanel} from './SelectPanel.js'
 import {Placeholder} from './Placeholder.js'
 import {Icon} from  '../Symbols/Icon'
 
+let tabIndex = 0;
 /* *********************************************************************************************************************
  Component TextBox
  ********************************************************************************************************************* */
@@ -20,7 +21,9 @@ class TextBox extends StripesTheme {
         width: null,
         showSuggestions: false,
         suggestionData: [],
+        inputType: 'text',
         anchor: null,
+        name: null,
         onClick: null,
         onBlur: null,
         onKeyUp: null,
@@ -44,6 +47,7 @@ class TextBox extends StripesTheme {
         this.onCompleteInputBlur = this.onCompleteInputBlur.bind(this);
         this.blur = this.blur.bind(this);
         this.inputKeyPress = this.inputKeyPress.bind(this);
+        this.tabIndex = tabIndex++;
     }
 
     componentDidUpdate(props) {
@@ -199,6 +203,8 @@ class TextBox extends StripesTheme {
                 <input
                     {...this.getDataSet(this.props)}
                     ref="input"
+                    type={this.props.inputType}
+                    name={this.props.name}
                     disabled={this.props.disabled ? 'disabled' : null}
                     readOnly={this.props.readOnly ? 'readonly' : null}
                     onClick={this.onInputClick}
@@ -207,7 +213,7 @@ class TextBox extends StripesTheme {
                     onBlur={this.onCompleteInputBlur}
                     onChange={this.onChange}
                     style={this.state.style.input}
-                    tabIndex="1"
+                    tabIndex={this.tabIndex}
                 />
                 {anchorNode}
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
