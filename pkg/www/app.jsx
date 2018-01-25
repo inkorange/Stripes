@@ -317,9 +317,31 @@ class Sandbox extends React.Component {
         let latestDate = m().add(30, "days");
         let contraints = [earliestDate.format('YYYY-MM-DD'), latestDate.format('YYYY-MM-DD')];
         return (
-            <div style={{padding: '25px'}}>
-                <TextBox name="username" /><br/>
-                <TextBox inputType="password" name="password" />
+            <div style={{padding: '25px', position: 'relative'}}>
+                <DropDown
+                    placeholder="Please select an option here"
+                    showEmpty={true}
+                    width="300px"
+                >
+                    <Item value={null} key="option0">--- select one ---</Item>
+                    <Item value="1" key="option1">Select Option 1</Item>
+                    <Item value="2" key="option2">Select Option 2</Item>
+                    <Item value="3" key="option3">Select Option 3</Item>
+                    <Item value="13" key="option13">Super long input for this select Option 4</Item>
+                </DropDown>
+                <div style={{position: 'fixed', top: '80%', right: '5%', height: '150px', backgroundColor: 'rgb(200,200,200)'}}>
+                <DropDown
+                    placeholder="Please select an option here"
+                    showEmpty={true}
+                    width="300px"
+                >
+                    <Item value={null} key="option0">--- select one ---</Item>
+                    <Item value="1" key="option1">Select Option 1</Item>
+                    <Item value="2" key="option2">Select Option 2</Item>
+                    <Item value="3" key="option3">Select Option 3</Item>
+                    <Item value="13" key="option13">Super long input for this select Option 4</Item>
+                </DropDown>
+                </div>
             </div>
 
         )

@@ -89,7 +89,6 @@ export class SelectPanel extends StripesTheme {
                 }
             }
         } while (el);
-
         //console.log({fixed: isFixed, top: top, scrollTop: scrollTop, left: left, scrollLeft: scrollLeft});
         return {fixed: isFixed, top: top, scrollTop: scrollTop, left: left, scrollLeft: scrollLeft};
     }
@@ -101,7 +100,7 @@ export class SelectPanel extends StripesTheme {
         let parentClient = parent.getBoundingClientRect();
         let parentHeight = parentClient.top + (this.props.dropOffset ? this.props.dropOffset : spacing.dropDownOffset);
         let parentLeft = parentClient.left;
-        let resultHeight = this.refs.resultList.offsetHeight + 20;
+        let resultHeight = this.refs.resultList.offsetHeight;
         let isFixedDom = this.withinFixed(this.refs.panelcontainer.parentElement);
 
         let top = parentHeight + spacing.dropDownOffset;
@@ -109,9 +108,8 @@ export class SelectPanel extends StripesTheme {
         if(isFixedDom.fixed && !this.isIE()) {
             top = spacing.dropDownOffset + parentClient.height + parentClient.y;
             left = isFixedDom.scrollLeft + parentClient.x;
-        } else {
-            top = top + resultHeight > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;
         }
+        top = (top + resultHeight) > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;
 
         let styleObj = {
             results: {
