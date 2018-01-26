@@ -43,7 +43,7 @@ export class Fieldset extends StripesTheme {
                 opacity: this.props.disabled ? '.25' : '1.0'
             },
             label: {
-                fontSize: '1.8rem',
+                fontSize: spacing.baseFontSize + 'rem',
                 marginBottom: spacing.margin + 'px',
                 lineHeight: spacing.padding*2 + 'px',
                 display: 'block',

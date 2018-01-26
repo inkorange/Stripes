@@ -318,6 +318,30 @@ class Sandbox extends React.Component {
         let contraints = [earliestDate.format('YYYY-MM-DD'), latestDate.format('YYYY-MM-DD')];
         return (
             <div style={{padding: '25px', position: 'relative'}}>
+                <TextBox
+                    width="100%"
+                    value="This is the value!!!"
+                    placeholder="Sender Email"
+                    disabled={true}
+                    readOnly={true}
+                    error="this is bad."
+                />
+                <TextBox
+                    width="100%"
+                    value="no value here..."
+                    placeholder="Sender Email"
+                    error="this is bad."
+                />
+                <TextArea
+                    width="100%"
+                    value="my value is this."
+                    placeholder="Sender Email"
+                    disabled={true}
+                    readOnly={true}
+                    ref="urlfield"
+                />
+                <br/>
+
                 <DropDown
                     placeholder="Please select an option here"
                     showEmpty={true}

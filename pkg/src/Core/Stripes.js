@@ -47,7 +47,7 @@ export class StripesTheme extends React.Component {
                 container: {
                     display: 'inline-block',
                     position: 'relative',
-                    borderBottom: spacing.underlineHeight + 'px solid ' + (this.props.error ? color.inactiveUnderErrorlineColor : color.inactiveUndlerlineColor),
+                    borderBottom: (this.props.readOnly && !this.props.error) ? 'none' : spacing.underlineHeight + 'px solid ' + (this.props.error ? color.inactiveUnderErrorlineColor : color.inactiveUndlerlineColor),
                     padding: spacing.padding + 'px 0',
                     margin: spacing.padding*2 + 'px ' + spacing.padding*2 + 'px ' + spacing.padding*2 + 'px 0',
                     transition: 'all 0.3s ease-in-out 0s',

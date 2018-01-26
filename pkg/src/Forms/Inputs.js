@@ -240,18 +240,21 @@ class TextBox extends StripesTheme {
 class TextArea extends StripesTheme {
     static defaultProps = {
         style:  {},
+        disabled: false,
+        readOnly: false,
         type: 'inputs',
         value: '',
         placeholder: null,
         onChange: null,
         error: null,
         width: null
-    }
+    };
 
     constructor(props) {
         super(props);
 
         this.getValue = this.getValue.bind(this);
+        this.applyValue = this.applyValue.bind(this);
         this.onChange = this.onChange.bind(this);
         this.blur = this.blur.bind(this);
 
@@ -279,6 +282,22 @@ class TextArea extends StripesTheme {
         }
         if(this.props.onChange) {
             this.props.onChange(e, val);
+        }
+    }
+
+    applyValue(val, stopFocus) {
+        if(val !== undefined) {
+            let resval = val.value ? val.value : val ? val : '';
+            this.refs.input.value = resval;
+            this.setState({
+                value: resval
+            }, ()=> {
+                if(!stopFocus) {
+                    this.refs.input.focus();
+                } else {
+                    this.refs.input.parentNode.focus();
+                }
+            });
         }
     }
 
@@ -319,6 +338,9 @@ class TextArea extends StripesTheme {
                     onChange={this.onChange}
                     style={this.state.style.input}
                     value={this.state.value}
+                    ref="input"
+                    disabled={this.props.disabled ? 'disabled' : null}
+                    readOnly={this.props.readOnly ? 'readonly' : null}
                 />
                 <span style={this.state.active ? this.state.style.active.on : this.state.style.active.off}></span>
                 <span style={this.state.style.error}>{this.props.error}</span>
