@@ -135,6 +135,7 @@ export class DatePicker extends StripesTheme {
             inputError: null
         });
         this.refs.Dialog.close();
+        this.inputBlur();
         this.refs.textbox.applyValue(m(date).format(this.props.format), true);
         this.props.onSet(date);
     }
@@ -260,7 +261,7 @@ export class DatePicker extends StripesTheme {
                 color: color.textColor
             },
             dialog: {
-                maxWidth: '350px',
+                maxWidth: '325px',
                 minWidth: '300px'
             },
             dialogcard: {

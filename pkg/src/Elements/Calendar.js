@@ -111,7 +111,7 @@ export class Calendar extends StripesTheme {
                 width: 100/7 + '%',
                 //height: '100%',
                 fontSize: spacing.baseFontSize-.2 + 'rem',
-                padding: spacing.padding * 2 + 'px ' + spacing.padding * 1.5 + 'px',
+                padding: spacing.padding * 1.75 + 'px ' + spacing.padding + 'px',
                 cursor: 'pointer',
                 color: 'black'
             }

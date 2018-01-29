@@ -193,7 +193,7 @@ export class TabularListing extends StripesTheme {
                         {this.props.listSummaryText ? <span style={this.state.style.listSummary}>{this.props.listSummaryText}</span> : null}
                         {this.props.showLazyLoading ?
                             <ProgressSpinner style={{position: 'static', margin: '10px 10px 0 10px', float: 'right'}} size={30} /> : this.props.showMoreLoading ?
-                            (<FlatButton style={{marginLeft: '10px'}}>{'Load ' + this.props.showMoreLoading + ' records'}</FlatButton>) : null
+                            (<FlatButton type="primary" style={{marginLeft: '10px'}}>{'Load ' + this.props.showMoreLoading + ' records'}</FlatButton>) : null
                         }
                     </td>
                 </tr>);

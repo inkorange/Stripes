@@ -268,6 +268,10 @@ class Sandbox extends React.Component {
         document.getElementById("output").innerHTML = "";
     }
 
+    _updateDateTimeFilter(a) {
+        console.log('HELLO!', a);
+    }
+
     render() {
 
         let script = [
@@ -318,28 +322,16 @@ class Sandbox extends React.Component {
         let contraints = [earliestDate.format('YYYY-MM-DD'), latestDate.format('YYYY-MM-DD')];
         return (
             <div style={{padding: '25px', position: 'relative'}}>
-                <TextBox
-                    width="100%"
-                    value="This is the value!!!"
-                    placeholder="Sender Email"
-                    disabled={true}
-                    readOnly={true}
-                    error="this is bad."
+                <DateTimePicker
+                    ref="open_after_date"
+                    onChange={this._updateDateTimeFilter}
+                    placeholder={["After Date", "Time"]}
+                    manual={true}
+                    clockFormat="24hr"
+                    timeFormat="HH:mm"
+                    timeErrorMsg="Invalid (HH:mm)"
                 />
-                <TextBox
-                    width="100%"
-                    value="no value here..."
-                    placeholder="Sender Email"
-                    error="this is bad."
-                />
-                <TextArea
-                    width="100%"
-                    value="my value is this."
-                    placeholder="Sender Email"
-                    disabled={true}
-                    readOnly={true}
-                    ref="urlfield"
-                />
+
                 <br/>
 
                 <DropDown
