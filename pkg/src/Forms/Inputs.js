@@ -357,6 +357,7 @@ Component DropDown
 class DropDown extends StripesTheme {
     static defaultProps = {
         style:  {},
+        className: null,
         type: 'inputs',
         placeholder: null,
         error: null,
@@ -471,7 +472,7 @@ class DropDown extends StripesTheme {
 
     render() {
         return (
-            <div ref="DropDown" style={this.state.style.container} {...this.getDataSet(this.props)}>
+            <div ref="DropDown" className={this.props.className ? this.props.className : ''} style={this.state.style.container} {...this.getDataSet(this.props)}>
                 {this.props.placeholder ?
                 <Placeholder active={this.state.active} hasValue={this.state.value !== null && this.state.value !== ""} name={this.props.placeholder} />
                 : null}

@@ -72,6 +72,7 @@ export class SelectPanel extends StripesTheme {
 
     withinFixed(el) {
         let isFixed = false;
+        let isDialog = false;
         let scrollTop = 0;
         let top = 0;
         let scrollLeft = 0;
@@ -83,14 +84,17 @@ export class SelectPanel extends StripesTheme {
                 top = el.offsetTop;
                 scrollLeft += el.scrollLeft;
                 left = el.offsetLeft;
+                if(el.getAttribute("class") && el.getAttribute("class").indexOf('Dialog') >= 0) {
+                    isDialog = true;
+                }
                 if (window.getComputedStyle(el).getPropertyValue('position').toLowerCase() === 'fixed') {
                     isFixed = true;
                     break;
                 }
             }
         } while (el);
-        //console.log({fixed: isFixed, top: top, scrollTop: scrollTop, left: left, scrollLeft: scrollLeft});
-        return {fixed: isFixed, top: top, scrollTop: scrollTop, left: left, scrollLeft: scrollLeft};
+        //console.log({fixed: isFixed, isDialog: isDialog, top: top, scrollTop: scrollTop, left: left, scrollLeft: scrollLeft});
+        return {fixed: isFixed, isDialog: isDialog, top: top, scrollTop: scrollTop, left: left, scrollLeft: scrollLeft};
     }
 
     getStyles() {
@@ -105,11 +109,20 @@ export class SelectPanel extends StripesTheme {
 
         let top = parentHeight + spacing.dropDownOffset;
         let left = parentLeft;
-        if(isFixedDom.fixed && !this.isIE()) {
+        if(isFixedDom.isDialog) {
+            top = parentClient.height + parent.offsetTop;
+            left = parent.offsetLeft;
+            top = (top + resultHeight) > window.innerHeight ? window.innerHeight - resultHeight : top;
+        } else if(isFixedDom.fixed && !this.isIE()) {
             top = spacing.dropDownOffset + parentClient.height + parentClient.y;
             left = isFixedDom.scrollLeft + parentClient.x;
+            top = (top + resultHeight) > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;
+        } else {
+            top = (top + resultHeight) > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;
         }
-        top = (top + resultHeight) > window.innerHeight ? window.innerHeight - resultHeight : parentHeight;
+
+
+
 
         let styleObj = {
             results: {
