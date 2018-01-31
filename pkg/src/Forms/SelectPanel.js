@@ -264,14 +264,14 @@ export class SelectPanel extends StripesTheme {
 
     }
 
-    close() {
+    close(e) {
         if(!this.state.show) {
             return false;
         }
         this.setState({
             show: false
         }, () => {
-            this.props.onClose();
+            this.props.onClose(e);
             this.setState({
                 style: this.getStyles()
             });

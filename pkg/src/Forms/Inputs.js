@@ -374,6 +374,7 @@ class DropDown extends StripesTheme {
         this.openSelect = this.openSelect.bind(this);
         this.applyValue = this.applyValue.bind(this);
         this.getValue = this.getValue.bind(this);
+        this.onDDInputBlur = this.onDDInputBlur.bind(this);
         let resolvedMap = this.resolveItemMap(this.props.children);
         this.state = {
             style: this.getStyles(),
@@ -382,7 +383,8 @@ class DropDown extends StripesTheme {
             label: resolvedMap.currentCheckedLabel,
             value: resolvedMap.currentCheckedValue,
             inputWidth: this.props.width
-        }
+        };
+        this.pressingTime = new Date().getTime();
     }
 
     resolveItemMap(children) {
@@ -436,8 +438,11 @@ class DropDown extends StripesTheme {
         return this.state.value;
     }
 
-    openSelect(e) {
-        if(!this.props.disabled) {
+    openSelect() {
+        if(((new Date().getTime()) - this.pressingTime) < 200) {
+            this.refs.selectPanel.close();
+        }
+        else if(!this.props.disabled) {
             this.setState({
                 inputWidth: this.refs.DropDown.offsetWidth + 'px'
             }, () => {
@@ -445,6 +450,11 @@ class DropDown extends StripesTheme {
                 this.refs.selectPanel.open();
             });
         }
+    }
+
+    onDDInputBlur(e) {
+        this.pressingTime = (new Date().getTime());
+        this.onInputBlur();
     }
 
     getStyles() {
@@ -497,7 +507,7 @@ class DropDown extends StripesTheme {
                     data={this.state.items}
                     {...this.getDataSet(this.props, '-SelectPanel')}
                     onSelect={this.applyValue}
-                    onClose={this.onInputBlur}
+                    onClose={this.onDDInputBlur}
                     width={this.state.inputWidth}
                     dropOffset={this.state.style.dropOffset}
                 />

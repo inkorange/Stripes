@@ -168,7 +168,7 @@ export class StripesTheme extends React.Component {
         });
     }
 
-    onInputBlur(e) {
+    onInputBlur() {
         this.setState({
             active: false
         });
