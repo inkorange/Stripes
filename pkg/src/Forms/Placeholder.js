@@ -9,6 +9,7 @@ export class Placeholder extends StripesTheme {
         style: {},
         active: false,
         hasValue: false,
+        offset: 0,
         name: '',
         type: 'default'
     };
@@ -37,7 +38,7 @@ export class Placeholder extends StripesTheme {
                 position: 'absolute',
                 top: this.props.hasValue ? spacing.padding*-2 + 'px' : spacing.padding + 'px',
                 right: 0,
-                left: 0,
+                left: this.props.hasValue ? 0 : this.props.offset,
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',

@@ -322,52 +322,9 @@ class Sandbox extends React.Component {
         let contraints = [earliestDate.format('YYYY-MM-DD'), latestDate.format('YYYY-MM-DD')];
         return (
             <div style={{padding: '25px', height: '100vh', position: 'relative'}}>
-                <RaisedButton style={{float: 'right'}} icon="add" type="primary" className="action_button" onClick={() => { this.refs.addProductDialog.open(); }}>Add Product</RaisedButton>
-                <Dialog className="add-product" ref="addProductDialog"
-                        title={"Add Product to this Event"}
-                        width="75%"
-                        dialogStyle={{maxWidth: '500px'}}
-                        style={{overflow: 'hidden'}}
-                        actions={[
-                            <FlatButton key="cancel" onClick={() => {this.refs.addProductDialog.close();}}>Cancel</FlatButton>,
-                            <FlatButton key="save"   onClick={this.postProductForm}>Add Product</FlatButton>,
-                        ]}
-                >
-                    <div>
-                        <Fieldset title="Select a Product to Add to this Event:" style={{width: '100%'}}>
-                            <DropDown
-                                className="testingdrop"
-                                placeholder="Please select an option here"
-                                showEmpty={true}
-                                width="300px"
-                            >
-                                <Item value={null} key="option0">--- select one ---</Item>
-                                <Item value="1" key="option1">Select Option 1</Item>
-                                <Item value="2" key="option2">Select Option 2</Item>
-                                <Item value="3" key="option3">Select Option 3</Item>
-                                <Item value="13" key="option13">Super long input for this select Option 4</Item>
-                            </DropDown>
-                        </Fieldset>
-                        <TextArea ref="productdescription" width="100%" placeholder="Optional Product Description"></TextArea>
-                    </div>
-                </Dialog>
 
-
-
-                <div style={{position: 'absolute', bottom: '40px', left: 0}}>
-                    <DropDown
-                        className="testingdrop"
-                        placeholder="Please select an option here"
-                        showEmpty={true}
-                        width="300px"
-                    >
-                        <Item value={null} key="option0">--- select one ---</Item>
-                        <Item value="1" key="option1">Select Option 1</Item>
-                        <Item value="2" key="option2">Select Option 2</Item>
-                        <Item value="3" key="option3">Select Option 3</Item>
-                        <Item value="13" key="option13">Super long input for this select Option 4</Item>
-                    </DropDown><br/><br/>
-                </div>
+                <TextBox placeholder="Put in a Value" prefix="$" width="300px" />
+                <TextBox placeholder="Put in a Percent" postfix="%" width="100px" />
             </div>
 
         )

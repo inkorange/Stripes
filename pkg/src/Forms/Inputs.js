@@ -25,10 +25,12 @@ class TextBox extends StripesTheme {
         anchor: null,
         name: null,
         onClick: null,
-        onBlur: null,
+        onBlur: () => { return true; },
         onKeyUp: null,
         onKeyPress: () => { return true; },
         onChange: null,
+        postfix: "",
+        prefix: "",
         disabled: false,
         readOnly: false
     };
@@ -161,10 +163,8 @@ class TextBox extends StripesTheme {
 
     inputKeyPress(e) {
         if(e.charCode === 13) {
-            if(this.props.onBlur) {
-                this.refs.input.parentNode.focus();
-                this.props.onBlur();
-            }
+            this.props.onBlur();
+            this.refs.input.parentNode.focus();
         }
         this.props.onKeyPress();
     }
@@ -178,6 +178,9 @@ class TextBox extends StripesTheme {
             backgroundColor: 'transparent',
             position: 'relative',
             lineHeight: spacing.baseFontSize + 'rem',
+            marginLeft: this.props.prefix.length + 'em',
+            marginRight: this.props.postfix.length + 'em',
+            width: 'calc(100% - ' + (this.props.prefix.length+ this.props.postfix.length) + 'em)'
         };
         styleObj.container = Object.assign(styleObj.container, this.props.style);
         styleObj.input = Object.assign(styleObj.input, input);
@@ -199,7 +202,9 @@ class TextBox extends StripesTheme {
         }
         return (
             <div ref="input_container" style={this.state.style.container} tabIndex="1000">
-                <Placeholder active={this.state.active} hasValue={this.state.value !== null && this.state.value !== ""} name={this.props.placeholder} />
+                <Placeholder offset={this.props.prefix ? this.props.prefix.length + 'em' : 0} active={this.state.active} hasValue={this.state.value !== null && this.state.value !== ""} name={this.props.placeholder} />
+                {this.props.prefix.length ?  <div style={{position: 'absolute', left: '0'}}>{this.props.prefix}</div> : null}
+                {this.props.postfix.length ? <div style={{position: 'absolute', right: '0'}}>{this.props.postfix}</div> : null}
                 <input
                     {...this.getDataSet(this.props)}
                     ref="input"
