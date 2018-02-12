@@ -1,7 +1,6 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Icon } from  '../Symbols/Icon'
 
@@ -15,9 +14,10 @@ export class ShowHide extends StripesTheme {
         disabled: false,
         labelStyle: {},
         contentStyle: {},
+        maxOverflow: '100vh',
         icons: ["minus","add"],
         onClick: () => { return false; }
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -25,7 +25,7 @@ export class ShowHide extends StripesTheme {
             disabled: props.disabled,
             style: {},
             show: this.props.initialShow
-        }
+        };
         this.onClick = this.onClick.bind(this);
         this.changeShow = this.changeShow.bind(this);
     }
@@ -34,12 +34,6 @@ export class ShowHide extends StripesTheme {
         this.setState({
             style: this.getStyles()
         });
-    }
-
-    componentDidUpdate(props,state) {
-        if(state.show !== this.state.show) {
-            this.animateSlide(this.refs.ShowHideContent, this.state.show);
-        }
     }
 
     onClick() {
@@ -58,15 +52,15 @@ export class ShowHide extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-
-        var styleObj = {
+        const spacing = this.getSpacing()[this.props.type];
+        let styleObj = {
             base: {
                 outline: 'none'
             },
             content: {
-                display: this.state.show ? 'block' : 'none'
+                overflow: 'hidden',
+                maxHeight: this.state.show ? this.props.maxOverflow : '0',
+                transition: 'all .5s'
             },
             icon: {
                 float: 'right'
@@ -74,7 +68,8 @@ export class ShowHide extends StripesTheme {
             toggler: {
                 cursor: 'pointer',
                 display: 'block',
-                userSelect: 'none'
+                userSelect: 'none',
+                padding: spacing.padding*3 + 'px'
             }
         };
         styleObj.toggler = Object.assign(styleObj.toggler, this.props.labelStyle);

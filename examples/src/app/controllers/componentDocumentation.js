@@ -11,6 +11,10 @@ import {Card, ShowHide, Dialog, Paper, TwoColumnLayout, IconMenu, LeftNav, NavBa
 
 export class ComponentDocumentation extends React.Component {
 
+    static defaultProps = {
+        longProps: false
+    };
+
     constructor(props) {
         super(props);
     }
@@ -34,7 +38,7 @@ export class ComponentDocumentation extends React.Component {
                     wrap: true
                 },
                 {
-                    width: '150px',
+                    width: '200px',
                     name: 'Default Value',
                     field: ['default']
                 }
@@ -84,11 +88,11 @@ export class ComponentDocumentation extends React.Component {
                             <ShowHide
                                 label={this.props.title + " Properties"}
                                 labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(20, 20, 20)', fontSize: '2rem'}}
-                                contentStyle={{padding: '20px'}}
                                 icons={["up","down"]}
                                 initialShow={false}
+                                maxOverflow={this.props.longProps ? '150vh' : null}
                             >
-                                <div style={{backgroundColor: 'white'}}>
+                                <div style={{backgroundColor: 'white', padding: '20px'}}>
                                     {paramNodes}
                                 </div>
                             </ShowHide>

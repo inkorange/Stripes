@@ -45,15 +45,16 @@ export class CardElement extends React.Component {
                     title="Card"
                     location="import {Card} from 'zebra-stripes/Layouts';"
                     propsMap={[
-                        {name: 'style', type: 'object', desc: 'Extends the base styling of the Card element.', default: '{}'},
-                        {name: 'headerStyle', type: 'object', desc: 'Extends the styling within the header section of the Card.', default: '{}'},
-                        {name: 'footerStyle', type: 'object', desc: 'Extends the styling in the footer section of the Card.', default: '{}'},
-                        {name: 'borders', type: 'boolean', desc: 'Will render a border under the header and above the footer.', default: 'false'},
-                        {name: 'title', type: 'string', desc: 'Text to display in the header of the Card element.', default: 'null'},
                         {name: 'actions', type: '[ReactComponent(s)]', desc: 'A collection of React component objects to be included in the footer. Bindings are expected to already be attached to the elements, as the Card element will not initial event handlers on children elements.', default: 'null'},
+                        {name: 'borders', type: 'boolean', desc: 'Will render a border under the header and above the footer.', default: 'false'},
                         {name: 'fillContainer', type: 'boolean', desc: 'This toggle forces the Card container to fill up the last relatively styled parent container.', default: 'false'},
+                        {name: 'footerStyle', type: 'object', desc: 'Extends the styling in the footer section of the Card.', default: '{}'},
                         {name: 'forceBottomAlign', type: 'boolean', desc: 'This toggle will force the actions in the footer to always be at the bottom of the screen, typically used when the panel is fullscreen height.', default: 'false'},
-                        {name: 'inactiveDepth', type: 'number (0 to 1)', desc: 'In cases where the Card is performing an action and the user needs to wait, toggling this prop to be greater than 0 will put a screen over the Card. The screen is relative to the last relatively styled parent container. ', default: '0'}
+                        {name: 'headerStyle', type: 'object', desc: 'Extends the styling within the header section of the Card.', default: '{}'},
+                        {name: 'inactiveDepth', type: 'number (0 to 1)', desc: 'In cases where the Card is performing an action and the user needs to wait, toggling this prop to be greater than 0 will put a screen over the Card. The screen is relative to the last relatively styled parent container. ', default: '0'},
+                        {name: 'onClick', type: 'function', desc: 'Callback function that is executed when the Card container is clicked.', default: '() => { return false; }'},
+                        {name: 'style', type: 'object', desc: 'Extends the base styling of the Card element.', default: '{}'},
+                        {name: 'title', type: 'string', desc: 'Text to display in the header of the Card element.', default: 'null'}
                     ]}
                     samples={[
                         {

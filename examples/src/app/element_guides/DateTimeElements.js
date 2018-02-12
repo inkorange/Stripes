@@ -18,7 +18,7 @@ export class DatePickerElement extends React.Component {
             <ComponentDocumentation
                 title="DatePicker"
                 location="import {DatePicker} from 'zebra-stripes/Forms';"
-
+                longProps={true}
                 propsMap={[
                         {name: 'baseDateTime',    type: 'Date',     desc: 'Used to set the local date/time, typically from a server. If this is not set, it will use the client\'s datetime.', default: 'new Date()'},
                         {name: 'date',            type: 'Date',     desc: 'The initial date value of the Date selector.', default: 'null'},
@@ -77,7 +77,7 @@ export class TimePickerElement extends React.Component {
             <ComponentDocumentation
                 title="TimePicker"
                 location="import {TimePicker} from 'zebra-stripes/Forms';"
-
+                longProps={true}
                 propsMap={[
                         {name: 'baseDateTime',    type: 'Date',     desc: 'Used to set the local date/time, typically from a server. If this is not set, it will use the client\'s datetime.', default: 'new Date()'},
                         {name: 'clockFormat',   type: 'string',    desc: 'Sets the clock selector to be in 12hr, or 24hr (Military) time format.', default: '12hr'},
@@ -137,7 +137,7 @@ export class DateTimePickerElement extends React.Component {
             <ComponentDocumentation
                 title="DateTimePicker"
                 location="import {DateTimePicker} from 'zebra-stripes/Forms';"
-
+                longProps={true}
                 propsMap={[
                         {name: 'baseDateTime',    type: 'Date',     desc: 'Used to set the local date/time, typically from a server. If this is not set, it will use the client\'s datetime.', default: 'new Date()'},
                         {name: 'clockFormat',    type: 'string',    desc: 'Sets the clock selector to be in 12hr, or 24hr (Military) time format.', default: '12hr'},

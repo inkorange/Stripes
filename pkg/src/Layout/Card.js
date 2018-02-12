@@ -17,7 +17,8 @@ export class Card extends StripesTheme {
         fillContainer: false,
         forceBottomAlign: false,
         inactiveDepth: 0,
-        className: ""
+        className: "",
+        onClick: () => { return false; }
     };
 
     constructor(props) {
@@ -57,6 +58,7 @@ export class Card extends StripesTheme {
                 borderBottom: this.props.borders ? 'solid 1px ' + colors.border : null
             },
             body: {
+                transition: "all .25s ease-in-out",
                 padding: '0 ' + spacing.padding*4 + "px " + spacing.padding*4 + "px " + spacing.padding*4 + "px"
             },
             footer: {
@@ -101,7 +103,7 @@ export class Card extends StripesTheme {
 
     render() {
         return (
-            <section {...this.getDataSet(this.props)} style={this.state.style.base} className={"Card " + this.props.className}>
+            <section onClick={this.props.onClick} {...this.getDataSet(this.props)} style={this.state.style.base} className={"Card " + this.props.className}>
                 {this.props.title ? (
                     <header key="card_header" ref="card_header" style={this.state.style.header}>{this.props.title}</header>
                 ) : null}

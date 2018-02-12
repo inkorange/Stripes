@@ -283,7 +283,7 @@ export class StripesTheme extends React.Component {
         };
         let aniExplode = [
             { overflow: 'hidden', maxHeight: 0},
-            { overflow: 'hidden', maxHeight: '100vh'}
+            { overflow: 'hidden', maxHeight: '200vh'}
         ];
         if(node.animate) {
             let animation = node.animate(aniExplode, aniTiming);
