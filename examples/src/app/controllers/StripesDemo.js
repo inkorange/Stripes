@@ -37,7 +37,15 @@ class StripesDemo extends React.Component {
             checkboxdisable: false,
             radiobuttondisabled: false,
             inputerror: null
-        }
+        };
+
+        this.options = {
+            rootMargin: '0px',
+            threshold: .5
+        };
+
+        this.observer = new IntersectionObserver(this.actOnIntersection, this.options);
+
         this.toggleCheckboxDisable = this.toggleCheckboxDisable.bind(this);
         this.toggleRadioDisable = this.toggleRadioDisable.bind(this);
         this.toggleError = this.toggleError.bind(this);
@@ -46,6 +54,17 @@ class StripesDemo extends React.Component {
     }
 
     componentDidMount() {
+        /*
+        let targets = document.querySelectorAll('section.style_section > h1');
+
+        targets.forEach(t => {
+            this.observer.observe(t);
+        });
+        */
+    }
+
+    actOnIntersection(entries) {
+        console.log('intersecting', entries, entries[0].target.innerText);
     }
 
     toggleCheckboxDisable() {
@@ -134,7 +153,7 @@ class StripesDemo extends React.Component {
         let LayoutSect = [];
 
         Object.keys(StyleGuideConfig).map((k,v) => {
-            LayoutSect.push(<section id={k} key={"comp"+k}>{StyleGuideConfig[k]}</section>);
+            LayoutSect.push(<section id={k} className="style_section" key={"comp"+k}>{StyleGuideConfig[k]}</section>);
             LayoutNavigator.push(<p style={{lineHeight: '15px'}} key={"nav"+k}><A onClick={this._scrollToFromMenu} data-anchor={"#" + k}>{k}</A></p>);
         });
 
@@ -148,7 +167,7 @@ class StripesDemo extends React.Component {
                 <div key="navside" style={navSideStyle}>
                     {LayoutNavigator}
                 </div>
-                <div key="layoutside" style={contentSideStyle}>
+                <div key="layoutside" id="componentLayout" style={contentSideStyle}>
                     {LayoutSect}
                 </div>
 

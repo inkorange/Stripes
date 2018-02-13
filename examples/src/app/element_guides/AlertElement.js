@@ -23,7 +23,7 @@ export class AlertElement extends React.Component {
             <ComponentDocumentation
                 title="Alert"
                 location="import {Alert} from 'zebra-stripes/Notifications/Alert';"
-
+                longProps={true}
                 propsMap={[
                         {name: 'disabled',          type: 'boolean',    desc: 'Toggle to enable and disable the TextBox input.', default: 'false'},
                         {name: 'error',             type: 'string',     desc: 'An error string that when not null, will put the input into an error state, and display this error message below the input.', default: 'null'},

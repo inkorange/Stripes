@@ -24,6 +24,17 @@
             //margin-top: 60px!important;
 
         }
+
+        section.style_section > h1,
+        section.style_section > div > h1 {
+            margin: 0 -10px !important;
+            padding: 20px 10px !important;
+            background: white;
+            z-index: 9;
+            position: sticky;
+            top: 70px;
+            box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.5);
+        }
     }
 }
 

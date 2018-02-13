@@ -90,7 +90,7 @@ export class ComponentDocumentation extends React.Component {
                                 labelStyle={{padding: '20px', backgroundColor: '#f3f3f3', color: 'rgb(20, 20, 20)', fontSize: '2rem'}}
                                 icons={["up","down"]}
                                 initialShow={false}
-                                maxOverflow={this.props.longProps ? '150vh' : null}
+                                maxOverflow={this.props.longProps ? '150vh' : '100vh'}
                             >
                                 <div style={{backgroundColor: 'white', padding: '20px'}}>
                                     {paramNodes}

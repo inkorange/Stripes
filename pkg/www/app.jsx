@@ -329,6 +329,7 @@ class Sandbox extends React.Component {
                     contentStyle={{backgroundColor: 'rgb(240,240,240)'}}
                     icons={["up","down"]}
                     initialShow={false}
+                    maxOverflow={null}
                 >
                     <div style={{padding: '0 20px'}}>
                     <h3>dfkhgsdkjhfjsjhf</h3>
