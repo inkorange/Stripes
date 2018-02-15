@@ -64,7 +64,7 @@ export class StripesTheme extends React.Component {
                     resize: 'vertical',
                     textOverflow: 'ellipsis',
                     overflow: 'hidden',
-                    lineHeight: spacing.fontSize,
+                    lineHeight: parseFloat(spacing.fontSize)*1.25 + 'rem',
                     cursor: this.props.onClick ? 'pointer' : 'text',
                     backgroundColor: 'transparent',
                     padding: 0,
