@@ -322,43 +322,15 @@ class Sandbox extends React.Component {
         let contraints = [earliestDate.format('YYYY-MM-DD'), latestDate.format('YYYY-MM-DD')];
         return (
             <div style={{padding: '25px', height: '100vh', position: 'relative'}}>
-                <div>
-                <ShowHide
-                    label="Trying this out"
-                    labelStyle={{backgroundColor: 'green', color: 'rgb(20, 20, 20)', fontSize: '2rem'}}
-                    contentStyle={{backgroundColor: 'rgb(240,240,240)'}}
-                    icons={["up","down"]}
-                    initialShow={false}
-                    maxOverflow={null}
-                >
-                    <div style={{padding: '0 20px'}}>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    </div>
-                </ShowHide>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-                    <h3>dfkhgsdkjhfjsjhf</h3>
-            </div>
+
+                <TimePicker
+                    manual={true}
+                    width="100%"
+                    ref="starttime"
+                    clockFormat="24hr"
+                    placeholder="Session Start Time"
+                    time="12:30"
+                />
 
             </div>
 

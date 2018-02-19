@@ -32,6 +32,7 @@ export class DatePicker extends StripesTheme {
         date: null,
         manual: false,
         errorMessage: 'Invalid Date Format (M/D/YYYY)',
+        error: null,
         errorTimeout: 2500
     };
 
@@ -301,7 +302,7 @@ export class DatePicker extends StripesTheme {
                     onBlur={this.props.manual ? this.setManualDate : null}
                     readOnly={this.props.manual ? null : true}
                     placeholder={this.props.placeholder}
-                    error={this.state.inputError}
+                    error={this.props.error ? this.props.error : this.state.inputError}
                 />
                 <Dialog ref="Dialog"
                     {...this.getDataSet(this.props, '-dialog')}
