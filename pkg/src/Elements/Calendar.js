@@ -159,7 +159,7 @@ export class Calendar extends StripesTheme {
             let day = i > 0 ? i : '';
             let thisDate = m(calOnFirstDay).date(i);
             let isSelectedDate = thisDate.format("L") === m(this.props.date).format("L");
-            let isAvailable = thisDate.isBetween(firstConstraint, secondConstraint, 'day');
+            let isAvailable = thisDate.isSameOrAfter(firstConstraint) && thisDate.isSameOrBefore(secondConstraint);
             days.push(
                 <A
                     key={"date" + i}
@@ -174,8 +174,8 @@ export class Calendar extends StripesTheme {
           );
         }
 
-        let hasPreviousMonth = calOnFirstDay.isAfter(firstConstraint);
-        let hasNextMonth = calOnLastDay.isBefore(secondConstraint);
+        let hasPreviousMonth = calOnFirstDay.isSameOrAfter(firstConstraint);
+        let hasNextMonth = calOnLastDay.isSameOrBefore(secondConstraint);
 
         return (
             <section

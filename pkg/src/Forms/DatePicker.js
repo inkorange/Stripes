@@ -197,9 +197,9 @@ export class DatePicker extends StripesTheme {
             // otherwise if it has no slashes or it's invalid we throw an error
             } else if (val.indexOf('/') < 0 || !isValid) {
                 throwTimedError();
-            } else if(isValid && this.props.dateConstraint[0] && m(new Date(dateValue)).isBefore(m(this.props.dateConstraint[0]))) {
+            } else if(isValid && this.props.dateConstraint[0] && m(new Date(dateValue)).isSameOrBefore(m(this.props.dateConstraint[0]))) {
                 throwTimedError("Date must be after " + m(this.props.dateConstraint[0]).format(this.props.format)   );
-            } else if(isValid && this.props.dateConstraint[1] && m(new Date(dateValue)).isAfter(m(this.props.dateConstraint[1]))) {
+            } else if(isValid && this.props.dateConstraint[1] && m(new Date(dateValue)).isSameAfter(m(this.props.dateConstraint[1]))) {
                 throwTimedError("Date must be before " + m(this.props.dateConstraint[1]).format(this.props.format)  );
             } else { // finally, its a standard 1/1/1 input, so we create the date the old fashioned way
                 val = slashCount === 1 ? val + '/' + (new Date().getFullYear()): val;
