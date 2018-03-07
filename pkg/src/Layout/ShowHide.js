@@ -36,6 +36,18 @@ export class ShowHide extends StripesTheme {
         });
     }
 
+    componentWillUpdate(props) {
+        if(props.initialShow !== this.props.initialShow) {
+            this.setState({
+                show: props.initialShow
+            }, () => {
+                this.setState({
+                    style: this.getStyles()
+                });
+            });
+        }
+    }
+
     onClick() {
         this.props.onClick();
     }

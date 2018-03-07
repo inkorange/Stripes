@@ -209,13 +209,15 @@ class Sandbox extends React.Component {
         this.toggleDialog = this.toggleDialog.bind(this);
         this.getValues = this.getValues.bind(this);
         this.startTour = this.startTour.bind(this);
+        this.testPromoValue = this.testPromoValue.bind(this);
         this.state = {
             data: dataObj,
             showTooltip: false,
             saveIconHover: false,
             isloading: false,
             perpage: null,
-            showLazyLoading: false
+            showLazyLoading: false,
+            disablePromoButton: true
         };
 
         this.script = [
@@ -272,65 +274,19 @@ class Sandbox extends React.Component {
         console.log('HELLO!', a);
     }
 
+    testPromoValue(e, v) {
+        this.setState({
+            disablePromoButton: (!v || v === "")
+        })
+    }
+
     render() {
-
-        let script = [
-            {
-                title: "Note Iconography",
-                summary: "This icon is typically used to call out added notes to the application.",
-                location: [null, "top", "350px"], //that first null will make the card centered on the target
-                target: ".Icon2",
-                focus: [null,null, "200px"]
-            },
-            {
-                title: "Admin Iconography",
-                summary: "You would find this icon in the left nav, and it brings the user to the admin section of the application.",
-                location: ["right", "top", "350px"],
-                target: ".Icon1",
-                focus: ["25%","75%", "150px", "100px"] //since we have a target value, first 2 values here will be ignored.
-            }
-        ];
-
-        let navItems = [
-            <MenuItem key="menu1" title="Doors Dashboard"
-                      onClick={this.navigateToDoorsPage}
-                      icon="view_by_2"
-            />,
-            <MenuItem key="menu2" title="Active Doors"
-                      onClick={this.navigateToActiveDoorsPage}
-                      icon="loading"
-            />,
-            <MenuItem key="menu3" title="Load History"
-                      icon="list"
-            />,
-            <MenuItem key="menu4" title="Notes"
-                      onClick={this.navigateToNotesPage}
-                      icon="note"
-            />,
-            <MenuItem key="menu5" title="Help"
-                      onClick={this.navigateToHelpPage}
-                      icon="help"
-            />,
-            <MenuItem key="menu6" title="Admin"
-
-                      onClick={this.navigateToAdminPage}
-                      icon="admin"
-            />
-        ];
-        let earliestDate = m().subtract(1, "years");
-        let latestDate = m().add(30, "days");
-        let contraints = [earliestDate.format('YYYY-MM-DD'), latestDate.format('YYYY-MM-DD')];
         return (
             <div style={{padding: '25px', height: '100vh', position: 'relative'}}>
 
-                <TimePicker
-                    manual={true}
-                    width="100%"
-                    ref="starttime"
-                    clockFormat="24hr"
-                    placeholder="Session Start Time"
-                    time="12:30"
-                />
+                <TextBox ref="promocode" onChange={this.testPromoValue} placeholder="Promo Code" width="50%"/>
+                <RaisedButton disabled={this.state.disablePromoButton} type="primary" onClick={this.validatePromo}>Add</RaisedButton>
+                <FlatButton disabled={this.state.disablePromoButton} onClick={this.validatePromo}>Flat</FlatButton>
 
             </div>
 

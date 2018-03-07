@@ -18,11 +18,26 @@ class FlatButton extends StripesTheme {
 
     constructor(props) {
         super(props);
-        let color = this.getColors()[props.type];
-        let component = this.getStyles();
         this.state = {
+            hover: false
+        };
+    }
+
+    componentDidMount() {
+        this.setStyles();
+    }
+
+    componentDidUpdate(props) {
+        if(props !== this.props) {
+            this.setStyles();
+        }
+    }
+
+    setStyles() {
+        let color = this.getColors()[this.props.type];
+        let component = this.getStyles();
+        this.setState({
             hover: false,
-            disabled: props.disabled,
             style: Object.assign({
                 backgroundColor: color.backgroundColor
             },component.button),
@@ -30,7 +45,7 @@ class FlatButton extends StripesTheme {
                 backgroundColor: color.backgroundHover
             },component.button),
             inkStyle: component.ink
-        }
+        });
     }
 
     getStyles() {
@@ -109,15 +124,30 @@ class RaisedButton extends StripesTheme {
         icon: null,
         iconColor: 'white',
         onClick: () => { return false; }
-    }
+    };
 
     constructor(props) {
         super(props);
-        let color = this.getColors()[props.type];
-        let component = this.getStyles();
         this.state = {
+            hover: false
+        };
+    }
+
+    componentDidMount() {
+        this.setStyles();
+    }
+
+    componentDidUpdate(props) {
+        if(props !== this.props) {
+            this.setStyles();
+        }
+    }
+
+    setStyles() {
+        let color = this.getColors()[this.props.type];
+        let component = this.getStyles();
+        this.setState({
             hover: false,
-            disabled: props.disabled,
             style: Object.assign({
                 backgroundColor: color.backgroundColor
             },component.button),
@@ -125,7 +155,7 @@ class RaisedButton extends StripesTheme {
                 backgroundColor: color.backgroundHover
             },component.button),
             inkStyle: component.ink
-        }
+        });
     }
 
     getStyles() {
@@ -164,7 +194,7 @@ class RaisedButton extends StripesTheme {
     }
 
     render() {
-        var iconNode = null;
+        let iconNode = null;
         if(this.props.icon) {
             iconNode = (
                 <Icon
