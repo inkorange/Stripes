@@ -207,6 +207,7 @@ export class SelectPanel extends StripesTheme {
                 return false;
             }
             this.props.onSelect(this.props.data[selectedid]);
+            this.close(e);
             this.setState({
                 value: this.props.data[selectedid].label,
                 show: false
@@ -265,6 +266,7 @@ export class SelectPanel extends StripesTheme {
     }
 
     close(e) {
+        window.removeEventListener('keydown', this.keyboardListeners);
         if(!this.state.show) {
             return false;
         }
@@ -276,7 +278,6 @@ export class SelectPanel extends StripesTheme {
                 style: this.getStyles()
             });
         });
-        window.removeEventListener('keydown', this.keyboardListeners);
     }
 
     render() {

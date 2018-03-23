@@ -285,7 +285,7 @@ class Sandbox extends React.Component {
             <div style={{padding: '25px', height: '100vh', position: 'relative'}}>
 
                 <TextBox ref="promocode" onChange={this.testPromoValue} placeholder="Promo Code" width="50%"/>
-                <RaisedButton disabled={this.state.disablePromoButton} type="primary" onClick={this.validatePromo}>Add</RaisedButton>
+                <RaisedButton icon="rtcube" disabled={this.state.disablePromoButton} type="primary" onClick={this.validatePromo}>Add</RaisedButton>
                 <FlatButton disabled={this.state.disablePromoButton} onClick={this.validatePromo}>Flat</FlatButton>
 
             </div>

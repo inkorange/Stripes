@@ -23,7 +23,7 @@ class FlatButton extends StripesTheme {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setStyles();
     }
 
@@ -133,7 +133,7 @@ class RaisedButton extends StripesTheme {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setStyles();
     }
 
