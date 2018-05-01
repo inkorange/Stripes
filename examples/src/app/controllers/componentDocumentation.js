@@ -104,6 +104,7 @@ export class ComponentDocumentation extends React.Component {
                             icons={["up","down"]}
                             key="showhide"
                             initialShow={true}
+                            maxOverflow={'200vh'}
                         >
                             {codeExamples}
                         </ShowHide>

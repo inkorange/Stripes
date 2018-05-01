@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import {autobind} from "core-decorators";
 
 let stripes_theme = {};
 stripes_theme.palette = {};
@@ -23,22 +23,11 @@ export function Stripes(config)
 
     _init();
 }
-
+@autobind
 export class StripesTheme extends React.Component {
 
     constructor(props) {
         super(props);
-        this.getTheme = this.getTheme.bind(this);
-        this.mouseOver = this.mouseOver.bind(this);
-        this.mouseOut = this.mouseOut.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-        this.handleSwitchOnChange = this.handleSwitchOnChange.bind(this);
-        this.resolveStyling = this.resolveStyling.bind(this);
-        this.onInputClick = this.onInputClick.bind(this);
-        this.onInputBlur = this.onInputBlur.bind(this);
-        this.getBaseStyling = this.getBaseStyling.bind(this);
-        this.extendChildren = this.extendChildren.bind(this);
-        this.updateStyling = this.updateStyling.bind(this);
     }
 
     getBaseStyling(spacing, color) {
@@ -175,7 +164,7 @@ export class StripesTheme extends React.Component {
     }
 
     handleClick() {
-        if(!this.state.disabled) {
+        if(!this.state.disabled && !this.props.disabled) {
             this.props.onClick();
         }
     }

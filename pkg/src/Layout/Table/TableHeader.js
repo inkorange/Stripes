@@ -1,7 +1,6 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../../Core/Stripes'
 
 export class TableHeader extends StripesTheme {
@@ -10,7 +9,7 @@ export class TableHeader extends StripesTheme {
         style: {},
         type: 'table',
         columnMap: null
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -26,9 +25,9 @@ export class TableHeader extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type].header;
-        var spacing = this.getSpacing()[this.props.type].header;
-        var styleObj = {
+        const color = this.getColors()[this.props.type].header;
+        const spacing = this.getSpacing()[this.props.type].header;
+        let styleObj = {
             base: {
                 minHeight: spacing.minHeight + 'px',
                 lineHeight: spacing.minHeight + 'px',

@@ -13,6 +13,7 @@ export class SelectPanel extends StripesTheme {
         show: false,
         width: null,
         dropOffset: null,
+        emptyLabel: '-- empty --',
         onClose: () => {}
     };
 
@@ -297,7 +298,7 @@ export class SelectPanel extends StripesTheme {
                     style={resultslistyle}
                     {...this.getDataSet(v)}
                 >
-                {v.label}
+                {v.label ? v.label : <span style={{fontStyle: 'italics', opacity: '.5'}}>{this.props.emptyLabel}</span>}
             </li>);
         });
 

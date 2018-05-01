@@ -1,8 +1,8 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
+import { autobind } from 'core-decorators';
 
 /* *********************************************************************************************************************
  Component Items
@@ -12,8 +12,9 @@ class Item extends StripesTheme {
         style:  {},
         defaultChecked: false,
         value: null,
-        disabled: false
-    }
+        disabled: false,
+        className: null
+    };
 
     constructor(props) {
         super(props);
@@ -21,7 +22,7 @@ class Item extends StripesTheme {
 
     render() {
         return (
-            <div {...this.props.dataset} style={this.props.style}>
+            <div {...this.props} {...this.props.dataset} style={this.props.style}>
                 {this.props.children}
             </div>
         )
@@ -32,6 +33,7 @@ class Item extends StripesTheme {
 /* *********************************************************************************************************************
 Component RadioButtonGroup
 ********************************************************************************************************************* */
+@autobind
 class RadioButtonGroup extends StripesTheme {
     static defaultProps = {
         style: {},
@@ -44,10 +46,6 @@ class RadioButtonGroup extends StripesTheme {
 
     constructor(props) {
         super(props);
-        this.updateValue = this.updateValue.bind(this);
-        this.setChecked = this.setChecked.bind(this);
-        this._setChildrenMap = this._setChildrenMap.bind(this);
-
         this.state = {
             style: this.getStyles()
         }
@@ -186,6 +184,7 @@ class RadioButtonGroup extends StripesTheme {
 /* *********************************************************************************************************************
  CheckBox Single Component
  ********************************************************************************************************************* */
+@autobind
 class CheckBox extends StripesTheme {
     static defaultProps = {
         align: 'left',
@@ -196,8 +195,9 @@ class CheckBox extends StripesTheme {
         onChange: () => { return false; },
         style: {},
         type: 'switches',
-        value: ''
-    }
+        value: '',
+        className: null
+    };
 
     constructor(props) {
         super(props);
@@ -205,8 +205,6 @@ class CheckBox extends StripesTheme {
             style: this.getStyles(),
             checked: this.props.checked
         };
-        this.updateValue = this.updateValue.bind(this);
-        this.isChecked = this.isChecked.bind(this);
     }
 
     componentWillUpdate(props) {
@@ -274,15 +272,16 @@ class CheckBox extends StripesTheme {
     }
 
     render() {
+        const checked = this.state.checked ? {checked: 'checked'} : null;
         return (
-            <label style={this.hardExtend(this.props.style, this.state.style.label)} {...this.mouseEventProps(this.props)}>
+            <label className={this.props.className} style={this.hardExtend(this.props.style, this.state.style.label)} {...this.mouseEventProps(this.props)}>
                 <div style={this.state.checked ? this.state.style.checkbox.active : this.state.style.checkbox.inactive}></div>
                 <input
                     {...this.getDataSet(this.props)}
                     disabled={this.props.disabled}
                     onChange={this.updateValue}
                     style={this.state.style.input}
-                    checked={this.state.checked ? 'checked' : null}
+                    {...checked}
                     type="checkbox"
                     value={this.props.value}
                 />
@@ -296,6 +295,7 @@ class CheckBox extends StripesTheme {
 /* *********************************************************************************************************************
  CheckBox Group
  ********************************************************************************************************************* */
+@autobind
 class CheckBoxGroup extends StripesTheme {
     static defaultProps = {
         align: 'left',
@@ -308,16 +308,10 @@ class CheckBoxGroup extends StripesTheme {
 
     constructor(props) {
         super(props);
-
         this.state = {
             style: this.getStyles(),
             items: this.resolveChildren()
         };
-
-        this.updateValue = this.updateValue.bind(this);
-        this.setChecked = this.setChecked.bind(this);
-        this.resolveChildren = this.resolveChildren.bind(this);
-
     }
 
     resolveChildren() {
@@ -326,6 +320,7 @@ class CheckBoxGroup extends StripesTheme {
             items.push({
                 dataset: this.getDataSet(obj.props),
                 style: obj.props.style,
+                className: obj.props.className,
                 checked: obj.props.defaultChecked,
                 value: obj.props.value !== null ? obj.props.value : obj.props.children,
                 children: obj.props.children,
@@ -427,6 +422,7 @@ class CheckBoxGroup extends StripesTheme {
                     checked={item.checked ? 'checked' : null}
                     {...item.dataset}
                     data-itemid={i}
+                    className={item.className}
                     disabled={item.disabled}
                     onChange={this.updateValue}
                     value={item.value ? item.value : ''}

@@ -5,11 +5,13 @@ import { StripesTheme } from '../Core/Stripes'
 import {SelectPanel} from './SelectPanel.js'
 import {Placeholder} from './Placeholder.js'
 import {Icon} from  '../Symbols/Icon'
+import { autobind } from 'core-decorators';
 
 let tabIndex = 0;
 /* *********************************************************************************************************************
  Component TextBox
  ********************************************************************************************************************* */
+@autobind
 class TextBox extends StripesTheme {
     static defaultProps = {
         style:  {},
@@ -43,12 +45,6 @@ class TextBox extends StripesTheme {
             suggestionItems: [],
             value: props.value
         };
-        this.onChange = this.onChange.bind(this);
-        this.getValue = this.getValue.bind(this);
-        this.applyValue = this.applyValue.bind(this);
-        this.onCompleteInputBlur = this.onCompleteInputBlur.bind(this);
-        this.blur = this.blur.bind(this);
-        this.inputKeyPress = this.inputKeyPress.bind(this);
         this.tabIndex = tabIndex++;
     }
 
@@ -166,7 +162,7 @@ class TextBox extends StripesTheme {
             this.props.onBlur();
             this.refs.input.parentNode.focus();
         }
-        this.props.onKeyPress();
+        this.props.onKeyPress(e.charCode);
     }
 
     getStyles() {
@@ -242,6 +238,7 @@ class TextBox extends StripesTheme {
 /* *********************************************************************************************************************
  Component TextArea
  ********************************************************************************************************************* */
+@autobind
 class TextArea extends StripesTheme {
     static defaultProps = {
         style:  {},
@@ -252,17 +249,12 @@ class TextArea extends StripesTheme {
         placeholder: null,
         onChange: null,
         error: null,
-        width: null
+        width: null,
+        rows: null
     };
 
     constructor(props) {
         super(props);
-
-        this.getValue = this.getValue.bind(this);
-        this.applyValue = this.applyValue.bind(this);
-        this.onChange = this.onChange.bind(this);
-        this.blur = this.blur.bind(this);
-
         this.state = {
             style: this.getStyles(),
             active: false,
@@ -344,6 +336,7 @@ class TextArea extends StripesTheme {
                     style={this.state.style.input}
                     value={this.state.value}
                     ref="input"
+                    rows={this.props.rows}
                     disabled={this.props.disabled ? 'disabled' : null}
                     readOnly={this.props.readOnly ? 'readonly' : null}
                 />
@@ -359,12 +352,14 @@ class TextArea extends StripesTheme {
 /* *********************************************************************************************************************
 Component DropDown
 ********************************************************************************************************************* */
+@autobind
 class DropDown extends StripesTheme {
     static defaultProps = {
         style:  {},
         className: null,
         type: 'inputs',
         placeholder: null,
+        emptyLabel: '-- empty --',
         error: null,
         width: null,
         iconStyle: {},
@@ -376,10 +371,6 @@ class DropDown extends StripesTheme {
 
     constructor(props) {
         super(props);
-        this.openSelect = this.openSelect.bind(this);
-        this.applyValue = this.applyValue.bind(this);
-        this.getValue = this.getValue.bind(this);
-        this.onDDInputBlur = this.onDDInputBlur.bind(this);
         let resolvedMap = this.resolveItemMap(this.props.children);
         this.state = {
             style: this.getStyles(),
@@ -515,6 +506,7 @@ class DropDown extends StripesTheme {
                     onClose={this.onDDInputBlur}
                     width={this.state.inputWidth}
                     dropOffset={this.state.style.dropOffset}
+                    emptyLabel={this.props.emptyLabel}
                 />
                 <span style={this.state.style.error}>{this.props.error}</span>
             </div>
@@ -528,4 +520,4 @@ module.exports = {
     TextBox: TextBox,
     TextArea: TextArea,
     DropDown: DropDown
-}
+};

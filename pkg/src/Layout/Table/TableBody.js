@@ -1,7 +1,6 @@
 "use strict"
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../../Core/Stripes'
 
 export class TableBody extends StripesTheme {
@@ -13,7 +12,7 @@ export class TableBody extends StripesTheme {
         zebraStripes: false,
         columnMap: null,
         disabled: false
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -21,6 +20,10 @@ export class TableBody extends StripesTheme {
         this.state = {
             style: {}
         }
+    }
+
+    shouldComponentUpdate(props) {
+        return (props.children && props.children !== this.props.children);
     }
 
     componentDidMount() {
@@ -82,7 +85,7 @@ export class TableBody extends StripesTheme {
 
     render() {
         return (
-            <div style={this.state.style.base}>
+            <div className="TableBody" style={this.state.style.base}>
                 <table style={this.state.style.table} {...this.getDataSet(this.props)}>
                     <tbody ref="tableBody">
                     {this.props.columnMap ? this.extendChildren(this.props.children, { columnMap: this.props.columnMap }) : this.props.children}

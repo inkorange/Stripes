@@ -1,14 +1,16 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
+import { autobind } from 'core-decorators';
 import ReactDOM from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
 import { Icon } from  '../Symbols/Icon'
 import { FlatButton } from  '../Forms/Buttons'
+import { CheckBox } from '../Forms'
 import { ProgressSpinner } from  '../Elements/ProgressSpinner'
 import {Table, TableHeader, TableHeaderCell, TableHeaderRow, TableBody, TableRow, TableCell, ColumnSelector} from '../Table'
 
+@autobind
 export class TabularListing extends StripesTheme {
 
     static defaultProps = {
@@ -26,41 +28,121 @@ export class TabularListing extends StripesTheme {
         triggerLazyLoad: () => { return false; },
         showMoreLoading: false,
         showLazyLoading: false,
-        disabled: false
+        disabled: false,
+        rowSelector: false,
+        rowSelectorKey: null,
+        onRowSelection: () => { return false; }
     };
 
     constructor(props) {
         super(props);
-        this.clickValue = this.clickValue.bind(this);
-        this.resolveHeight = this.resolveHeight.bind(this);
-        this.handleHeaderScroll = this.handleHeaderScroll.bind(this);
-        this.update = this.update.bind(this);
         this.state = {
             colors: this.getColors()[this.props.type],
             bodyHeight: this.props.bodyHeight,
             style: {},
-            header_left: null
+            header_left: null,
+            tableHeaderDom: [],
+            checkMap: {}
         };
+        this.spacing = this.getSpacing()[this.props.type];
         this.ticking = false;
     }
-
+    /*
     shouldComponentUpdate(props) {
-        return props.data ? true : false;
+        return true;
+        //return (props.data && props.data !== this.props.data);
     }
+    */
 
     componentDidMount() {
         ReactDOM.findDOMNode(this.refs.TableBody).addEventListener('scroll', this.handleHeaderScroll, false);
         this.setState({
-            style: this.getStyles()
+            style: this.getStyles(),
+            tableHeaderDom: this.getTableHeaderDOM()
         });
         this.resolveHeight();
+    }
+
+    componentWillUpdate(props, state) {
+
     }
 
     componentDidUpdate(props, state) {
         if(props.height !== this.props.height) {
             this.resolveHeight();
         }
+        if((props.data.sort_by !== this.props.data.sort_by) || (props.data.sort_direction !== this.props.data.sort_direction)) {
+            this.setState({
+                tableHeaderDom: this.getTableHeaderDOM()
+            });
+        }
         this.resolveHiddenFields();
+    }
+
+    toggleCheckedRows(c) {
+        Object.keys(this.state.checkMap).map(r => {
+            this.state.checkMap[r] = c;
+        });
+        this.setState({
+            checkMap: this.state.checkMap,
+            tableHeaderDom: this.state.tableHeaderDom
+        });
+        this.props.onRowSelection(this.state.checkMap);
+    }
+    toggleRowClick(c,v) {
+        this.state.checkMap[v[this.props.rowSelectorKey]] = c;
+        this.props.onRowSelection(this.state.checkMap);
+
+    }
+
+    getTableHeaderDOM() {
+        let tableHeaders = [];
+        if(this.props.rowSelector) {
+            tableHeaders.push(
+                <TableHeaderCell style={{paddingLeft: this.spacing.padding*2 + 'px'}} key="rowSelector" width="40px" className="rowSelector">
+                    <CheckBox checked={true} value="checkall" onChange={this.toggleCheckedRows}></CheckBox>
+                </TableHeaderCell>
+            );
+        }
+        this.props.data.structure.map((c, i) => {
+            let labelDOM = null;
+            let sortdirection = null;
+            if(c.icon) {
+                labelDOM = [
+                    <Icon key="icon" iconid={c.icon} style={{float: 'left'}} color={this.state.colors.textColor} size="16px" />,
+                    <label key="label" style={c.sortable ? {cursor: 'pointer'} : null} dangerouslySetInnerHTML={{__html: c.name}} />
+                ];
+            } else {
+                labelDOM = ( <label key="label" style={c.sortable ? {cursor: 'pointer'} : null} dangerouslySetInnerHTML={{__html: c.name}} /> );
+            }
+            if(c.field[0] === this.props.data.sort_by && this.props.sortable) {
+                sortdirection = this.props.data.sort_direction
+            }
+
+            let name = c.name !== "" ? c.name.replace(/(<([^>]+)>)|( )/ig, "") : c.field[0];
+            tableHeaders.push(
+                <TableHeaderCell
+                    className={c.className}
+                    isSortable={c.sortable ? c.sortable : false}
+                    data-name={name}
+                    width={c.width ? c.width : null}
+                    onClick={c.sortable ? this.props.onHeaderClick : null}
+                    key={"headercell" + i}
+                    wrap={c.wrap ? true: false}
+                    sortdirection={sortdirection}
+                    field={c.field[0]}
+                    {...this.getDataSet(this.props, ' TableHeader ' + name)}
+                >
+                    {labelDOM}
+                </TableHeaderCell>
+            );
+        });
+        if(this.props.columnSelector) {
+            tableHeaders.push(
+                <TableHeaderCell key="ColumnSelector" width="30px" className="ColumnSelector" />
+            );
+        }
+        return tableHeaders;
     }
 
     update(e) {
@@ -100,7 +182,6 @@ export class TabularListing extends StripesTheme {
     }
 
     getStyles() {
-        const spacing = this.getSpacing()[this.props.type];
         let styleObj = {
             base: {
                 overflow: 'hidden'
@@ -112,13 +193,13 @@ export class TabularListing extends StripesTheme {
             listSummary: {
                 position: 'relative',
                 top: '1px',
-                lineHeight: spacing.padding*6 + 'px',
+                lineHeight: this.spacing.padding*6 + 'px',
                 display: 'inline-block'
             },
             showMoreStyle: {
                 textAlign: 'right',
-                fontSize: spacing.fontSize,
-                paddingTop: spacing.cell.padding,
+                fontSize: this.spacing.fontSize,
+                paddingTop: this.spacing.cell.padding,
                 backgroundColor: 'white',
                 boxShadow: '0 2px 0 rgb(150,150,150) inset'
             }
@@ -128,10 +209,21 @@ export class TabularListing extends StripesTheme {
     }
 
     render() {
-        let sort_by = this.props.data.sort_by;
         let tableCells = [];
         this.props.data.rows.map((r, i) => {
             let cells = [];
+            if(this.props.rowSelector) {
+                if(this.state.checkMap[r[this.props.rowSelectorKey]] === undefined) {
+                    this.state.checkMap[r[this.props.rowSelectorKey]] = true;
+                }
+                const isChecked = this.state.checkMap[r[this.props.rowSelectorKey]];
+                cells.push(
+                    <TableCell style={{paddingLeft: this.spacing.padding*2 + 'px', verticalAlign: 'middle'}} key="tablecellCheck" width="40px">
+                        <CheckBox checked={isChecked} value={r} width="30px" onChange={this.toggleRowClick}></CheckBox>
+                    </TableCell>
+                );
+            }
+
             this.props.data.structure.map((header, key) => {
                 let itemDOM = [];
                 let fieldStr = "";
@@ -158,7 +250,7 @@ export class TabularListing extends StripesTheme {
                     <TableCell
                         className={header.className}
                         data-name={name}
-                        key={"headcell"+key}
+                        key={"tablecell"+key}
                         width={header.width}
                         data-filterable={header.filterable}
                         { ...(header.filterable ? this.getDataSet(this.props, ' TableCell ' + fieldStr) : {}) }
@@ -175,7 +267,7 @@ export class TabularListing extends StripesTheme {
                     />
                 );
             }
-            let rowclass = this.props.data.rowClassFormatter ? this.props.data.rowClassFormatter(r) : "";
+            let rowclass = this.props.data.rowClassFormatter ? this.props.data.rowClassFormatter(r) : null;
             tableCells.push(
                 <TableRow className={rowclass} onClick={(e) => { this.props.onRowClick(e, r); }} key={"row"+i}>
                     {cells}
@@ -199,50 +291,13 @@ export class TabularListing extends StripesTheme {
                 </tr>);
         }
 
-        let tableHeaders = [];
-        this.props.data.structure.map((c, i) => {
-            let labelDOM = null;
-            let sortdirection = null;
-            if(c.icon) {
-                labelDOM = [
-                    <Icon key="icon" iconid={c.icon} style={{float: 'left'}} color={this.state.colors.textColor} size="16px" />,
-                    <label key="label" style={c.sortable ? {cursor: 'pointer'} : null} dangerouslySetInnerHTML={{__html: c.name}} />
-                ];
-            } else {
-                labelDOM = ( <label key="label" style={c.sortable ? {cursor: 'pointer'} : null} dangerouslySetInnerHTML={{__html: c.name}} /> );
-            }
-            if(c.field[0] === sort_by && this.props.sortable) {
-                sortdirection = this.props.data.sort_direction
-            }
-            let name = c.name !== "" ? c.name.replace(/(<([^>]+)>)|( )/ig, "") : c.field[0];
-            tableHeaders.push(
-                <TableHeaderCell
-                    className={c.className}
-                    isSortable={c.sortable ? c.sortable : false}
-                    data-name={name}
-                    width={c.width ? c.width : null}
-                    onClick={this.props.onHeaderClick}
-                    key={"headercell" + i}
-                    wrap={c.wrap ? true: false}
-                    sortdirection={sortdirection}
-                    field={c.field[0]}
-                    {...this.getDataSet(this.props, ' TableHeader ' + name)}
-                >
-                    {labelDOM}
-                </TableHeaderCell>
-            );
-        });
-        if(this.props.columnSelector) {
-            tableHeaders.push(
-                <TableHeaderCell key="ColumnSelector" width="30px" className="ColumnSelector" />
-            );
-        }
+
         return (
             <Table className="TabularListing" ref="TabularListing"  style={this.state.style.base} {...this.getDataSet(this.props)}>
                 <div ref="TableHeaderContainer" className="TableHeaderContainer" style={this.state.style.header}>
                     <TableHeader key="TableHeader" ref="TableHeader">
                         <TableHeaderRow>
-                            {tableHeaders}
+                            {this.state.tableHeaderDom}
                         </TableHeaderRow>
                     </TableHeader>
                     {this.props.columnSelector ?

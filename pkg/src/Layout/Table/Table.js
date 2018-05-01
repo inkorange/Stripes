@@ -1,7 +1,6 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../../Core/Stripes'
 
 export class Table extends StripesTheme {
@@ -13,7 +12,7 @@ export class Table extends StripesTheme {
         height: null,
         columnMap: null,
         className: null
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -37,7 +36,7 @@ export class Table extends StripesTheme {
     }
 
     getStyles() {
-        var styleObj = {
+        let styleObj = {
             base: {
                 width: this.props.width,
                 height: this.props.height,
@@ -56,5 +55,3 @@ export class Table extends StripesTheme {
         )
     }
 }
-
-// {React.cloneElement(this.props.children, { fixedHeight: this.props.height })}

@@ -1,7 +1,6 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../../Core/Stripes'
 
 export class TableRow extends StripesTheme {
@@ -13,7 +12,7 @@ export class TableRow extends StripesTheme {
         hoverHighlight: true,
         columnMap: null,
         className: ''
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -23,6 +22,10 @@ export class TableRow extends StripesTheme {
             style: {},
             hover: false
         }
+    }
+
+    shouldComponentUpdate(props, state) {
+        return (props.children && props.children !== this.props.children || state.hover !== this.state.hover);
     }
 
     componentDidMount() {

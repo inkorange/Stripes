@@ -13,6 +13,7 @@ export class MenuItem extends StripesTheme {
         type: 'default',
         title: '',
         icon: null,
+        active: false,
         onClick: () => { return false; }
     };
 
@@ -35,7 +36,7 @@ export class MenuItem extends StripesTheme {
         const color = this.getColors()[this.props.type];
         const spacing = this.getSpacing()[this.props.type];
         let base = {
-            margin: spacing.margin + "px " + spacing.margin*2 + "px",
+            margin: spacing.margin*2 + "px",
             height: '48px',
             lineHeight: '48px',
             cursor: 'pointer',
@@ -55,7 +56,7 @@ export class MenuItem extends StripesTheme {
             icon: {
                 float: 'left',
                 cursor: 'pointer',
-                padding: spacing.padding + "px",
+                padding: spacing.padding + "px " + spacing.padding + "px " + spacing.padding + "px " + spacing.padding*2 + "px",
                 marginRight: spacing.margin*2 + "px",
                 marginTop: '-1px'
             },
@@ -74,7 +75,7 @@ export class MenuItem extends StripesTheme {
     render() {
         return (
             <div
-                 style={this.state.hover ? this.state.style.hover : this.state.style.base}
+                 style={this.state.hover || this.props.active ? this.state.style.hover : this.state.style.base}
                  onClick={this.props.onClick}
                  onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}
                  onMouseDown={this.animateBackground}
@@ -87,11 +88,10 @@ export class MenuItem extends StripesTheme {
                         iconid={this.props.icon}
                         size="medium"
                         type="primary"
-                        color={this.state.hover ? this.state.style.iconHoverColor : this.state.style.iconIdleColor}
+                        color={this.state.hover || this.props.active ? this.state.style.iconHoverColor : this.state.style.iconIdleColor}
                     />
                 : null}
                 {this.props.title}
-
             </div>
         )
     }

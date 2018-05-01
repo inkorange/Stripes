@@ -1,13 +1,12 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../../Core/Stripes'
-import {IconMenu, MenuItem} from '../../Layouts'
-import { Icon } from  '../../Symbols/Icon'
+import {IconMenu} from '../../Layouts'
 import {CheckBox, CheckBoxGroup, Item} from '../../Forms'
-import {TableHeaderCell} from './TableHeaderCell'
+import {autobind} from "core-decorators";
 
+@autobind
 export class ColumnSelector extends StripesTheme {
 
     static defaultProps = {
@@ -21,11 +20,6 @@ export class ColumnSelector extends StripesTheme {
 
     constructor(props) {
         super(props);
-        this.toggleShowHide = this.toggleShowHide.bind(this);
-        this.selectAll = this.selectAll.bind(this);
-        this.update = this.update.bind(this);
-        this.toggleVisibilityDefaults = this.toggleVisibilityDefaults.bind(this);
-
         this.state = {
             style: {},
             selectorDisabled: false,

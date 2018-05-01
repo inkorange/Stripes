@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 import React from 'react'
 import { render } from 'react-dom'
@@ -11,7 +11,8 @@ export class TableCell extends StripesTheme {
         wrap: false,
         width: null,
         type: 'table',
-        className: null
+        className: null,
+        children: null
     };
 
     constructor(props) {
@@ -19,6 +20,10 @@ export class TableCell extends StripesTheme {
         this.state = {
             style: {}
         }
+    }
+
+    shouldComponentUpdate(props) {
+        return props.children && (props.children !== this.props.children);
     }
 
     componentDidMount() {
@@ -36,10 +41,10 @@ export class TableCell extends StripesTheme {
         let styleObj = {
             base: {
                 padding: spacing.padding + 'px ' + spacing.padding*2 + 'px ' + spacing.padding + 'px ' + spacing.padding*3 + 'px',
-                verticalAlign: 'top',
+                //verticalAlign: 'top',
                 cursor: this.props.onClick ? 'pointer' : 'default',
                 position: 'relative',
-                maxWidth: 0,
+                //maxWidth: 0,
                 width: this.props.width,
                 minWidth: this.props.width,
                 whiteSpace: !this.props.wrap ? 'nowrap' : null,

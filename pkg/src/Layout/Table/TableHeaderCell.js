@@ -1,7 +1,6 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../../Core/Stripes'
 import { SortDirection } from './SortDirection'
 
@@ -18,7 +17,7 @@ export class TableHeaderCell extends StripesTheme {
         className: null,
         field: '',
         ignoreHover: false
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -27,6 +26,16 @@ export class TableHeaderCell extends StripesTheme {
             style: {}
         }
     }
+/*
+    shouldComponentUpdate(props, state) {
+
+        return (
+            props.children !== this.props.children ||
+            state.hover !== this.state.hover ||
+            props.sortdirection !== this.props.sortdirection
+        );
+
+    }      */
 
     componentWillMount() {
         this.setState({
@@ -35,7 +44,7 @@ export class TableHeaderCell extends StripesTheme {
     }
 
     componentDidUpdate(props, state) {
-        this.updateStyling(props !== this.props || this.state.hover !== state.hover);
+        this.updateStyling(props !== this.props || props.sortdirection !== this.props.sortdirection || this.state.hover !== state.hover);
     }
 
     onClick(e) {
@@ -63,7 +72,7 @@ export class TableHeaderCell extends StripesTheme {
                 textTransform: 'uppercase',
                 fontSize: spacing.fontSize,
                 fontWeight: 400,
-                maxWidth: 0,
+                //maxWidth: 0,
                 minWidth: this.props.width,
                 width: this.props.width,
                 textAlign: 'left',
