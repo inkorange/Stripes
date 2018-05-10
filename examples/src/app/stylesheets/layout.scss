@@ -60,7 +60,11 @@ footer.zebra {
         margin: $baseMargin 0 0 0;
     }
 }
-
+.TabularListing {
+    .TableHeaderContainer {
+        overflow: hidden !important;
+    }
+}
 
 /*
 fieldset:first-of-type {

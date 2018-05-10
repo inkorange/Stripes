@@ -9,7 +9,7 @@ import { autobind } from 'core-decorators';
  ********************************************************************************************************************* */
 class Item extends StripesTheme {
     static defaultProps = {
-        style:  {},
+        style:  null,
         defaultChecked: false,
         value: null,
         disabled: false,

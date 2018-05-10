@@ -1,9 +1,7 @@
-"use strict"
+"use strict";
 
 import React from 'react'
-import { render } from 'react-dom'
 import { StripesTheme } from '../Core/Stripes'
-import {Icon} from  '../Symbols/Icon'
 
 export class TabMenu extends StripesTheme {
 
@@ -13,23 +11,23 @@ export class TabMenu extends StripesTheme {
         type: 'tabmenu',
         onClick: () => {},
         className: null     // Adds a class name to the root.
-    }
+    };
 
     constructor(props) {
         super(props);
         this.clickItem = this.clickItem.bind(this);
         this._setChildrenMap = this._setChildrenMap.bind(this);
-
         this.state = {
             selected: 0,
             style: {}
-        }
-        //this._setChildrenMap();
+        };
+        this.color = this.getColors()[this.props.type];
+        this.spacing = this.getSpacing()[this.props.type];
 
     }
 
     _setChildrenMap() {
-        var selected = 0;
+        let selected = 0;
         this.props.children.map((item,pos) => {
             if(item.props.selected) {
                 selected = pos;
@@ -53,42 +51,48 @@ export class TabMenu extends StripesTheme {
     }
 
     getStyles() {
-        var color = this.getColors()[this.props.type];
-        var spacing = this.getSpacing()[this.props.type];
-        var itemCount = this.props.children.length;
+        const itemCount = this.props.children.length;
 
-        var itemBase = {
-            padding: "0px " + spacing.padding + "px",
-            minHeight: spacing.minHeight + 'px',
-            lineHeight: spacing.minHeight + 'px',
-            color: color.textColor,
-            fontSize: spacing.fontSize,
+        let itemBase = {
+            padding: "0px " + this.spacing.padding + "px",
+            minHeight: this.spacing.minHeight + 'px',
+            color: this.color.textColor,
+            fontSize: this.spacing.fontSize,
             flexGrow: 1,
+            position: 'relative',
             textAlign: 'center',
             cursor: 'pointer',
             transition: 'opacity .3s',
             width: 100/this.props.children.length + "%",
             userSelect: 'none'
-        }
-        var styleObj = {
+        };
+        let styleObj = {
             base: {
-                backgroundColor: color.background,
+                backgroundColor: this.color.background,
                 position: 'relative',
                 display: 'flex',
                 flexWrap: 'nowrap'
             },
             item: Object.assign({opacity:.5}, itemBase),
+            tabcontent: {
+                position: 'absolute',
+                textAlign: 'center',
+                top: '50%',
+                right: 0,
+                left: 0,
+                transform: 'translate(0, -50%)'
+            },
             selecteditem: this.hardExtend(
-                {opacity: 1, backgroundColor: color.selectedBackground},
+                {opacity: 1, backgroundColor: this.color.selectedBackground},
                 itemBase),
             indicator: {
                 transition: 'left .5s',
                 position: 'absolute',
                 left: (100/itemCount * this.state.selected) + '%',
                 bottom: 0,
-                height: spacing.indicatorHeight + 'px',
+                height: this.spacing.indicatorHeight + 'px',
                 width: 100 / itemCount + "%",
-                backgroundColor: color.indicator
+                backgroundColor: this.color.indicator
             },
             content: {}
         };
@@ -98,8 +102,8 @@ export class TabMenu extends StripesTheme {
     }
 
     clickItem(e) {
-        var pos = e.currentTarget.getAttribute("data-itemid")*1;
-        var value = e.currentTarget.getAttribute("data-value");
+        const pos = e.currentTarget.getAttribute("data-itemid")*1;
+        const value = e.currentTarget.getAttribute("data-value");
         this.setState({
             selected: pos
         }, () => {
@@ -111,13 +115,30 @@ export class TabMenu extends StripesTheme {
     }
 
     render() {
-        var items = [];
-        var content = [];
+        let items = [];
+        let content = [];
+        let indstyle = this.state.style.indicator;
+        let leftCount = 0;
         this.props.children.map((item, pos) => {
-            var style = pos == this.state.selected ? this.state.style.selecteditem : this.state.style.item;
+            let style = pos === this.state.selected ? this.state.style.selecteditem : this.state.style.item;
+            if(item.props && item.props.width) {
+                const styleExtend = {width: item.props.width, flexGrow: 'initial'};
+                style = !style ? styleExtend: this.hardExtend(style, styleExtend);
+                if(indstyle && pos === this.state.selected && (item.props && item.props.width)) {
+                    indstyle = this.hardExtend(indstyle,
+                        {
+                            width: item.props.width,
+                            left: leftCount + "px"
+                        });
+                }
+                leftCount += parseInt(item.props.width);
+            }
+
             items.push(
                 <div onClick={this.clickItem} data-value={item.props.value} data-itemid={pos} key={"item" + pos} style={style}>
+                    <div style={this.state.style.tabcontent}>
                     {item.props.label ? item.props.label : item.props.children}
+                    </div>
                 </div>
             );
             content.push(item.props.children ? item.props.children : null);
@@ -127,7 +148,7 @@ export class TabMenu extends StripesTheme {
             <div {...this.getDataSet(this.props)} className={this.props.className}>
                 <section style={this.state.style.base}>
                     {items}
-                    <span ref="selected" style={this.state.style.indicator}></span>
+                    <span ref="selected" style={indstyle}></span>
                 </section>
                 <section style={this.state.style.content}>
                     {content[this.state.selected]}

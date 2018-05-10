@@ -28,11 +28,12 @@ export class ComponentDocumentation extends React.Component {
                     field: ['name']
                 },
                 {
-                    width: '175px',
+                    width: '125px',
                     name: 'Type',
                     field: ['type']
                 },
                 {
+                    width: '250px',
                     name: 'Description',
                     field: ['desc'],
                     wrap: true

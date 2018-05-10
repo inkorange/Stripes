@@ -125,7 +125,7 @@ class Sandbox extends React.Component {
 
     componentDidMount() {
         setTimeout(this.killTest, 10000);
-        this.countInterval = setInterval(this.updateData, 10);
+        //this.countInterval = setInterval(this.updateData, 10);
     }
 
     componentWillUpdate(props) {
@@ -171,7 +171,29 @@ class Sandbox extends React.Component {
         };
         return (
             <div>
-                <div>
+
+                <TabMenu className="LiveTabMenu" contentStyle={{height: 'calc(20vh - 50px)', position: 'relative'}}>
+                    <Item width="250px" key="tab1" label="Tag Details">
+                    </Item>
+                    <Item width="250px" key="tab2" label="Tags on the Move and a long title">
+                        Tags on the MOve
+                    </Item>
+                </TabMenu>
+
+                <TabMenu className="LiveTabMenu" contentStyle={{height: 'calc(20vh - 50px)', position: 'relative'}}>
+                    <Item key="tab1" label="Tag Details">
+                    </Item>
+                    <Item key="tab2" label="Tags on the Move">
+                        Tags on the MOve
+                    </Item>
+                </TabMenu>
+
+            </div>
+        )
+
+        /*
+
+<div>
                 Count: {this.state.count}
                 <CheckBox checked="checked" value="checkall"></CheckBox>
                 </div>
@@ -183,19 +205,6 @@ class Sandbox extends React.Component {
                     rowSelectorKey="epc_id"
                     onRowSelection={this.RowSelection}
                 />
-                <TabMenu className="LiveTabMenu" contentStyle={{height: 'calc(20vh - 50px)', position: 'relative'}}>
-                    <Item key="tab1" label="Tag Details">
-                    </Item>
-                    <Item key="tab2" label="Tags on the Move">
-                        Tags on the MOve
-                    </Item>
-                </TabMenu>
-
-
-            </div>
-        )
-
-        /*
 
 {JSON.stringify(this.state.rows)}
         <Fieldset title="Containing Two Items">
